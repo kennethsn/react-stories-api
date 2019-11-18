@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
-import styles from './styles.scss'
+import './styles.scss';
 
 /**
  * General component description in JSDoc format. Markdown is *supported*.
@@ -21,7 +21,7 @@ export default class ExampleComponent extends Component {
     } = this.props
 
     return (
-      <div className={styles.test}>
+      <div className="test">
         Stories API: {text}
       </div>
     )

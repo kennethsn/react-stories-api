@@ -4,6 +4,7 @@ import external from 'rollup-plugin-peer-deps-external'
 import postcss from 'rollup-plugin-postcss'
 import resolve from 'rollup-plugin-node-resolve'
 import url from 'rollup-plugin-url'
+import scss from 'rollup-plugin-scss'
 import svgr from '@svgr/rollup'
 
 import pkg from './package.json'
@@ -24,8 +25,9 @@ export default {
   ],
   plugins: [
     external(),
+    scss(),
     postcss({
-      modules: true
+      modules: false
     }),
     url(),
     svgr(),
