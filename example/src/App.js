@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-import ExampleComponent from 'react-stories-api'
+import { ExampleComponent } from 'react-stories-api';
 
 export default class App extends Component {
   render () {
