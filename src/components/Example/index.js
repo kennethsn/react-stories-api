@@ -1,12 +1,19 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
-import styles from './styles.css'
+import styles from './styles.scss'
 
+/**
+ * General component description in JSDoc format. Markdown is *supported*.
+ */
 export default class ExampleComponent extends Component {
   static propTypes = {
+    /** Description of prop "text". */
     text: PropTypes.string
   }
+  static defaultProps = {
+      text: "Hello World"
+    }
 
   render() {
     const {
