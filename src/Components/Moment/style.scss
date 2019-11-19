@@ -1,0 +1,33 @@
+@import "../style.scss";
+
+.story-moment  {
+  padding-top: 50px;
+  height: 100%;
+  width: 100%;
+  backface-visibility: hidden;
+  background-size: auto 80%;
+  background-position: 50% 0%;
+
+  &__content {
+    height: 100%;
+
+    &__header {
+      text-align: center;
+      padding: 0 2em 10px 2em;
+
+      &__title {
+        font-size: 3.5em;
+        font-weight: bold;
+        margin: 0;
+      }
+
+      &__subtitle {
+        font-size: 1.7em;
+      }
+    }
+  }
+}
+
+.story-moment-base {
+  text-align: center;
+}

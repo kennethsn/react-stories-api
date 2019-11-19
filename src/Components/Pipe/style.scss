@@ -1,0 +1,12 @@
+.story-pipe {
+  display: inline-block;
+  font-size: 120%;
+
+  &.story-pipe-thick {
+    font-weight: bold;
+  }
+
+  &.story-pipe-thin {
+    font-weight: 100;
+  }
+}

@@ -1,12 +1,16 @@
 import React, { Component } from 'react'
 
-import { ExampleComponent } from 'react-stories-api';
+import { MomentBase } from 'react-stories-api';
 
 export default class App extends Component {
   render () {
     return (
       <div>
-        <ExampleComponent text='Under Construction' />
+        <MomentBase
+          title="react-stories-api"
+          subtitle="Currently Under Construction"
+          body="🧰 Check Back Soon! ⚒️"
+        />
       </div>
     )
   }
