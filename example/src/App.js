@@ -1,15 +1,15 @@
 import React, { Component } from 'react'
 
-import { MomentBase } from 'react-stories-api';
+import { WikidataMoment } from 'react-stories-api';
 
 export default class App extends Component {
   render () {
     return (
       <div>
-        <MomentBase
+        <WikidataMoment
           title="react-stories-api"
           subtitle="Currently Under Construction"
-          body="🧰 Check Back Soon! ⚒️"
+          entity_id="Q385378"
         />
       </div>
     )
