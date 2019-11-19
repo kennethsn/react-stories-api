@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Draggable from 'react-draggable';
 import PropTypes from 'prop-types';
 
-import MomentBase from '../';
+import MomentBase from '../Base';
 import './style.scss';
 
 /**
