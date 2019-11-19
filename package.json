@@ -22,7 +22,7 @@
     "prepare": "yarn run build",
     "predeploy": "cd example && yarn install && yarn run build",
     "deploy": "gh-pages -d example/build",
-    "heroku-postbuild": "npm install --only=dev && npm install && yarn styleguide-build",
+    "heroku-postbuild": "npm install --only=dev && npm install && yarn styleguide-build"
   },
   "peerDependencies": {
     "prop-types": "^15.5.4",
