@@ -74,5 +74,8 @@
   },
   "files": [
     "dist"
-  ]
+  ],
+  "dependencies": {
+    "react-draggable": "^4.1.0"
+  }
 }

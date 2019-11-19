@@ -1,5 +1,6 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
+import React, { Component } from 'react';
+import Draggable from 'react-draggable';
+import PropTypes from 'prop-types';
 
 import MomentBase from '../';
 import './style.scss';
@@ -37,12 +38,16 @@ export default class SlideScrollMoment extends Component {
     const { children } = this.props;
     return (
       <MomentBase {...this.props} layout={layout}>
+      <div className="slide-scroll-wrapper">
+        <Draggable axis="x">
         <div className="slide-scroller-container">
           {
             React.Children.map(children, card => (
-              <div className="slide-scroller-card">{card}</div>
+              <div className="slide-scroller-card --effect-grow">{card}</div>
             ))
           }
+        </div>
+        </Draggable>
         </div>
       </MomentBase>
     )

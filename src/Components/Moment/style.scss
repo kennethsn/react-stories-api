@@ -31,3 +31,12 @@
 .story-moment-base {
   text-align: center;
 }
+
+.--effect-grow {
+  transition-duration: 2s;
+  transition-timing-function: ease-in-out;
+
+  &:hover {
+    transform: scale(1.2);
+  }
+}

@@ -2,26 +2,25 @@
 
   .story-moment__content__body {
 
-    .slide-scroller-container {
-      padding: 60px;
-      margin: 0 auto;
-      margin-top: 50px;
-      display: inline-block;
-      overflow-x: scroll;
-      overflow-y: visible;
-      white-space: nowrap;
-      overflow-x: auto;
-      white-space: nowrap;
+    .slide-scroll-wrapper {
+      height: 100%;
+      width: 100%;
+      position: relative;
+      overflow: auto;
+      padding: 0;
 
-      .slide-scroller-card {
-        display: inline-block;
-        width: 250px;
-        background: #0F1012;
-        color: #f9f9f9;
-        vertical-align: top;
-        text-transform: capitalize;
-        white-space: normal;
-        margin: 10px;
+      .slide-scroller-container {
+        padding: 60px;
+        margin: 0 auto;
+        white-space: nowrap;
+
+        .slide-scroller-card {
+          display: inline-block;
+          width: 250px;
+          vertical-align: top;
+          white-space: normal;
+          margin: 20px;
+        }
       }
     }
   }
