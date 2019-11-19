@@ -33,7 +33,8 @@ export default class WikidataMoment extends Component {
 
   }
   static defaultProps = {
-    icon: <ImageIcon name="Wikidata Logo"  url="https://upload.wikimedia.org/wikipedia/commons/6/66/Wikidata-logo-en.svg" />
+    icon: <ImageIcon name="Wikidata Logo"  url="https://upload.wikimedia.org/wikipedia/commons/6/66/Wikidata-logo-en.svg" />,
+    title: "Wikidata Item"
   }
 
   render() {

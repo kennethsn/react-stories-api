@@ -40,13 +40,15 @@ export default class SlideScrollMoment extends Component {
       <MomentBase {...this.props} layout={layout}>
       <div className="slide-scroll-wrapper">
         <Draggable axis="x">
-        <div className="slide-scroller-container">
-          {
-            React.Children.map(children, card => (
-              <div className="slide-scroller-card --effect-grow">{card}</div>
-            ))
-          }
-        </div>
+          <div className="slide-scroller-container">
+            {
+              React.Children.map(children, card => (
+                <div className="slide-scroller-card --effect-grow">
+                  {card}
+                </div>
+              ))
+            }
+          </div>
         </Draggable>
         </div>
       </MomentBase>

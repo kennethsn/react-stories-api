@@ -1,3 +1,3 @@
 import './theme.scss';
-export ExampleComponent from './Components/Example';
 export MomentBase from './Components/Moment';
+export WikidataMoment from './Components/Moment/Wikidata'

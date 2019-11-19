@@ -22,13 +22,14 @@ export default class WikipediaMoment extends Component {
     index: PropTypes.number,
     /** Paragraph text underneath the title in `Moment` header */
     subtitle: PropTypes.string,
-    /** Wikidata Entity Identifier */
-    entity_id: PropTypes.string,
-    /** The type of `Moment` */
+    /** Main heading element of the `Moment` */
+    title: PropTypes.node,
+    /** The Wikipedia Article URL */
     url: PropTypes.string,
   }
   static defaultProps = {
-    icon: <ImageIcon name="Wikipedia Logo"  url="https://upload.wikimedia.org/wikipedia/commons/b/b3/Wikipedia-logo-v2-en.svg" />
+    icon: <ImageIcon name="Wikipedia Logo"  url="https://upload.wikimedia.org/wikipedia/commons/b/b3/Wikipedia-logo-v2-en.svg" />,
+    title: "Wikipedia Article",
   };
 
   render() {
