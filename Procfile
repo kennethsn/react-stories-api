@@ -1,1 +1,1 @@
-web: yarn styleguide-server
+web: yarn styleguide-server --port $PORT
