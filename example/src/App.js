@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 
-import { WikidataMoment } from 'react-stories-api';
+import  { Components as StoriesAPIComponents } from 'react-stories-api';
+
+const { WikidataMoment } = StoriesAPIComponents.Moments;
 
 export default class App extends Component {
   render () {
