@@ -3,5 +3,11 @@
 
 // Font Variables
 $montserrat: 'Montserrat', sans-serif;
-
 $main-font: $montserrat;
+
+$primary-color: #4ec7ad;
+// Text color when displayed when $primary-color is background
+$foreground-primary-color: #f6f6f6;
+
+$main-font-color: #606060;
+$main-background-color: white;

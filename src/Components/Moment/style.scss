@@ -1,7 +1,6 @@
 @import "../style.scss";
 
 .story-moment  {
-  padding-top: 50px;
   height: 100%;
   width: 100%;
   backface-visibility: hidden;
@@ -13,7 +12,7 @@
 
     &__header {
       text-align: center;
-      padding: 0 2em 10px 2em;
+      padding: 35px 2em 10px 2em;
 
       &__title {
         font-size: 3.5em;

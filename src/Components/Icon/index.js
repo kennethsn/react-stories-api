@@ -13,21 +13,22 @@ export default class IconBase extends Component {
     name: PropTypes.string.isRequired,
     /** Reference source of the `Icon`. */
     source: PropTypes.string.isRequired,
-
+    /** Styling object of the `IconBase` */
+    style: PropTypes.object,
   };
 
   static defaultProps = {
   };
 
   render() {
-    const { children, name, source } = this.props;
+    const { children, name, source, style } = this.props;
     const classes = classList(
       'story-icon',
       `story-icon-${source}`
     );
 
     return (
-      <div className={classes} title={name}>
+      <div className={classes} title={name} style={style} >
         {children}
       </div>
     )

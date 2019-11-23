@@ -1,4 +1,4 @@
-`IconBase` Example:
+`Pipe` Examples:
 
 ```js
 <div>

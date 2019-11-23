@@ -16,10 +16,12 @@ export default class WikipediaMoment extends Component {
       background: PropTypes.string,
       text: PropTypes.string,
     }),
-    /** `Icon` to place in the `Moment`'s header */
+    /** `Icon` to place in the `SideBarSection` and `Moment`'s header */
     icon: PropTypes.element.isRequired,
     /** Used to serialize the order of the `Moment`s in a `Story` */
     index: PropTypes.number,
+    /** Determines the `SideBarSection` text of the `Moment`. */
+    label: PropTypes.string,
     /** Paragraph text underneath the title in `Moment` header */
     subtitle: PropTypes.string,
     /** Main heading element of the `Moment` */

@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
 import { classList } from '../../../utils';
+import CardBase from '../../Card';
+
 import './style.scss';
 
 /**
@@ -14,8 +16,12 @@ export default class MomentBase extends Component {
       background: PropTypes.string,
       text: PropTypes.string,
     }),
+    /** Determines the `SideBarSection` `Icon` of the `Moment`. */
+    icon: PropTypes.element,
     /** Used to serialize the order of the `Moment`s in a `Story` */
     index: PropTypes.number,
+    /** Determines the `SideBarSection` text of the `Moment`. */
+    label: PropTypes.string,
     /** Determines the structural styling of the `Moment`. */
     layout: PropTypes.string,
     /** Paragraph text underneath the title in `Moment` header */
@@ -45,20 +51,22 @@ export default class MomentBase extends Component {
     );
     return (
       <div className={classes} id="story-moment{index}">
-        <div className="story-moment__content">
-          <div className="story-moment__content__header"
-               style={{background: color.background, color:color.text}}>
-            <div className="story-moment__content__header__title">
-              {title}
+        <CardBase>
+          <div className="story-moment__content">
+            <div className="story-moment__content__header"
+                 style={{background: color.background, color:color.text}}>
+              <div className="story-moment__content__header__title">
+                {title}
+              </div>
+              <div className="story-moment__content__header__subtitle">
+                {subtitle}
+              </div>
             </div>
-            <div className="story-moment__content__header__subtitle">
-              {subtitle}
+            <div className="story-moment__content__body">
+              {children}
             </div>
           </div>
-          <div className="story-moment__content__body">
-            {children}
-          </div>
-        </div>
+        </CardBase>
       </div>
     )
   }
