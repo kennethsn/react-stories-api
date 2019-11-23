@@ -1,0 +1,55 @@
+@import "../style.scss";
+
+.story-sidebar__section {
+  cursor: pointer;
+
+  &:hover, &.--active {
+
+    .story-card__section {
+
+      .story-icon {
+        filter: none;
+      }
+    }
+  }
+
+  &.--active {
+    opacity: 50%;
+    
+    .story-card__section, .story-card__section:hover {
+      color: $primary-color;
+      background: darken($main-background-color, 10%);
+      border-color: $primary-color;
+    }
+  }
+
+  .story-card__section {
+    font-size: 85%;
+    transition-duration: .5s;
+    transition-timing-function: ease-in-out;
+    text-align: left;
+    padding: 10px 20px;
+    font-weight: 400;
+    overflow-wrap: break-word;
+    display: flex;
+    align-items: center;
+
+    &:hover {
+      background: $primary-color;
+      border-color: $foreground-primary-color;
+      color: $foreground-primary-color;
+    }
+
+    .story-icon {
+      text-align: center;
+      opacity: .6;
+      float: left;
+      width: 2.5em;
+      filter: grayscale(100%);
+    }
+
+    .story-pipe {
+      margin-right: 10px;
+    }
+  }
+}

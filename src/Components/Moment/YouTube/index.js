@@ -1,7 +1,9 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
+import FontAwesomeIcon from '../../Icon/FontAwesome';
 import IFrameMoment from '../IFrame';
+
 import './style.scss';
 
 /**
@@ -14,8 +16,12 @@ export default class YouTubeMoment extends Component {
       background: PropTypes.string,
       text: PropTypes.string,
     }),
+    /** Determines the `SideBarSection` `Icon` of the `Moment`. */
+    icon: PropTypes.element,
     /** Used to serialize the order of the `Moment`s in a `Story` */
     index: PropTypes.number,
+    /** Determines the `SideBarSection` text of the `Moment`. */
+    label: PropTypes.string,
     /** Paragraph text underneath the title in `Moment` header */
     subtitle: PropTypes.string,
     /** YouTube Video Identifier */
@@ -24,7 +30,8 @@ export default class YouTubeMoment extends Component {
     url: PropTypes.string,
   }
   static defaultProps = {
-    title: "YouTube Video"
+    icon: <FontAwesomeIcon name="FaYoutube" />,
+    title: "YouTube Video",
   };
 
   render() {

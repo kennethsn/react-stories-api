@@ -20,10 +20,12 @@ export default class WikidataMoment extends Component {
     }),
     /** Wikidata Entity Identifier */
     entity_id: PropTypes.string,
-    /** `Icon` to place in the `Moment`'s header */
-    icon: PropTypes.element.isRequired,
+    /** `Icon` to place in the `SideBarSection` and `Moment`'s header  */
+    icon: PropTypes.element,
     /** Used to serialize the order of the `Moment`s in a `Story` */
     index: PropTypes.number,
+    /** Determines the `SideBarSection` text of the `Moment`. */
+    label: PropTypes.string,
     /** Paragraph text underneath the title in `Moment` header */
     subtitle: PropTypes.string,
     /** Main heading element of the `Moment` */
@@ -34,6 +36,7 @@ export default class WikidataMoment extends Component {
   }
   static defaultProps = {
     icon: <ImageIcon name="Wikidata Logo"  url="https://upload.wikimedia.org/wikipedia/commons/6/66/Wikidata-logo-en.svg" />,
+    label: "Wikidata",
     title: "Wikidata Item"
   }
 

@@ -14,8 +14,12 @@ export default class VideoMoment extends Component {
       background: PropTypes.string,
       text: PropTypes.string,
     }),
+    /** Determines the `SideBarSection` `Icon` of the `Moment`. */
+    icon: PropTypes.element,
     /** Used to serialize the order of the `Moment`s in a `Story` */
     index: PropTypes.number,
+    /** Determines the `SideBarSection` text of the `Moment`. */
+    label: PropTypes.string,
     /** Paragraph text underneath the title in `Moment` header */
     subtitle: PropTypes.string,
     /** Main heading element of the `Moment` */

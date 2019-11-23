@@ -1,0 +1,31 @@
+.story-story {
+  display: flex;
+  height: 100%;
+
+  .story-sidebar {
+    z-index: 1000;
+    width: 180px;
+    min-height: 100%;story-story__moments
+
+    .story-card__section {
+
+    }
+  }
+
+  &__moments {
+    flex-grow: 1;
+
+    > div {
+      height: 100%;
+    }
+
+    &__moment-container {
+      height: 100%;
+      width: 100%;
+
+      .story-card {
+        box-shadow: none;
+      }
+    }
+  }
+}
