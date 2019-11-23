@@ -1,6 +1,21 @@
 {
-  "main.css": "static/css/main.65027555.css",
-  "main.css.map": "static/css/main.65027555.css.map",
-  "main.js": "static/js/main.fab1e615.js",
-  "main.js.map": "static/js/main.fab1e615.js.map"
+  "files": {
+    "main.css": "/react-stories-api/static/css/main.965f590f.chunk.css",
+    "main.js": "/react-stories-api/static/js/main.2ecb7181.chunk.js",
+    "main.js.map": "/react-stories-api/static/js/main.2ecb7181.chunk.js.map",
+    "runtime-main.js": "/react-stories-api/static/js/runtime-main.cf1231ee.js",
+    "runtime-main.js.map": "/react-stories-api/static/js/runtime-main.cf1231ee.js.map",
+    "static/js/2.f8e70faa.chunk.js": "/react-stories-api/static/js/2.f8e70faa.chunk.js",
+    "static/js/2.f8e70faa.chunk.js.map": "/react-stories-api/static/js/2.f8e70faa.chunk.js.map",
+    "index.html": "/react-stories-api/index.html",
+    "precache-manifest.8af8ac20536e38fe632d1f255f932019.js": "/react-stories-api/precache-manifest.8af8ac20536e38fe632d1f255f932019.js",
+    "service-worker.js": "/react-stories-api/service-worker.js",
+    "static/css/main.965f590f.chunk.css.map": "/react-stories-api/static/css/main.965f590f.chunk.css.map"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.cf1231ee.js",
+    "static/js/2.f8e70faa.chunk.js",
+    "static/css/main.965f590f.chunk.css",
+    "static/js/main.2ecb7181.chunk.js"
+  ]
 }
