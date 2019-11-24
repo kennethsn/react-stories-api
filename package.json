@@ -78,6 +78,7 @@
   "dependencies": {
     "react-awesome-slider": "^2.2.1",
     "react-draggable": "^4.1.0",
-    "react-icons": "^3.8.0"
+    "react-icons": "^3.8.0",
+    "react-map-gl": "^5.1.3"
   }
 }
