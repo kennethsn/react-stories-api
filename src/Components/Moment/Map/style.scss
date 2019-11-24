@@ -1,0 +1,23 @@
+@import "../style.scss";
+
+.story-moment-layout-map {
+  .map-wrapper {
+    height: 100%;
+    width: 100%;
+    > div {
+      width: 100% !important;
+      height: 100vh !important;
+    }
+  }
+  .mapboxgl-popup {
+    max-width: 25%;
+    max-height: 45%;
+
+    .mapboxgl-popup-content {
+      height: 100%;
+      background: None;
+      box-shadow: None;
+    }
+  }
+
+}

@@ -6,7 +6,9 @@ import PropTypes from 'prop-types';
 
 import MomentBase from '../Base';
 
-import { fullscreenControlStyle, mapStyle, navStyle } from './constants';
+import { fullscreenControlStyle, mapStyle, navStyle, testData } from './constants';
+import MapInfoCard from './InfoCard';
+import MapPin from './Pin';
 import './style.scss';
 
 
@@ -22,6 +24,16 @@ export default class MapMoment extends Component {
       background: PropTypes.string,
       text: PropTypes.string,
     }),
+    /** Stories-API data context to configure the `MapMarker`s. */
+    data: PropTypes.arrayOf(PropTypes.shape({
+      coordinates: PropTypes.shape({
+        latitude: PropTypes.number.isRequired,
+        longitude: PropTypes.number.isRequired,
+        point: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired
+      }).isRequired,
+      label: PropTypes.string,
+      details: PropTypes.arrayOf(PropTypes.object)
+    })),
     /** Determines the `SideBarSection` `Icon` of the `Moment`. */
     icon: PropTypes.element,
     /** Used to serialize the order of the `Moment`s in a `Story` */
@@ -37,23 +49,49 @@ export default class MapMoment extends Component {
 
   }
   static defaultProps = {
-    type: "slide_scroll",
+    type: "map",
+    data: [],
   }
 
   state = {
+    popupInfo: null,
     viewport: {
       // TODO: Hook up styling to 100%
       // TODO: Make default zoom shrink to fix bounds of points
-      width: 400,
-      height: 400,
+
       latitude: 37.785164,
       longitude: -100,
       zoom: 0,
     }
   };
 
+  renderMarkers = (city, index) => {
+     return (
+       <Marker key={`marker-${index}`} longitude={city.coordinates.longitude} latitude={city.coordinates.latitude}>
+         <MapPin onClick={() => this.setState({popupInfo: city})} />
+       </Marker>
+     );
+   };
+   _renderPopup() {
+       const {popupInfo} = this.state;
+
+       return (
+         popupInfo && (
+           <Popup
+             tipSize={5}
+             anchor="top"
+             longitude={popupInfo.coordinates.longitude}
+             latitude={popupInfo.coordinates.latitude}
+             closeOnClick={false}
+             onClose={() => this.setState({popupInfo: null})}
+           >
+             <MapInfoCard data={popupInfo} />
+           </Popup>
+         )
+       );
+     }
   render() {
-    const { children } = this.props;
+    const { data, children } = this.props;
     const { viewport } = this.state;
     const layout="map"; // TODO: Add constant
 
@@ -63,10 +101,16 @@ export default class MapMoment extends Component {
           <MapGL
             height="100%"
             width="100%"
+            style={{width: "100%", height: "100%"}}
+            
             mapStyle={mapStyle}
             {...viewport}
             onViewportChange={viewport => this.setState({ viewport })}
           >
+
+            {data.map(this.renderMarkers)}
+
+            {this._renderPopup()}
 
             <div className="fullscreen" style={fullscreenControlStyle}>
               <FullscreenControl />
