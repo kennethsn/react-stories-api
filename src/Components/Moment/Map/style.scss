@@ -1,0 +1,17 @@
+@import "../style.scss";
+
+.story-moment-layout-map {
+
+  .story-moment__content__body {
+
+    .map-wrapper {
+      height: 100%;
+      width: 100%;
+      
+      > div {
+        width: 100% !important;
+        height: 100vh !important;
+      }
+    }
+  }
+}
