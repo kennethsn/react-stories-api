@@ -11,3 +11,5 @@ $foreground-primary-color: #f6f6f6;
 
 $main-font-color: #606060;
 $main-background-color: white;
+// Color to use when layering cards/backgrounds
+$secondardy-background-color: darken($main-background-color, 3%)
