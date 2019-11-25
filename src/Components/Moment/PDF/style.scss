@@ -1,0 +1,14 @@
+@import "../style.scss";
+
+.story-moment-layout-pdf{
+
+  .story-moment__content__body{
+
+    .story-embed-pdf{
+      width: 100%;
+      margin: 0 auto;
+      height: 100%;
+      min-height: 60vh;
+    }
+  }
+}
