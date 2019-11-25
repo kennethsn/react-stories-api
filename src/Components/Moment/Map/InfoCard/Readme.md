@@ -1,4 +1,6 @@
 `MapInfoCard` Example:
 ```js
-<MapInfoCard data={{label: "Somewhere", description: "Over the Rainbow"}} />
+import { testData } from '../constants';
+
+<MapInfoCard data={testData[0]} active={true} style={{width: 400}}/>
 ```

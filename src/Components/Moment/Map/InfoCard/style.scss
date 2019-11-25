@@ -2,11 +2,13 @@
 
 .story-map__info-card {
   font-size: 80%;
-  height: 100%;
-  
+
   .story-card {
-    padding: 10px;
-    max-height: 100%;
-    overflow-y: scroll;
+    box-shadow: none;
+
+    .map-detail-small{
+      font-size: 50%;
+      font-weight: 500;
+    }
   }
 }

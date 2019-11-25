@@ -1,14 +1,18 @@
 import React, { Component } from 'react';
 import MapGL, {
-  Marker, Popup, NavigationControl, FullscreenControl
+  FullscreenControl, FlyToInterpolator, Marker, NavigationControl, Popup
 } from 'react-map-gl';
 import PropTypes from 'prop-types';
 
+import FontAwesomeIcon from '../../Icon/FontAwesome';
 import MomentBase from '../Base';
 
-import { fullscreenControlStyle, mapStyle, navStyle, testData } from './constants';
+import {
+  fullscreenControlStyle, mapStyle, navStyle, sideBarControlStyle, testData
+} from './constants';
 import MapInfoCard from './InfoCard';
 import MapPin from './Pin';
+import MapSideBar from './SideBar';
 import './style.scss';
 
 
@@ -17,8 +21,6 @@ import './style.scss';
  */
 export default class MapMoment extends Component {
   static propTypes = {
-    /** Children nodes used to fill the cards */
-    // children: PropTypes.node.isRequired,
     /** Determines the background and text color of the `Moment` header. */
     color: PropTypes.shape({
       background: PropTypes.string,
@@ -53,74 +55,127 @@ export default class MapMoment extends Component {
     data: [],
   }
 
-  state = {
-    popupInfo: null,
-    viewport: {
-      // TODO: Hook up styling to 100%
-      // TODO: Make default zoom shrink to fix bounds of points
+  constructor(props) {
+    super(props);
+    this.state = {
+      currentLocation: null,
+      sidebar: true,
+      tooltip: null,
+      viewport: {
+        // TODO: Make default zoom shrink to fix bounds of points
+        latitude: 37.785164,
+        longitude: -100,
+        zoom: 1,
+      }
+    };
 
-      latitude: 37.785164,
-      longitude: -100,
-      zoom: 0,
-    }
+    this.handleSelectLocation = this.handleSelectLocation.bind(this);
+    this.handleSidebarToggle = this.handleSidebarToggle.bind(this);
   };
 
-  renderMarkers = (city, index) => {
-     return (
-       <Marker key={`marker-${index}`} longitude={city.coordinates.longitude} latitude={city.coordinates.latitude}>
-         <MapPin onClick={() => this.setState({popupInfo: city})} />
-       </Marker>
-     );
-   };
-   _renderPopup() {
-       const {popupInfo} = this.state;
+  handleSelectLocation(location) {
+    this.setState({
+      currentLocation: location,
+      tooltip: location.label,
+      viewport: {
+        latitude: location.coordinates.latitude,
+        longitude: location.coordinates.longitude,
+        transitionInterpolator: new FlyToInterpolator({speed: 2}),
+        transitionDuration: 'auto',
+        zoom: 11,
+      }
+    })
+  };
 
-       return (
-         popupInfo && (
-           <Popup
-             tipSize={5}
-             anchor="top"
-             longitude={popupInfo.coordinates.longitude}
-             latitude={popupInfo.coordinates.latitude}
-             closeOnClick={false}
-             onClose={() => this.setState({popupInfo: null})}
-           >
-             <MapInfoCard data={popupInfo} />
-           </Popup>
-         )
-       );
-     }
+  handleSidebarToggle() {
+    this.setState({sidebar: !this.state.sidebar})
+  };
+
+  renderTooltip() {
+    const { currentLocation, tooltip } = this.state;
+
+    return (
+      tooltip && (
+        <Popup
+          tipSize={5}
+          anchor="top"
+          longitude={currentLocation.coordinates.longitude}
+          latitude={currentLocation.coordinates.latitude}
+          closeOnClick={false}
+          onClose={() => this.setState({tooltip: null})}
+        >
+          {currentLocation.label}
+        </Popup>
+      )
+    );
+  }
+
+  renderMarkers() {
+    const { data } = this.props;
+      return data.map((location, index) => (
+        <Marker
+          key={`marker-${index}`}
+          longitude={location.coordinates.longitude}
+          latitude={location.coordinates.latitude}
+        >
+          <MapPin
+            size={10 + (location.details && location.details.length * 20)}
+            onClick={() => this.handleSelectLocation(location)}
+          />
+        </Marker>
+     ));
+   };
+
+
   render() {
+    const { handleSelectLocation, handleSidebarToggle } = this;
     const { data, children } = this.props;
-    const { viewport } = this.state;
+    const { currentLocation, sidebar, viewport } = this.state;
     const layout="map"; // TODO: Add constant
 
     return (
       <MomentBase {...this.props} layout={layout}>
-        <div className="map-wrapper">
-          <MapGL
-            height="100%"
-            width="100%"
-            style={{width: "100%", height: "100%"}}
-            
-            mapStyle={mapStyle}
-            {...viewport}
-            onViewportChange={viewport => this.setState({ viewport })}
-          >
+        <MapSideBar
+          currentLocation={currentLocation}
+          data={data}
+          onSelect={handleSelectLocation}
+          open={sidebar}
+        >
+          <div className="map-wrapper">
+            <MapGL
+              height="100%"
+              width="100%"
+              mapStyle={mapStyle}
+              {...viewport}
+              onViewportChange={viewport => this.setState({ viewport })}
+            >
 
-            {data.map(this.renderMarkers)}
+              {this.renderMarkers()}
 
-            {this._renderPopup()}
+              {this.renderTooltip()}
 
-            <div className="fullscreen" style={fullscreenControlStyle}>
-              <FullscreenControl />
-            </div>
+              <div className="fullscreen" style={fullscreenControlStyle}>
+                <FullscreenControl />
+              </div>
+              <div style={sideBarControlStyle}>
+                <div className="mapboxgl-ctrl mapboxgl-ctrl-group">
+                  <button
+                    className="mapboxgl-ctrl-icon"
+                    onClick={handleSidebarToggle}
+                    type="button"
+                    title="Toggle Info Panel"
+                  >
+                    <FontAwesomeIcon name="FaMapSigns" />
+                  </button>
+                </div>
+              </div>
 
-            <div className="nav" style={navStyle}>
-              <NavigationControl />
-            </div>
-          </MapGL>
-        </div>
+              <div className="nav" style={navStyle}>
+                <NavigationControl />
+              </div>
+            </MapGL>
+          </div>
+        </MapSideBar>
       </MomentBase>
     )
   }
