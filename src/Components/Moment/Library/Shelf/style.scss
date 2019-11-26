@@ -1,0 +1,29 @@
+@import "../style.scss";
+
+.story-library-shelf {
+
+  .story-card__header{
+    font-size:  250%;
+    text-align:  center;
+    text-transform: uppercase;
+    font-weight: 300;
+    opacity:  .2;
+    margin-bottom:  20px;
+  }
+
+  &__carousel {
+    margin: 0 100px;
+
+    .react-multiple-carousel__arrow {
+      bottom: 0;
+    }
+  }
+
+  &__graphic {
+    margin-top: -5px;
+
+    img {
+      width:  100%;
+    }
+  }
+}

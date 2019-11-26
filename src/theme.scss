@@ -5,11 +5,17 @@
 $montserrat: 'Montserrat', sans-serif;
 $main-font: $montserrat;
 
+// Color Variables
+$gray: #d9d9d9;
+$white: #ffffff;
+
+
 $primary-color: #4ec7ad;
 // Text color when displayed when $primary-color is background
 $foreground-primary-color: #f6f6f6;
 
 $main-font-color: #606060;
-$main-background-color: white;
+
+$main-background-color: $white;
 // Color to use when layering cards/backgrounds
 $secondardy-background-color: darken($main-background-color, 3%)
