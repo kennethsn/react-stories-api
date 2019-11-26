@@ -8,9 +8,8 @@ import FontAwesomeIcon from '../../Icon/FontAwesome';
 import MomentBase from '../Base';
 
 import {
-  fullscreenControlStyle, mapStyle, navStyle, sideBarControlStyle, testData
+  fullscreenControlStyle, mapStyle, navStyle, sideBarControlStyle
 } from './constants';
-import MapInfoCard from './InfoCard';
 import MapPin from './Pin';
 import MapSideBar from './SideBar';
 import './style.scss';
@@ -129,7 +128,7 @@ export default class MapMoment extends Component {
 
   render() {
     const { handleSelectLocation, handleSidebarToggle } = this;
-    const { data, children } = this.props;
+    const { data } = this.props;
     const { currentLocation, sidebar, viewport } = this.state;
     const layout="map"; // TODO: Add constant
 

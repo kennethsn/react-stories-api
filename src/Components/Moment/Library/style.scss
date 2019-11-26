@@ -1,0 +1,9 @@
+@import "../style.scss";
+
+.story-moment-layout-library {
+
+  .library-wrapper {
+    max-height: 100vh;
+    overflow-y: scroll;
+  }
+}
