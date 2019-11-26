@@ -8,7 +8,11 @@ export const responsive = {
     items: 3,
   },
   mobile: {
-    breakpoint: { max: 950, min: 0 },
+    breakpoint: { max: 950, min: 700 },
     items: 2,
+  },
+  tiny: {
+    breakpoint: { max: 700, min: 0 },
+    items: 1,
   },
 };

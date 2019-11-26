@@ -5,7 +5,6 @@ import PropTypes from 'prop-types';
 
 import { chunk } from '../../../../utils';
 import CardHeader from '../../../Card/Header';
-import FontAwesomeIcon from '../../../Icon/FontAwesome';
 import LibraryBook from '../Book';
 
 import { responsive } from './constants';
@@ -17,8 +16,10 @@ import './style.scss';
 */
 export default class LibraryShelf extends Component {
   static propTypes = {
+    /** Determines what media asset to render under the `Carousel` */
+    graphic: PropTypes.object,
     /** Data to render `LibraryBook` props */
-    items: PropTypes.arrayOf(PropTypes.object),
+    items: PropTypes.arrayOf(PropTypes.object).isRequired,
     /** Click handler callback used by the `LibraryShelf` */
     onSelect: PropTypes.func,
     /** Styling object of the `Shelf` */
@@ -34,6 +35,7 @@ export default class LibraryShelf extends Component {
 
   renderBooks(items) {
     const { onSelect } = this.props;
+
     return items.map(book => {
       const { color={}, contribution, description, instance, label, } = book;
       const { accent, cover, text } = color;
@@ -63,14 +65,13 @@ export default class LibraryShelf extends Component {
           responsive={responsive}
           ssr={true}
           swipeable={!isSmallCarousel}
-          draggabel={!isSmallCarousel}
+          draggable={!isSmallCarousel}
           infinite={!isSmallCarousel}
           arrows={!isSmallCarousel}
           autoPlay={!isSmallCarousel}
           autoPlaySpeed={9000 + Math.floor(Math.random() * 2000)}
           keyBoardControl={true}
           containerClass="story-library-shelf__carousel"
-          itemClass="carousel-item-padding-40-px"
         >
           {this.renderBooks(itemChunk)}
         </Carousel>

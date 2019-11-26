@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import FontAwesomeIcon from '../../Icon/FontAwesome';
 import MomentBase from '../Base';
 
 import LibraryShelf from './Shelf';
@@ -10,8 +9,8 @@ import './style.scss';
 
 
 /**
- * Library Moment to interactively visualize works and publications.
- */
+* Library Moment to interactively visualize works and publications.
+*/
 export default class LibraryMoment extends Component {
   static propTypes = {
     /** Determines the background and text color of the `Moment` header. */
@@ -48,8 +47,8 @@ export default class LibraryMoment extends Component {
       sidebar: false,
     };
 
-    this.handleSelectBook = this.handleSelectBook.bind(this);
     this.handleCloseSidebar = this.handleCloseSidebar.bind(this);
+    this.handleSelectBook = this.handleSelectBook.bind(this);
   };
 
   handleSelectBook(book) {

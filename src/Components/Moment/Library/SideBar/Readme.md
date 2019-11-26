@@ -1,7 +1,19 @@
 `LibrarySideBar` Example:
 
 ```js
+import { useState } from 'react';
 import { testData } from '../constants';
 
-<LibrarySideBar currentBook={testData.articles.items[0]} open={false} />
+function ExampleLibrarySideBarLayout() {
+  const [state, setState] = useState(false);
+  return (
+    <LibrarySideBar currentBook={testData.books.items[0]} open={state}
+    onClose={() => setState(false)}
+    >
+    <div onClick={() => setState(!state)}>CLICK ME</div>
+    </ LibrarySideBar>
+  )
+}
+
+<ExampleLibrarySideBarLayout />
 ```
