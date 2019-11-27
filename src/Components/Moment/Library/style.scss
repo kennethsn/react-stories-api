@@ -7,3 +7,33 @@
     overflow-y: scroll;
   }
 }
+
+.story-sidebar-drawer-library {
+
+  .MuiPaper-root {
+
+    .story-card {
+
+      > div {
+        padding: 10px 20px;
+        margin-top: 10px;
+      }
+
+      .story-card__section {
+        font-size: 130%;
+        font-weight: 400;
+        padding: 20px;
+      }
+
+      .story-card__image,  .story-card__image img {
+        height: auto;
+      }
+
+      .library-sidebar-link {
+        background: $primary-color;
+        color: $white;
+        margin: 30px 10px;
+      }
+    }
+  }
+}
