@@ -1,10 +1,15 @@
 import React, { Component } from 'react';
+import { Button, CssBaseline, Divider, Drawer } from '@material-ui/core';
 import PropTypes from 'prop-types';
 
-import MomentBase from '../Base';
+import CardBase from '../../Card';
+import CardHeader from '../../Card/Header';
+import CardImage from '../../Card/Image';
+import CardPill from '../../Card/Pill';
+import CardSection from '../../Card/Section';
+import SideBarMoment from '../SideBar';
 
 import LibraryShelf from './Shelf';
-import LibrarySideBar from './SideBar';
 import './style.scss';
 
 
@@ -50,14 +55,13 @@ export default class LibraryMoment extends Component {
     this.handleCloseSidebar = this.handleCloseSidebar.bind(this);
     this.handleSelectBook = this.handleSelectBook.bind(this);
   };
+  handleCloseSidebar() {
+    this.setState({sidebar: false});
+  }
 
   handleSelectBook(book) {
     this.setState({currentBook: book, sidebar: true});
   };
-
-  handleCloseSidebar() {
-    this.setState({sidebar: false});
-  }
 
   renderShelves() {
     const { data } = this.props;
@@ -70,25 +74,50 @@ export default class LibraryMoment extends Component {
     return shelves;
   };
 
+  renderSideBarContent(){
+    const {
+      date, description, image, instance, label, url
+    } = this.state.currentBook;
+
+    return (
+      <CardBase>
+        <CardHeader text={label} />
+        <Divider />
+        {instance && <div className="instance">{instance}</div>}
+        {date && <CardPill text={date.label}/>}
+        {image && <CardImage src={image} alt={`Image of ${label}`} />}
+        {description && <CardSection>{description}</CardSection>}
+        {url && (
+          <Button
+            className="library-sidebar-link"
+            variant="contained"
+            href={url}
+            target="_blank"
+          >
+            Learn More
+          </Button>
+        )}
+      </CardBase>
+    )
+  }
 
   render() {
     const { handleSelectBook } = this;
-    const { data } = this.props;
     const { currentBook, sidebar } = this.state;
     const layout="library"; // TODO: Add constant
 
     return (
-      <MomentBase {...this.props} layout={layout}>
-        <LibrarySideBar
-          currentBook={currentBook}
-          open={sidebar}
-          onClose={this.handleCloseSidebar}
-        >
-          <div className="library-wrapper">
-            {this.renderShelves()}
-          </div>
-        </LibrarySideBar>
-      </MomentBase>
+      <SideBarMoment
+        {...this.props}
+        layout={layout}
+        onClose={this.handleCloseSidebar}
+        sidebar={sidebar}
+        sideBarContent={this.renderSideBarContent()}
+      >
+        <div className="library-wrapper">
+          {this.renderShelves()}
+        </div>
+      </SideBarMoment>
     )
   }
 }
