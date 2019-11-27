@@ -1,0 +1,26 @@
+@import "../style.scss";
+
+.story-moment-layout-timeline {
+
+  .story-moment__content__body {
+
+    .timeline-wrapper {
+      max-height: 100vh;
+      overflow-y: scroll;
+      width: 100%;
+      padding: 20px;
+      background: $foreground-primary-color;
+
+      .story-timeline__element {
+
+        .vertical-timeline-element-content{
+          padding: 0;
+        }
+
+        .vertical-timeline-element-content:after{
+          content: unset;
+        }
+      }
+    }
+  }
+}
