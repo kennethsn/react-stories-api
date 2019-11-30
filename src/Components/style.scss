@@ -1,5 +1,7 @@
 @import '../theme.scss';
 
+$white-transparent: opacify($white, .5);
+
 body{
   color: $main-font-color;
   font-family: $main-font;

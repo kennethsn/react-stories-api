@@ -1,17 +1,15 @@
 import React, { Component } from 'react';
-import Draggable from 'react-draggable';
 import PropTypes from 'prop-types';
+import Masonry from 'react-masonry-component';
 
 import MomentBase from '../Base';
 import './style.scss';
 
 /**
- * General SlideScroll card layout Moment.
+ * General Tile card layout Moment.
  */
-export default class SlideScrollMoment extends Component {
+export default class TileMoment extends Component {
   static propTypes = {
-    /** Children nodes used to fill the cards */
-    // children: PropTypes.node.isRequired,
     /** Determines the background and text color of the `Moment` header. */
     color: PropTypes.shape({
       background: PropTypes.string,
@@ -29,29 +27,33 @@ export default class SlideScrollMoment extends Component {
     title: PropTypes.node,
     /** The type of `Moment` */
     type: PropTypes.string,
-
   }
   static defaultProps = {
-    type: "slide_scroll",
+    type: "tile",
   }
 
   render() {
-    const layout="slide_scroll"; // TODO: Add constant
+    const layout="tile"; // TODO: Add constant
     const { children } = this.props;
+    const masonryOptions = {
+      fitWidth: true,
+      columnWidth: 1,
+      gutter: 0,
+      itemSelector: ".tile-card"
+    };
+
     return (
       <MomentBase {...this.props} layout={layout}>
-      <div className="slide-scroll-wrapper">
-        <Draggable axis="x">
-          <div className="slide-scroller-container">
-            {
-              React.Children.map(children, card => (
-                <div className="slide-scroller-card --effect-grow">
-                  {card}
-                </div>
-              ))
-            }
-          </div>
-        </Draggable>
+      <div className="tile-wrapper">
+        <Masonry
+          updateOnEachImageLoad={true}
+          className={'tile-container'}
+          options={masonryOptions}
+        >
+          {React.Children.map(children, card => (
+             <div className="tile-card">{card}</div>
+          ))}
+        </Masonry>
         </div>
       </MomentBase>
     )

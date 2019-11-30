@@ -1,0 +1,9 @@
+@import "../style.scss";
+
+.named-after-item-content {
+
+  &__button {
+    margin-top: 10px;
+    font-size: 75%;
+  }
+}
