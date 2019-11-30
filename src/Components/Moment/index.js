@@ -1,4 +1,6 @@
 export AudioMoment from './Audio';
+export AwardMoment from './Award';
+export MerryGoRoundMoment from './MerryGoRound';
 export MomentBase from './Base';
 export IFrameMoment from './IFrame';
 export LibraryMoment from './Library';

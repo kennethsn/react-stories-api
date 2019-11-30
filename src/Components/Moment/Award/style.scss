@@ -1,0 +1,47 @@
+@import "../style.scss";
+
+.story-sidebar-drawer-award {
+
+  .MuiPaper-root {
+    min-width: 40%;
+    width: inherit;
+
+    .sidebar-award {
+      text-align: center;
+
+      .sidebar-award-body {
+        padding: 50px;
+
+        .sidebar-award-certificate {
+          padding: 25px;
+          margin-bottom: 25px;
+        }
+
+        .story-card__image {
+          height: initial;
+          padding: 25px 50px;
+
+          img {
+            object-fit: contain;
+          }
+        }
+
+        .MuiButton-root {
+          margin: 25px;
+        }
+      }
+      .sidebar-award-footer {
+
+        .sidebar-award-footer-title {
+          font-size: 110%;
+          font-weight: 400;
+        }
+
+        .MuiDivider-root {
+          background: $white;
+          opacity: 45%;
+        }
+      }
+    }
+  }
+}

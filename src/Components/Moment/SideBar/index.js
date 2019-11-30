@@ -26,6 +26,8 @@ export default class SideBarMoment extends Component {
     label: PropTypes.string,
     /** The layout name of the `Moment` */
     type: PropTypes.string,
+    /** Determines if the `Drawer` is visible. */
+    sidebar: PropTypes.bool.isRequired,
     /** Determines the content in the `Drawer` body of the `Moment`. */
     sideBarContent: PropTypes.any,
     /** Paragraph text underneath the title in `Moment` header */
@@ -39,6 +41,7 @@ export default class SideBarMoment extends Component {
 
   static defaultProps = {
     layout: "sidebar",
+    sidebar: false,
     type: "sidebar",
   }
 
