@@ -1,0 +1,12 @@
+@import "../style.scss";
+
+.story-mirador {
+  height: 100%;
+  width: 100%;
+
+  .fullscreen, .mirador-viewer  {
+    height: 100%;
+    width: 100%;
+    position: relative;
+  }
+}
