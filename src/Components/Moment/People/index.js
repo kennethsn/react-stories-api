@@ -35,8 +35,6 @@ export default class PeopleMoment extends Component {
     title: PropTypes.node,
     /** The type of `Moment` */
     type: PropTypes.string,
-    /** The source of the iFrame to render in the `Moment`'s body. */
-    url: PropTypes.string.isRequired,
   }
 
   static defaultProps = {
