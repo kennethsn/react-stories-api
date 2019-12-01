@@ -1,5 +1,4 @@
 export const testData = {
-  id: 'mirador',
   windows: [{
     manifestId: 'https://iiif.harvardartmuseums.org/manifests/object/299843',
     canvasId: 'https://iiif.harvardartmuseums.org/manifests/object/299843/canvas/canvas-47174892',
