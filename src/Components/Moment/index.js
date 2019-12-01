@@ -8,6 +8,7 @@ export MapMoment from './Map';
 export MerryGoRoundMoment from './MerryGoRound';
 export NamedAfterMoment from './NamedAfter';
 export PDFMoment from './PDF';
+export PeopleMoment from './People';
 export SlideScrollMoment from './SlideScroll';
 export TileMoment from './Tile';
 export TimelineMoment from './Timeline';
