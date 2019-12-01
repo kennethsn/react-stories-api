@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
-import Draggable from 'react-draggable';
 import PropTypes from 'prop-types';
 
-import MomentBase from '../Base';
+import TileMoment from '../Tile';
 import './style.scss';
 
 /**
- * General SlideScroll card layout Moment.
+ * Gallery card layout Moment.
  */
-export default class SlideScrollMoment extends Component {
+export default class GalleryMoment extends Component {
   static propTypes = {
     /** Children nodes used to fill the cards */
     // children: PropTypes.node.isRequired,
@@ -32,28 +31,15 @@ export default class SlideScrollMoment extends Component {
 
   }
   static defaultProps = {
-    type: "slide_scroll",
+    type: "gallery",
   }
 
   render() {
-    const layout="slide_scroll"; // TODO: Add constant
-    const { children } = this.props;
+    const { children } = this.props; // Should be instances of GalleryImage
     return (
-      <MomentBase {...this.props} layout={layout}>
-      <div className="slide-scroll-wrapper">
-        <Draggable axis="x">
-          <div className="slide-scroller-container">
-            {
-              React.Children.map(children, card => (
-                <div className="slide-scroller-card --effect-grow">
-                  {card}
-                </div>
-              ))
-            }
-          </div>
-        </Draggable>
-        </div>
-      </MomentBase>
+      <TileMoment {...this.props}>
+        {children}
+      </TileMoment>
     )
   }
 }

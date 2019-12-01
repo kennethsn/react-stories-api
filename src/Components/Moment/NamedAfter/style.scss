@@ -1,0 +1,20 @@
+@import "../style.scss";
+
+.story-moment-named_after {
+
+  .story-moment__content {
+
+    &__body {
+      background: #a9a8a8;
+    }
+  }
+}
+
+.named-after-item-content {
+
+  &__button {
+    margin-top: 10px;
+    font-size: 75%;
+    z-index: 1;
+  }
+}

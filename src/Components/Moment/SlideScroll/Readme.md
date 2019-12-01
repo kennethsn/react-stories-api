@@ -8,7 +8,7 @@ import CardImage from '../../Card/Image';
 import CardPill from '../../Card/Pill';
 import CardSection from '../../Card/Section';
 
-<SlideScrollMoment title={(<span>Most Popular Group of <i style={{color:'#ffff'}}>Friends</i></span>)} subtitle="Try hovering and dragging to interact with the cards." url="/" color={{background:'#24231c', text:'#ffe3fd'}}>
+<SlideScrollMoment title={(<span>Most Popular Group of <i style={{color:'#ffff'}}>Friends</i></span>)} subtitle="Try hovering and dragging to interact with the cards." color={{background:'#24231c', text:'#ffe3fd'}}>
 
   <CardBase style={{maxWidth: "300px"}}>
     <CardHeader text="Ross Geller"/>
