@@ -37,14 +37,14 @@ export default class NamedAfterMoment extends Component {
     type: "named_after",
   }
 
-
   renderImages(){
     const { color, data } = this.props;
-    return data.map(({ label, description, image, website }) => (
+    return data.map(({ description, image, fallback, label, website }) => (
       <GalleryImage
         color={color}
         label={label}
-        src={image}
+        noImage={image ? false : true}
+        src={image || fallback}
         style={{maxWidth: 300}}
         content={(
           <div className="named-after-item-content">

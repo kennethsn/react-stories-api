@@ -2,7 +2,6 @@
 
 ```js
 <TileMoment title="🧱 Tile Moment" subtitle="General Layout to make a dynamic grid view" color={{background:'#511e1e', text:'white'}}>
-
   <div style={{width: 300, height: 300, background:'brown', border:'2px solid white'}}>
     Sample Card 1
   </div>
@@ -18,6 +17,5 @@
   <div style={{width: 200, height: 100, background:'brown', border:'2px solid white'}}>
     Sample Card 5
   </div>
-
 </TileMoment>
 ```

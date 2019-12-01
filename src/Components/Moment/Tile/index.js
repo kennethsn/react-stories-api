@@ -33,8 +33,9 @@ export default class TileMoment extends Component {
   }
 
   render() {
-    const layout="tile"; // TODO: Add constant
     const { children } = this.props;
+
+    const layout="tile"; // TODO: Add constant
     const masonryOptions = {
       fitWidth: true,
       columnWidth: 1,
@@ -44,16 +45,18 @@ export default class TileMoment extends Component {
 
     return (
       <MomentBase {...this.props} layout={layout}>
-      <div className="tile-wrapper">
-        <Masonry
-          updateOnEachImageLoad={true}
-          className={'tile-container'}
-          options={masonryOptions}
-        >
-          {React.Children.map(children, card => (
-             <div className="tile-card">{card}</div>
-          ))}
-        </Masonry>
+        <div className="tile-wrapper">
+          <Masonry
+            updateOnEachImageLoad={true}
+            className={'tile-container'}
+            options={masonryOptions}
+          >
+            {React.Children.map(children, card => (
+              <div className="tile-card">
+                {card}
+              </div>
+            ))}
+          </Masonry>
         </div>
       </MomentBase>
     )
