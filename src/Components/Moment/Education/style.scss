@@ -1,0 +1,27 @@
+@import "../style.scss";
+
+.story-moment-education {
+
+  .story-moment__content__body {
+
+    .story-education-card {
+
+      .story-card {
+        background: $white-transparent;
+
+        &__header {
+          background: $white;
+
+          .story-icon {
+            width: 3rem;
+            height: 3rem;
+          }
+
+          .story-pipe {
+            margin: 10px;
+          }
+        }
+      }
+    }
+  }
+}
