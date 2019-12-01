@@ -17,11 +17,12 @@ const insideStyles = {
  */
 export default class ParallaxImage extends Component {
   static propTypes = {
-    /** Determines the background and text color of the `Moment` header. */
+    /** Determines the background overlay color of the `Image` */
     color: PropTypes.string,
     /** Destination URL of the image file. */
     src: PropTypes.string,
   }
+
   static defaultProps = {
     color: null,
   }
@@ -46,12 +47,11 @@ export default class ParallaxImage extends Component {
           />
         )}
       >
-      <div style={{ height: 500 }}>
-        <div style={insideStyles}>
-          {children}
+        <div style={{ height: 500 }}>
+          <div style={insideStyles}>
+            {children}
+          </div>
         </div>
-      </div>
-
       </Parallax>
     )
   }
