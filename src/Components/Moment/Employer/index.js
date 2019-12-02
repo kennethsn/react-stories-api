@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Button, Grid } from '@material-ui/core';
 import PropTypes from 'prop-types';
 
-import { isEven } from '../../../utils';
+import { classList, isEven } from '../../../utils';
 import CardHeader from '../../Card/Header';
 import MomentBase from '../Base';
 
@@ -51,7 +51,7 @@ export default class EmployerMoment extends Component {
   }
 
   renderInfoBox(ctx){
-    const { accentColor, description, label, textColor, website } = ctx;
+    const { description, label, textColor, website } = ctx;
 
     return (
       <Grid item className="employer-info-box">
@@ -61,11 +61,11 @@ export default class EmployerMoment extends Component {
         </div>
         {website && (
           <Button
-            className="library-sidebar-link"
+            className="employer-info-box__button"
             variant="outlined"
             href={website}
             target="_blank"
-            style={{color: accentColor, background: textColor}}
+            style={{color: textColor}}
           >
             Learn More
           </Button>
@@ -76,7 +76,6 @@ export default class EmployerMoment extends Component {
 
   renderSections() {
     const { color, data } = this.props;
-
 
     return data.map((employer, index) => {
       let accentColor = color.background;
@@ -89,10 +88,11 @@ export default class EmployerMoment extends Component {
       }
       employer.accentColor = accentColor;
       employer.textColor = textColor;
+      const angleClasses = classList('angle', `angle-${angleDirection}`)
 
       return (
         <div className="story-employer-section">
-          <div className={`angle angle-${angleDirection}`} style={{background: accentColor}}/>
+          <div className={angleClasses} style={{background: accentColor}}/>
           <div
             className="angled-section__background"
             style={{background: accentColor, color: textColor}}

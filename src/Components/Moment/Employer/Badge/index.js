@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import { Divider } from '@material-ui/core';
+import { Button, Divider } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 
 import { getOffsetOfElementInViewport } from '../../../../utils';
-import CardHeader from '../../../Card/Header';
 import ImageIcon from '../../../Icon/Image';
 import FontAwesomeIcon from '../../../Icon/FontAwesome';
 
@@ -17,30 +16,27 @@ import './style.scss';
  */
 export default class EmployerBadge extends Component {
   static propTypes = {
-    /** Determines the background and text color of the `Image` label. */
-    color: PropTypes.shape({
-      background: PropTypes.string,
-      text: PropTypes.string,
-    }),
-    /** Content to go underneath the title in a detail page */
-    content: PropTypes.any,
-    /** Determines the main text of the `Image`. */
-    label: PropTypes.string,
-    /** Determines if the layout should emphasize the text or the image. */
-    noImage: PropTypes.bool,
-    /** The destination URL of the `Image` */
-    src: PropTypes.string.isRequired,
+    /** Determines the foreground color of the info panel. */
+    accentColor: PropTypes.string,
+    /** Description of the Employer. */
+    description: PropTypes.string,
+    /** The destination URL of the Employer's image */
+    image: PropTypes.string,
+    /** The name of the Employer. */
+    label: PropTypes.string.isRequired,
+    /** Location data of the Employer. */
+    location: PropTypes.object,
+    /** The destination URL of the Employer's logo */
+    logo: PropTypes.string,
+    /** Additional information to render on the `Badge`'s body. */
+    qualifiers: PropTypes.object,
+    /** Determines the background color of the info panel. */
+    textColor: PropTypes.string,
   }
 
   static defaultProps = {
-    color: {
-      background: "#ffc7ed9e",
-      text: '#000',
-    },
-    // height: 320,
-    // width: 240,
-    image: "http://commons.wikimedia.org/wiki/Special:FilePath/Philadelphia%20cityscape%20BW%2020150328.jpg",
-    style: {},
+    accentColor: '#3d3547',
+    textColor: '#edeaea',
   }
 
   constructor(props) {
@@ -68,25 +64,31 @@ export default class EmployerBadge extends Component {
   };
 
   cardStyle() {
-    const rX = this.mousePX() * 3;
-    const rY = this.mousePY() * -.05;
+    // TODO: Fix the math
+    // const rX = this.mousePX() * 3;
+    // const rY = this.mousePY() * -.05;
     return {
       // transform: `rotateY(${rX}deg) rotateX(${rY}deg)`
     };
   };
 
   cardBgStyle() {
-    const tX = this.mousePX() * -6;
-    const tY = this.mousePY() * -.05;
+    const { image, location } = this.props;
+
+    const bgImage = image || (location && location.image);
+    if (!bgImage) return {};
+    // TODO: Fix the math
+    // const tX = this.mousePX() * -6;
+    // const tY = this.mousePY() * -.05;
     return {
-      backgroundImage: `url(${this.props.image})`,
+      backgroundImage: `url(${bgImage})`,
       // transform: `translateX(${tX}px) translateY(${tY}px)`
     };
   };
 
   componentDidMount() {
     const node = ReactDOM.findDOMNode(this);
-    const card = node.querySelector('.card');
+    const card = node.querySelector('.story-employer-badge');
     this.setState({
       el: card,
       height: card.offsetHeight,
@@ -117,88 +119,118 @@ export default class EmployerBadge extends Component {
     })
   };
 
-  renderHeader() {
-    const { label, logo } = this.props;
-    return (
-      <div className="badge-header">
-        {logo ? <ImageIcon url={logo} /> : label}
+  renderLogo() {
+    const { logo } = this.props;
+
+    return (logo && (
+      <div className="badge-logo">
+        <ImageIcon url={logo} />
       </div>
-    )
+    ));
   };
 
   renderContent(){
     const { qualifiers } = this.props;
 
     return qualifiers && (
-      <div className="content">
-        <ul className="content-ul">
-          {Object.values(qualifiers).map(({label, values }) => (
-            <li>
-              <span className="card-field-prop">
-                {label} :
-              </span>
-              <br/>
-              {Object.keys(values).map(label => <span>{label}</span>)}
-            </li>
-          ))}
-        </ul>
+      <div className="badge-content">
+        {Object.values(qualifiers).map(({ label, values }) => (
+          <div className="badge-content__item">
+            <div className="badge-content__item__prop">
+              {label} :
+            </div>
+            {Object.keys(values).map(label => (
+              <div className="badge-content__item__value">
+                {label}
+              </div>
+            ))}
+          </div>
+        ))}
       </div>
     );
-  }
+  };
 
 
   renderInfoPanel(){
-    const { description, label, location } = this.props;
+    const {
+      accentColor, description, label, location, textColor, website
+    } = this.props;
+
+    const colorStyle = {color: accentColor, background: textColor};
+
     return (
-      <div className="employer-info">
-        <span className="card-field-prop">Company Name:</span><br/>
-        <h6>{label}</h6>
-        {description && (
-          <div>
-            <span className="card-field-prop">Description:</span><br/>
-            {description} <br/>
+      <div className="badge-info-panel-container">
+        <div className="badge-info-panel" style={colorStyle}>
+          <div className="badge-info-panel__icon">
+            <FontAwesomeIcon name="FaInfoCircle" />
           </div>
-        )}
-        {location && location.label && (
-          <div>
-            <span className="card-field-prop">Location:</span><br/>
-            {location.label} <br/>
+          <div className="badge-info-panel__body" style={colorStyle}>
+            <div className="employer-info">
+              <div className="badge-info-panel__body__row row-header">
+                {label}
+              </div>
+              <Divider style={{backgroundColor: accentColor}}/>
+              {description && (
+                <div className="badge-info-panel__body__row">
+                  {description}
+                </div>
+              )}
+
+              {location && location.label && (
+                <div className="badge-info-panel__body__row">
+                  <span className="badge-info-panel__body__row__prop">
+                    Location:
+                  </span>
+                  {location.label}
+                  {location.image && (
+                    <ImageIcon url={location.image} />
+                  )}
+                </div>
+              )}
+
+              {website && (
+                <div className="badge-info-panel__body__row">
+                  <Button
+                    className="employer-info-box__button"
+                    href={website}
+                    target="_blank"
+                    style={{color: accentColor}}
+                  >
+                    Learn More
+                  </Button>
+                </div>
+              )}
+            </div>
           </div>
-        )}
+        </div>
       </div>
     );
   };
 
   render() {
-    const { accentColor, textColor } = this.props;
 
     return (
-      <div className="story-employer-badge">
-        <div className="card" style={this.cardStyle()} onMouseMove={this.handleMouseMove}
-        onMouseEnter={this.handleMouseEnter}
-        onMouseLeave={this.handleMouseLeave}>
-          <span className="header-top"><img src={BadgeGraphic}/></span>
-          <div className="card-inner">
-            <div className="wrapper">
-              <div className="inside" style={{color: accentColor, background: textColor}}>
-                <div className="icon">
-                  <FontAwesomeIcon name="FaInfoCircle" />
-                </div>
-                <div className="contents" style={{color: accentColor, background: textColor}}>
-                  {this.renderInfoPanel()}
-                </div>
-              </div>
-            </div>
-            <div className="card-bg" style={this.cardBgStyle()} />
+      <div className="story-employer-badge-container">
+        <div
+          className="story-employer-badge"
+          style={this.cardStyle()}
+          onMouseMove={this.handleMouseMove}
+          onMouseEnter={this.handleMouseEnter}
+          onMouseLeave={this.handleMouseLeave}
+        >
+          <div className="badge-graphic-top">
+            <img src={BadgeGraphic}/>
+          </div>
+          <div className="badge-inner">
+            {this.renderInfoPanel()}
+            <div className="badge-inner__bg" style={this.cardBgStyle()} />
             <div className="badge-body">
-              <div className="card-hdr">
-                {this.renderHeader()}
-              </div>
+              {this.renderLogo()}
               {this.renderContent()}
             </div>
           </div>
         </div>
       </div>
-    )
-  }
+    );
+  };
 }
