@@ -1,9 +1,14 @@
 // Google Fonts
-@import url(https://fonts.googleapis.com/css?family=Montserrat:100,200,300,400,500,600,700);
-
+@import url(https://fonts.googleapis.com/css?family=Montserrat:100,200,300,400,500,600,700|Cedarville+Cursive|Special+Elite&display=swap);
 // Font Variables
 $montserrat: 'Montserrat', sans-serif;
+$cedarville-cursive: 'Cedarville Cursive', cursive;
+$special-elite: 'Special Elite', cursive;
+
+// Theme Fonts:
 $main-font: $montserrat;
+$typewiter-font: $special-elite;
+$handwriting-font: $cedarville-cursive;
 
 // Color Variables
 $gray: #d9d9d9;

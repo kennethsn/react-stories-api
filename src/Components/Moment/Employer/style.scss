@@ -1,0 +1,54 @@
+@import "../style.scss";
+
+.story-moment-employer {
+
+  .story-moment__content__body {
+    max-height: calc(100vh - 100px);
+    overflow-y: scroll;
+    background: $secondardy-background-color;
+
+    .story-employer-section {
+      position: relative;
+      min-height: 300px;
+    }
+  }
+}
+.angle {
+  transform: skewY(-6deg);
+  transform-origin: top left;
+  content: " ";
+  height: 100px;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+
+  &.angle-right {
+    transform: skewY(6deg);
+    transform-origin: top right;
+  }
+}
+
+.angled-section__background {
+  margin-top: -50px;
+  padding-top: 100px;
+  padding-bottom: 250px;
+  width: 100%;
+  height: 100%;
+
+  .story-employer-section-grid {
+    margin-top: 50px;
+
+    .employer-info-box {
+      max-width: 40%;
+
+      .story-card__header {
+        font-family: $typewiter-font;
+      }
+    }
+
+    .employer-badge-grid-item {
+    }
+  }
+}
