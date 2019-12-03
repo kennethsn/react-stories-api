@@ -1,0 +1,1 @@
+export StoriesAPIStory from './Story';
