@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import FontAwesomeIcon from '../../Icon/FontAwesome';
 import Story from '../../Story';
 import StoriesAPIClient from '../client';
+import StoriesAPIIcon from '../Icon';
 
 import { API_TO_MOMENT_MAP } from './constants';
 import './style.scss';
@@ -68,8 +69,7 @@ export default class StoriesAPIStory extends Component {
       const { type } = moment;
       const MomentComponent = API_TO_MOMENT_MAP[type];
       if (MomentComponent) {
-        // TODO (#85): Ignore icons until supported stabily
-        moment.icon = <FontAwesomeIcon name="FaInfoCircle" />
+        moment.icon = <StoriesAPIIcon data={moment.icon} />
         // TODO (#86): Move "tooltip" to "label"
         moment.label = moment.tooltip;
         moment.index = storyMoments.length;
