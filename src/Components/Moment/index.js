@@ -2,6 +2,7 @@ export AudioMoment from './Audio';
 export AwardMoment from './Award';
 export MomentBase from './Base';
 export EducationMoment from './Education';
+export EmployerMoment from './Employer';
 export IFrameMoment from './IFrame';
 export IIIFManifestMoment from './IIIFManifest';
 export GalleryMoment from './Gallery';
