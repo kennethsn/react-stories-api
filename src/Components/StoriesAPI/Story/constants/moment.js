@@ -1,4 +1,4 @@
-import { Moments } from '../../';
+import { Moments } from '../../../';
 
 export const API_TO_MOMENT_MAP = {
   'award': Moments.AwardMoment,
@@ -18,6 +18,4 @@ export const API_TO_MOMENT_MAP = {
   'wikidata': Moments.WikidataMoment,
   'wikipedia': Moments.WikipediaMoment,
   'youtube': Moments.YouTubeMoment,
-  // TODO: Move to iframe on server-side (#35)
-  'commons_category_iiif': Moments.IFrameMoment,
-}
+};
