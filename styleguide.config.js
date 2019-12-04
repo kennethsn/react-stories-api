@@ -1,4 +1,63 @@
+const fs = require('fs');
+
+function getShallowDirs(path){
+  return fs.readdirSync(path, { withFileTypes: true })
+    .filter(dirent => dirent.isDirectory())
+    .map(dirent => dirent.name)
+}
+
+
 module.exports = {
+  pagePerSection: true,
+  sections: [
+    {
+      name: 'Live Demo',
+      external: true,
+      href: 'https://kennethsn.github.io/react-stories-api/'
+    },
+
+    // TODO: (#93) Add getting started section here
+
+    {
+      name: 'Main Components',
+      // TODO: (#92) Add content md file
+      components: 'src/Components/StoriesAPI/**/index.js',
+      ignore: [
+        '**/{constants,client,}.js',
+        'src/Components/StoriesAPI/index.js',
+      ]
+    },
+
+    {
+      name: 'Moments',
+      // TODO: (#92) Add content md file
+      sectionDepth: 1,
+      sections : getShallowDirs('src/Components/Moment').map(dir => (
+        {
+          name: dir,
+          components: `src/Components/Moment/${dir}/**/*.js`,
+          sectionDepth: 1,
+          ignore: [
+            '**/constants.js',
+            'src/Components/Moment/index.js',
+          ]
+        }
+      ))
+    },
+
+    {
+      name: 'Core UI',
+      // TODO: (#92) Add content md file
+      components: 'src/Components/**/index.js',
+      ignore: [
+        '**/constants.js',
+        'src/Components/Moment/**/*.js',
+        'src/Components/StoriesAPI/**/*.js',
+        'src/Components/index.js',
+      ]
+    },
+   ],
+
   webpackConfig: {
     module: {
       rules: [
@@ -43,19 +102,19 @@ module.exports = {
     }
   },
   template: {
-       head: {
-           links: [
-               {
-                   rel: 'stylesheet',
-                   href: 'https://fonts.googleapis.com/css?family=Montserrat:400,600'
-               }
-           ]
-       }
-   },
-   theme: {
-       fontFamily: {
-           base: '"Montserrat", sans-serif',
-           fontSize: '62.5%'
-       }
-   }
+    head: {
+      links: [
+        {
+          rel: 'stylesheet',
+          href: 'https://fonts.googleapis.com/css?family=Montserrat:400,600'
+        }
+      ]
+    }
+  },
+  theme: {
+    fontFamily: {
+      base: '"Montserrat", sans-serif',
+      fontSize: '62.5%'
+    }
+  }
 }
