@@ -5,6 +5,7 @@ export EducationMoment from './Education';
 export EmployerMoment from './Employer';
 export IFrameMoment from './IFrame';
 export IIIFManifestMoment from './IIIFManifest';
+export ImageMoment from './Image';
 export GalleryMoment from './Gallery';
 export LibraryMoment from './Library';
 export MapMoment from './Map';
