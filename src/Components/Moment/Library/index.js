@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { Button, CssBaseline, Divider, Drawer } from '@material-ui/core';
+import {
+  Button, CssBaseline, Dialog, Divider, Drawer, Slide
+} from '@material-ui/core';
 import PropTypes from 'prop-types';
 
 import CardBase from '../../Card';
@@ -7,10 +9,16 @@ import CardHeader from '../../Card/Header';
 import CardImage from '../../Card/Image';
 import CardPill from '../../Card/Pill';
 import CardSection from '../../Card/Section';
+import Mirador from '../../Mirador';
 import SideBarMoment from '../SideBar';
 
 import LibraryShelf from './Shelf';
 import './style.scss';
+
+
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
 
 
 /**
@@ -48,19 +56,31 @@ export default class LibraryMoment extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentBook: {},
+      currentBook: null,
       sidebar: false,
+      dialog: false,
     };
 
+    this.handleOpenDialog = this.handleOpenDialog.bind(this);
+    this.handleCloseDialog = this.handleCloseDialog.bind(this);
     this.handleCloseSidebar = this.handleCloseSidebar.bind(this);
     this.handleSelectBook = this.handleSelectBook.bind(this);
   };
+
   handleCloseSidebar() {
     this.setState({sidebar: false});
   }
 
   handleSelectBook(book) {
     this.setState({currentBook: book, sidebar: true});
+  };
+
+  handleOpenDialog(){
+    this.setState({dialog: true, sidebar: false});
+  };
+
+  handleCloseDialog(){
+    this.setState({dialog: false, sidebar: true});
   };
 
   renderShelves() {
@@ -74,9 +94,45 @@ export default class LibraryMoment extends Component {
     return shelves;
   };
 
+  renderMirador() {
+    const { currentBook } = this.state;
+
+    if (!currentBook) return null;
+
+    const { manifest_url, provider } = currentBook;
+    const config = {
+      manifests: {},
+      windows: [{manifestId: manifest_url, "view": "gallery"}],
+    };
+    config.manifests[manifest_url] = { provider };
+
+    return <Mirador config={config} />;
+  };
+
+  renderDialog() {
+    const { dialog } = this.state;
+
+    return (
+      <Dialog
+        className="story-library-dialog"
+        open={dialog}
+        TransitionComponent={Transition}
+        keepMounted
+        onClose={this.handleCloseDialog}
+      >
+        {this.renderMirador()}
+      </Dialog>
+    );
+  };
+
   renderSideBarContent(){
+    const { color } = this.props;
+    const { currentBook } = this.state;
+
+    if (!currentBook) return null;
+
     const {
-      date, description, image, instance, label, url
+      date, description, image, instance, label, manifest_url, url
     } = this.state.currentBook;
 
     return (
@@ -87,6 +143,18 @@ export default class LibraryMoment extends Component {
         {date && <CardPill text={date.label}/>}
         {image && <CardImage src={image} alt={`Image of ${label}`} />}
         {description && <CardSection>{description}</CardSection>}
+
+        {manifest_url && (
+          <Button
+            className="library-sidebar-link"
+            variant="contained"
+            onClick={this.handleOpenDialog}
+            style={{background: color.background, color: color.text}}
+          >
+            Look Inside
+          </Button>
+        )}
+
         {url && (
           <Button
             className="library-sidebar-link"
@@ -97,6 +165,7 @@ export default class LibraryMoment extends Component {
             Learn More
           </Button>
         )}
+
       </CardBase>
     )
   }
@@ -116,6 +185,7 @@ export default class LibraryMoment extends Component {
       >
         <div className="library-wrapper">
           {this.renderShelves()}
+          {this.renderDialog()}
         </div>
       </SideBarMoment>
     )

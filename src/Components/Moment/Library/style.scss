@@ -30,10 +30,19 @@
       }
 
       .library-sidebar-link {
-        background: $primary-color;
-        color: $white;
         margin: 30px 10px;
       }
+    }
+  }
+}
+
+.story-library-dialog {
+
+  > .MuiDialog-container > .MuiPaper-root {
+    min-width: 80vw;
+
+    .story-mirador {
+      height: 80vh;
     }
   }
 }
