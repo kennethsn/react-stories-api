@@ -7,6 +7,7 @@ import CardHeader from '../../Card/Header';
 import CardImage from '../../Card/Image';
 import MerryGoRoundMoment from '../MerryGoRound';
 
+import BackgroundImage from './background.jpg';
 import AwardCertificate from './Certificate';
 import './style.scss';
 
@@ -88,13 +89,19 @@ export default class AwardMoment extends Component {
 
   render() {
     const { data } = this.props;
-    const layout="award"; // TODO: Add constant
+
+    const style = {
+      backgroundSize: "cover",
+      backgroundPositionY: "57%",
+      width: "100%",
+      backgroundImage: `url(${BackgroundImage})`
+    };
 
     return (
       <MerryGoRoundMoment
         {...this.props}
-        layout={layout}
         sideBarContent={this.renderSideBarContent}
+        style={style}
       >
         {this.renderCertificates()}
       </MerryGoRoundMoment>

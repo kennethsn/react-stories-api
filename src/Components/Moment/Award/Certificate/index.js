@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import FontAwesomeIcon from '../../../Icon/FontAwesome';
+import { IconUtils } from '../../../StoriesAPI/Story/utils';
 
 import './style.scss';
 
@@ -34,7 +34,7 @@ export default class AwardCertificate extends Component {
   };
 
   static defaultProps = {
-    icon: {name: "FaAward"},
+    icon: {name: "FaAward", source: "fa"},
     style: {},
   };
 
@@ -49,7 +49,7 @@ export default class AwardCertificate extends Component {
     const rightCornerClass = "award-corner award-corner-right";
     const leftBottomCornerClass = "award-corner award-corner-left-bottom";
     const rightBottomCornerClass = "award-corner award-corner-right-bottom";
-    
+
     return (
       <div className="story-award-certificate" style={style}>
         <div className={rightCornerClass} style={lightCornerStyle}></div>
@@ -59,7 +59,7 @@ export default class AwardCertificate extends Component {
         <div className="award-content" >
           <div className="award-graphic" style={{borderColor: color.dark}}>
             <span className="award-icon" >
-              <FontAwesomeIcon name="FaAward" />
+              {IconUtils.buildIcon(icon)}
             </span>
           </div>
           <div className="award-pretitle" style={{color: color.dark}}>
