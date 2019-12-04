@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import FontAwesomeIcon from '../../Icon/FontAwesome';
 import Story from '../../Story';
 import StoriesAPIClient from '../client';
-import StoriesAPIIcon from '../Icon';
+import { MomentUtils } from './utils';
 
-import { API_TO_MOMENT_MAP } from './constants';
 import './style.scss';
 
 
@@ -65,15 +63,11 @@ export default class StoriesAPIStory extends Component {
     const { data } = this.state;
 
     const storyMoments = [];
-    data.moments.map((moment) => {
+    data.moments.map(moment => {
       const { type } = moment;
-      const MomentComponent = API_TO_MOMENT_MAP[type];
-      if (MomentComponent) {
-        moment.icon = <StoriesAPIIcon data={moment.icon} />
-        // TODO (#86): Move "tooltip" to "label"
-        moment.label = moment.tooltip;
-        moment.index = storyMoments.length;
-        storyMoments.push((<MomentComponent {...moment} />))
+      if (MomentUtils.isPublicMoment(moment)) {
+        const index = storyMoments.length;
+        storyMoments.push(MomentUtils.buildMoment(moment, index));
       }
     })
     return storyMoments;
