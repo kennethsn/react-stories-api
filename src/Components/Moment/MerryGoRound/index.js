@@ -32,6 +32,8 @@ export default class MerryGoRoundMoment extends Component {
     label: PropTypes.string,
     /** Render function to fill the `SideBar` `Drawer`. */
     sideBarContent: PropTypes.func.isRequired,
+    /** Styling object of the moment body container */
+    style: PropTypes.object,
     /** Paragraph text underneath the title in `Moment` header */
     subtitle: PropTypes.string,
     /** Main heading element of the `Moment` */
@@ -44,6 +46,7 @@ export default class MerryGoRoundMoment extends Component {
     type: "merry_go_round",
     data: {},
     sideBarContent: (currentHorse) => currentHorse,
+    style: {},
   }
 
   constructor(props) {
@@ -140,9 +143,10 @@ export default class MerryGoRoundMoment extends Component {
 
   render() {
     const { handleSelectHorse } = this;
-    const { children, sideBarContent } = this.props;
+    const { children, sideBarContent, style } = this.props;
     const { currentHorse, sidebar } = this.state;
-    const layout="merry_go_round"; // TODO: Add constant
+
+    const layout="merry_go_round";
 
     return (
       <SideBarMoment
@@ -152,7 +156,7 @@ export default class MerryGoRoundMoment extends Component {
         sidebar={sidebar}
         sideBarContent={sideBarContent(currentHorse)}
       >
-        <div className="merry_go_round-wrapper">
+        <div className="merry_go_round-wrapper"  style={style}>
           <div className="merry-go-round_figure">
             {this.renderHorses()}
           </div>
