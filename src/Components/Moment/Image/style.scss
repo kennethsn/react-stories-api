@@ -1,0 +1,39 @@
+@import "../style.scss";
+
+.story-moment-layout-image {
+
+  .story-moment__content__body {
+
+    .moment-image-container {
+      display: flex;
+      align-items: stretch;
+
+      &-row, &-row > div {
+        flex-direction: row;
+      }
+
+      &-column, &-column > div {
+        flex-direction: column;
+      }
+
+      &-row {
+        .moment-image-container__image {
+          min-width: 55%;
+        }
+        .moment-image-container__caption {
+          min-width: 35%;
+          max-height: 100%;
+          overflow-y: scroll;
+        }
+      }
+
+      &__caption {
+        display: flex;
+        align-items: stretch;
+        .story-card__detail {
+          // height: 100%;
+        }
+      }
+    }
+  }
+}

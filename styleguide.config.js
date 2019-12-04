@@ -23,7 +23,9 @@ module.exports = {
       // TODO: (#92) Add content md file
       components: 'src/Components/StoriesAPI/**/index.js',
       ignore: [
-        '**/{constants,client,}.js',
+        '**/{utils, constants}/*',
+        '**/constants/index.js',
+        '**/{client,}.js',
         'src/Components/StoriesAPI/index.js',
       ]
     },

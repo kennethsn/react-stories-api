@@ -6,10 +6,11 @@ export const API_TO_MOMENT_MAP = {
   'education': Moments.EducationMoment,
   'employer': Moments.EmployerMoment,
   'iframe': Moments.IFrameMoment,
+  'image': Moments.ImageMoment,
   'index': Moments.IndexMoment, // TODO: build this (#82)
   'library': Moments.LibraryMoment,
   'map': Moments.MapMoment,
-  'membership': Moments.MembershipMoment, // TODO: build this (#81)
+  'membership': Moments.MembershipMoment,
   'mirador': Moments.MiradorMoment,
   'named_after': Moments.NamedAfterMoment,
   'pdf': Moments.PDFMoment,
