@@ -8,6 +8,7 @@ export IIIFManifestMoment from './IIIFManifest';
 export GalleryMoment from './Gallery';
 export LibraryMoment from './Library';
 export MapMoment from './Map';
+export MembershipMoment from './Membership';
 export MerryGoRoundMoment from './MerryGoRound';
 export MiradorMoment from './Mirador';
 export NamedAfterMoment from './NamedAfter';
