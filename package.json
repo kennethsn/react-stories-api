@@ -1,6 +1,6 @@
 {
   "name": "react-stories-api",
-  "version": "0.0.0",
+  "version": "0.0.1-dev-2",
   "description": "React Components for building interactive data storytelling interfaces with the Stories API",
   "author": "kennethsn",
   "license": "MIT",
@@ -17,24 +17,25 @@
     "styleguide-build": "NODE_ENV=production styleguidist build",
     "test": "cross-env CI=1 react-scripts test --env=jsdom",
     "test:watch": "react-scripts test --env=jsdom",
-    "build": "rollup -c",
-    "start": "rollup -c -w",
+    "start": "./node_modules/.bin/parcel src/docs/index.html",
+    "build": "rm -rf dist && NODE_ENV=production babel src --out-dir dist --copy-files --ignore __tests__,spec.js,test.js,__snapshots__",
     "prepare": "yarn run build",
     "predeploy": "cd example && yarn install && yarn run build",
     "deploy": "gh-pages -d example/build"
   },
   "peerDependencies": {
     "prop-types": "^15.7.2",
-    "react": "^15.0.0 || ^16.0.0",
-    "react-dom": "^15.0.0 || ^16.0.0"
+    "react": "^15.0.0 || ^16.12.0",
+    "react-dom": "^15.0.0 || ^16.12.0"
   },
   "devDependencies": {
+    "@babel/cli": "^7.7.5",
     "@babel/core": "^7.7.2",
     "@babel/plugin-external-helpers": "^7.2.0",
     "@babel/plugin-proposal-class-properties": "^7.7.0",
     "@babel/plugin-proposal-export-default-from": "^7.5.2",
     "@babel/plugin-transform-runtime": "^7.6.2",
-    "@babel/preset-env": "^7.7.1",
+    "@babel/preset-env": "^7.7.6",
     "@babel/preset-react": "^7.7.0",
     "@svgr/rollup": "^2.4.1",
     "acorn": "^6.3.0",
@@ -56,6 +57,7 @@
     "eslint-plugin-standard": "^4.0.1",
     "gh-pages": "^2.1.1",
     "node-sass": "^4.13.0",
+    "parcel-bundler": "^1.12.4",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-scripts": "^3.2.0",
@@ -70,7 +72,9 @@
     "rollup-plugin-url": "^1.4.0",
     "sass-loader": "^8.0.0",
     "style-loader": "^1.0.0",
-    "webpack": "^4.41.0"
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.10",
+    "webpack-node-externals": "^1.7.2"
   },
   "files": [
     "dist"

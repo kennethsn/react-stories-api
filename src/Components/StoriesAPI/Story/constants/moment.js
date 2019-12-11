@@ -1,4 +1,4 @@
-import { Moments } from '../../../';
+import * as Moments from '../../../Moment';
 
 export const API_TO_MOMENT_MAP = {
   'award': Moments.AwardMoment,
@@ -7,7 +7,7 @@ export const API_TO_MOMENT_MAP = {
   'employer': Moments.EmployerMoment,
   'iframe': Moments.IFrameMoment,
   'image': Moments.ImageMoment,
-  'index': Moments.IndexMoment, // TODO: build this (#82)
+  // 'index': Moments.IndexMoment, // TODO: build this (#82)
   'library': Moments.LibraryMoment,
   'map': Moments.MapMoment,
   'membership': Moments.MembershipMoment,
