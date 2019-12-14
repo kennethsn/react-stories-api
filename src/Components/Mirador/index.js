@@ -5,10 +5,9 @@ import nextId from "react-id-generator";
 
 import './style.scss';
 
-import { ThemeProvider } from '@material-ui/core/styles';
 
 // TODO: Add dynamic coloring
-// TODO: Figure out Mirador theme clashing 
+// TODO: Figure out Mirador theme clashing
 const theme = {
   // palette: {
   //     type: 'light',
@@ -49,9 +48,7 @@ export default class Mirador extends Component {
 
   render() {
     return (
-      <ThemeProvider theme={theme}>
-        <div id={this.htmlId} className="story-mirador" />
-      </ThemeProvider>
+      <div id={this.htmlId} className="story-mirador" />
     );
   };
 }
