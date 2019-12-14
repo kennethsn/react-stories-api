@@ -22,7 +22,10 @@ export default class StoriesAPIClient {
     return storyAPIRequest;
   }
 
-  get(slug, callback, err){
+  get(slug, collection, callback, err){
+    if (collection !== null){
+      slug += `?collection=${collection}`;
+    }
     return this.client.get(slug)
     .then(data => {
       return callback(data);

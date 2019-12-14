@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import AwesomeSlider from 'react-awesome-slider';
 import AwesomeSliderStyles from 'react-awesome-slider/src/styled/scale-out-animation';
-
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'
 import { classList } from '../../utils';
 import SideBar from '../SideBar';
 
@@ -68,21 +68,25 @@ export default class Story extends Component {
     })
 
     return (
-      <div className={classes}>
-        <SideBar activeIndex={activeMomentIndex} onSelect={handleSelectMoment}>
-          {children}
-        </SideBar>
-        <div className="story-story__moments">
-          <AwesomeSlider
-            cssModule={AwesomeSliderStyles}
-            bullets={false}
-            organicArrows={false}
-            selected={activeMomentIndex}
-          >
-            {moments}
-          </AwesomeSlider>
+      <MuiThemeProvider theme={createMuiTheme()}>
+        <MuiThemeProvider theme={createMuiTheme()}>
+        <div className={classes}>
+          <SideBar activeIndex={activeMomentIndex} onSelect={handleSelectMoment}>
+            {children}
+          </SideBar>
+          <div className="story-story__moments">
+            <AwesomeSlider
+              cssModule={AwesomeSliderStyles}
+              bullets={false}
+              organicArrows={false}
+              selected={activeMomentIndex}
+            >
+              {moments}
+            </AwesomeSlider>
+          </div>
         </div>
-      </div>
+        </MuiThemeProvider>
+      </MuiThemeProvider>
     );
   }
 }
