@@ -6,6 +6,21 @@ import nextId from "react-id-generator";
 import './style.scss';
 
 
+// TODO: Add dynamic coloring
+// TODO: Figure out Mirador theme clashing
+const theme = {
+  // palette: {
+  //     type: 'light',
+  //     primary: {
+  //       main: '#556542', // Controls the color of the Add button and current window indicator
+  //     },
+  //     secondary: {
+  //       main: '#556542', // Controls the color of Selects and FormControls
+  //     },
+  //     section_divider: 'rgba(0, 0, 0, 0.25)',
+  //   },
+};
+
 /**
 * Mirador viewer component.
 */
@@ -27,10 +42,13 @@ export default class Mirador extends Component {
   componentDidMount() {
     const { config, plugins } = this.props;
     config.id = this.htmlId;
+    config.theme = theme;
     mirador.viewer(config, plugins);
   };
 
   render() {
-    return <div id={this.htmlId} className="story-mirador" />;
+    return (
+      <div id={this.htmlId} className="story-mirador" />
+    );
   };
 }

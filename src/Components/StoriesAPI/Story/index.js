@@ -15,6 +15,8 @@ export default class StoriesAPIStory extends Component {
   static propTypes = {
     /** API Key to interact with the StoriesAPI */
     apiKey: PropTypes.string,
+    /** StoriesAPI collection id */
+    collection: PropTypes.number,
     /** Override `StoriesAPI` data fetching to use custom data */
     data: PropTypes.object,
     /** `StoriesAPI` endpoint URL */
@@ -27,6 +29,7 @@ export default class StoriesAPIStory extends Component {
   };
 
   static defaultProps = {
+    collection: null,
     data: null,
     endpoint: process.env.STORIES_API_URL,
     options: {},
@@ -52,8 +55,8 @@ export default class StoriesAPIStory extends Component {
   };
 
   fetchData(callback) {
-    const { endpoint, id } = this.props;
-    return this.client.get(id, story => {
+    const { collection, endpoint, id } = this.props;
+    return this.client.get(id, collection, story => {
        this.setState({data: story});
        return callback(story);
      });
