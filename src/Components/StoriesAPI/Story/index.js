@@ -14,7 +14,7 @@ import './style.scss';
 export default class StoriesAPIStory extends Component {
   static propTypes = {
     /** API Key to interact with the StoriesAPI */
-    apiKey: PropTypes.string,
+    apiKey: PropTypes.string.isRequired,
     /** StoriesAPI collection id */
     collection: PropTypes.number,
     /** Override `StoriesAPI` data fetching to use custom data */
@@ -37,12 +37,13 @@ export default class StoriesAPIStory extends Component {
 
   constructor(props) {
     super(props);
+    const { apiKey, data, endpoint } = props;
     this.state = {
-      loading: props.data ? false : true,
-      data: props.data,
+      loading: data ? false : true,
+      data: data,
     };
 
-    this.client = new StoriesAPIClient(props.endpoint);
+    this.client = new StoriesAPIClient(endpoint, apiKey);
   };
 
   componentDidMount() {
