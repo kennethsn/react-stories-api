@@ -2,8 +2,9 @@ import axios from "axios";
 
 export default class StoriesAPIClient {
 
-  constructor(baseUrl) {
+  constructor(baseUrl, apiKey) {
     this.baseUrl = baseUrl;
+    this.apiKey = apiKey;
     this.client = this.buildClient();
   };
 
@@ -11,6 +12,8 @@ export default class StoriesAPIClient {
     const storyAPIRequest = axios.create();
 
     storyAPIRequest.interceptors.request.use(config => {
+      // Set API Key
+      config.headers.Authorization = "Api-Key " + this.apiKey;
       // Parse slug with base url
       config.url = `${this.baseUrl}/api/story/${config.url}`;
       return config;
