@@ -57,7 +57,7 @@ export default class StoriesAPIStory extends Component {
 
   fetchData(callback) {
     const { collection, endpoint, id } = this.props;
-    return this.client.get(id, collection, story => {
+    return this.client.story(id, collection, null, story => {
        this.setState({data: story});
        return callback(story);
      });

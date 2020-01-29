@@ -15,7 +15,7 @@ export default class StoriesAPIClient {
       // Set API Key
       config.headers.Authorization = "Api-Key " + this.apiKey;
       // Parse slug with base url
-      config.url = `${this.baseUrl}/api/story/${config.url}`;
+      config.url = `${this.baseUrl}/api/${config.url}`;
       return config;
     });
 
@@ -23,12 +23,9 @@ export default class StoriesAPIClient {
       return response.data;
     });
     return storyAPIRequest;
-  }
+  };
 
-  get(slug, collection, callback, err){
-    if (collection !== null){
-      slug += `?collection=${collection}`;
-    }
+  request(slug, callback, err){
     return this.client.get(slug)
     .then(data => {
       return callback(data);
@@ -36,5 +33,19 @@ export default class StoriesAPIClient {
       console.log(error);
       return err(error);
     })
-  }
+  };
+
+  story(slug, collection, page, callback, err){
+    if (collection !== null){
+      slug += `?collection=${collection}`;
+      if (page) {
+        slug += `&page=${page}`;
+      };
+    };
+    return this.request("story/"+slug, callback, err);
+  };
+
+  collection(slug, callback, err){
+    return this.request("collection/"+slug, callback, err);
+  };
 }
