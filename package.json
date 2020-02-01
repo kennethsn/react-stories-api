@@ -1,6 +1,6 @@
 {
   "name": "react-stories-api",
-  "version": "0.0.1-dev-5",
+  "version": "0.0.1-dev-6",
   "description": "React Components for building interactive data storytelling interfaces with the Stories API",
   "author": "kennethsn",
   "license": "MIT",

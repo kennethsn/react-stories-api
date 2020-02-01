@@ -9,7 +9,8 @@ export default class App extends Component {
       <StoriesAPIStory
         id="Q11641"
         endpoint="https://stories-api-stage.herokuapp.com"
-        apiKey="<api-key-here>"
+        collection={1}
+        apiKey="G69Rkdmn.kpTHArUusmaUDNizmsEnbmZzHm3kn6Ul"
       />
     )
   }
