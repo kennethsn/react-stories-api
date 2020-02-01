@@ -19,5 +19,17 @@ export const testData = {
     "https://iiif.biblissima.fr/chateauroux/B360446201_MS0005/manifest.json": { provider: "Biblissima"},
     "https://iiif.durham.ac.uk/manifests/trifle/32150/t1/m4/q7/t1m4q77fr328/manifest": { provider: "Durham University Library"},
     // "https://iiif.vam.ac.uk/collections/O1023003/manifest.json": { provider: "Ocean liners"},
+  },
+  theme: {
+    palette: {
+        type: 'light',
+        primary: {
+          main: '#556542', // Controls the color of the Add button and current window indicator
+        },
+        secondary: {
+          main: '#556542', // Controls the color of Selects and FormControls
+        },
+        section_divider: 'rgba(0, 0, 0, 0.25)',
+      },
   }
 }

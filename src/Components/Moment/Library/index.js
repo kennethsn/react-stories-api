@@ -97,15 +97,14 @@ export default class LibraryMoment extends Component {
   renderMirador() {
     const { currentBook } = this.state;
 
-    if (!currentBook) return null;
+    if (!(currentBook && currentBook.manifest_url)) return null;
 
-    const { manifest_url, provider } = currentBook;
+    const { manifest_url, provider="IIIF Resource" } = currentBook;
     const config = {
       manifests: {},
       windows: [{manifestId: manifest_url, "view": "gallery"}],
     };
     config.manifests[manifest_url] = { provider };
-
     return <Mirador config={config} />;
   };
 
@@ -117,7 +116,6 @@ export default class LibraryMoment extends Component {
         className="story-library-dialog"
         open={dialog}
         TransitionComponent={Transition}
-        keepMounted
         onClose={this.handleCloseDialog}
       >
         {this.renderMirador()}
