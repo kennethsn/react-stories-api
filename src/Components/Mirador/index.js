@@ -1,5 +1,6 @@
 // Adapted from https://github.com/ProjectMirador/mirador/blob/master/src/lib/MiradorViewer.js
 import React, { Component } from 'react';
+import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import deepmerge from 'deepmerge';
 import PluginProvider from 'mirador/dist/es/src/extend/PluginProvider';
 import App from 'mirador/dist/es/src/containers/App';
@@ -96,19 +97,21 @@ export default class Mirador extends Component {
 
   render(){
     return (
-      <div
-        className={"story-mirador "+this.props.className}
-        style={this.props.style}
-      >
-        <Provider store={this.state.store}>
-          <PluginProvider
-            plugins={this.props.plugins}
-            createRootReducer={createRootReducer}
-          >
-            <App />
-          </PluginProvider>
-        </Provider>
-      </div>
+      <MuiThemeProvider theme={createMuiTheme()}>
+        <div
+          className={"story-mirador "+this.props.className}
+          style={this.props.style}
+        >
+          <Provider store={this.state.store}>
+            <PluginProvider
+              plugins={this.props.plugins}
+              createRootReducer={createRootReducer}
+            >
+              <App />
+            </PluginProvider>
+          </Provider>
+        </div>
+      </MuiThemeProvider>
     )
   }
 };

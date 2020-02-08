@@ -1,4 +1,5 @@
 // Primary Components:
+export StoriesAPICollection from './StoriesAPI/Collection';
 export StoriesAPIStory from './StoriesAPI/Story';
 export Story from './Story';
 

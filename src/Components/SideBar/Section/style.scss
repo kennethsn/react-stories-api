@@ -14,8 +14,8 @@
   }
 
   &.--active {
-    opacity: 50%;
-    
+    opacity: .5;
+
     .story-card__section, .story-card__section:hover {
       color: $primary-color;
       background: darken($main-background-color, 10%);

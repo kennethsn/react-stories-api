@@ -1,5 +1,5 @@
+import { StoriesAPIStory } from "./Components";
 import './theme.scss';
-import * as StoriesAPIComponents from './Components';
-export { StoriesAPIComponents };
 
-export default StoriesAPIComponents.StoriesAPIStory;
+export * from './Components';
+export default StoriesAPIStory;
