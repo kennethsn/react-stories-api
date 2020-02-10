@@ -15,7 +15,7 @@ export const mapStyle = {
   "osm": {
     "type": "raster",
     "tiles": [
-      "http://tile.openstreetmap.org/{z}/{x}/{y}.png"
+      "https://tile.openstreetmap.org/{z}/{x}/{y}.png"
     ],
     "minzoom": 0,
     "maxzoom": 14,
