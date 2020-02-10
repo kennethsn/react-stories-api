@@ -32,6 +32,8 @@ export default class MerryGoRoundMoment extends Component {
     label: PropTypes.string,
     /** Render function to fill the `SideBar` `Drawer`. */
     sideBarContent: PropTypes.func.isRequired,
+    /** Class name for the `SideBar` `Drawer` root. */
+    sideBarClassName: PropTypes.string,
     /** Styling object of the moment body container */
     style: PropTypes.object,
     /** Paragraph text underneath the title in `Moment` header */
