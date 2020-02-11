@@ -13,17 +13,22 @@ npm install --save react-stories-api
 ## Usage
 
 ```jsx
-import React, { Component } from 'react'
+import React from 'react';
+import StoriesAPIStory from 'react-stories-api';
 
-import MyComponent from 'react-stories-api'
-
-class Example extends Component {
+class App extends Component {
   render () {
     return (
-      <MyComponent />
+      <StoriesAPIStory
+        id="Q11641"
+        endpoint="<stories-api-endpoint>"
+        collection="<collection-id-here>"
+        apiKey="<api-key-here>"
+      />
     )
   }
 }
+
 ```
 
 ## License
