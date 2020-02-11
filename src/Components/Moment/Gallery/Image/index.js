@@ -1,9 +1,18 @@
-import React, { Component } from 'react';
-import { Dialog, Divider, Slide } from '@material-ui/core';
+import React, { useState } from 'react';
+import { Dialog, Divider, makeStyles, Slide } from '@material-ui/core';
 import PropTypes from 'prop-types';
 
 import CardHeader from '../../../Card/Header';
 import './style.scss';
+
+
+const useStyles = makeStyles(theme => ({
+  dialog: {
+    background: "none",
+    boxShadow: "none",
+    maxWidth: "60vw",
+  }
+}));
 
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -14,54 +23,20 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 /**
  * Gallery image formatting component
  */
-export default class GalleryImage extends Component {
-  static propTypes = {
-    /** Determines the background and text color of the `Image` label. */
-    color: PropTypes.shape({
-      background: PropTypes.string,
-      text: PropTypes.string,
-    }),
-    /** Content to go underneath the title in a detail page */
-    content: PropTypes.any,
-    /** Determines the main text of the `Image`. */
-    label: PropTypes.string,
-    /** Determines if the layout should emphasize the text or the image. */
-    noImage: PropTypes.bool,
-    /** The destination URL of the `Image` */
-    src: PropTypes.string.isRequired,
-  }
+function GalleryImage(props) {
+  const { className, color, content, label, noImage, style, src } = props;
+  const classes = useStyles();
+  const [active, setActive] = useState(false);
 
-  static defaultProps = {
-    color: {
-      background: "#ffc7ed9e",
-      text: '#000',
-    },
-    noImage: false,
-    style: {},
-  }
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      active: false
-    };
-
-    this.handleCloseDialog = this.handleCloseDialog.bind(this);
-    this.handleOpenDialog = this.handleOpenDialog.bind(this);
+  const handleCloseDialog = () => {
+    setActive(false);
   };
 
-  handleOpenDialog(){
-    this.setState({active: true});
-  }
+  const handleOpenDialog = () => {
+    setActive(true);
+  };
 
-  handleCloseDialog(){
-    this.setState({active: false});
-  }
-
-  renderDialog(){
-    const { active } = this.state;
-    const { content, label, noImage, src } = this.props;
-
+  const renderDialog = () => {
     let dialogClasses = "story-gallery-dialog";
     if (noImage) dialogClasses += ' no-image-layout';
 
@@ -71,7 +46,8 @@ export default class GalleryImage extends Component {
         open={active}
         TransitionComponent={Transition}
         keepMounted
-        onClose={this.handleCloseDialog}
+        onClose={handleCloseDialog}
+        classes={{paper: classes.dialog}}
       >
       {noImage ? (
         <div
@@ -83,7 +59,7 @@ export default class GalleryImage extends Component {
             <Divider />
             <div className="lightbox-content">{content}</div>
           </div>
-          <div className="close-btn" onClick={this.handleCloseDialog}>X</div>
+          <div className="close-btn" onClick={handleCloseDialog}>X</div>
         </div>
       ) : (
         <div className="story-gallery-dialog-body">
@@ -93,36 +69,60 @@ export default class GalleryImage extends Component {
             <Divider />
             <div className="lightbox-content">{content}</div>
           </div>
-          <div className="close-btn" onClick={this.handleCloseDialog}>X</div>
+          <div className="close-btn" onClick={handleCloseDialog}>X</div>
         </div>
       )}
       </Dialog>
     )
-  }
+  };
 
-  render() {
-    const { color, label, noImage, style, src } = this.props;
-    const { active } = this.state;
 
-    const contentStyle = {
-      color: color.text,
-      textShadow: `3px 2px 0px ${color.background}`
-    };
-    const imageStyle = {...style, backgroundImage: `url(${src})`};
-    let containerClasses = "story-gallery-image-container";
-    if (noImage) containerClasses += ' no-image-layout';
-    return (
-      <div className={containerClasses}>
-        <div style={imageStyle}
-          className="story-gallery-image"
-          onClick={this.handleOpenDialog}
-        >
-          <div className="story-gallery-image__contents" style={contentStyle}>
-            <div className="story-gallery-image__contents-label">{label}</div>
-          </div>
+
+  const contentStyle = {
+    color: color.text,
+    textShadow: `3px 2px 0px ${color.background}`
+  };
+  const imageStyle = {...style, backgroundImage: `url(${src})`};
+  let containerClasses = className + " story-gallery-image-container";
+  if (noImage) containerClasses += ' no-image-layout';
+  return (
+    <div className={containerClasses}>
+      <div style={imageStyle}
+        className="story-gallery-image"
+        onClick={handleOpenDialog}
+      >
+        <div className="story-gallery-image__contents" style={contentStyle}>
+          <div className="story-gallery-image__contents-label">{label}</div>
         </div>
-        {this.renderDialog()}
       </div>
-    )
-  }
-}
+      {renderDialog()}
+    </div>
+  )
+};
+
+GalleryImage.propTypes = {
+  /** Determines the background and text color of the `Image` label. */
+  color: PropTypes.shape({
+    background: PropTypes.string,
+    text: PropTypes.string,
+  }),
+  /** Content to go underneath the title in a detail page */
+  content: PropTypes.any,
+  /** Determines the main text of the `Image`. */
+  label: PropTypes.string,
+  /** Determines if the layout should emphasize the text or the image. */
+  noImage: PropTypes.bool,
+  /** The destination URL of the `Image` */
+  src: PropTypes.string.isRequired,
+};
+
+GalleryImage.defaultProps = {
+  color: {
+    background: "#ffc7ed9e",
+    text: '#000',
+  },
+  noImage: false,
+  style: {},
+};
+
+export default GalleryImage;

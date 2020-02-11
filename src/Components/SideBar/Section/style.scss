@@ -1,4 +1,4 @@
-@import "../style.scss";
+@import "../../style.scss";
 
 .story-sidebar__section {
   cursor: pointer;
@@ -27,12 +27,8 @@
     font-size: 85%;
     transition-duration: .5s;
     transition-timing-function: ease-in-out;
-    text-align: left;
-    padding: 10px 20px;
+    padding: 30px 10px;
     font-weight: 400;
-    overflow-wrap: break-word;
-    display: flex;
-    align-items: center;
 
     &:hover {
       background: $primary-color;
@@ -43,13 +39,12 @@
     .story-icon {
       text-align: center;
       opacity: .6;
-      float: left;
-      width: 2.5em;
+      width: 100%;
       filter: grayscale(100%);
     }
 
-    .story-pipe {
-      margin-right: 10px;
+    .story-sidebar-text {
+      text-align: left;
     }
   }
 }

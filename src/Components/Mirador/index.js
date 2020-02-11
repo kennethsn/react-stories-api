@@ -22,6 +22,8 @@ import './style.scss';
 */
 export default class Mirador extends Component {
   static propTypes = {
+    /** Set a classname of the mirador Component */
+    className: PropTypes.string,
     /** Configuration options for the viewer */
     config: PropTypes.object,
     /** Specifiy any additional plugins to render */

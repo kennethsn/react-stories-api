@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import AwesomeSlider from 'react-awesome-slider';
 import AwesomeSliderStyles from 'react-awesome-slider/src/styled/scale-out-animation';
-import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles'
 import { classList } from '../../utils';
 import SideBar from '../SideBar';
 
@@ -50,7 +49,7 @@ export default class Story extends Component {
 
   render() {
     const { handleSelectMoment } = this;
-    const { children, type } = this.props;
+    const { children, label, logo, type } = this.props;
     const { activeMomentIndex } = this.state;
 
     const classes = classList(
@@ -68,25 +67,26 @@ export default class Story extends Component {
     })
 
     return (
-      <ThemeProvider theme={createMuiTheme()}>
-        <ThemeProvider theme={createMuiTheme()}>
-        <div className={classes}>
-          <SideBar activeIndex={activeMomentIndex} onSelect={handleSelectMoment}>
-            {children}
-          </SideBar>
-          <div className="story-story__moments">
-            <AwesomeSlider
-              cssModule={AwesomeSliderStyles}
-              bullets={false}
-              organicArrows={false}
-              selected={activeMomentIndex}
-            >
-              {moments}
-            </AwesomeSlider>
-          </div>
+      <div className={classes}>
+        <SideBar
+          activeIndex={activeMomentIndex}
+          onSelect={handleSelectMoment}
+          title={label}
+          logo={logo}
+        >
+          {children}
+        </SideBar>
+        <div className="story-story__moments">
+          <AwesomeSlider
+            cssModule={AwesomeSliderStyles}
+            bullets={false}
+            organicArrows={false}
+            selected={activeMomentIndex}
+          >
+            {moments}
+          </AwesomeSlider>
         </div>
-        </ThemeProvider>
-      </ThemeProvider>
+      </div>
     );
   }
 }

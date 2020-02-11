@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
+import { Divider, Grid, Typography } from '@material-ui/core';
 import PropTypes from 'prop-types';
 
 import { classList } from '../../../utils';
 import CardSection from '../../Card/Section';
 import FontAwesomeIcon from '../../Icon/FontAwesome';
-import Pipe from '../../Pipe';
 
 import './style.scss';
 
@@ -63,7 +63,7 @@ export default class SideBarSection extends Component {
     const { isHovered } = this.state;
     const { handleClick, handleHover } = this;
 
-    const cardSectionStyle = {};
+    const cardSectionStyle = {textAlign: "center"};
     let eventClass = '';
     if (isActive) {
       eventClass = '--active';
@@ -89,7 +89,19 @@ export default class SideBarSection extends Component {
         onMouseEnter={handleHover}
         onMouseLeave={handleHover}>
         <CardSection style={cardSectionStyle}>
-          {icon} <Pipe type="thin" /> {text}
+          <Grid container>
+            <Grid item xs={3}>
+              {icon}
+            </Grid>
+            <Grid item xs={1}>
+              <Divider orientation="vertical"/>
+            </Grid>
+            <Grid item xs={8} className="story-sidebar-text">
+              <Typography variant="subtitle2">
+                {text}
+              </Typography>
+            </Grid>
+          </Grid>
         </CardSection>
       </div>
     )

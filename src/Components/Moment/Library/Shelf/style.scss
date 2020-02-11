@@ -1,4 +1,4 @@
-@import "../style.scss";
+@import "../../style.scss";
 
 .story-library-shelf {
 
@@ -12,7 +12,7 @@
   }
 
   &__carousel {
-    margin: 0 100px;
+    margin: 0 calc(100px + 5%);
 
     .react-multiple-carousel__arrow {
       bottom: 0;
