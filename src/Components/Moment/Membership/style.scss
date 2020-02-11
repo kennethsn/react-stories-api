@@ -35,17 +35,28 @@
 }
 
 .story-membership-dialog {
-
+  .MuiDialog-paper {
+    max-width: 70vw;
+    background: $white-transparent;
+  }
+  &-left  {
+    .story-card__image {
+      max-height: 80vh;
+      img {
+        object-fit: contain;
+      }
+    }
+  }
   &-right {
+    background: $black;
     .story-card {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
+      background: $white;
+      height: auto;
     }
 
     .story-card__image {
       max-height: 35%;
-      padding: 10px;
+      padding: 0;
       margin-bottom: 10px;
 
       img {
