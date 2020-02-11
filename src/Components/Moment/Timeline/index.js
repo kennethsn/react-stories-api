@@ -96,7 +96,6 @@ export default class TimelineMoment extends Component {
 
     return (
       <MomentBase {...this.props} layout={layout}>
-      <div className="timeline-wrapper">
         <VerticalTimeline>
           {
             data.map(ctx => (
@@ -111,7 +110,6 @@ export default class TimelineMoment extends Component {
             ))
           }
         </VerticalTimeline>
-      </div>
       </MomentBase>
     )
   }

@@ -22,12 +22,13 @@ const useStyles = makeStyles(theme => ({
   dialog: {
       minWidth: "80vw",
       maxWidth: "95vw",
-
   },
   library: {
     background: theme.palette.background.paper,
     maxHeight: "100vh",
     overflowY: "scroll",
+    paddingTop: theme.spacing(5),
+    paddingBottom: theme.spacing(10),
   },
   mirador: {
     height: "80vh !important",

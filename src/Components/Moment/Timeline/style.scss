@@ -4,12 +4,9 @@
 
   .story-moment__content__body {
 
-    .timeline-wrapper {
-      max-height: 100vh;
-      overflow-y: scroll;
-      width: 100%;
-      padding: 20px;
-      background: $foreground-primary-color;
+    padding: 50px;
+    padding-bottom: 100px;
+    background: $foreground-primary-color;
 
       .story-timeline__element {
 
@@ -21,6 +18,5 @@
           content: unset;
         }
       }
-    }
   }
 }
