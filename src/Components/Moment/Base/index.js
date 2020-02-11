@@ -11,6 +11,8 @@ import './style.scss';
  */
 export default class MomentBase extends Component {
   static propTypes = {
+    /** Determines the body className. */
+    bodyClassName: PropTypes.string,
     /** Determines the background and text color of the `Moment` header. */
     color: PropTypes.shape({
       background: PropTypes.string,
@@ -32,6 +34,7 @@ export default class MomentBase extends Component {
     type: PropTypes.string,
   }
   static defaultProps = {
+    bodyClassName: "",
     color: {
       background: "gray",
       text: "white"
@@ -42,7 +45,7 @@ export default class MomentBase extends Component {
 
   render() {
     const {
-      children, color, index, layout, subtitle, title, type
+      bodyClassName, children, color, index, layout, subtitle, title, type
     } = this.props;
     const classes = classList(
       'story-moment',
@@ -62,7 +65,7 @@ export default class MomentBase extends Component {
                 {subtitle}
               </div>
             </div>
-            <div className="story-moment__content__body">
+            <div className={"story-moment__content__body "+ bodyClassName}>
               {children}
             </div>
           </div>
