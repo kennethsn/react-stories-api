@@ -28,7 +28,7 @@ const useStyles = makeStyles(theme => ({
     maxHeight: "100vh",
     overflowY: "scroll",
     paddingTop: theme.spacing(5),
-    paddingBottom: theme.spacing(10),
+    paddingBottom: "35vh",
   },
   mirador: {
     height: "80vh !important",

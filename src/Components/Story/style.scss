@@ -5,11 +5,7 @@
   .story-sidebar {
     z-index: 1000;
     width: 180px;
-    min-height: 100%;story-story__moments
-
-    .story-card__section {
-
-    }
+    min-height: 100%;
   }
 
   &__moments {
@@ -22,10 +18,6 @@
     &__moment-container {
       height: 100%;
       width: 100%;
-
-      .story-card {
-        box-shadow: none;
-      }
     }
   }
 }
