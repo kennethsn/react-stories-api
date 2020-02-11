@@ -205,6 +205,8 @@
         .badge-logo {
           font-size: 144px;
           bottom: 50px;
+          left: 15px;
+          text-align: left;
 
           .story-icon > img {
             max-height: 130px;
@@ -221,10 +223,10 @@
           transition: 0.6s 1.6s cubic-bezier(0.215, 0.61, 0.355, 1);
 
           &__item {
+            text-align: left;
             margin-bottom: 15px;
-            
+
             &__prop {
-              text-align: left;
               font-weight: 500;
             }
 

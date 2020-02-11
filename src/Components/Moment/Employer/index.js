@@ -121,7 +121,7 @@ export default class EmployerMoment extends Component {
   render() {
     return (
       <MomentBase {...this.props} layout="employer">
-        { this.renderSections() }
+        {this.renderSections()}
       </MomentBase>
     )
   };

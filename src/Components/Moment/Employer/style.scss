@@ -15,7 +15,7 @@
         transform: skewY(-6deg);
         transform-origin: top left;
         content: " ";
-        height: 100px;
+        height: 25%;
         width: 100%;
         position: absolute;
         top: 0;
@@ -40,6 +40,7 @@
 
           .employer-info-box {
             max-width: 40%;
+            z-index: 1;
 
             .story-card__header {
               font-family: $typewiter-font;
