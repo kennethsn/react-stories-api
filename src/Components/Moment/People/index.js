@@ -13,7 +13,7 @@ import SideScrollMoment from '../SlideScroll';
 
 const useStyles = makeStyles(theme => ({
   body: {
-    background: theme.palette.background.paper,
+    background: theme.palette.background.default,
   }
 }));
 

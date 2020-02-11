@@ -1,24 +1,40 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
+import React from 'react';
+import { makeStyles, Typography } from '@material-ui/core';
+import PropTypes from 'prop-types';
 
-import './style.scss';
+const useStyles = makeStyles(theme => ({
+  section: {
+    borderBottom: "2px dotted #606060",
+    padding: "15px 5px",
+    display: "block",
+    background: "#f5f5f5",
+    textAlign: "center",
+  }
+}));
+
 
  /**
   * Section for a Card Component.
   */
-export default class CardSection extends Component {
-  static propTypes = {
-    /** Styling object of the `Card` */
-    style: PropTypes.object
-  };
+function CardSection (props){
+  const { children, style } = props;
+  const classes = useStyles();
 
-  static defaultProps = {
-  };
-
-  render() {
-    const { children, style } = this.props;
-    return (
-      <div className="story-card__section" style={style}>{children}</div>
-    )
-  }
+  return (
+    <div className={classes.section + " story-card__section"} style={style}>
+      <Typography variant="caption">
+        {children}
+      </Typography>
+    </div>
+  )
 }
+
+CardSection.propTypes = {
+  /** Styling object of the `Card` */
+  style: PropTypes.object
+};
+
+CardSection.defaultProps = {
+};
+
+export default CardSection;
