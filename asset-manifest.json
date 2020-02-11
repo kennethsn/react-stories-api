@@ -1,27 +1,27 @@
 {
   "files": {
-    "main.css": "/react-stories-api/static/css/main.913a50d3.chunk.css",
-    "main.js": "/react-stories-api/static/js/main.b8a652be.chunk.js",
-    "main.js.map": "/react-stories-api/static/js/main.b8a652be.chunk.js.map",
+    "main.css": "/react-stories-api/static/css/main.20ecd1bc.chunk.css",
+    "main.js": "/react-stories-api/static/js/main.fec0787a.chunk.js",
+    "main.js.map": "/react-stories-api/static/js/main.fec0787a.chunk.js.map",
     "runtime-main.js": "/react-stories-api/static/js/runtime-main.0de5d532.js",
     "runtime-main.js.map": "/react-stories-api/static/js/runtime-main.0de5d532.js.map",
     "static/css/2.c54dfc9e.chunk.css": "/react-stories-api/static/css/2.c54dfc9e.chunk.css",
-    "static/js/2.6f8133dc.chunk.js": "/react-stories-api/static/js/2.6f8133dc.chunk.js",
-    "static/js/2.6f8133dc.chunk.js.map": "/react-stories-api/static/js/2.6f8133dc.chunk.js.map",
+    "static/js/2.9a2a0c66.chunk.js": "/react-stories-api/static/js/2.9a2a0c66.chunk.js",
+    "static/js/2.9a2a0c66.chunk.js.map": "/react-stories-api/static/js/2.9a2a0c66.chunk.js.map",
     "index.html": "/react-stories-api/index.html",
-    "precache-manifest.9b3a1f2ab2ace36ffe7427fb3cbf83d9.js": "/react-stories-api/precache-manifest.9b3a1f2ab2ace36ffe7427fb3cbf83d9.js",
+    "precache-manifest.fdcf473ec86cfcf9641a6eb382313d06.js": "/react-stories-api/precache-manifest.fdcf473ec86cfcf9641a6eb382313d06.js",
     "service-worker.js": "/react-stories-api/service-worker.js",
     "static/css/2.c54dfc9e.chunk.css.map": "/react-stories-api/static/css/2.c54dfc9e.chunk.css.map",
-    "static/css/main.913a50d3.chunk.css.map": "/react-stories-api/static/css/main.913a50d3.chunk.css.map",
-    "static/js/2.6f8133dc.chunk.js.LICENSE": "/react-stories-api/static/js/2.6f8133dc.chunk.js.LICENSE",
+    "static/css/main.20ecd1bc.chunk.css.map": "/react-stories-api/static/css/main.20ecd1bc.chunk.css.map",
+    "static/js/2.9a2a0c66.chunk.js.LICENSE": "/react-stories-api/static/js/2.9a2a0c66.chunk.js.LICENSE",
     "static/media/background.jpg": "/react-stories-api/static/media/background.d2fcd304.jpg",
     "static/media/styles.css": "/react-stories-api/static/media/revicons.2feb69cc.eot"
   },
   "entrypoints": [
     "static/js/runtime-main.0de5d532.js",
     "static/css/2.c54dfc9e.chunk.css",
-    "static/js/2.6f8133dc.chunk.js",
-    "static/css/main.913a50d3.chunk.css",
-    "static/js/main.b8a652be.chunk.js"
+    "static/js/2.9a2a0c66.chunk.js",
+    "static/css/main.20ecd1bc.chunk.css",
+    "static/js/main.fec0787a.chunk.js"
   ]
 }
