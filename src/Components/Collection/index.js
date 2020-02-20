@@ -37,7 +37,7 @@ const useStyles = makeStyles(theme => ({
   */
 export default function Collection(props) {
   const {
-    count, name, stories, onPageChange, page, urlFormatter="$id"
+    count, description, name, stories, onPageChange, page, urlFormatter="$id"
   } = props;
 
   const classes = useStyles();
@@ -101,6 +101,11 @@ export default function Collection(props) {
         <Typography variant="h2" color="primary">
           {name}
         </Typography>
+        {description && (
+          <Typography variant="h6" color="textSecondary">
+            {description}
+          </Typography>
+        )}
         {count && (
           <Typography variant="overline" color="textSecondary">
             {count} Stor{count === 1 ? "y" : "ies"} in this Collection
