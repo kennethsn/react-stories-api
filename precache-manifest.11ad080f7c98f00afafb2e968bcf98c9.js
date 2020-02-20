@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "73ae04513d4485c30bc21b5f512bdf6f",
+    "revision": "1ce9abb2e5fa3fe84fcafd06c69944f6",
     "url": "/react-stories-api/index.html"
   },
   {
@@ -8,8 +8,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/react-stories-api/static/css/2.c54dfc9e.chunk.css"
   },
   {
-    "revision": "0e4e66993fd5d5c53db5",
-    "url": "/react-stories-api/static/css/main.20ecd1bc.chunk.css"
+    "revision": "ff0fab2239a9b0c3efb8",
+    "url": "/react-stories-api/static/css/main.d27d1439.chunk.css"
   },
   {
     "revision": "be31157b0dfb0b7b5119",
@@ -20,8 +20,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/react-stories-api/static/js/2.9a2a0c66.chunk.js.LICENSE"
   },
   {
-    "revision": "0e4e66993fd5d5c53db5",
-    "url": "/react-stories-api/static/js/main.fec0787a.chunk.js"
+    "revision": "ff0fab2239a9b0c3efb8",
+    "url": "/react-stories-api/static/js/main.1bced1d6.chunk.js"
   },
   {
     "revision": "348e7d7d22842025e27f",
