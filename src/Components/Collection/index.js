@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {
-  Button, Card, CardActions, CardContent, Divider, Grid, makeStyles, Typography,
+  Button, Card, CardActions, CardContent, CardMedia, Divider, Grid, makeStyles, Typography,
 } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import ReactPaginate from 'react-paginate';
@@ -42,11 +42,18 @@ export default function Collection(props) {
 
   const classes = useStyles();
   const renderCard = (storyData) => {
-    const { description, id, label } = storyData;
+    const { description, id, image, label } = storyData;
     const url = urlFormatter.replace('$id', id);
 
     return (
-      <Card style={{padding: 5}}>
+      <Card>
+        {image && (
+          <CardMedia
+            component="img"
+            image={image}
+            title={`image of ${label}`}
+          />
+        )}
         <CardContent>
           <Typography variant="h5">
             {label}
