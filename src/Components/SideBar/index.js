@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Divider, makeStyles, Typography } from '@material-ui/core';
+import { Button, CardMedia, Divider, makeStyles, Typography } from '@material-ui/core';
 import PropTypes from 'prop-types';
 
 import { STORIES_API_HOMEPAGE } from '../../constants';
@@ -16,6 +16,10 @@ const useStyles = makeStyles(theme => ({
     overflowY: "scroll",
     background: theme.palette.background.default,
     boxShadow: theme.shadows[3],
+  },
+  image: {
+    textAlign: "center",
+    marginBottom: theme.spacing(5),
   },
   title: {
     textAlign: "center",
@@ -39,7 +43,7 @@ const useStyles = makeStyles(theme => ({
   * Story SideBar component.
   */
 function SideBar(props) {
-  const { activeIndex, children, type, onSelect, logo, title } = props;
+  const { activeIndex, children, description, image, type, onSelect, logo, title } = props;
   const classes = useStyles();
   const renderSections = () => {
     return React.Children.map(children, (moment) => {
@@ -75,18 +79,26 @@ function SideBar(props) {
           {logo}
         </div>
       )}
-      {title && (
+
+      {(title || description) && (
         <div className={classes.title}>
-          <Typography
-            color="primary"
-            variant="overline"
-          >
+          <Typography color="primary" variant="overline">
             {title}
             <Divider />
           </Typography>
+          <Typography color="textSecondary" variant="caption">
+            {description}
+          </Typography>
         </div>
       )}
-
+      {image && (
+        <CardMedia
+          className={classes.image}
+          component="img"
+          image={image}
+          title={`image of ${title}`}
+        />
+      )}
       {renderSections()}
       <div className={classes.footer}>
         <Button
@@ -108,6 +120,8 @@ SideBar.propTypes = {
   logo: PropTypes.any,
   onSelect: PropTypes.func,
   title: PropTypes.string,
+  description: PropTypes.string,
+  image: PropTypes.string,
 };
 
 SideBar.defaultProps = {
