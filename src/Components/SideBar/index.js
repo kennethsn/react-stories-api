@@ -20,7 +20,7 @@ const useStyles = makeStyles(theme => ({
   image: {
     textAlign: "center",
     filter: "grayscale(100%)",
-    opacity: .8,
+    opacity: .6,
     transition: "all 2s",
     "&:hover": {
       filter: 'grayscale(10%)'
