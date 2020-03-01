@@ -14,12 +14,20 @@ const useStyles = makeStyles(theme => ({
     background: theme.palette.background.default,
   },
   simple: {
-    marginTop: theme.spacing(5),
-    marginBottom: theme.spacing(10),
     maxWidth: "100%",
-    maxHeight: "80vh",
+    objectFit: "cover",
+    width: "100%",
+    maxHeight: "70vh",
     boxShadow: theme.shadows[8]
-  }
+  },
+  simpleGrid: {
+    padding: theme.spacing(8),
+  },
+  simpleGridContainer: {
+    overflowY: "scroll",
+    maxHeight: "100vh",
+    paddingBottom: "30vh",
+  },
 }));
 
 
@@ -39,8 +47,12 @@ function ImageMoment(props){
   return (
     <MomentBase bodyClassName={classes.momentBody} {...props} layout={layout}>
       {!caption ? (
-        <Grid container justify="center">
-          <Grid item xs={8}>
+        <Grid
+          container
+          justify="center"
+          className={classes.simpleGridContainer}
+        >
+          <Grid item xs={10} md={8} className={classes.simpleGrid}>
             <img className={classes.simple} src={url} alt={label}/>
           </Grid>
         </Grid>

@@ -49,7 +49,7 @@ export default class Story extends Component {
 
   render() {
     const { handleSelectMoment } = this;
-    const { children, label, logo, type } = this.props;
+    const { children, image, description, label, logo, type } = this.props;
     const { activeMomentIndex } = this.state;
 
     const classes = classList(
@@ -73,6 +73,8 @@ export default class Story extends Component {
           onSelect={handleSelectMoment}
           title={label}
           logo={logo}
+          image={image}
+          description={description}
         >
           {children}
         </SideBar>

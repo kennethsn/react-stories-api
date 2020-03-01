@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import { Button, CssBaseline, Divider, Drawer } from '@material-ui/core';
+import { Button, CssBaseline, Divider, Drawer, Grid } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import { MdArrowBack, MdArrowForward } from 'react-icons/md';
 
@@ -53,9 +53,12 @@ export default class MerryGoRoundMoment extends Component {
 
   constructor(props) {
     super(props);
+    const horseCount = props.children.length;
     this.state = {
       currentHorse: null,
       sidebar: false,
+      horseCount: horseCount,
+      withNav: horseCount > 2,
     };
 
     this.handleCloseSidebar = this.handleCloseSidebar.bind(this);
@@ -63,8 +66,10 @@ export default class MerryGoRoundMoment extends Component {
   };
 
   componentDidMount() {
-    const node = ReactDOM.findDOMNode(this);
-    this.loadMerryGoRound(node);
+    if (this.state.withNav) {
+      const node = ReactDOM.findDOMNode(this);
+      this.loadMerryGoRound(node);
+    };
   };
 
   loadMerryGoRound(node) {
@@ -132,6 +137,22 @@ export default class MerryGoRoundMoment extends Component {
   };
 
   renderHorses(){
+    if (!this.state.withNav) {
+      return (
+        <Grid container justify="center" spacing={5}>
+          {React.Children.map(this.props.children, (child, index) => (
+            <Grid
+              item
+              xs={5}
+              index={index}
+              onClick={() => this.handleSelectHorse(child)}
+            >
+              {child}
+            </Grid>
+          ))}
+        </Grid>
+      )
+    }
     return React.Children.map(this.props.children, (child, index) => (
       <div
         className="merry-go-round__horse"
@@ -146,7 +167,7 @@ export default class MerryGoRoundMoment extends Component {
   render() {
     const { handleSelectHorse } = this;
     const { children, sideBarContent, style } = this.props;
-    const { currentHorse, sidebar } = this.state;
+    const { currentHorse, sidebar, withNav } = this.state;
 
     const layout="merry_go_round";
 
@@ -159,23 +180,30 @@ export default class MerryGoRoundMoment extends Component {
         sideBarContent={sideBarContent(currentHorse)}
       >
         <div className="merry_go_round-wrapper"  style={style}>
-          <div className="merry-go-round_figure">
+          <div
+            className={this.state.withNav ? (
+              "merry-go-round_figure"
+            ) : (
+              "merry-go-round_figure-no-nav"
+            )}>
             {this.renderHorses()}
           </div>
-          <div className="merry-go-round-navigation">
-            <Button
-              className="merry-go-round-navigate merry-go-round-navigate-prev"
-              variant="contained"
-            >
-              <MdArrowBack />
-            </Button>
-            <Button
-              className="merry-go-round-navigate merry-go-round-navigate-next"
-              variant="contained"
-            >
-              <MdArrowForward />
-            </Button>
-          </div>
+          {withNav && (
+            <div className="merry-go-round-navigation">
+              <Button
+                className="merry-go-round-navigate merry-go-round-navigate-prev"
+                variant="contained"
+              >
+                <MdArrowBack />
+              </Button>
+              <Button
+                className="merry-go-round-navigate merry-go-round-navigate-next"
+                variant="contained"
+              >
+                <MdArrowForward />
+              </Button>
+            </div>
+          )}
         </div>
       </SideBarMoment>
     )
