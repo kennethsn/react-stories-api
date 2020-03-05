@@ -1,15 +1,20 @@
 import React, { Component } from 'react';
 import {
-  Button, Card, CardActions, CardContent, CardMedia, Divider, Grid, makeStyles, Typography,
+  Button, Card, CardActions, CardContent, CardMedia, Divider, Grid, makeStyles,
+  Typography,
 } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import ReactPaginate from 'react-paginate';
 
+import { STORIES_API_HOMEPAGE } from '../../constants';
+
 const useStyles = makeStyles(theme => ({
   section: {
     marginTop: theme.spacing(5),
+    textAlign: "center"
   },
   paginator: {
+    padding: 0,
     color: theme.palette.text.secondary,
     display: "flex",
     "& li": {
@@ -29,7 +34,12 @@ const useStyles = makeStyles(theme => ({
   active: {
     color: theme.palette.primary.main,
     fontWeight: "bold"
-  }
+  },
+  link: {
+    ...theme.typography.caption,
+    textAlign: "center",
+    margin: "0 auto",
+  },
 }));
 
  /**
@@ -127,6 +137,18 @@ export default function Collection(props) {
       <Grid item xs={8} className={classes.section}>
         {count && renderPagination()}
       </Grid>
+      <Grid item xs={8} className={classes.section}>
+          <Button
+            target="_blank"
+            color="secondary"
+            size="small"
+            className={classes.link}
+            href={STORIES_API_HOMEPAGE}
+          >
+            POWERED BY THE STORIES SERVICE
+          </Button>
+      </Grid>
+
     </Grid>
   );
 }

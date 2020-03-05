@@ -38,7 +38,6 @@ const useStyles = makeStyles(theme => ({
   },
   link: {
     textAlign: "center",
-    color: theme.palette.secondary.main,
     fontSize: 9,
   },
 }));
@@ -109,9 +108,10 @@ function SideBar(props) {
         <Button
           className={classes.link}
           target="_blank"
+          color="secondary"
           href={STORIES_API_HOMEPAGE}
         >
-          POWERED BY THE STORIES API
+          POWERED BY THE STORIES SERVICE
         </Button>
       </div>
     </div>
