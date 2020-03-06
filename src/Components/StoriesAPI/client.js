@@ -35,12 +35,15 @@ export default class StoriesAPIClient {
     })
   };
 
-  story(slug, collection, page, callback, err){
+  story(slug, collection, page, q, callback, err){
     if (collection !== null){
       slug += `?collection=${collection}`;
       if (page) {
         slug += `&page=${page}`;
       };
+      if (q) {
+        slug += `&q=${q}`;
+      }
     };
     return this.request("story/"+slug, callback, err);
   };

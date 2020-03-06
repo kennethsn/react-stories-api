@@ -80,9 +80,9 @@ export default class Story extends Component {
         </SideBar>
         <div className="story-story__moments">
           <AwesomeSlider
-            cssModule={AwesomeSliderStyles}
             bullets={false}
             organicArrows={false}
+            buttons={false}
             selected={activeMomentIndex}
           >
             {moments}

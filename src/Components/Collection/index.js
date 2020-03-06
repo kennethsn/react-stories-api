@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {
-  Button, Card, CardActions, CardContent, CardMedia, Divider, Grid, makeStyles,
-  Typography,
+  Button, Card, CardActions, CardContent, CardMedia, Divider, Grid,
+  LinearProgress, makeStyles, TextField, Typography,
 } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import ReactPaginate from 'react-paginate';
@@ -40,6 +40,9 @@ const useStyles = makeStyles(theme => ({
     textAlign: "center",
     margin: "0 auto",
   },
+  searchField: {
+    width: "85%"
+  }
 }));
 
  /**
@@ -47,7 +50,8 @@ const useStyles = makeStyles(theme => ({
   */
 export default function Collection(props) {
   const {
-    count, description, name, stories, onPageChange, page, urlFormatter="$id"
+    count, description, loading, name, onSearch, onSearchInput, search, stories,
+    onPageChange, page, urlFormatter="$id"
   } = props;
 
   const classes = useStyles();
@@ -122,8 +126,21 @@ export default function Collection(props) {
           </Typography>
         )}
       </Grid>
+      {onSearch && (
+        <Grid item xs={12} className={classes.section}>
+          <form onSubmit={onSearch}>
+            <TextField
+              className={classes.searchField}
+              label="Search Collection..."
+              value={search}
+              onChange={onSearchInput}
+            />
+          </form>
+        </Grid>
+      )}
       <Grid item xs={12}>
         <Divider />
+        { loading && <LinearProgress variant="query" />}
       </Grid>
       <Grid item xs={10} className={classes.section}>
         <Grid container justify="center" spacing={3}>

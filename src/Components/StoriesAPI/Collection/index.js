@@ -41,10 +41,13 @@ export default class StoriesAPICollection extends Component {
       count: null,
       stories: [],
       page: page || 1,
+      search: null,
     };
 
     this.client = new StoriesAPIClient(endpoint, apiKey);
     this.handlePageChange = this.handlePageChange.bind(this);
+    this.handleSearch = this.handleSearch.bind(this);
+    this.handleSearchInput = this.handleSearchInput.bind(this);
   };
 
   componentDidMount() {
@@ -71,8 +74,8 @@ export default class StoriesAPICollection extends Component {
 
   fetchStories(callback) {
     const {  endpoint, id } = this.props;
-    const { page } = this.state;
-    return this.client.story('', id, page, stories => {
+    const { page, search } = this.state;
+    return this.client.story('', id, page, search, stories => {
        this.setState({stories: stories});
        return callback(stories);
      });
@@ -80,7 +83,7 @@ export default class StoriesAPICollection extends Component {
 
   fetchCount(callback) {
     const { id } = this.props;
-    return this.client.story('count', id, null, ({count}) => {
+    return this.client.story('count', id, null, null, ({count}) => {
        this.setState({count: count});
        return callback(count);
      });
@@ -95,24 +98,37 @@ export default class StoriesAPICollection extends Component {
       })
     })
   }
+  handleSearchInput(event){
+    this.setState({search: event.target.value});
+  }
 
-  renderLoading(){
-    // TODO (#84): Setup loading
-    return <div> LOADING... </div>
+  handleSearch(event) {
+    event.preventDefault(); // prevent form from reloading page
+    const searchQuery = this.state.search;
+    this.setState({page: 1, loading: true},
+      () => {
+      this.fetchStories(() => {
+        this.setState({loading: false});
+      })
+    })
   }
 
   render() {
     const { urlFormatter } = this.props;
-    const { count, data, loading, page, options, stories } = this.state;
+    const { count, data, loading, page, options, search, stories } = this.state;
 
-    return loading ? this.renderLoading() : (
+    return (
       <Collection
+        loading={loading}
         stories={stories}
         {...data}
         count={count}
         page={page}
         urlFormatter={urlFormatter}
         onPageChange={this.handlePageChange}
+        search={search}
+        onSearchInput={this.handleSearchInput}
+        onSearch={this.handleSearch}
         {...options}
       />
     );
