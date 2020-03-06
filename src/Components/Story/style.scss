@@ -1,6 +1,11 @@
 .story-story {
   display: flex;
   height: 100%;
+  max-height: 100vh;
+
+  .awssld__controls {
+    display: none;
+  }
 
   .story-sidebar {
     z-index: 1000;

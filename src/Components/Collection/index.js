@@ -1,15 +1,20 @@
 import React, { Component } from 'react';
 import {
-  Button, Card, CardActions, CardContent, CardMedia, Divider, Grid, makeStyles, Typography,
+  Button, Card, CardActions, CardContent, CardMedia, Divider, Grid,
+  LinearProgress, makeStyles, TextField, Typography,
 } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import ReactPaginate from 'react-paginate';
 
+import { STORIES_API_HOMEPAGE } from '../../constants';
+
 const useStyles = makeStyles(theme => ({
   section: {
     marginTop: theme.spacing(5),
+    textAlign: "center"
   },
   paginator: {
+    padding: 0,
     color: theme.palette.text.secondary,
     display: "flex",
     "& li": {
@@ -29,6 +34,14 @@ const useStyles = makeStyles(theme => ({
   active: {
     color: theme.palette.primary.main,
     fontWeight: "bold"
+  },
+  link: {
+    ...theme.typography.caption,
+    textAlign: "center",
+    margin: "0 auto",
+  },
+  searchField: {
+    width: "85%"
   }
 }));
 
@@ -37,7 +50,8 @@ const useStyles = makeStyles(theme => ({
   */
 export default function Collection(props) {
   const {
-    count, description, name, stories, onPageChange, page, urlFormatter="$id"
+    count, description, loading, name, onSearch, onSearchInput, search, stories,
+    onPageChange, page, urlFormatter="$id"
   } = props;
 
   const classes = useStyles();
@@ -77,14 +91,19 @@ export default function Collection(props) {
       </Card>
     )
   };
-
+  let pageCount;
+  if (search) {
+    pageCount = stories.length < 100 ? page : page + 1;
+  } else {
+    pageCount = Math.ceil(count/100);
+  }
   const renderPagination = () => (
     <ReactPaginate
       previousLabel='previous'
       nextLabel='next'
       breakLabel='...'
       breakClassName='break-me'
-      pageCount={Math.ceil(count/100)}
+      pageCount={pageCount}
       marginPagesDisplayed={2}
       pageRangeDisplayed={5}
       initialPage={page-1}
@@ -112,21 +131,50 @@ export default function Collection(props) {
           </Typography>
         )}
       </Grid>
+      {onSearch && (
+        <Grid item xs={12} className={classes.section}>
+          <form onSubmit={onSearch}>
+            <TextField
+              className={classes.searchField}
+              label="Search Collection..."
+              value={search}
+              onChange={onSearchInput}
+            />
+          </form>
+        </Grid>
+      )}
       <Grid item xs={12}>
         <Divider />
+        {loading && <LinearProgress variant="query" />}
       </Grid>
       <Grid item xs={10} className={classes.section}>
         <Grid container justify="center" spacing={3}>
-          {stories.map(story => (
+          {loading || stories.length ? stories.map(story => (
             <Grid item xs={12} sm={10} md={4} xl={3}>
               {renderCard(story)}
             </Grid>
-          ))}
+          )) : (
+            <Typography variant="overline">
+              No More Stories Found in this Collection.
+            </Typography>
+          )}
         </Grid>
       </Grid>
       <Grid item xs={8} className={classes.section}>
         {count && renderPagination()}
       </Grid>
+      <Grid item xs={8} className={classes.section}>
+          <Button
+            target="_blank"
+            color="secondary"
+            size="small"
+            className={classes.link}
+            href={STORIES_API_HOMEPAGE}
+          >
+            POWERED BY THE STORIES SERVICE
+          </Button>
+      </Grid>
+
     </Grid>
   );
 }

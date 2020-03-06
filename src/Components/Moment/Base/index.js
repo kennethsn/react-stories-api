@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, makeStyles, Typography } from '@material-ui/core';
+import { AppBar, Container, makeStyles, Toolbar, Typography } from '@material-ui/core';
 import PropTypes from 'prop-types'
 
 import { classList } from '../../../utils';
@@ -7,6 +7,7 @@ import { classList } from '../../../utils';
 
 const useStyles = makeStyles(theme => ({
   container: {
+    padding: 0,
     textAlign: "center",
     height: "100%",
     width: "100%",
@@ -14,17 +15,23 @@ const useStyles = makeStyles(theme => ({
     backgroundSize: "auto 80%",
     backgroundPosition: "50% 0%",
   },
-  header: {
-    padding: theme.spacing(4),
-  },
-  title: {
-    fontWeight: theme.typography.fontWeightMedium,
-  },
+  appBar: props => ({
+    background: props.color.background,
+    color: props.color.text,
+    zIndex: 3000 // Watch out for Map Moment's SideBar
+    // position: "absolute",
+  }),
   body: {
+    padding: 0,
     overflowY: "scroll",
     height: "100%",
-    maxHeight: "100vh"
-  }
+  },
+  gutter: props => ({
+    padding: theme.spacing(4),
+  }),
+  headerText: {
+    width: "100%",
+  },
 }));
 
 /**
@@ -34,7 +41,7 @@ function MomentBase(props) {
   const {
     bodyClassName, children, color, index, layout, subtitle, title, type
   } = props;
-  const classes = useStyles();
+  const classes = useStyles(props);
   const containerClasses = classList(
     classes.container,
     'story-moment',
@@ -46,37 +53,32 @@ function MomentBase(props) {
     "story-moment__content__body ",
     bodyClassName
   );
+  // NOTE: The second toolbar is to prepend enough gutter space
+  const toolBar = (
+    <Toolbar className={classes.gutter}>
+      <Typography variant="h4" className={classes.headerText}>
+        {title}
+      </Typography>
+      <Typography variant="subtitle1" className={classes.headerText}>
+        {subtitle}
+      </Typography>
+    </Toolbar>
+  );
 
   return (
-    <Grid
-      container
+    <Container
       justify="center"
       className={containerClasses}
       id="story-moment{index}"
     >
-      <Grid
-        item
-        xs={12}
-        className={classes.header}
-        style={{background: color.background, color:color.text}}
-      >
-        <Grid container spacing={2} justify="center">
-          <Grid item xs={10}>
-            <Typography variant="h2" className={classes.title}>
-              {title}
-            </Typography>
-          </Grid>
-          <Grid item xs={10}>
-            <Typography variant="h5">
-              {subtitle}
-            </Typography>
-          </Grid>
-        </Grid>
-      </Grid>
-      <Grid item xs={12} className={bodyClasses}>
+      <AppBar className={classes.appBar}>
+        {toolBar}
+      </AppBar>
+      <Container className={bodyClasses}>
+        <span style={{opacity: 0}}>{toolBar}</span>
         {children}
-      </Grid>
-    </Grid>
+      </Container>
+    </Container>
   )
 }
 

@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import {
-  Button, CssBaseline, Dialog, Divider, Drawer, Grid, makeStyles, Slide,
-  Typography
+  Button, Dialog, Divider, Drawer, Grid, makeStyles, Slide, Typography
 } from '@material-ui/core';
 import PropTypes from 'prop-types';
 
@@ -25,10 +24,7 @@ const useStyles = makeStyles(theme => ({
   },
   library: {
     background: theme.palette.background.paper,
-    maxHeight: "100vh",
-    overflowY: "scroll",
-    paddingTop: theme.spacing(5),
-    paddingBottom: "35vh",
+    paddingBottom: theme.spacing(5),
   },
   mirador: {
     height: "80vh !important",
