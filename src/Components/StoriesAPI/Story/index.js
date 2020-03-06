@@ -79,7 +79,7 @@ export default class StoriesAPIStory extends Component {
     return (
       <Container style={{textAlign: "center"}}>
         <Typography variant="h5" color="primary">
-          Builing Your Story ...
+          Building Your Story ...
         </Typography>
         <LinearProgress color="secondary" />
       </Container>

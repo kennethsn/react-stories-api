@@ -91,14 +91,19 @@ export default function Collection(props) {
       </Card>
     )
   };
-
+  let pageCount;
+  if (search) {
+    pageCount = stories.length < 100 ? page : page + 1;
+  } else {
+    pageCount = Math.ceil(count/100);
+  }
   const renderPagination = () => (
     <ReactPaginate
       previousLabel='previous'
       nextLabel='next'
       breakLabel='...'
       breakClassName='break-me'
-      pageCount={Math.ceil(count/100)}
+      pageCount={pageCount}
       marginPagesDisplayed={2}
       pageRangeDisplayed={5}
       initialPage={page-1}
@@ -140,15 +145,19 @@ export default function Collection(props) {
       )}
       <Grid item xs={12}>
         <Divider />
-        { loading && <LinearProgress variant="query" />}
+        {loading && <LinearProgress variant="query" />}
       </Grid>
       <Grid item xs={10} className={classes.section}>
         <Grid container justify="center" spacing={3}>
-          {stories.map(story => (
+          {loading || stories.length ? stories.map(story => (
             <Grid item xs={12} sm={10} md={4} xl={3}>
               {renderCard(story)}
             </Grid>
-          ))}
+          )) : (
+            <Typography variant="overline">
+              No More Stories Found in this Collection.
+            </Typography>
+          )}
         </Grid>
       </Grid>
       <Grid item xs={8} className={classes.section}>
