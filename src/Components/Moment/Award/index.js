@@ -114,6 +114,7 @@ function AwardMoment(props) {
   };
 
   const style = {
+    minHeight: "80vh",
     backgroundSize: "cover",
     backgroundPositionY: "57%",
     width: "100%",

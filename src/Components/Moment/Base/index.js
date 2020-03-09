@@ -11,9 +11,11 @@ const useStyles = makeStyles(theme => ({
     textAlign: "center",
     height: "100%",
     width: "100%",
+    maxWidth: "100%",
     backfaceVisibility: "hidden",
     backgroundSize: "auto 80%",
     backgroundPosition: "50% 0%",
+    transform: "translate3d(0, 0, 0)"
   },
   appBar: props => ({
     background: props.color.background,
@@ -25,6 +27,7 @@ const useStyles = makeStyles(theme => ({
     padding: 0,
     overflowY: "scroll",
     height: "100%",
+    maxWidth: "100%",
   },
   gutter: props => ({
     padding: theme.spacing(4),
@@ -49,9 +52,9 @@ function MomentBase(props) {
     `story-moment-${type}`
   );
   const bodyClasses = classList(
-    classes.body,
+    bodyClassName,
     "story-moment__content__body ",
-    bodyClassName
+
   );
   // NOTE: The second toolbar is to prepend enough gutter space
   const toolBar = (
@@ -74,9 +77,11 @@ function MomentBase(props) {
       <AppBar className={classes.appBar}>
         {toolBar}
       </AppBar>
-      <Container className={bodyClasses}>
+      <Container className={classes.body}>
         <span style={{opacity: 0}}>{toolBar}</span>
-        {children}
+        <div className={bodyClasses}>
+          {children}
+        </div>
       </Container>
     </Container>
   )
