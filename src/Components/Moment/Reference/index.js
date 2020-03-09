@@ -10,7 +10,8 @@ const useStyles = makeStyles(theme => ({
     background: theme.palette.background.default,
     padding: theme.spacing(10),
   },
-  container: {
+  item: {
+    margin: "0 auto",
   },
   actions: {
     padding: theme.spacing(2),
@@ -41,11 +42,11 @@ function ReferenceMoment(props) {
   return (
     <GridListMoment
       bodyClassName={classes.body}
-      containerProps={{spacing: 5, className: classes.container}}
+      containerProps={{spacing: 5}}
       {...props}
     >
       {data.map(({label, property, url, description, image }) => (
-        <Grid item md={4}>
+        <Grid item md={5} lg={4} className={classes.item}>
           <Card raised>
             {image && (
               <CardMedia
@@ -58,8 +59,7 @@ function ReferenceMoment(props) {
               <Typography variant="h5">
                 {property}
               </Typography>
-              <a href={url}  className={classes.label}
-              target="_blank">
+              <a href={url}  className={classes.label} target="_blank">
                 <Typography variant="subtitle1">
                   {label}
                 </Typography>
