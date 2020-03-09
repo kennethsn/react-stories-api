@@ -34,7 +34,7 @@ function SideBarMoment(props) {
       <CssBaseline />
       <main>
         {children}
-      </main>`
+      </main>
       <Drawer
         anchor="right"
         open={sidebar}

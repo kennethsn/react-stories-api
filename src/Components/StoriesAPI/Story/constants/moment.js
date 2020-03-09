@@ -7,7 +7,6 @@ export const API_TO_MOMENT_MAP = {
   'employer': Moments.EmployerMoment,
   'iframe': Moments.IFrameMoment,
   'image': Moments.ImageMoment,
-  // 'index': Moments.IndexMoment, // TODO: build this (#82)
   'library': Moments.LibraryMoment,
   'map': Moments.MapMoment,
   'membership': Moments.MembershipMoment,
@@ -15,6 +14,7 @@ export const API_TO_MOMENT_MAP = {
   'named_after': Moments.NamedAfterMoment,
   'pdf': Moments.PDFMoment,
   'people': Moments.PeopleMoment,
+  'reference': Moments.ReferenceMoment,
   'timeline': Moments.TimelineMoment,
   'wikidata': Moments.WikidataMoment,
   'wikipedia': Moments.WikipediaMoment,
