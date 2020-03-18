@@ -1,5 +1,7 @@
 import React from 'react';
-import { AppBar, Container, makeStyles, Toolbar, Typography } from '@material-ui/core';
+import {
+  AppBar, Container, makeStyles, Toolbar, Typography
+} from '@material-ui/core';
 import PropTypes from 'prop-types'
 
 import { classList } from '../../../utils';
@@ -72,7 +74,8 @@ function MomentBase(props) {
     <Container
       justify="center"
       className={containerClasses}
-      id="story-moment{index}"
+      id={`story-moment${index}`}
+      key={`story-moment${index}`}
     >
       <AppBar className={classes.appBar}>
         {toolBar}
