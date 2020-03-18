@@ -16,6 +16,7 @@ export const API_TO_MOMENT_MAP = {
   'people': Moments.PeopleMoment,
   'reference': Moments.ReferenceMoment,
   'timeline': Moments.TimelineMoment,
+  'video': Moments.VideoMoment,
   'wikidata': Moments.WikidataMoment,
   'wikipedia': Moments.WikipediaMoment,
   'youtube': Moments.YouTubeMoment,

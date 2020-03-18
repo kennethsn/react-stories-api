@@ -1,7 +1,5 @@
-import { createMuiTheme } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
-export const muiTheme = createMuiTheme({});
 
 export const useStyles = makeStyles(theme => ({
   card: {

@@ -1,13 +1,14 @@
 import React from 'react';
-import { CardContent, CardMedia, Divider, Typography } from '@material-ui/core';
-import { ThemeProvider, useTheme } from '@material-ui/core/styles';
+import {
+  CardContent, CardMedia, createMuiTheme, Divider, MuiThemeProvider, Typography
+} from '@material-ui/core';
 import AudioPlayer from 'material-ui-audio-player';
 import PropTypes from 'prop-types';
 
 import CardBase from '../../../Card';
 import CardHeader from '../../../Card/Header';
 
-import { muiTheme, useStyles } from './constants';
+import { useStyles } from './constants';
 import './style.scss';
 
 /**
@@ -16,8 +17,7 @@ import './style.scss';
 function AudioPlayerCard(props) {
   const { description, image, style, src, title } = props;
   const classes = useStyles();
-  const theme = useTheme();
-
+  const muiTheme = createMuiTheme({});
   return (
     <div className="story-audio-player-card" style={style}>
       <CardBase style={{ display: 'flex', minHeight: '60vh'}}>
@@ -30,9 +30,9 @@ function AudioPlayerCard(props) {
             </Typography>
           </CardContent>
           <div className={classes.controls}>
-            <ThemeProvider theme={muiTheme}>
+            <MuiThemeProvider theme={muiTheme}>
               <AudioPlayer src={src} />
-            </ThemeProvider>
+            </MuiThemeProvider>
           </div>
         </div>
         {
