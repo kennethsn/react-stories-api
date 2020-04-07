@@ -51,52 +51,50 @@ const useStyles = makeStyles(theme => ({
 export default function Collection(props) {
   const {
     count, description, loading, name, onSearch, onSearchInput, search, stories,
-    onPageChange, page, urlFormatter="$id"
+    onPageChange, page, pageCount, q, urlFormatter="$id"
   } = props;
 
   const classes = useStyles();
-  const renderCard = (storyData) => {
-    const { description, id, image, label } = storyData;
+
+  const renderCard = ({ description, id, image, label }, index) => {
     const url = urlFormatter.replace('$id', id);
+    const key = `${index}-${id}`;
 
     return (
-      <Card>
-        {image && (
-          <CardMedia
-            component="img"
-            image={image}
-            title={`image of ${label}`}
-          />
-        )}
-        <CardContent>
-          <Typography variant="h5">
-            {label}
-          </Typography>
-          <Typography color="secondary" variant="overline">
-            {description}
-          </Typography>
-        </CardContent>
-        <CardActions>
-        <Grid container justify="space-between">
-          <Grid item>
-            <Button color="primary" size="small" href={url}>Learn More</Button>
-          </Grid>
-          <Grid item>
-            <Typography color="textSecondary" variant="overline">
-              {id}
+      <Grid item xs={12} sm={10} md={4} xl={3} key={key}>
+        <Card>
+          {image && (
+            <CardMedia
+              component="img"
+              image={image}
+              title={`image of ${label}`}
+            />
+          )}
+          <CardContent>
+            <Typography variant="h5">
+              {label}
             </Typography>
-          </Grid>
-          </Grid>
-        </CardActions>
-      </Card>
-    )
+            <Typography color="secondary" variant="overline">
+              {description}
+            </Typography>
+          </CardContent>
+          <CardActions>
+          <Grid container justify="space-between">
+            <Grid item>
+              <Button color="primary" size="small" href={url}>Learn More</Button>
+            </Grid>
+            <Grid item>
+              <Typography color="textSecondary" variant="overline">
+                {id}
+              </Typography>
+            </Grid>
+            </Grid>
+          </CardActions>
+        </Card>
+      </Grid>
+    );
   };
-  let pageCount;
-  if (search) {
-    pageCount = stories.length < 100 ? page : page + 1;
-  } else {
-    pageCount = Math.ceil(count/100);
-  }
+
   const renderPagination = () => (
     <ReactPaginate
       previousLabel='previous'
@@ -125,11 +123,12 @@ export default function Collection(props) {
             {description}
           </Typography>
         )}
-        {count && (
+        {count ? (
           <Typography variant="overline" color="textSecondary">
             {count} Stor{count === 1 ? "y" : "ies"} in this Collection
+            {q && `found with keyword '${q}'`}
           </Typography>
-        )}
+        ) : null}
       </Grid>
       {onSearch && (
         <Grid item xs={12} className={classes.section}>
@@ -149,11 +148,7 @@ export default function Collection(props) {
       </Grid>
       <Grid item xs={10} className={classes.section}>
         <Grid container justify="center" spacing={3}>
-          {loading || stories.length ? stories.map(story => (
-            <Grid item xs={12} sm={10} md={4} xl={3}>
-              {renderCard(story)}
-            </Grid>
-          )) : (
+          {loading || stories.length ? stories.map(renderCard) : (
             <Typography variant="overline">
               No More Stories Found in this Collection.
             </Typography>
@@ -161,7 +156,7 @@ export default function Collection(props) {
         </Grid>
       </Grid>
       <Grid item xs={8} className={classes.section}>
-        {count && renderPagination()}
+        {pageCount > 1 && renderPagination()}
       </Grid>
       <Grid item xs={8} className={classes.section}>
           <Button

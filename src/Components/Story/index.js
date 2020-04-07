@@ -11,27 +11,34 @@ import './style.scss';
   * Story component.
   */
 const Story = (props) => {
-  const [activeIndex, setActiveIndex] = useState(0);
-  const { children, image, description, label, logo, type } = props;
+  const { active=0, children, image, description, label, logo, type,
+    onChange } = props;
+  const [activeIndex, setActiveIndex] = useState(active);
 
-    const classes = classList(
-      'story-story',
-      `story-story-${type}`
+  const classes = classList(
+    'story-story',
+    `story-story-${type}`
+  );
+  const momentClass = "story-story__moments__moment-container";
+
+  const moments = React.Children.map(children, (moment, index) => {
+    return (
+      <div index={index} className={momentClass} key={`moment-${index}`}>
+        {moment}
+      </div>
     );
-    const momentClass = "story-story__moments__moment-container";
-    const moments = React.Children.map(children, (moment, index) => {
-      return (
-        <div index={index} className={momentClass} key={index}>
-          {moment}
-        </div>
-      );
-    })
+  })
+
+  const handleMomentChange = (index) => {
+    onChange && onChange(index);
+    setActiveIndex(index);
+  };
 
   return (
     <div className={classes}>
       <SideBar
         activeIndex={activeIndex}
-        onSelect={setActiveIndex}
+        onSelect={handleMomentChange}
         title={label}
         logo={logo}
         image={image}
@@ -73,6 +80,7 @@ Story.propTypes = {
 
 Story.defaultProps = {
   type: 'base',
+  active: 0,
 };
 
 export default Story;

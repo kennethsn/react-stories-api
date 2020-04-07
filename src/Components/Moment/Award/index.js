@@ -140,7 +140,7 @@ AwardMoment.propTypes = {
     text: PropTypes.string,
   }),
   /** Information to build the `AwardCertificate`s */
-  data: PropTypes.object.isRequired,
+  data: PropTypes.array.isRequired,
   /** Determines the `SideBarSection` `Icon` of the `Moment`. */
   icon: PropTypes.element,
   /** Used to serialize the order of the `Moment`s in a `Story` */

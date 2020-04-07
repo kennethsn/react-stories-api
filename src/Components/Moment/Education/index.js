@@ -43,6 +43,7 @@ export default class EducationMoment extends Component {
 
   static defaultProps = {
     type: "education",
+    data: [],
   }
 
   renderImages(){

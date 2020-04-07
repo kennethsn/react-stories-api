@@ -25,6 +25,7 @@ const useStyles = makeStyles(theme => ({
   library: {
     background: theme.palette.background.paper,
     paddingBottom: theme.spacing(5),
+    minHeight: "100%",
   },
   mirador: {
     height: "80vh !important",
