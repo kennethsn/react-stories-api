@@ -96,7 +96,7 @@ ReferenceMoment.propTypes = {
     text: PropTypes.string,
   }),
   /** Stories-API data context. */
-  data: PropTypes.object.isRequired,
+  data: PropTypes.arrayOf(PropTypes.object).isRequired,
   /** Determines the `GridListSection` `Icon` of the `Moment`. */
   icon: PropTypes.element,
   /** Used to serialize the order of the `Moment`s in a `Story` */

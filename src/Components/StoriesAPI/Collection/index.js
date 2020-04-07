@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Typography } from '@material-ui/core';
 import PropTypes from 'prop-types';
 
 import Collection from '../../Collection';
@@ -34,18 +35,22 @@ export default class StoriesAPICollection extends Component {
 
   constructor(props) {
     super(props);
-    const { apiKey, data, page, endpoint } = props;
+    const { apiKey, data, page, endpoint, q } = props;
     this.state = {
       loading: data ? false : true,
       data: data,
       count: null,
       stories: [],
       page: page || 1,
-      search: null,
+      search: q,
+      q: q,
+      error: false,
     };
 
     this.client = new StoriesAPIClient(endpoint, apiKey);
+    this.handleChange = this.handleChange.bind(this);
     this.handlePageChange = this.handlePageChange.bind(this);
+    this.setError = this.setError.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
     this.handleSearchInput = this.handleSearchInput.bind(this);
   };
@@ -54,39 +59,47 @@ export default class StoriesAPICollection extends Component {
     if (!this.state.data) {
       this.setState({ loading: true }, () => {
         this.fetchData(() => {
-          this.fetchCount(() => {
-            this.fetchStories(() => {
-              this.setState({loading: false});
-            });
-          })
+          this.fetchStories(() => {
+            this.setState({loading: false});
+          });
         })
       });
     }
   };
 
+  setError() {
+    this.setState({error: true})
+  };
+
   fetchData(callback) {
-    const { id } = this.props;
+    const { id, onLoad } = this.props;
     return this.client.collection(id, data => {
        this.setState({data: data});
+       onLoad && onLoad(data);
        return callback(data);
-     });
+     }, this.setError);
   };
 
   fetchStories(callback) {
     const {  endpoint, id } = this.props;
     const { page, search } = this.state;
-    return this.client.story('', id, page, search, stories => {
-       this.setState({stories: stories});
-       return callback(stories);
-     });
+    return this.client.story('', id, page, search, data => {
+       this.setState({
+         stories: data.items,
+         page: data.page,
+         pageCount: data.last_page,
+         totalCount: data.total_count,
+         q: data.q, //use q to keep the value persistent while a user is typing
+       });
+       return callback(data);
+     }, this.setError);
   };
 
-  fetchCount(callback) {
-    const { id } = this.props;
-    return this.client.story('count', id, null, null, ({count}) => {
-       this.setState({count: count});
-       return callback(count);
-     });
+  handleChange(){
+    // Used for a public interface of capturing key events
+    const { onChange } = this.props;
+    const { page, q } = this.state;
+    onChange && onChange({ page, q });
   };
 
   handlePageChange({ selected }) {
@@ -94,10 +107,12 @@ export default class StoriesAPICollection extends Component {
     if (newPage == this.state.page) return;
     this.setState({page: newPage, loading: true}, () => {
       this.fetchStories(() => {
+        this.handleChange();
         this.setState({loading: false});
       })
     })
   }
+
   handleSearchInput(event){
     this.setState({search: event.target.value});
   }
@@ -108,25 +123,40 @@ export default class StoriesAPICollection extends Component {
     this.setState({page: 1, loading: true},
       () => {
       this.fetchStories(() => {
+        this.handleChange();
         this.setState({loading: false});
       })
     })
   }
 
+  renderError(){
+    const { errorComponent } = this.props;
+    return errorComponent || (
+        <Typography>
+          Something went wrong while loading this collection... <br/>
+          Try Refreshing or Check Back Soon
+        </Typography>
+    );
+  }
+
   render() {
     const { urlFormatter } = this.props;
-    const { count, data, loading, page, options, search, stories } = this.state;
+    const {
+      error, totalCount, data, loading, page, options, search, stories, pageCount, q
+    } = this.state;
 
-    return (
+    return error ? this.renderError() : (
       <Collection
         loading={loading}
         stories={stories}
         {...data}
-        count={count}
+        count={totalCount}
         page={page}
+        pageCount={pageCount}
         urlFormatter={urlFormatter}
         onPageChange={this.handlePageChange}
         search={search}
+        q={q}
         onSearchInput={this.handleSearchInput}
         onSearch={this.handleSearch}
         {...options}

@@ -39,9 +39,11 @@ export default class StoriesAPIStory extends Component {
     this.state = {
       loading: data ? false : true,
       data: data,
+      error: false,
     };
 
     this.client = new StoriesAPIClient(endpoint, apiKey);
+    this.setError = this.setError.bind(this);
   };
 
   componentDidMount() {
@@ -53,12 +55,17 @@ export default class StoriesAPIStory extends Component {
     }
   };
 
+  setError() {
+    this.setState({error: true})
+  };
+
   fetchData(callback) {
-    const { collection, endpoint, id } = this.props;
+    const { collection, endpoint, id, onLoad } = this.props;
     return this.client.story(id, collection, null, null, story => {
        this.setState({data: story});
+       onLoad && onLoad(story);
        return callback(story);
-     });
+     }, this.setError);
   };
 
   renderMoments(){
@@ -76,21 +83,31 @@ export default class StoriesAPIStory extends Component {
   }
 
   renderLoading(){
-    return (
+    const { loading } = this.state;
+    return loading && (
       <Container style={{textAlign: "center"}}>
         <Typography variant="h5" color="primary">
           Building Your Story ...
         </Typography>
         <LinearProgress color="secondary" />
       </Container>
-    )
-  }
+    );
+  };
+
+  renderError(){
+    const { errorComponent } = this.props;
+    return errorComponent || (
+        <Typography>
+          Something went wrong while loading this collection... <br/>
+          Try Refreshing or Check Back Soon
+        </Typography>
+    );
+  };
 
   render() {
     const { options } = this.props;
-    const { data, loading } = this.state;
-
-    return loading ? this.renderLoading() : (
+    const { error, data, loading } = this.state;
+    return error ? this.renderError() : this.renderLoading() || (
       <Story {...data} {...options}>
         {this.renderMoments()}
       </Story>

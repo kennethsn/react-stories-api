@@ -8,10 +8,11 @@ export default class App extends Component {
       <StoriesAPIStory
         id="Q11641"
         endpoint="https://stories-api-stage.herokuapp.com"
-        collection={1}
+        collection={2}
         apiKey="G69Rkdmn.kpTHArUusmaUDNizmsEnbmZzHm3kn6Ul"
         options={{
-          logo: <img src="https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg"/>
+          onChange: index => console.log("Going to moment " + index),
+          logo: <img alt="logo" src="https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg"/>
         }}
       />
     )
