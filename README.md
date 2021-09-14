@@ -16,18 +16,14 @@ npm install --save react-stories-api
 import React from 'react';
 import StoriesAPIStory from 'react-stories-api';
 
-class App extends Component {
-  render () {
-    return (
-      <StoriesAPIStory
-        id="Q11641"
-        endpoint="<stories-api-endpoint>"
-        collection="<collection-id-here>"
-        apiKey="<api-key-here>"
-      />
-    )
-  }
-}
+const App = () => (
+  <StoriesAPIStory
+    apiKey="<api-key-here>"
+    collection="<collection-id-here>"
+    endpoint="<stories-api-endpoint>"
+    id="Q11641"
+  />
+);
 
 ```
 
