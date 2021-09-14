@@ -13,15 +13,16 @@
     "npm": ">=5"
   },
   "scripts": {
-    "build": "npm run compile:ts && npm run clean && npm run compile:js && npm run compile:assets",
+    "build": "npm run compile:ts && npm run clean && npm run compile:js && npm run compile:assets && npm run remove-test-data",
     "clean": "rm -rf dist",
     "compile:assets": "npm run copy-files",
-    "compile:js": "NODE_ENV=production babel lib/esm --out-dir dist --copy-files --ignore __tests__,spec.js,test.js,__snapshots__,Readme.md",
+    "compile:js": "NODE_ENV=production babel lib/esm --out-dir dist --copy-files --ignore __tests__,spec.js,test.js,__snapshots__,Readme.md,testData.d.ts,testData.js",
     "compile:ts": "tsc",
     "copy-files": "copyfiles -u 1  \"src/**/*.scss\" \"dist/\"",
     "predeploy": "cd example && npm install && npm run build",
     "deploy": "gh-pages -d example/build",
     "lint": "npx eslint src",
+    "remove-test-data": "rm ./dist/**/testData.*s",
     "start": "./node_modules/.bin/parcel src/docs/index.html",
     "styleguide-server": "styleguidist server",
     "styleguide-build": "NODE_ENV=production styleguidist build",
