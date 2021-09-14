@@ -1,0 +1,36 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./",
+    "outDir": "lib/esm",
+    "target": "es5",
+    "module": "commonjs",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "jsx": "react",
+    "declaration": true,
+    "moduleResolution": "node",
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "esModuleInterop": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noImplicitAny": true,
+    // https://react-styleguidist.js.org/docs/cookbook/#how-to-re-use-the-types-in-styleguidist
+    "paths": {
+      // remap rsg-components/anything to its version in react-styleguidist
+      "rsg-components/*": [
+        "node_modules/react-styleguidist/lib/client/rsg-components/*"
+      ]
+    },
+    "strictNullChecks": true,
+    "suppressImplicitAnyIndexErrors": true,
+    "allowSyntheticDefaultImports": true,
+    "skipLibCheck": true,                           /* Skip type checking of declaration files. */
+    "forceConsistentCasingInFileNames": true        /* Disallow inconsistently-cased references to the same file. */
+  },
+  "include": ["src", "src/react-stories-api.d.ts", "declarations.d.ts", "src/**/*"],
+  "exclude": ["node_modules", "lib"]
+}

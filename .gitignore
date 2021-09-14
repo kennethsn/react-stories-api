@@ -9,6 +9,7 @@ yarn.lock
 # builds
 build
 dist
+lib
 .rpt2_cache
 
 # misc
