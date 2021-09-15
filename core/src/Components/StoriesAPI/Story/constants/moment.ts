@@ -15,6 +15,7 @@ const API_TO_MOMENT_MAP = Object.freeze({
   pdf: Moments.PDFMoment,
   people: Moments.PeopleMoment,
   reference: Moments.ReferenceMoment,
+  software_heritage: Moments.SoftwareHeritageMoment,
   timeline: Moments.TimelineMoment,
   video: Moments.VideoMoment,
   wikidata: Moments.WikidataMoment,

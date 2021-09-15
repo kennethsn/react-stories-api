@@ -3,37 +3,21 @@ import React, { ReactNode } from 'react';
 
 import { MOMENT_BASE_DEFAULT_PROPS, MomentLayout, MomentType } from '../../../constants';
 import { MomentProps } from '../../../types';
-import ImageIcon from '../../Icon/Image';
-import Pipe from '../../Pipe';
 import IFrameMoment from '../IFrame';
-import './style.scss';
 
 export interface WikipediaMomentProps extends MomentProps {
   icon?: ReactNode;
+  logo?: string;
   url: string;
 }
 
 /**
  * Wikipedia layout Moment.
  */
-const WikipediaMoment = (props: WikipediaMomentProps) => {
-  const { icon, title } = props;
-  /* eslint-disable react/jsx-props-no-spreading */
-  return (
-    <IFrameMoment
-      {...props}
-      title={(
-        <div>
-          {icon}
-          {' '}
-          <Pipe type="thin" />
-          {' '}
-          {title}
-        </div>
-      )}
-    />
-  );
-};
+/* eslint-disable react/jsx-props-no-spreading */
+const WikipediaMoment = (props: WikipediaMomentProps) => (
+  <IFrameMoment {...props} />
+);
 
 WikipediaMoment.propTypes = {
   /** Determines the background and text color of the `Moment` header. */
@@ -47,6 +31,8 @@ WikipediaMoment.propTypes = {
   index: PropTypes.number,
   /** Determines the `SideBarSection` text of the `Moment`. */
   label: PropTypes.string,
+  /** URL for image in the title of the `Moment` header */
+  logo: PropTypes.string,
   /** Paragraph text underneath the title in `Moment` header */
   subtitle: PropTypes.string,
   /** Main heading element of the `Moment` */
@@ -59,13 +45,8 @@ WikipediaMoment.propTypes = {
 
 WikipediaMoment.defaultProps = {
   ...MOMENT_BASE_DEFAULT_PROPS,
-  icon: (
-    <ImageIcon
-      name="Wikipedia Logo"
-      url="https://upload.wikimedia.org/wikipedia/commons/b/b3/Wikipedia-logo-v2-en.svg"
-    />
-  ),
   layout: MomentLayout.IFrame,
+  logo: 'https://upload.wikimedia.org/wikipedia/commons/b/b3/Wikipedia-logo-v2-en.svg',
   title: 'Wikipedia Article',
   type: MomentType.Wikipedia,
 };

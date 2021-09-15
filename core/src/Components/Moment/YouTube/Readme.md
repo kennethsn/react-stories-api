@@ -15,5 +15,8 @@ import YouTubeMoment from './';
 ```typescript jsx
 import YouTubeMoment from './';
 
-<YouTubeMoment url="https://www.youtube.com/embed/TMEcUa3mcds" subtitle="Render a YouTube video"  />
+<YouTubeMoment
+  subtitle="Render a YouTube video"
+  url="https://www.youtube.com/embed/TMEcUa3mcds"
+/>
 ```

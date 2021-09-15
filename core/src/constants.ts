@@ -48,6 +48,7 @@ export enum MomentType {
   Reference = 'reference',
   SideBar = 'sidebar',
   SlideScroll = 'slide_scroll',
+  SoftwareHeritage = 'software_heritage',
   Tile = 'tile',
   Timeline = 'timeline',
   Video = 'video',
