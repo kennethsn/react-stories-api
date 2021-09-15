@@ -14,9 +14,10 @@
     "sass": "^1.39.2"
   },
   "scripts": {
-    "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "postinstall": "npm link ../core/node_modules/react",
+    "start": "react-scripts start",
+    "test": "react-scripts test --env=jsdom"
   }
 }

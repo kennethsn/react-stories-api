@@ -12,7 +12,7 @@ import { Collection as APICollection, StoriesAPIStory } from '../../../types';
 import Collection from '../../Collection';
 import StoriesAPIClient from '../client';
 
-export interface Props {
+export interface StoriesAPICollectionProps {
   apiKey?: string;
   data?: object;
   endpoint?: string;
@@ -26,7 +26,7 @@ export interface Props {
   urlFormatter: string;
 }
 
-interface StoriesAPIStoryListResponse {
+export interface StoriesAPIStoryListResponse {
   items: StoriesAPIStory[];
   last_page: number;
   page: number;
@@ -34,7 +34,7 @@ interface StoriesAPIStoryListResponse {
   total_count: number;
 }
 
-interface TargetWithValue {
+export interface TargetWithValue {
   value: string;
 }
 
@@ -53,7 +53,7 @@ const StoriesAPICollection = ({
   page,
   q,
   urlFormatter,
-}: Props) => {
+}: StoriesAPICollectionProps) => {
   const [collectionLoading, setCollectionLoading] = useState(false);
   const [storiesLoading, setStoriesLoading] = useState(false);
   const [collectionData, setCollectionData] = useState(data as APICollection);
@@ -143,7 +143,7 @@ const StoriesAPICollection = ({
     </Typography>
   );
   /* eslint-disable react/jsx-props-no-spreading */
-  return error ? renderError() : (
+  return (error ? renderError() : (
     <Collection
       loading={loading}
       stories={storiesData}
@@ -159,7 +159,7 @@ const StoriesAPICollection = ({
       urlFormatter={urlFormatter}
       {...options}
     />
-  );
+  )) as JSX.Element;
 };
 
 StoriesAPICollection.propTypes = {

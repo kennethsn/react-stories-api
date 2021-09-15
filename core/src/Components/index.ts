@@ -49,6 +49,8 @@ export { default as ReferenceMoment } from './Moment/Reference';
 export * from './Moment/Reference';
 export { default as SlideScrollMoment } from './Moment/SlideScroll';
 export * from './Moment/SlideScroll';
+export { default as SoftwareHeritageMoment } from './Moment/SoftwareHeritage';
+export * from './Moment/SoftwareHeritage';
 export { default as TileMoment } from './Moment/Tile';
 export * from './Moment/Tile';
 export { default as TimelineMoment } from './Moment/Timeline';

@@ -3,10 +3,7 @@ import React, { ReactNode } from 'react';
 
 import { MOMENT_BASE_DEFAULT_PROPS, MomentLayout, MomentType } from '../../../constants';
 import { MomentProps } from '../../../types';
-import ImageIcon from '../../Icon/Image';
-import Pipe from '../../Pipe';
 import IFrameMoment from '../IFrame';
-import './style.scss';
 
 export interface WikidataMomentProps extends MomentProps {
   entity_id?: string;
@@ -20,25 +17,11 @@ export interface WikidataMomentProps extends MomentProps {
  * *note: You must either use an ``entity_id`` or ``url`` prop.*
  */
 const WikidataMoment = (props: WikidataMomentProps) => {
-  const {
-    entity_id: entityId,
-    icon,
-    url,
-    title,
-  } = props;
+  const { entity_id: entityId, url } = props;
   /* eslint-disable react/jsx-props-no-spreading */
   return (
     <IFrameMoment
       {...props}
-      title={(
-        <div>
-          {icon}
-          {' '}
-          <Pipe type="thin" />
-          {' '}
-          {title}
-        </div>
-      )}
       url={url || `https://m.wikidata.org/wiki/${entityId}`}
     />
   );
@@ -68,13 +51,8 @@ WikidataMoment.propTypes = {
 
 WikidataMoment.defaultProps = {
   ...MOMENT_BASE_DEFAULT_PROPS,
-  icon: (
-    <ImageIcon
-      name="Wikidata Logo"
-      url="https://upload.wikimedia.org/wikipedia/commons/6/66/Wikidata-logo-en.svg"
-    />
-  ),
   label: 'Wikidata',
+  logo: 'https://upload.wikimedia.org/wikipedia/commons/6/66/Wikidata-logo-en.svg',
   layout: MomentLayout.IFrame,
   title: 'Wikidata Item',
   type: MomentType.Wikidata,

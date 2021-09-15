@@ -19,6 +19,7 @@ import PDFMoment from './PDF';
 import PeopleMoment from './People';
 import ReferenceMoment from './Reference';
 import SlideScrollMoment from './SlideScroll';
+import SoftwareHeritageMoment from './SoftwareHeritage';
 import TileMoment from './Tile';
 import TimelineMoment from './Timeline';
 import VideoMoment from './Video';
@@ -48,6 +49,7 @@ export default {
   PeopleMoment,
   ReferenceMoment,
   SlideScrollMoment,
+  SoftwareHeritageMoment,
   TileMoment,
   TimelineMoment,
   VideoMoment,

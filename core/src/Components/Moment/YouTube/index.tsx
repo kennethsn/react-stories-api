@@ -5,7 +5,6 @@ import { MOMENT_BASE_DEFAULT_PROPS, MomentLayout, MomentType } from '../../../co
 import { MomentProps } from '../../../types';
 import FontAwesomeIcon from '../../Icon/FontAwesome';
 import IFrameMoment from '../IFrame';
-import './style.scss';
 
 export interface YouTubeMomentProps extends MomentProps {
   url?: string;

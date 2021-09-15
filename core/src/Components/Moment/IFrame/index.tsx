@@ -1,26 +1,90 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { ReactNode } from 'react';
 
 import { MOMENT_BASE_DEFAULT_PROPS, MomentLayout, MomentType } from '../../../constants';
 import { MomentProps } from '../../../types';
+import ImageIcon from '../../Icon/Image';
+import Pipe from '../../Pipe';
 import MomentBase from '../Base';
-import './style.scss';
+import useStyles from './useStyles';
 
 export interface IFrameMomentProps extends MomentProps {
+  icon?: ReactNode;
   iframe?: object;
+  logo?: string;
   url: string;
 }
+
+export interface IFrameTitleProps {
+  icon?: ReactNode;
+  logo?: string;
+  title: ReactNode | string;
+  url: string;
+}
+
+export const IFrameTitle = ({
+  icon,
+  logo,
+  title,
+  url,
+}: IFrameTitleProps) => {
+  const classes = useStyles();
+  const imageIcon = logo ? (
+    <ImageIcon
+      name="Open in New Tab"
+      url={logo}
+    />
+  ) : icon;
+  return imageIcon ? (
+    <div>
+      <a
+        className={classes.a}
+        href={url}
+        rel="noreferrer"
+        target="_blank"
+      >
+        {imageIcon}
+      </a>
+      {' '}
+      <Pipe type="thin" />
+      {' '}
+      {title}
+    </div>
+  ) : (
+    <>
+      {title}
+    </>
+  );
+};
 
 /**
  * General iFrame layout Moment.
  */
 const IFrameMoment = (props: IFrameMomentProps) => {
-  const { iframe, title, url } = props;
+  const {
+    icon,
+    iframe,
+    logo,
+    title,
+    url,
+  } = props;
+  const classes = useStyles();
   /* eslint-disable react/jsx-props-no-spreading */
   return (
-    <MomentBase {...props}>
+    <MomentBase
+      {...props}
+      title={(
+        <IFrameTitle
+          icon={icon}
+          logo={logo}
+          title={title}
+          url={url}
+        />
+      )}
+    >
       <iframe
         allowFullScreen
+        className={classes.iframe}
         frameBorder="0"
         height="100vh"
         src={url}
