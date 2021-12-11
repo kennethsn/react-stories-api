@@ -9,10 +9,14 @@ const useStyles = makeStyles((theme) => ({
     zIndex: 3000, // Watch out for Map Moment's SideBar
   }),
   body: {
+    flexFlow: 'column',
     height: '100%',
+    maxWidth: '100%',
     overflowY: 'scroll',
     padding: 0,
-    maxWidth: '100%',
+  },
+  bodyInner: {
+    height: '100%',
   },
   bufferToolbar: {
     opacity: 0,
@@ -20,6 +24,7 @@ const useStyles = makeStyles((theme) => ({
   },
   container: {
     backfaceVisibility: 'hidden',
+    backgroundColor: theme.palette.background.default,
     backgroundSize: 'auto 80%',
     backgroundPosition: '50% 0%',
     height: '100%',
@@ -30,6 +35,7 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
   },
   content: {
+    flex: 1,
     width: '100%',
   },
   gutter: {

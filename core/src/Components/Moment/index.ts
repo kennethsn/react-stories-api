@@ -20,6 +20,7 @@ import PeopleMoment from './People';
 import ReferenceMoment from './Reference';
 import SlideScrollMoment from './SlideScroll';
 import SoftwareHeritageMoment from './SoftwareHeritage';
+import StatMoment from './Stat';
 import TileMoment from './Tile';
 import TimelineMoment from './Timeline';
 import VideoMoment from './Video';
@@ -50,6 +51,7 @@ export default {
   ReferenceMoment,
   SlideScrollMoment,
   SoftwareHeritageMoment,
+  StatMoment,
   TileMoment,
   TimelineMoment,
   VideoMoment,

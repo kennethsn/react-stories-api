@@ -33,7 +33,7 @@ const MomentBase = (props: MomentBaseProps) => {
     `story-moment-layout-${layout}`,
     `story-moment-${type}`,
   );
-  const bodyClasses = classList(bodyClassName || '', 'story-moment__content__body ', classes.content);
+  const bodyClasses = classList('story-moment__content__body ', classes.content);
   // NOTE: The second toolbar is to prepend enough gutter space
   const toolBar = (
     <Toolbar className={classes.gutter}>
@@ -71,7 +71,9 @@ const MomentBase = (props: MomentBaseProps) => {
           {toolBar}
         </span>
         <div className={bodyClasses}>
-          {children}
+          <div className={`${bodyClassName} ${classes.bodyInner}`}>
+            {children}
+          </div>
         </div>
       </Grid>
     </Grid>

@@ -29,7 +29,7 @@ const CollectionCard = ({ story, urlFormatter }: Props) => {
         <CardMedia
           component="img"
           image={image}
-          title={`image of ${label}`}
+          title={label}
         />
       )}
       <CardContent>
