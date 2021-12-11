@@ -7,6 +7,7 @@ const useStyles = makeStyles((theme) => ({
   },
   item: {
     margin: '0 auto',
+    position: 'relative',
   },
 }));
 
