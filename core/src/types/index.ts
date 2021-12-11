@@ -29,6 +29,7 @@ export interface MomentProps {
 export interface Icon {
   name: string;
   source: IconSource;
+  url?: string;
 }
 
 export interface StoriesAPIDate {

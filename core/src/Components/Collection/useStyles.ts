@@ -21,6 +21,7 @@ const useStyles = makeStyles((theme) => ({
         cursor: 'pointer',
       },
     },
+    overflowX: 'scroll',
     padding: 0,
     width: '100%',
   },

@@ -1,25 +1,25 @@
 import PropTypes from 'prop-types';
 import React, { CSSProperties } from 'react';
-import * as ReactIconsFA from 'react-icons/fa';
+import * as ReactIcons from 'react-icons/all';
 
 import IconBase from '..';
 
-export type FAIconName = keyof typeof ReactIconsFA;
+export type ReactIconName = keyof typeof ReactIcons;
 
 export interface FaProps {
-  name: FAIconName;
+  name: ReactIconName;
   style?: CSSProperties;
 }
 
 /**
  * Wrapper of _react-icons_ FontAwesome integration with the Stories-API styling and integration
  */
-const FontAwesomeIcon = ({ name, style }: FaProps) => {
-  const ReactIcon = ReactIconsFA[name]!;
+const ReactIcon = ({ name, style }: FaProps) => {
+  const ReactIcon = ReactIcons[name]!;
   return (
     <IconBase
       name={name}
-      source="fa"
+      source="react"
       style={style}
     >
       <ReactIcon />
@@ -27,7 +27,7 @@ const FontAwesomeIcon = ({ name, style }: FaProps) => {
   );
 };
 
-FontAwesomeIcon.propTypes = {
+ReactIcon.propTypes = {
   /** Name of the `Icon` */
   name: PropTypes.string.isRequired,
   /** Styling object of the `Icon` */
@@ -35,6 +35,6 @@ FontAwesomeIcon.propTypes = {
   style: PropTypes.object,
 };
 
-FontAwesomeIcon.defaultProps = { style: undefined };
+ReactIcon.defaultProps = { style: undefined };
 
-export default FontAwesomeIcon;
+export default ReactIcon;

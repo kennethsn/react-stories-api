@@ -1,8 +1,9 @@
-export const STORIES_API_HOMEPAGE = 'http://stage.stories.k2.services';
+export const STORIES_API_HOMEPAGE = 'https://stage.stories.k2.services';
 
 export enum IconSource {
   FontAwesome = 'fa',
   Image = 'img',
+  React = 'react',
 }
 
 export enum MomentLayout {
@@ -21,6 +22,7 @@ export enum MomentLayout {
   Reference = 'reference',
   SideBar = 'sidebar',
   SlideScroll = 'slide_scroll',
+  Stat = 'stat',
   Tile = 'tile',
   Timeline = 'timeline',
   Video = 'video',
@@ -49,6 +51,7 @@ export enum MomentType {
   SideBar = 'sidebar',
   SlideScroll = 'slide_scroll',
   SoftwareHeritage = 'software_heritage',
+  Stat = 'stat',
   Tile = 'tile',
   Timeline = 'timeline',
   Video = 'video',
