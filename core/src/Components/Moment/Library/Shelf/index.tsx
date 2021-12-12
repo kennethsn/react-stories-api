@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, { ReactNodeArray } from 'react';
+import React, { ReactNode } from 'react';
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 
@@ -68,7 +68,7 @@ const LibraryShelf = ({
       />
     );
   });
-  const carousels = [] as ReactNodeArray;
+  const carousels: ReactNode[] = [];
   chunk(items as never, 10, (itemChunk) => {
     const isSmallCarousel = itemChunk.length < responsive.tablet.items;
     carousels.push((
