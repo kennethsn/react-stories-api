@@ -93,6 +93,7 @@ const StatListItemAvatar = ({ className, label, icon }: StatListItemAvatarProps)
 const StatValue = ({ classes, type, value }: StatValueProps) => {
   const isArray = Array.isArray(value);
   if (type === StatType.number && typeof value === 'object' && !isArray) {
+    const { amount, unit } = value as StatNumberValue;
     return (
       <div className={classes.numberContainer}>
         <Typography
@@ -100,19 +101,19 @@ const StatValue = ({ classes, type, value }: StatValueProps) => {
           variant="h3"
         >
           <CountUp
-            decimals={countDecimals(value.amount)}
+            decimals={countDecimals(amount)}
             delay={0.5}
             duration={Math.random() * 3}
-            end={value.amount}
+            end={amount}
           />
         </Typography>
-        {value.unit && (
+        {unit && (
           <Typography
             className={classes.unit}
             color="textSecondary"
             variant="body2"
           >
-            {value.unit}
+            {unit}
           </Typography>
         )}
       </div>
@@ -121,14 +122,14 @@ const StatValue = ({ classes, type, value }: StatValueProps) => {
   const isList = type === StatType.list && isArray;
   const avatarCtrClass = (index: number) => {
     const base = classes.listAvatarContainer;
-    if (isList && index === (value.length - 1)) {
+    if (isList && index === ((value as StatListValueItem[]).length - 1)) {
       return `${base} last-item`;
     }
     return base;
   };
   return isList ? (
     <List className={classes.list}>
-      {value.map(({ description, icon, label }, index) => (
+      {(value as StatListValueItem[]).map(({ description, icon, label }, index) => (
         <ListItem
           alignItems="flex-start"
           className={classes.listItem}
