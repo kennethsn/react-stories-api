@@ -11,6 +11,7 @@ build
 dist
 lib
 .rpt2_cache
+styleguide
 
 # misc
 .DS_Store
