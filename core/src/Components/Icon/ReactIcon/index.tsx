@@ -1,28 +1,37 @@
 import PropTypes from 'prop-types';
-import React, { CSSProperties } from 'react';
-import * as ReactIcons from 'react-icons/all';
-
+import React, {
+  CSSProperties,
+  ReactNode,
+  useEffect,
+  useState,
+} from 'react';
 import IconBase from '..';
 
-export type ReactIconName = keyof typeof ReactIcons;
-
-export interface FaProps {
-  name: ReactIconName;
+export interface ReactIconProps {
+  name: string;
   style?: CSSProperties;
 }
 
 /**
- * Wrapper of _react-icons_ FontAwesome integration with the Stories-API styling and integration
+ * Wrapper of _react-icons_ integration with the Stories-API styling and integration
  */
-const ReactIcon = ({ name, style }: FaProps) => {
-  const ReactIcon = ReactIcons[name]!;
+const ReactIcon = ({ name, style }: ReactIconProps) => {
+  const [Icon, setIcon] = useState(' ' as unknown as ReactNode);
+  useEffect(() => {
+    import('react-icons/all').then((allIcons) => {
+      const RIcon = allIcons[name];
+      // @ts-ignore
+      setIcon(<RIcon /> as ReactNode);
+    });
+  }, []);
   return (
     <IconBase
       name={name}
       source="react"
       style={style}
     >
-      <ReactIcon />
+      {/* @ts-ignore */}
+      { Icon }
     </IconBase>
   );
 };

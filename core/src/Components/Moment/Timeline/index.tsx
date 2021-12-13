@@ -16,7 +16,7 @@ import CardImage from '../../Card/Image';
 import CardPill from '../../Card/Pill';
 import CardSection from '../../Card/Section';
 import MomentBase from '../Base';
-import './style.scss';
+import useStyles from './useStyles';
 
 export interface TimelineItem {
   date: StoriesAPIDate;
@@ -34,7 +34,8 @@ export interface TimelineMomentProps extends MomentProps {
  * General Timeline card layout Moment.
  */
 const TimelineMoment = (props: TimelineMomentProps) => {
-  const { color, data } = props;
+  const { bodyClassName, color, data } = props;
+  const classes = useStyles();
   const renderCard = ({
     date,
     description,
@@ -74,8 +75,11 @@ const TimelineMoment = (props: TimelineMomentProps) => {
     </CardBase>
   );
   return (
-    // eslint-disable-next-line react/jsx-props-no-spreading
-    <MomentBase {...props}>
+    /* eslint-disable react/jsx-props-no-spreading */
+    <MomentBase
+      {...props}
+      bodyClassName={`${classes.root} ${bodyClassName}`}
+    >
       <VerticalTimeline>
         {
           data.map((ctx) => (

@@ -1,13 +1,15 @@
 import PropTypes from 'prop-types';
-import React, { CSSProperties } from 'react';
-import * as ReactIconsFA from 'react-icons/fa';
+import React, {
+  CSSProperties,
+  ReactNode,
+  useEffect,
+  useState,
+} from 'react';
 
 import IconBase from '..';
 
-export type FAIconName = keyof typeof ReactIconsFA;
-
 export interface FaProps {
-  name: FAIconName;
+  name: string;
   style?: CSSProperties;
 }
 
@@ -15,14 +17,22 @@ export interface FaProps {
  * Wrapper of _react-icons_ FontAwesome integration with the Stories-API styling and integration
  */
 const FontAwesomeIcon = ({ name, style }: FaProps) => {
-  const ReactIcon = ReactIconsFA[name]!;
+  const [Icon, setIcon] = useState(' ' as unknown as ReactNode);
+  useEffect(() => {
+    import('react-icons/fa').then((allIcons) => {
+      const RIcon = allIcons[name];
+      // @ts-ignore
+      setIcon(<RIcon /> as ReactNode);
+    });
+  }, []);
   return (
     <IconBase
       name={name}
-      source="fa"
+      source="react"
       style={style}
     >
-      <ReactIcon />
+      {/* @ts-ignore */}
+      { Icon }
     </IconBase>
   );
 };
