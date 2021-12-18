@@ -1,5 +1,7 @@
-import { StoriesAPIStory } from './Components';
+import StoriesAPIStory from './Components/StoriesAPI/Story';
 import './theme.scss';
 
-export * from './Components';
+export { default as StoriesAPICollection } from './Components/StoriesAPI/Collection';
+export { default as Story } from './Components/Story';
+// export * from './Components';
 export default StoriesAPIStory;

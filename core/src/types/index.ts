@@ -18,6 +18,7 @@ export interface MomentProps {
   color: Color;
   children?: ReactNode;
   data?: object;
+  icon?: any;
   index?: number;
   layout: MomentLayout;
   story: Story;
