@@ -1,5 +1,10 @@
 // Adapted from https://github.com/ProjectMirador/mirador/blob/master/src/lib/MiradorViewer.js
-import React, { CSSProperties } from 'react';
+import React, {
+  CSSProperties,
+  ReactElement,
+  useEffect,
+  useState,
+} from 'react';
 import {
   createGenerateClassName,
   createTheme,
@@ -7,7 +12,6 @@ import {
   StylesProvider,
 } from '@material-ui/core/styles';
 import deepmerge from 'deepmerge';
-// @ts-ignore
 import MiradorViewer from 'mirador/dist/es/src/lib/MiradorViewer';
 import settings from 'mirador/dist/es/src/config/settings';
 import PropTypes from 'prop-types';
@@ -35,10 +39,9 @@ interface Props {
   style?: CSSProperties;
 }
 
-const generateClassName = createGenerateClassName({
-  productionPrefix: 'c',
-  seed: 'stories-api-mirador',
-});
+type MViewer = {
+  render: () => ReactElement,
+};
 
 /**
 * Mirador Viewer component.
@@ -49,7 +52,16 @@ const Mirador = ({
   plugins,
   style,
 }: Props) => {
-  const mergedConfig = deepmerge(settings, config);
+  const [mirador, setMirador] = useState(undefined as MViewer | undefined);
+  useEffect(() => {
+    const mergedConfig = deepmerge(settings, config!);
+    const viewer = new MiradorViewer(mergedConfig, { plugins }) as MViewer;
+    setMirador(viewer);
+  }, [config]);
+  const generateClassName = createGenerateClassName({
+    productionPrefix: 'p',
+    seed: `stories-api-mirador-${new Date().getTime()}`,
+  });
   return (
     <StylesProvider generateClassName={generateClassName}>
       <MuiThemeProvider theme={createTheme()}>
@@ -57,7 +69,7 @@ const Mirador = ({
           style={style}
           className={`story-mirador ${className} mirador--initialized`}
         >
-          { new MiradorViewer(mergedConfig, { plugins }).render() }
+          { mirador?.render() || null }
         </div>
       </MuiThemeProvider>
     </StylesProvider>
