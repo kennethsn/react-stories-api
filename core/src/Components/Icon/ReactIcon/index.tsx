@@ -1,37 +1,27 @@
 import PropTypes from 'prop-types';
-import React, {
-  CSSProperties,
-  ReactNode,
-  useEffect,
-  useState,
-} from 'react';
+import React, { CSSProperties } from 'react';
+import { GenIcon, IconTree } from 'react-icons';
+
 import IconBase from '..';
 
 export interface ReactIconProps {
   name: string;
+  data: IconTree;
   style?: CSSProperties;
 }
 
 /**
- * Wrapper of _react-icons_ integration with the Stories-API styling and integration
+ * Wrapper of _react-icons_ GenIcon integration with the Stories-API styling
  */
-const ReactIcon = ({ name, style }: ReactIconProps) => {
-  const [Icon, setIcon] = useState(' ' as unknown as ReactNode);
-  useEffect(() => {
-    import('react-icons/all').then((allIcons) => {
-      const RIcon = allIcons[name];
-      // @ts-ignore
-      setIcon(<RIcon /> as ReactNode);
-    });
-  }, []);
+const ReactIcon = ({ name, data, style }: ReactIconProps) => {
+  const Icon = GenIcon(data);
   return (
     <IconBase
       name={name}
       source="react"
       style={style}
     >
-      {/* @ts-ignore */}
-      { Icon }
+      <Icon />
     </IconBase>
   );
 };

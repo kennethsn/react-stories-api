@@ -12,6 +12,7 @@ import {
   StylesProvider,
 } from '@material-ui/core/styles';
 import deepmerge from 'deepmerge';
+import MiradorViewer from 'mirador/dist/es/src/lib/MiradorViewer';
 import settings from 'mirador/dist/es/src/config/settings';
 import PropTypes from 'prop-types';
 
@@ -38,6 +39,10 @@ interface Props {
   style?: CSSProperties;
 }
 
+type MViewer = {
+  render: () => ReactElement,
+};
+
 /**
 * Mirador Viewer component.
 */
@@ -47,14 +52,12 @@ const Mirador = ({
   plugins,
   style,
 }: Props) => {
-  const [mirador, setMirador] = useState(undefined as { render: () => ReactElement } | undefined);
-  const mergedConfig = deepmerge(settings, config);
+  const [mirador, setMirador] = useState(undefined as MViewer | undefined);
   useEffect(() => {
-    // @ts-ignore
-    import('mirador/dist/es/src/lib/MiradorViewer').then(({ default: MiradorViewer }) => {
-      setMirador(new MiradorViewer(mergedConfig, { plugins }));
-    });
-  }, []);
+    const mergedConfig = deepmerge(settings, config!);
+    const viewer = new MiradorViewer(mergedConfig, { plugins }) as MViewer;
+    setMirador(viewer);
+  }, [config]);
   const generateClassName = createGenerateClassName({
     productionPrefix: 'p',
     seed: `stories-api-mirador-${new Date().getTime()}`,

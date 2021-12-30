@@ -1,29 +1,61 @@
-export const AudioMoment = import('./Audio');
-export const AwardMoment = import('./Award');
-export const MomentBase = import('./Base');
-export const EducationMoment = import('./Education');
-export const EmployerMoment = import('./Employer');
-export const IFrameMoment = import('./IFrame');
-export const IIIFManifestMoment = import('./IIIFManifest');
-export const ImageMoment = import('./Image');
-export const GalleryMoment = import('./Gallery');
-export const GridListMoment = import('./GridList');
-export const LibraryMoment = import('./Library');
-export const MapMoment = import('./Map');
-export const MembershipMoment = import('./Membership');
-export const MerryGoRoundMoment = import('./MerryGoRound');
-export const MiradorMoment = import('./Mirador');
-export const NamedAfterMoment = import('./NamedAfter');
-export const ParallaxMoment = import('./Parallax');
-export const PDFMoment = import('./PDF');
-export const PeopleMoment = import('./People');
-export const ReferenceMoment = import('./Reference');
-export const SlideScrollMoment = import('./SlideScroll');
-export const SoftwareHeritageMoment = import('./SoftwareHeritage');
-export const StatMoment = import('./Stat');
-export const TileMoment = import('./Tile');
-export const TimelineMoment = import('./Timeline');
-export const VideoMoment = import('./Video');
-export const YouTubeMoment = import('./YouTube');
-export const WikipediaMoment = import('./Wikipedia');
-export const WikidataMoment = import('./Wikidata');
+import AudioMoment from './Audio';
+import AwardMoment from './Award';
+import MomentBase from './Base';
+import EducationMoment from './Education';
+import EmployerMoment from './Employer';
+import IFrameMoment from './IFrame';
+import IIIFManifestMoment from './IIIFManifest';
+import ImageMoment from './Image';
+import GalleryMoment from './Gallery';
+import GridListMoment from './GridList';
+import LibraryMoment from './Library';
+import MapMoment from './Map';
+import MembershipMoment from './Membership';
+import MerryGoRoundMoment from './MerryGoRound';
+import MiradorMoment from './Mirador';
+import NamedAfterMoment from './NamedAfter';
+import ParallaxMoment from './Parallax';
+import PDFMoment from './PDF';
+import PeopleMoment from './People';
+import ReferenceMoment from './Reference';
+import SlideScrollMoment from './SlideScroll';
+import SoftwareHeritageMoment from './SoftwareHeritage';
+import StatMoment from './Stat';
+import TileMoment from './Tile';
+import TimelineMoment from './Timeline';
+import VideoMoment from './Video';
+import WikidataMoment from './Wikidata';
+import WikipediaMoment from './Wikipedia';
+import YouTubeMoment from './YouTube';
+
+export default {
+  AudioMoment,
+  AwardMoment,
+  MomentBase,
+  EducationMoment,
+  EmployerMoment,
+  IFrameMoment,
+  IIIFManifestMoment,
+  ImageMoment,
+  GalleryMoment,
+  GridListMoment,
+  LibraryMoment,
+  MapMoment,
+  MembershipMoment,
+  MerryGoRoundMoment,
+  MiradorMoment,
+  NamedAfterMoment,
+  ParallaxMoment,
+  PDFMoment,
+  PeopleMoment,
+  ReferenceMoment,
+  SlideScrollMoment,
+  SoftwareHeritageMoment,
+  StatMoment,
+  TileMoment,
+  TimelineMoment,
+  VideoMoment,
+  WikidataMoment,
+  WikipediaMoment,
+  YouTubeMoment,
+};

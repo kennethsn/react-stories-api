@@ -1,10 +1,5 @@
 declare module 'mirador';
-declare module 'mirador/dist/es/src/components/App';
+declare module 'mirador/dist/es/src/lib/MiradorViewer';
 declare module 'mirador/dist/es/src/config/settings';
-declare module 'mirador/dist/es/src/extend/PluginProvider';
-declare module 'mirador/dist/es/src/state/actions';
-declare module 'mirador/dist/es/src/state/createStore';
-declare module 'mirador/dist/es/src/state/reducers/rootReducer';
-declare module 'mirador/dist/es/src/state/selectors';
 declare module 'react-awesome-slider';
 declare module 'react-parallax';

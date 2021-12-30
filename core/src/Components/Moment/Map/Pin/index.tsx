@@ -1,11 +1,11 @@
 import PropTypes from 'prop-types';
 import React, { CSSProperties } from 'react';
 
-import ReactIcon, { ReactIconProps } from '../../../Icon/ReactIcon';
+import FontAwesomeIcon, { FAIconName } from '../../../Icon/FontAwesome';
 import './style.scss';
 
 interface Props {
-  iconName: ReactIconProps['name'];
+  iconName: FAIconName;
   onClick?: () => void;
   size: number;
   style: CSSProperties;
@@ -28,7 +28,7 @@ const MapPin = ({
     style={style}
     tabIndex={0}
   >
-    <ReactIcon
+    <FontAwesomeIcon
       name={iconName}
       style={{ transform: `scale(${size / 20})` }}
     />
