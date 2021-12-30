@@ -42,6 +42,7 @@ const StoriesAPIStory = ({
   const [loading, setLoading] = useState(false);
   const [story, setStory] = useState(data as APIStory);
   const [error, setError] = useState(false);
+  const [moments, setMoments] = useState([] as ReactElement[]);
   const classes = useStyles();
   useEffect(() => {
     if (data || story || loading) return; // Override API with passed in data
@@ -53,17 +54,22 @@ const StoriesAPIStory = ({
       setLoading(false);
     }, () => setError(true)).then();
   });
-  const renderMoments = () => {
+  const renderMoments = async () => {
     const storyMoments = [] as ReactElement[];
-    story?.moments.forEach((moment) => {
+    // eslint-disable-next-line no-restricted-syntax
+    for (const moment of story?.moments || []) {
       if (MomentUtils.isPublicMoment(moment)) {
         const index = storyMoments.length;
-        const element = MomentUtils.buildMoment(story, moment, index);
+        // eslint-disable-next-line no-await-in-loop
+        const element = await MomentUtils.buildMoment(story, moment, index);
         if (element) storyMoments.push(element);
       }
-    });
+    }
     return storyMoments;
   };
+  useEffect(() => {
+    renderMoments().then((momentComponents) => setMoments(momentComponents));
+  }, [story]);
   const box = (body: ReactNode) => (
     <Grid
       alignItems="center"
@@ -103,7 +109,7 @@ const StoriesAPIStory = ({
       {...story!}
       {...options}
     >
-      {renderMoments()}
+      {moments}
     </Story>
   ))) as JSX.Element;
 };

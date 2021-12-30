@@ -8,8 +8,10 @@ export const getPublicMoment = ({ type }: StoryMoment) => API_TO_MOMENT_MAP[type
 
 export const isPublicMoment = (momentData: StoryMoment) => !!getPublicMoment(momentData);
 
-export const buildMoment = (story: Story, momentData: StoryMoment, index: number) => {
-  const MomentComponent = getPublicMoment(momentData);
+export const buildMoment = async (story: Story, momentData: StoryMoment, index: number) => {
+  const MomentComponents = await import('../../../Moment');
+  const ComponentPromise = MomentComponents[getPublicMoment(momentData)];
+  const MomentComponent = (await ComponentPromise).default;
   if (!MomentComponent) {
     return undefined;
   }
