@@ -4,7 +4,7 @@ import { GenIcon, IconTree } from 'react-icons';
 
 import IconBase from '..';
 
-export interface FaProps {
+export interface ReactIconProps {
   name: string;
   data: IconTree;
   style?: CSSProperties;
@@ -13,7 +13,7 @@ export interface FaProps {
 /**
  * Wrapper of _react-icons_ GenIcon integration with the Stories-API styling
  */
-const ReactIcon = ({ name, data, style }: FaProps) => {
+const ReactIcon = ({ name, data, style }: ReactIconProps) => {
   const Icon = GenIcon(data);
   return (
     <IconBase
