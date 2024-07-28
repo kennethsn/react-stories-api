@@ -1,0 +1,104 @@
+version: 2.1
+orbs:
+  node: circleci/node@5
+jobs:
+  lint-code:
+    description: Lint source code and fix issues
+    executor: node/default
+    steps:
+      - checkout
+      - node/install-packages
+      - run:
+          command: npm run lint:fix
+          name: Lint code
+  run-tests:
+    description: Run unit & integration tests
+    executor: node/default
+    steps:
+      - checkout
+      - node/install-packages
+      - run:
+          command: npm test
+          name: Run tests
+  build-package:
+    description: Transipile and bundle source code
+    executor: node/default
+    steps:
+      - checkout
+      - node/install-packages
+      - run:
+          command: npm run build
+          name: Build package
+  run-release:
+    description: Run release script
+    executor: node/default
+    steps:
+      - checkout
+      - node/install-packages
+      - run:
+          command: |
+            git config --global user.email $GIT_USER_EMAIL
+            git config --global user.name $GIT_USER_NAME
+          name: Configure git user
+      - run:
+          command: npm run release
+          name: Run release
+  publish-package:
+    description: Publish package to npm
+    executor: node/default
+    steps:
+      - checkout
+      - node/install-packages
+      - run:
+          command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/.npmrc
+          name: Configure npm token
+      - run:
+          command: npm publish
+          environment:
+            NPM_TOKEN: $NPM_TOKEN
+          name: Publish package
+workflows:
+  build-and-publish-to-npm:
+    jobs:
+      - lint-code:
+          filters:
+            branches:
+              only:
+                - main
+                - next/release
+                - next/version
+      - run-tests:
+          requires:
+            - lint-code
+      - build-package:
+          requires:
+            - run-tests
+      - run-release:
+          requires:
+            - build-package
+      - publish-package:
+          requires:
+            - run-release
+  build-and-test:
+    jobs:
+      - lint-code:
+          filters:
+            branches:
+              ignore:
+                - main
+                - next/release
+                - next/version
+      - run-tests:
+          filters:
+            branches:
+              ignore:
+                - main
+                - next/release
+                - next/version
+      - build-package:
+          filters:
+            branches:
+              ignore:
+                - main
+                - next/release
+                - next/version
