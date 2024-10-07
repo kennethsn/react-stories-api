@@ -1,2 +1,2 @@
-// eslint-disable-next-line import/prefer-default-export
 export { default as Story } from './Story';
+export type { StoryProps } from './Story.types';

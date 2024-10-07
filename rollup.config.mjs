@@ -8,7 +8,7 @@ import packageJSON from './package.json' with { type: 'json' };
 
 export default [
   {
-    input: 'src/index.ts',
+    input: './src/index.ts',
     output: [
       {
         file: packageJSON.main,
@@ -30,8 +30,9 @@ export default [
       }),
       resolve(),
       typescript({
+        exclude: ['**/*.test.ts', '**/*.stories.tsx'],
+        filterRoot: './src',
         tsconfig: './tsconfig.json',
-        exclude: ['**/*.test.ts', './archive/**/*'], // KSN TODO: remove archive
       }),
 
     ],

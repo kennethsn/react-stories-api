@@ -1,0 +1,91 @@
+{
+  "description": "The First Yale Clubhouse",
+  "id": "Q123",
+  "image": "https://stories-api-test.s3.amazonaws.com/temp/They+Lived+at+the+Yale+Club/17+Madison+N/17+Madison.jpg",
+  "label": "17 Madison Square North",
+  "moments": [
+    {
+      "data": {
+        "caption": {
+          "content": "The four-story building, plus basement, featured here outlined in blue is the original Yale Club house at 17 Madison Square North (17 East 26th St.), rented on June 2nd, 1897 at the 2nd meeting of the newly incorporated Yale Club.\n\n The Club had previously been used by the “Lambs Club.” Upon renting the Club, the governing body immediately obtained a “Raines Law License” which allowed the Club to have a bar. The other photos featured here of 17 Madison Square are from 1905, when the former Yale Club was taken up by the The Women’s University Club.  The photos give an idea as to what the interior of the Club might have looked like in our tenure. In addition to the rooms pictured here, the club also housed a billiards room in the basement.",
+          "position": "left"
+        },
+        "image": {
+          "fit": "cover",
+          "size": 4,
+          "url": "https://stories-api-test.s3.amazonaws.com/temp/They+Lived+at+the+Yale+Club/17+Madison+N/17+Madison+in+blue.jpg"
+        }
+      },
+      "icon": {
+        "name": "image",
+        "type": "mui"
+      },
+      "index": 0,
+      "label": "Introduction",
+      "subtitle": "The Original Yale Club House",
+      "title": "17 Madison Square North",
+      "type": "image"
+    },
+    {
+      "data": {
+        "caption": {
+          "content": "The four-story building, plus basement, featured here outlined in blue is the original Yale Club house at 17 Madison Square North (17 East 26th St.), rented on June 2nd, 1897 at the 2nd meeting of the newly incorporated Yale Club.\n\n The Club had previously been used by the “Lambs Club.” Upon renting the Club, the governing body immediately obtained a “Raines Law License” which allowed the Club to have a bar. The other photos featured here of 17 Madison Square are from 1905, when the former Yale Club was taken up by the The Women’s University Club.  The photos give an idea as to what the interior of the Club might have looked like in our tenure. In addition to the rooms pictured here, the club also housed a billiards room in the basement.",
+          "position": "left"
+        },
+        "image": {
+          "fit": "cover",
+          "size": 4,
+          "url": "https://stories-api-test.s3.amazonaws.com/temp/They+Lived+at+the+Yale+Club/17+Madison+N/17+Madison+in+blue.jpg"
+        }
+      },
+      "index": 1,
+      "label": "Introduction",
+      "subtitle": "The Original Yale Club House",
+      "title": "17 Madison Square North",
+      "type": "image"
+    },
+    {
+      "data": {
+        "caption": {
+          "content": "The four-story building, plus basement, featured here outlined in blue is the original Yale Club house at 17 Madison Square North (17 East 26th St.), rented on June 2nd, 1897 at the 2nd meeting of the newly incorporated Yale Club.\n\n The Club had previously been used by the “Lambs Club.” Upon renting the Club, the governing body immediately obtained a “Raines Law License” which allowed the Club to have a bar. The other photos featured here of 17 Madison Square are from 1905, when the former Yale Club was taken up by the The Women’s University Club.  The photos give an idea as to what the interior of the Club might have looked like in our tenure. In addition to the rooms pictured here, the club also housed a billiards room in the basement.",
+          "position": "left"
+        },
+        "image": {
+          "fit": "cover",
+          "size": 4,
+          "url": "https://stories-api-test.s3.amazonaws.com/temp/They+Lived+at+the+Yale+Club/17+Madison+N/17+Madison+in+blue.jpg"
+        }
+      },
+      "icon": {
+        "name": "settings",
+        "type": "mui"
+      },
+      "index": 2,
+      "label": "Introduction",
+      "subtitle": "The Original Yale Club House",
+      "title": "17 Madison Square North",
+      "type": "image"
+    },
+    {
+      "data": {
+        "caption": {
+          "content": "The four-story building, plus basement, featured here outlined in blue is the original Yale Club house at 17 Madison Square North (17 East 26th St.), rented on June 2nd, 1897 at the 2nd meeting of the newly incorporated Yale Club.\n\n The Club had previously been used by the “Lambs Club.” Upon renting the Club, the governing body immediately obtained a “Raines Law License” which allowed the Club to have a bar. The other photos featured here of 17 Madison Square are from 1905, when the former Yale Club was taken up by the The Women’s University Club.  The photos give an idea as to what the interior of the Club might have looked like in our tenure. In addition to the rooms pictured here, the club also housed a billiards room in the basement.",
+          "position": "left"
+        },
+        "image": {
+          "fit": "cover",
+          "size": 4,
+          "url": "https://stories-api-test.s3.amazonaws.com/temp/They+Lived+at+the+Yale+Club/17+Madison+N/17+Madison+in+blue.jpg"
+        }
+      },
+      "icon": {
+        "type": "none"
+      },
+      "index": 3,
+      "label": "Introduction",
+      "subtitle": "The Original Yale Club House",
+      "title": "17 Madison Square North",
+      "type": "image"
+    }
+  ]
+}

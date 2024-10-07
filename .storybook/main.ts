@@ -7,7 +7,11 @@ const config: StorybookConfig = {
     '@storybook/addon-interactions',
     '@storybook/addon-links',
     '@storybook/addon-onboarding',
+    'storybook-addon-deep-controls',
   ],
+  core: {
+    disableTelemetry: true,
+  },
   docs: {
     autodocs: 'tag',
   },

@@ -43,8 +43,25 @@ module.exports = {
     'simple-import-sort',
   ],
   rules: {
+    '@typescript-eslint/no-unused-vars': [
+      'error',
+      {
+        args: 'all',
+        argsIgnorePattern: '^_',
+        caughtErrors: 'all',
+        caughtErrorsIgnorePattern: '^_',
+        destructuredArrayIgnorePattern: '^_',
+        varsIgnorePattern: '^_',
+        ignoreRestSiblings: true,
+      },
+    ],
+    '@typescript-eslint/no-use-before-define': 0,
     'react/react-in-jsx-scope': 0,
+    'react/jsx-max-depth': ['error', { max: 3 }],
     'react/jsx-no-literals': 0,
+    'react/require-default-props': [2, {
+      functions: 'defaultArguments',
+    }],
     'react-refresh/only-export-components': [
       'warn',
       { allowConstantExport: true },
