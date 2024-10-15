@@ -1,6 +1,6 @@
 {
   "name": "react-stories-api",
-  "version": "1.0.0-dev-1",
+  "version": "1.0.0-dev-5",
   "author": "Kenneth Seals-Nutt",
   "babel": {
     "presets": [
@@ -55,6 +55,7 @@
     "@testing-library/react": "^16.0.1",
     "@types/jest": "^29.5.13",
     "@types/react": "^18.3.11",
+    "@types/rollup-plugin-peer-deps-external": "^2.2.5",
     "@typescript-eslint/eslint-plugin": "^7.18.0",
     "@typescript-eslint/parser": "^7.18.0",
     "commitizen": "^4.3.1",
@@ -74,6 +75,7 @@
     "react-dom": "^18.3.1",
     "relative-deps": "^1.0.7",
     "rollup-plugin-dts": "^6.1.1",
+    "rollup-plugin-peer-deps-external": "^2.2.4",
     "rollup-plugin-postcss": "^4.0.2",
     "standard-version": "^9.5.0",
     "storybook": "^8.3.5",
@@ -97,8 +99,9 @@
   "peerDependencies": {
     "@emotion/react": "^11.13.3",
     "@emotion/styled": "^11.13.0",
-    "@mui/icons-material": "^6.1.2",
-    "@mui/material": "^6.1.2",
+    "@mui/icons-material": "^6.1.3",
+    "@mui/lab": "^6.0.0-beta.11",
+    "@mui/material": "^6.1.3",
     "react": ">=18"
   },
   "repository": {

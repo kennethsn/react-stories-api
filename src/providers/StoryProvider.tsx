@@ -32,6 +32,7 @@ export default function StoryProvider({
   story,
 }: StoryProviderProps) {
   const [swiper, setSwiper] = useState<SwiperClass | undefined>(undefined);
+  const [activeMomentRef, setActiveMomentRef] = useState<IStoryContext['activeMomentRef']>(null);
   const [activeMomentIndex, setActiveMomentIndex] = useState<number>(defaultMoment);
   const { availableMoments, groupedMoments, initialExpandedGroups } = useMemo(() => {
     const available = processInputMoments(story.moments);
@@ -48,6 +49,7 @@ export default function StoryProvider({
       const contextLayout = layout ?? isMobile ? 'mobile' : 'desktop';
       const context: IStoryContext = {
         activeMomentIndex,
+        activeMomentRef,
         availableMoments,
         branding,
         defaultMoment,
@@ -57,6 +59,7 @@ export default function StoryProvider({
         layoutIsMobile: contextLayout === 'mobile',
         layout: contextLayout,
         setActiveMomentIndex: setActiveMomentIndexWithSwiper,
+        setActiveMomentRef,
         setExpandedMomentGroups,
         setSwiper,
         story,
@@ -65,6 +68,7 @@ export default function StoryProvider({
     },
     [
       activeMomentIndex,
+      activeMomentRef,
       availableMoments,
       branding,
       defaultMoment,

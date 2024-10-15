@@ -12,15 +12,12 @@ const squareImageUrl = 'https://www.womenshistory.org/sites/default/files/styles
 const tallImageUrl = 'http://commons.wikimedia.org/wiki/Special:FilePath/Commodore%20Grace%20M.%20Hopper%2C%20USN%20%28covered%29.jpg';
 const wideImageUrl = 'http://iiif.ss.ksn.io/iiif/2/NMAH-AC0324-0000033.jpg/full/full/0/default.jpg';
 
-const imageMomentData = {
+const momentData = {
   index: 0,
   type: 'image',
   title: 'Grace Murray Hopper',
   subtitle: null,
-  icon: {
-    name: 'FaRegImage',
-    source: 'fa',
-  },
+  icon: { name: 'image', type: 'mui' },
   color: {
     type: 'hex',
     background: '#7dbbb1',
@@ -40,7 +37,7 @@ const imageMomentData = {
 
 export default {
   args: {
-    moment: imageMomentData,
+    moment: momentData,
   },
   argTypes: {
     'moment.data.caption.content': {

@@ -12,12 +12,13 @@
         },
         "image": {
           "fit": "cover",
+          "position": "left",
           "size": 4,
           "url": "https://stories-api-test.s3.amazonaws.com/temp/They+Lived+at+the+Yale+Club/17+Madison+N/17+Madison+in+blue.jpg"
         }
       },
       "icon": {
-        "name": "image",
+        "name": "photo_album",
         "type": "mui"
       },
       "index": 0,
@@ -29,62 +30,442 @@
     {
       "data": {
         "caption": {
-          "content": "The four-story building, plus basement, featured here outlined in blue is the original Yale Club house at 17 Madison Square North (17 East 26th St.), rented on June 2nd, 1897 at the 2nd meeting of the newly incorporated Yale Club.\n\n The Club had previously been used by the “Lambs Club.” Upon renting the Club, the governing body immediately obtained a “Raines Law License” which allowed the Club to have a bar. The other photos featured here of 17 Madison Square are from 1905, when the former Yale Club was taken up by the The Women’s University Club.  The photos give an idea as to what the interior of the Club might have looked like in our tenure. In addition to the rooms pictured here, the club also housed a billiards room in the basement.",
+          "content": "Join Librarian & Archives Manager Caroline Bartels as she continues to delve into more stories of members who lived at 17 Madison Square North, 30 W. 44th Street, and 50 Vanderbilt Avenue over the years and called The Yale Club home. Come hear about Edward J. Noble, founder of Lifesavers Candies, Egerton Swartwout, architect of The Yale Club at 30 W. 44th, William McChesney Martin, chairman of the Board of Governors of the Federal Reserve System, and for our DKE members, James A. Hawes, plus several others. The lives of these young men help tell the story of the early 20th century in New York City and the place of the Yale Club in that history. Recorded July 10th, 2024.",
           "position": "left"
         },
-        "image": {
-          "fit": "cover",
-          "size": 4,
-          "url": "https://stories-api-test.s3.amazonaws.com/temp/They+Lived+at+the+Yale+Club/17+Madison+N/17+Madison+in+blue.jpg"
-        }
+        "size": 7,
+        "start_at": 122,
+        "video_id": "bOl0-yBfXBU"
       },
-      "index": 1,
-      "label": "Introduction",
-      "subtitle": "The Original Yale Club House",
-      "title": "17 Madison Square North",
-      "type": "image"
+      "index": 0,
+      "label": "Happy Hour For the Mind",
+      "subtitle": "They Lived at the Yale Club pt. 1",
+      "title": "Happy Hour For the Mind",
+      "type": "youTube"
     },
     {
       "data": {
         "caption": {
-          "content": "The four-story building, plus basement, featured here outlined in blue is the original Yale Club house at 17 Madison Square North (17 East 26th St.), rented on June 2nd, 1897 at the 2nd meeting of the newly incorporated Yale Club.\n\n The Club had previously been used by the “Lambs Club.” Upon renting the Club, the governing body immediately obtained a “Raines Law License” which allowed the Club to have a bar. The other photos featured here of 17 Madison Square are from 1905, when the former Yale Club was taken up by the The Women’s University Club.  The photos give an idea as to what the interior of the Club might have looked like in our tenure. In addition to the rooms pictured here, the club also housed a billiards room in the basement.",
-          "position": "left"
+          "content": "The first meeting of the alumni of Yale College took place on February 17th, 1868, but they do not officially become the Yale Alumni Association until March 4th, 1868. The Club Archives contain the original minutes of the Club from 1868 through 1873. ",
+          "position": "right"
         },
         "image": {
-          "fit": "cover",
-          "size": 4,
-          "url": "https://stories-api-test.s3.amazonaws.com/temp/They+Lived+at+the+Yale+Club/17+Madison+N/17+Madison+in+blue.jpg"
+          "fit": "card",
+          "size": 7,
+          "url": "https://stories-api-test.s3.amazonaws.com/temp/They+Lived+at+the+Yale+Club/17+Madison+N/1_alumni-notes-1.jpeg"
         }
       },
       "icon": {
-        "name": "settings",
+        "name": "diversity_3",
         "type": "mui"
       },
-      "index": 2,
-      "label": "Introduction",
-      "subtitle": "The Original Yale Club House",
-      "title": "17 Madison Square North",
+      "group": {
+        "label": "Before the Club",
+        "id": "before-the-club"
+      },
+      "index": 1,
+      "label": "First Meeting (1868)",
+      "title": "First Meeting (1868)",
       "type": "image"
     },
     {
       "data": {
         "caption": {
-          "content": "The four-story building, plus basement, featured here outlined in blue is the original Yale Club house at 17 Madison Square North (17 East 26th St.), rented on June 2nd, 1897 at the 2nd meeting of the newly incorporated Yale Club.\n\n The Club had previously been used by the “Lambs Club.” Upon renting the Club, the governing body immediately obtained a “Raines Law License” which allowed the Club to have a bar. The other photos featured here of 17 Madison Square are from 1905, when the former Yale Club was taken up by the The Women’s University Club.  The photos give an idea as to what the interior of the Club might have looked like in our tenure. In addition to the rooms pictured here, the club also housed a billiards room in the basement.",
+          "content": "In these early years, without a clubhouse, the monthly meetings of the entire Yale Alumni Association, which quickly grew to hundreds of members, were generally held on the third Friday of every month in places like Delmonico’s and Sherry’s. This invitation from a meeting at Sherry’s from January 16, 1895 is part of an early scrapbook of treasures that chart the early years of the Club.",
+          "position": "left"
+        },
+        "image": {
+          "fit": "card",
+          "size": 7,
+          "url": "https://stories-api-test.s3.amazonaws.com/temp/They+Lived+at+the+Yale+Club/Sherry_s+invitation+1895.jpg"
+        }
+      },
+      "icon": {
+        "name": "school",
+        "type": "mui"
+      },
+      "group": {
+        "label": "Before the Club",
+        "id": "before-the-club"
+      },
+      "index": 2,
+      "label": "Yale Alumni Association",
+      "title": "Yale Alumni Association",
+      "type": "image"
+    },
+    {
+      "data": {
+        "caption": {
+          "content": "One of the first resolutions that club members made was to obtain a “Raines Law License” which would allow them to provide alcohol in the new clubhouse.",
           "position": "left"
         },
         "image": {
           "fit": "cover",
-          "size": 4,
-          "url": "https://stories-api-test.s3.amazonaws.com/temp/They+Lived+at+the+Yale+Club/17+Madison+N/17+Madison+in+blue.jpg"
+          "position": "top",
+          "size": 8,
+          "url": "https://img.newspapers.com/img/img?user=7657948&id=542167102&clippingId=83590940&width=787&height=3993&crop=1599_924_787_3993&rotation=0"
         }
       },
       "icon": {
-        "type": "none"
+        "name": "sports_bar",
+        "type": "mui"
+      },
+      "group": {
+        "label": "Before the Club",
+        "id": "before-the-club"
       },
       "index": 3,
-      "label": "Introduction",
-      "subtitle": "The Original Yale Club House",
-      "title": "17 Madison Square North",
+      "label": "First Order of Business",
+      "subtitle": "Yale Club acquired an alcohol license in 1897",
+      "title": "Raines Law License",
+      "type": "image"
+    },
+    {
+      "data": {
+        "caption": {
+          "content": "There were several important steps that turned the Yale Alumni Association into the Yale Club we know and love today. To learn more about the early years of the Club, click on one of the cards' buttons below to explore the 'Before the Club' story.",
+          "position": "top"
+        },
+        "timeline": {
+          "events": [
+            {
+              "button": {
+                "label": "View Story",
+                "url": "/stories/Q1234"
+              },
+              "date": {
+                "day": 4,
+                "label": "1868",
+                "month": 3,
+                "year": 1868
+              },
+              "description": "For a number of years, the Club held its three social meetings at these large restaurants as well as the annual dinner. (I’ll add in an image of one of the early dinner receipts).",
+              "image": {
+                "alt": "Sherry's invitation 1895",
+                "url": "https://stories-api-test.s3.amazonaws.com/temp/They+Lived+at+the+Yale+Club/Sherry_s+invitation+1895.jpg"
+              },
+              "title": "Yale Alumni Association Meetings"
+            },
+            {
+              "button": {
+                "label": "View Story",
+                "url": "/stories/Q1234"
+              },
+              "date": {
+                "day": 1,
+                "label": "1890",
+                "month": 1,
+                "year": 1890
+              },
+              "title": "Discussions of a clubhouse",
+              "description": "Finally, in the late 1890s, several members expressed the desire to have our own clubhouse, similar to the clubhouse founded by Harvard in 1865."
+            },
+            {
+              "button": {
+                "label": "View Story",
+                "url": "/stories/Q1234"
+              },
+              "date": {
+                "day": 15,
+                "label": "1897",
+                "month": 4,
+                "year": 1897
+              },
+              "description": "On April 15, 1897, the club leaders passed around a memorandum proposing such a clubhouse, and within a month 500 signatures had been collected.",
+              "title": "Collecting Signatures"
+            },
+            {
+              "date": {
+                "day": 26,
+                "label": "1897",
+                "month": 5,
+                "year": 1897
+              },
+              "title": "The Yale Club incorporates"
+            },
+            {
+              "button": {
+                "label": "Explore Map",
+                "url": "https://maps.app.goo.gl/JRcFmPDNXaJmd3JL8"
+              },
+              "date": {
+                "day": 2,
+                "label": "1897",
+                "month": 6,
+                "year": 1897
+              },
+              "description": "Members decide they would rent 17 East 26th St, also known as 17 Madison Square North, from the McCoon Estate for $6,000 for three years. ",
+              "image": {
+                "alt": "17 Madison with annotation",
+                "url": "https://stories-api-test.s3.amazonaws.com/temp/They+Lived+at+the+Yale+Club/17+Madison+N/17+Madison+in+blue.jpg"
+              },
+              "title": "Finding a clubhouse"
+            },
+            {
+              "title": "First order of business",
+              "date": {
+                "day": 5,
+                "label": "1897",
+                "month": 6,
+                "year": 1897
+              },
+              "description": "One of the first resolutions that club members made was to obtain a “Raines Law License” which would allow them to provide alcohol in the new clubhouse.",
+              "image": {
+                "alt": "Newspaper clipping",
+                "position": "top",
+                "url": "https://img.newspapers.com/img/img?user=7657948&id=542167102&clippingId=83590940&width=787&height=3993&crop=1599_924_787_3993&rotation=0"
+              }
+            }
+          ]
+        }
+      },
+      "group": {
+        "label": "Before the Club",
+        "id": "before-the-club"
+      },
+      "icon": {
+        "name": "file_map_stack",
+        "type": "mui"
+      },
+      "index": 0,
+      "label": "Forming The First Clubhouse",
+      "subtitle": "Key Events that led to the Club's Incorporation",
+      "title": "From Social Meetings to Incorporation",
+      "type": "timeline"
+    },
+    {
+      "data": {
+        "image": {
+          "fit": "card",
+          "size": 8,
+          "url": "https://stories-api-test.s3.amazonaws.com/temp/They+Lived+at+the+Yale+Club/17+Madison+N/1_harpers.png"
+        }
+      },
+      "icon": {
+        "name": "full_coverage",
+        "type": "mui"
+      },
+      "group": {
+        "label": "Opening the Club",
+        "id": "opening-the-club"
+      },
+      "index": 4,
+      "label": "In the Press",
+      "subtitle": "Harper’s Weekly, Vol. 41, January-June, 1897",
+      "title": "Spreading the Word",
+      "type": "image"
+    },
+    {
+      "data": {
+        "caption": {
+          "content": "This notice comes from the Club’s early scrapbook, kept primarily by Samuel Betts ‘75, who was one of the early secretaries of the Club.",
+          "fit": "full-width",
+          "position": "top"
+        },
+        "image": {
+          "fit": "full-width",
+          "size": 8,
+          "url": "https://stories-api-test.s3.amazonaws.com/temp/They+Lived+at+the+Yale+Club/17+Madison+N/notice+to+members.jpg"
+        }
+      },
+      "icon": {
+        "name": "local_post_office",
+        "type": "mui"
+      },
+      "group": {
+        "label": "Opening the Club",
+        "id": "opening-the-club"
+      },
+      "index": 5,
+      "label": "Notice to Members (1897)",
+      "title": "Notice to Members",
+      "type": "image"
+    },
+    {
+      "data": {
+        "caption": {
+          "content": "Included in the scrapbook is a receipt for his annual dues payment of $20.00 as a resident member, dated October 8, 1897. The Club opened informally on October 7th.",
+          "fit": "full-width",
+          "position": "bottom"
+        },
+        "image": {
+          "fit": "full-width",
+          "size": 8,
+          "url": "https://stories-api-test.s3.amazonaws.com/temp/They+Lived+at+the+Yale+Club/17+Madison+N/1_dues-receipt.jpeg"
+        }
+      },
+      "icon": {
+        "name": "receipt_long",
+        "type": "mui"
+      },
+      "group": {
+        "label": "Opening the Club",
+        "id": "opening-the-club"
+      },
+      "index": 6,
+      "label": "Annual Dues (1897)",
+      "title": "Annual Dues",
+      "type": "image"
+    },
+    {
+      "data": {
+        "image": {
+          "fit": "full-width",
+          "size": 8,
+          "url": "https://stories-api-test.s3.amazonaws.com/temp/They+Lived+at+the+Yale+Club/17+Madison+N/17+Madison+Square.jpg"
+        }
+      },
+      "icon": {
+        "name": "gavel",
+        "type": "mui"
+      },
+      "group": {
+        "label": "Opening the Club",
+        "id": "opening-the-club"
+      },
+      "index": 7,
+      "label": "Forming Policies",
+      "title": "Forming Policies",
+      "type": "image"
+    },
+    {
+      "data": {
+        "image": {
+          "fit": "card",
+          "size": 8,
+          "url": "https://stories-api-test.s3.amazonaws.com/temp/They+Lived+at+the+Yale+Club/17+Madison+N/Annual+Report+1898.jpg"
+        }
+      },
+      "icon": {
+        "name": "domain",
+        "type": "mui"
+      },
+      "group": {
+        "label": "Opening the Club",
+        "id": "opening-the-club"
+      },
+      "index": 8,
+      "label": "Grand Opening (1898)",
+      "subtitle": "Grand Opening party held on Oct. 15 with first annual meeting",
+      "title": "\"Club Night\"",
+      "type": "image"
+    },
+    {
+      "data": {
+        "image": {
+          "fit": "full-width",
+          "size": 12,
+          "url": "https://stories-api-test.s3.amazonaws.com/temp/They+Lived+at+the+Yale+Club/17+Madison+N/Clubmen+of+New+York+1898-1899.png"
+        }
+      },
+      "icon": {
+        "name": "domain",
+        "type": "mui"
+      },
+      "group": {
+        "label": "Life at the Club",
+        "id": "life-at-the-club"
+      },
+      "index": 9,
+      "label": "The Clubmen of NY Feature",
+      "subtitle": "The Clubmen of New York, 1898-1899",
+      "title": "Featured in Publications",
+      "type": "image"
+    },
+    {
+      "data": {
+        "caption": {
+          "content": "Though no existing photos of the clubhouse can be found during The Yale Club’s tenure, an article on The Woman’s University Club, which took over the lease of 17 Madison Square North in 1905, appeared in Harper’s Bazaar, Vol. 42, 1908. The photos in the article give us a good idea of how The Yale Club might have looked from 1897-1901.\n\nThe Clubhouse at 17 Madison Square North was four stories with a basement, which housed the billiards room. We know, from the Archives, that the first floor of the clubhouse contained a large reading room, dining rooms, and a smoking room. In 1905, in The Woman’s University Club, this is what these rooms looked like. \n\n The bay window featured on page 1112 corresponds with the bay window shown in the facade of the building. This was probably one of the smaller dining rooms on the 2nd floor which were used for private dinners and class dinners, announcements for which showed up frequently in The Alumni Weekly.",
+          "position": "left"
+        },
+        "hathi_trust_id": "chi.20580201",
+        "size": 7,
+        "page_number": 1175,
+        "view": "scroll"
+      },
+      "icon": {
+        "name": "newspaper",
+        "type": "mui"
+      },
+      "group": {
+        "label": "Life at the Club",
+        "id": "life-at-the-club"
+      },
+      "index": 9,
+      "label": "The Woman's University Club Feature",
+      "subtitle": "Harper's Bazaar, Vol. 42, 1908. Content Provided by HathiTrust.",
+      "title": "The Woman's University Club Feature",
+      "type": "hathiTrust"
+    },
+    {
+      "data": {
+        "image": {
+          "fit": "full-width",
+          "size": 12,
+          "url": "https://stories-api-test.s3.amazonaws.com/temp/They+Lived+at+the+Yale+Club/1887/Richard+Dana+Morse+1887/Richard+Dana+Morse+1887+--+1912-1915+3.jpg"
+        }
+      },
+      "icon": {
+        "name": "contacts",
+        "type": "mui"
+      },
+      "group": {
+        "label": "They Lived at the Club",
+        "id": "people"
+      },
+      "index": 10,
+      "label": "Richard Dana Morse, Jr.",
+      "subtitle": "Lived at the Club 1912-1915",
+      "title": "Richard Dana Morse, Jr. '1887",
+      "type": "image"
+    },
+    {
+      "data": {
+        "image": {
+          "fit": "full-width",
+          "size": 12,
+          "url": "https://stories-api-test.s3.amazonaws.com/temp/They+Lived+at+the+Yale+Club/1887/M.+A.+Caldwell+1887/M.+A.+Caldwell+1887+--+Quarter+Century+Record+3+1912.jpg"
+        }
+      },
+      "icon": {
+        "name": "contacts",
+        "type": "mui"
+      },
+      "group": {
+        "label": "They Lived at the Club",
+        "id": "people"
+      },
+      "index": 11,
+      "label": "M. A. Caldwell.",
+      "subtitle": "Lived at the Club 1912-1915",
+      "title": "M. A. Caldwell. '1887",
+      "type": "image"
+    },
+    {
+      "data": {
+        "caption": {
+          "content": "The club announces its closing in April of 1901. Click on the image to read the full notice.\n\n Continue the exhibit by going to the next story on 30 West Forty-Forth Street.",
+          "position": "left"
+        },
+        "image": {
+          "fit": "cover",
+          "position": "top",
+          "size": 8,
+          "url": "https://stories-api-test.s3.amazonaws.com/temp/They+Lived+at+the+Yale+Club/17+Madison+N/Closing+of+the+Club+April+1901.png"
+        }
+      },
+      "icon": {
+        "name": "local_post_office",
+        "type": "mui"
+      },
+      "group": {
+        "label": "Closing The Club",
+        "id": "closing-the-club"
+      },
+      "index": 11,
+      "label": "Notice to Members (1901)",
+      "subtitle": "Notice to Members",
+      "title": "Notice to Members",
       "type": "image"
     }
   ]

@@ -2,6 +2,7 @@ import commonjs from '@rollup/plugin-commonjs';
 import resolve from '@rollup/plugin-node-resolve';
 import typescript from '@rollup/plugin-typescript';
 import dts from 'rollup-plugin-dts';
+import peerDepsExternal from 'rollup-plugin-peer-deps-external';
 import postcss from 'rollup-plugin-postcss';
 
 import packageJSON from './package.json' with { type: 'json' };
@@ -22,6 +23,7 @@ export default [
       },
     ],
     plugins: [
+      peerDepsExternal(),
       commonjs(),
       postcss({
         extensions: ['.css'],

@@ -5,6 +5,7 @@ import {
   Navigation,
   Pagination,
   Parallax,
+  Virtual,
 } from 'swiper/modules';
 import { Swiper, SwiperClass, SwiperSlide } from 'swiper/react';
 
@@ -21,6 +22,7 @@ const modules = [
   Parallax,
   Keyboard,
   Navigation,
+  Virtual,
 ];
 
 export default function StoryMomentsContainer() {
@@ -66,6 +68,10 @@ export default function StoryMomentsContainer() {
         }}
         parallax
         speed={600}
+        virtual={layoutIsMobile ? {
+          cache: false,
+          enabled: true,
+        } : undefined}
       >
         <div slot="container-start" />
 

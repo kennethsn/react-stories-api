@@ -6,8 +6,8 @@ export default function useColor(color?: Color) {
   const { palette } = useTheme();
   if (!color?.background) {
     return {
-      background: 'primary.main',
-      text: 'primary.contrastText',
+      background: palette.primary.main,
+      text: palette.primary.contrastText,
     };
   }
   return {

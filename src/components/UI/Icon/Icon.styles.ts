@@ -1,4 +1,8 @@
 const styles = {
+  imageIcon: {
+    height: '1em',
+    verticalAlign: 'middle',
+  },
   muiIcon: {
     '&.material-symbols-sharp': {
       fontSize: 'inherit',

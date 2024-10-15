@@ -3,17 +3,17 @@ import Grid from '@mui/material/Grid2';
 import Typography from '@mui/material/Typography';
 import { Unless } from 'react-if';
 
-import styles from './ImageMoment.styles';
-import type { ImageMomentCaptionGridItemProps } from './ImageMoment.types';
+import styles from './MomentBodyLayout.styles';
+import type { MomentBodyLayoutCaptionGridItemProps } from './MomentBodyLayout.types';
 
-export default function ImageMomentCaptionGridItem({
+export default function MomentBodyLayoutCaptionGridItem({
   boxShadow,
   content,
   height,
   hide,
   size,
   m,
-}: ImageMomentCaptionGridItemProps) {
+}: MomentBodyLayoutCaptionGridItemProps) {
   return (
     <Unless condition={hide}>
       <Grid
