@@ -1,11 +1,10 @@
-import { buildIFrameMomentFromYouTube } from '../../../utils/youTubeUtils';
-import IFrameMoment from '../IFrameMoment/IFrameMoment';
+import { buildVideoMomentFromYouTube } from '../../../utils/youTubeUtils';
+import VideoMoment from '../VideoMoment/VideoMoment';
 import type { YouTubeMomentProps } from './YouTubeMoment.types';
 
-// KSN TODO: Extend to support AVPlayerMoment
 export default function YouTubeMoment({ moment }: YouTubeMomentProps) {
-  const iframeMoment = buildIFrameMomentFromYouTube(moment);
+  const videoMoment = buildVideoMomentFromYouTube(moment);
   return (
-    <IFrameMoment moment={iframeMoment} />
+    <VideoMoment moment={videoMoment} />
   );
 }

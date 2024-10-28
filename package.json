@@ -1,6 +1,6 @@
 {
   "name": "react-stories-api",
-  "version": "1.0.0-dev-5",
+  "version": "1.0.0-dev-6",
   "author": "Kenneth Seals-Nutt",
   "babel": {
     "presets": [
@@ -28,6 +28,7 @@
     "@fontsource/roboto": "^5.1.0",
     "react-if": "^4.1.5",
     "react-photo-view": "^1.2.6",
+    "react-player": "^2.16.0",
     "react-resizable-panels": "^2.1.4",
     "swiper": "^11.1.14"
   },

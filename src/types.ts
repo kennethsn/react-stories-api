@@ -1,15 +1,23 @@
 type AtLeastOne<T, U = { [K in keyof T]: Pick<T, K> }> = Partial<T> & U[keyof U];
 
-export interface Collection {
+export type AV = {
+  readonly momentIndex: number;
+  readonly pause: () => void | Promise<void>;
+  readonly play: () => void | Promise<void>;
+  readonly storyId: Story['id'];
+  readonly type: 'audio' | 'video';
+};
+
+export type Collection = {
   readonly description: string;
   readonly id: number;
   readonly name: string;
-}
+};
 
-export interface Color {
+export type Color = {
   readonly background: string;
   readonly text?: NullableString;
-}
+};
 
 export type GroupedMoments = Array<MomentOrMomentGroup>;
 
@@ -88,6 +96,7 @@ export type MomentData =
   IFrameMomentData |
   HathiTrustMomentData |
   TimelineMomentData |
+  VideoMomentData |
   YouTubeMomentData;
 
 export type MomentGroup = {
@@ -100,7 +109,15 @@ export type MomentGroupWithMoments = MomentGroup & { moments: Moment[] };
 export type MomentOrMomentGroup = (Moment | MomentGroupWithMoments) & { key: string };
 
 // KSN TODO: remove string when all moments are typed
-export type MomentType = 'base' | 'hathiTrust' | 'iframe' | 'image' | 'timeline' | 'youTube' | string;
+export type MomentType =
+  'base' |
+  'hathiTrust' |
+  'iframe' |
+  'image' |
+  'timeline' |
+  'video' |
+  'youTube' |
+  string;
 
 export type MuiIcon = {
   readonly name: string;
@@ -158,9 +175,13 @@ export type TimelineMomentData = {
   readonly timeline: Timeline;
 };
 
-export type YouTubeMomentData = AtLeastOne<{ readonly video_id: string; readonly url: string }> & {
+export type VideoMomentData = {
   readonly fit?: MomentContentFit;
   readonly show_controls?: boolean;
   readonly size?: MomentContentSize;
   readonly start_at?: number; // Seconds
+  readonly url: string;
 };
+
+export type YouTubeMomentData = AtLeastOne<{ readonly video_id: string; readonly url: string }> &
+Omit<VideoMomentData, 'url'>;

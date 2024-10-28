@@ -31,7 +31,7 @@ import {
 
 import StoriesAPIContext, { type IStoriesAPIContext } from '../contexts/StoriesAPIContext';
 import type { IStoryContext } from '../contexts/StoryContext';
-import type { Story } from '../types';
+import type { AV, Story } from '../types';
 import { buildTheme } from '../utils/themeUtils';
 
 interface StoriesAPIProviderProps extends PropsWithChildren {
@@ -43,6 +43,7 @@ function InnerStoriesAPIProvider(
   { props: { children, isDebugging = false } }: { readonly props: StoriesAPIProviderProps },
 ) {
   const [storyContexts, setStoryContexts] = useState<IStoriesAPIContext['storyContexts']>({});
+  const [av, setAV] = useState<AV>();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const addStoryContext = useCallback((context: IStoryContext) => setStoryContexts({
@@ -53,13 +54,16 @@ function InnerStoriesAPIProvider(
   const contextValue = useMemo(
     () => ({
       addStoryContext,
+      av,
       isDebugging,
       isMobile,
       getStoryContext,
+      setAV,
       storyContexts,
     }),
     [
       addStoryContext,
+      av,
       isDebugging,
       isMobile,
       getStoryContext,

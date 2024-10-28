@@ -31,8 +31,9 @@
       "data": {
         "caption": {
           "content": "Join Librarian & Archives Manager Caroline Bartels as she continues to delve into more stories of members who lived at 17 Madison Square North, 30 W. 44th Street, and 50 Vanderbilt Avenue over the years and called The Yale Club home. Come hear about Edward J. Noble, founder of Lifesavers Candies, Egerton Swartwout, architect of The Yale Club at 30 W. 44th, William McChesney Martin, chairman of the Board of Governors of the Federal Reserve System, and for our DKE members, James A. Hawes, plus several others. The lives of these young men help tell the story of the early 20th century in New York City and the place of the Yale Club in that history. Recorded July 10th, 2024.",
-          "position": "left"
+          "position": "bottom"
         },
+        "fit": "card",
         "size": 7,
         "start_at": 122,
         "video_id": "bOl0-yBfXBU"

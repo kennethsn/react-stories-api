@@ -5,10 +5,6 @@ const styles = {
       width: '100%',
     },
   },
-  divider: {
-    my: 0.5,
-    mx: -1,
-  },
   footerContainer: {
     m: 1,
     textAlign: 'center',
@@ -37,9 +33,6 @@ const styles = {
         opacity: 1,
       },
     },
-  },
-  labelContainer: {
-    p: 2,
   },
   listContainer: {
     width: '100%',

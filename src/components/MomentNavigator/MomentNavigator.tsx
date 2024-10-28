@@ -1,5 +1,4 @@
 import Collapse from '@mui/material/Collapse';
-import Divider from '@mui/material/Divider';
 import Grid from '@mui/material/Grid2';
 import List from '@mui/material/List';
 import ListSubheader from '@mui/material/ListSubheader';
@@ -16,6 +15,7 @@ import useMoments from '../../hooks/useMoments';
 import useStory from '../../hooks/useStory';
 import type { Moment, MomentGroupWithMoments } from '../../types';
 import { isMomentGroup } from '../../utils/momentUtils';
+import MomentNavigatorHeader from '../MomentNavigatorHeader/MomentNavigatorHeader';
 import MomentNavigatorListItem from '../MomentNavigatorListItem/MomentNavigatorListItem';
 import ClickableImage from '../UI/ClickableImage/ClickableImage';
 import ExpandIcon from '../UI/ExpandIcon/ExpandIcon';
@@ -24,7 +24,7 @@ import styles from './MomentNavigator.styles';
 // KSN TODO: colors
 // KSN TODO: scroll to height on change
 export default function MomentNavigator() {
-  const { branding, story: { description, image, label } } = useStory();
+  const { branding, story: { image, label } } = useStory();
   const {
     isGroupExpanded,
     groupedMoments,
@@ -53,32 +53,7 @@ export default function MomentNavigator() {
         </Grid>
       </When>
 
-      <Grid
-        size={12}
-        sx={{
-          ...styles.labelContainer,
-          pt: hasBranding ? 0 : 2,
-        }}
-      >
-        <Typography
-          color="primary"
-          variant="h6"
-        >
-          {label}
-        </Typography>
-
-        <When condition={!!description}>
-          <Divider sx={styles.divider} />
-
-          <Typography
-            color="textSecondary"
-            component="div"
-            variant="caption"
-          >
-            {description}
-          </Typography>
-        </When>
-      </Grid>
+      <MomentNavigatorHeader />
 
       <When condition={!!image}>
         <Grid

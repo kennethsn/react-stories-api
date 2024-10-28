@@ -1,5 +1,8 @@
+import type { ReactNode } from 'react';
+
 import type { Moment } from '../../types';
 
 export type MomentHeaderProps = {
-  moment: Moment;
+  readonly moment: Moment;
+  readonly title?: ReactNode;
 };

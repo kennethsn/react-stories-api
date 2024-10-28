@@ -1,15 +1,17 @@
 import { createContext } from 'react';
 
-import type { Story } from '../types';
+import type { AV, Story } from '../types';
 import type { IStoryContext } from './StoryContext';
 
-export interface IStoriesAPIContext {
-  addStoryContext: (context: IStoryContext) => void;
-  isDebugging: boolean;
-  isMobile: boolean;
-  getStoryContext: (storyId: Story['id']) => IStoryContext | undefined
-  storyContexts: Record<Story['id'], IStoryContext>;
-}
+export type IStoriesAPIContext = {
+  readonly av: AV | undefined;
+  readonly addStoryContext: (context: IStoryContext) => void;
+  readonly isDebugging: boolean;
+  readonly isMobile: boolean;
+  readonly getStoryContext: (storyId: Story['id']) => IStoryContext | undefined
+  readonly setAV: (av: AV | undefined) => void;
+  readonly storyContexts: Record<Story['id'], IStoryContext>;
+};
 
 const StoriesAPIContext = createContext<IStoriesAPIContext | null>(null);
 

@@ -16,6 +16,7 @@ export interface IStoryContext extends StoryProps {
   setExpandedMomentGroups: (groups: Record<string, boolean>) => void;
   setActiveMomentRef: (ref: RefObject<HTMLDivElement>) => void;
   setSwiper: (swiper: SwiperClass) => void;
+  storyId: string;
 }
 
 const StoryContext = createContext<IStoryContext | null>(null);

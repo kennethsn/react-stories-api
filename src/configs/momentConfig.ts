@@ -1,22 +1,22 @@
-import BaseMoment from '../components/Moments/BaseMoment/BaseMoment';
+import type { FC } from 'react';
+
 import HathiTrustMoment from '../components/Moments/HathiTrustMoment/HathiTrustMoment';
 import IFrameMoment from '../components/Moments/IFrameMoment/IFrameMoment';
 import ImageMoment from '../components/Moments/ImageMoment/ImageMoment';
 import TimelineMoment from '../components/Moments/TimelineMoment/TimelineMoment';
+import VideoMoment from '../components/Moments/VideoMoment/VideoMoment';
 import YouTubeMoment from '../components/Moments/YouTubeMoment/YouTubeMoment';
 import { HATHI_TRUST_LOGO_URL } from '../constants';
-import type { Icon, MomentType } from '../types';
+import type { Icon, Moment, MomentType } from '../types';
 
 type MomentConfig = {
-  component: typeof BaseMoment;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  component: FC<{ moment: Moment<any> }>;
   icon?: Icon;
 };
 
 // KSN TODO: Move the component import into moment router, then make this just a config
 const MomentConfigMap: Record<MomentType, MomentConfig> = {
-  base: {
-    component: BaseMoment,
-  },
   hathiTrust: {
     component: HathiTrustMoment,
     icon: { name: 'HathiTrust', type: 'image', url: HATHI_TRUST_LOGO_URL },
@@ -32,6 +32,10 @@ const MomentConfigMap: Record<MomentType, MomentConfig> = {
   timeline: {
     component: TimelineMoment,
     icon: { name: 'event_note', type: 'mui' },
+  },
+  video: {
+    component: VideoMoment,
+    icon: { name: 'videocam', type: 'mui' },
   },
   youTube: {
     component: YouTubeMoment,

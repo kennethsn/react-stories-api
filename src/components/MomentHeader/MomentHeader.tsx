@@ -7,12 +7,12 @@ import Icon from '../UI/Icon/Icon';
 import styles from './MomentHeader.styles';
 import type { MomentHeaderProps } from './MomentHeader.types';
 
-export default function MomentHeader({ moment }: MomentHeaderProps) {
+export default function MomentHeader({ moment, title }: MomentHeaderProps) {
   const {
     color,
     icon,
     subtitle,
-    title,
+    title: momentTitle,
   } = moment;
   const { background: backgroundColor, text: textColor } = useColor(color);
   return (
@@ -33,7 +33,7 @@ export default function MomentHeader({ moment }: MomentHeaderProps) {
           />
         </When>
 
-        {title}
+        {title || momentTitle}
       </Typography>
 
       <When condition={!!subtitle}>

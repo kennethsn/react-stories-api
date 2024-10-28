@@ -63,6 +63,7 @@ export default function StoryProvider({
         setExpandedMomentGroups,
         setSwiper,
         story,
+        storyId: story.id,
       };
       return context;
     },

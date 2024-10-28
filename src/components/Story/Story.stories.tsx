@@ -74,6 +74,7 @@ export const StoryWithBranding = {
 
 export const YaleClubStoryDemo = {
   args: {
+    defaultMoment: 1,
     story: yaleClubStoryData,
   },
   decorators: [

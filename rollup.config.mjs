@@ -15,11 +15,13 @@ export default [
         file: packageJSON.main,
         format: 'cjs',
         sourcemap: true,
+        inlineDynamicImports: true,
       },
       {
         file: packageJSON.module,
         format: 'esm',
         sourcemap: true,
+        inlineDynamicImports: true,
       },
     ],
     plugins: [

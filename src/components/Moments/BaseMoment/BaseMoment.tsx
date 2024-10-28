@@ -9,12 +9,14 @@ import MomentHeader from '../../MomentHeader/MomentHeader';
 import CollapseButton from '../../UI/CollapseButton/CollapseButton';
 import styles from './BaseMoment.styles';
 import type { BaseMomentProps } from './BaseMoment.types';
+
 // KSN TODO: ref doesn't re-compute clientHeight on resize or collapsing header.
 export default function BaseMoment({
   children,
   contentFit,
   contentSize,
   moment,
+  title,
 }: BaseMomentProps) {
   const ref = useRef<HTMLDivElement>(null);
   const [headerIsCollapsed, setHeaderIsCollapsed] = useState(false);
@@ -29,7 +31,10 @@ export default function BaseMoment({
     <Box sx={styles.root}>
       <Box sx={styles.headerContainer}>
         <Collapse in={!headerIsCollapsed}>
-          <MomentHeader moment={moment} />
+          <MomentHeader
+            moment={moment}
+            title={title}
+          />
         </Collapse>
 
         <CollapseButton
