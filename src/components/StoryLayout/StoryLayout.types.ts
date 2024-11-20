@@ -1,4 +1,3 @@
-import { PropsWithChildren } from 'react';
+import type { PropsWithChildren } from 'react';
 
-export interface StoryLayoutProps extends PropsWithChildren {
-}
+export type StoryLayoutProps = PropsWithChildren;

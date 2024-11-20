@@ -8,16 +8,41 @@ export type AV = {
   readonly type: 'audio' | 'video';
 };
 
+export type Button = GoToOptions & {
+  readonly color?: 'primary' | 'secondary';
+  readonly label?: string;
+};
+
 export type Collection = {
-  readonly description: string;
+  readonly badge?: string;
+  readonly description?: string;
+  readonly featured_stories?: StorySummary[];
   readonly id: number;
+  readonly image?: string;
   readonly name: string;
+  readonly is_featured?: boolean;
+  readonly subtitle?: string;
+  readonly stories?: StorySummary[];
+  readonly total_stories_count?: number;
 };
 
 export type Color = {
   readonly background: string;
   readonly text?: NullableString;
 };
+
+export type GoToOptions = { readonly newTab?: boolean; } & ({
+  readonly collectionId: Collection['id'];
+  readonly moment: number; // moment index
+  readonly storyId: Story['id'];
+} | {
+  readonly collectionId: Collection['id'];
+  readonly storyId?: Story['id'];
+} | {
+  readonly url: string;
+});
+
+export type GoToPathFn = (path: string) => void;
 
 export type GroupedMoments = Array<MomentOrMomentGroup>;
 
@@ -128,9 +153,18 @@ export type NoIcon = {
   readonly type: 'none';
 };
 
-type NullableString = string | null;
+export type NullableString = string | null;
+
+export type StoriesAPIFormatters = {
+  readonly collectionPath: string;
+  readonly collectionStoriesListHeader: string;
+  readonly momentPath: string;
+  readonly storyCollectionBackButtonLabel: string; // KSN TODO: add support for this
+  readonly storyPath: string;
+};
 
 export interface Story {
+  readonly collection_id: Collection['id'];
   readonly description?: NullableString;
   readonly id: string;
   readonly image?: NullableString;
@@ -138,15 +172,16 @@ export interface Story {
   readonly moments: Moment[];
 }
 
+export type StorySummary = Omit<Story, 'moments'> & {
+  readonly moments?: Moment[];
+};
+
 export type Timeline = {
   readonly events: TimelineEvent[];
 };
 
 export type TimelineEvent = {
-  readonly button?: {
-    readonly label?: string;
-    readonly url: string;
-  },
+  readonly button?: Button,
   readonly dot?: {
     readonly type: 'icon';
     readonly icon: Icon;

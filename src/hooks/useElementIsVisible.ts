@@ -1,10 +1,18 @@
 import { type RefObject, useEffect, useState } from 'react';
 
-export default function useElementIsVisible(ref: RefObject<Element>, rootMargin = '0px') {
-  const [isIntersecting, setIsIntersecting] = useState(true);
+type Options = {
+  readonly persist?: boolean;
+  readonly rootMargin?: string;
+};
+
+export default function useElementIsVisible(ref: RefObject<Element>, { persist, rootMargin = '0px' }: Options = {}) {
+  const [isIntersecting, setIsIntersecting] = useState(false);
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
+        if (persist && isIntersecting) {
+          return;
+        }
         setIsIntersecting(entry.isIntersecting);
       },
       { rootMargin },

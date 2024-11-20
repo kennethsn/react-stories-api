@@ -1,4 +1,5 @@
 {
+  "collection_id": 1,
   "description": "The First Yale Clubhouse",
   "id": "Q123",
   "image": "https://stories-api-test.s3.amazonaws.com/temp/They+Lived+at+the+Yale+Club/17+Madison+N/17+Madison.jpg",
@@ -131,8 +132,10 @@
           "events": [
             {
               "button": {
+                "collectionId": 1,
                 "label": "View Story",
-                "url": "/stories/Q1234"
+                "storyId": "Q123",
+                "newTab": true
               },
               "date": {
                 "day": 4,
@@ -203,6 +206,13 @@
               "title": "Finding a clubhouse"
             },
             {
+              "button": {
+                "collectionId": 1,
+                "label": "View Story",
+                "storyId": "Q1234",
+                "moment": 6,
+                "newTab": true
+              },
               "title": "First order of business",
               "date": {
                 "day": 5,

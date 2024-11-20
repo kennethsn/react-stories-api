@@ -29,18 +29,25 @@ import {
   useState,
 } from 'react';
 
+import defaultFormatters from '../configs/formattersConfig';
 import StoriesAPIContext, { type IStoriesAPIContext } from '../contexts/StoriesAPIContext';
 import type { IStoryContext } from '../contexts/StoryContext';
-import type { AV, Story } from '../types';
+import type { AV, StoriesAPIFormatters, Story } from '../types';
+import { deepMerge } from '../utils';
 import { buildTheme } from '../utils/themeUtils';
 
-interface StoriesAPIProviderProps extends PropsWithChildren {
+type StoriesAPIProviderProps = PropsWithChildren & {
+  readonly formatters?: Partial<StoriesAPIFormatters>;
+  readonly goToPath?: (path: string) => void;
   readonly isDebugging?: boolean;
   readonly theme?: ThemeOptions;
-}
+};
 
 function InnerStoriesAPIProvider(
-  { props: { children, isDebugging = false } }: { readonly props: StoriesAPIProviderProps },
+  {
+    formatters,
+    props: { children, goToPath, isDebugging = false },
+  }: { readonly formatters: StoriesAPIFormatters, readonly props: StoriesAPIProviderProps, },
 ) {
   const [storyContexts, setStoryContexts] = useState<IStoriesAPIContext['storyContexts']>({});
   const [av, setAV] = useState<AV>();
@@ -55,18 +62,22 @@ function InnerStoriesAPIProvider(
     () => ({
       addStoryContext,
       av,
+      formatters,
       isDebugging,
       isMobile,
       getStoryContext,
+      goToPath,
       setAV,
       storyContexts,
     }),
     [
       addStoryContext,
       av,
+      formatters,
+      getStoryContext,
+      goToPath,
       isDebugging,
       isMobile,
-      getStoryContext,
       storyContexts,
     ],
   );
@@ -79,14 +90,23 @@ function InnerStoriesAPIProvider(
 }
 
 export default function StoriesAPIProvider(
-  { theme = undefined, ...props }: StoriesAPIProviderProps,
+  {
+    formatters: overrideFormatters = undefined,
+    theme = undefined,
+    ...props
+  }: StoriesAPIProviderProps,
 ) {
+  const formatters = overrideFormatters
+    ? deepMerge(defaultFormatters, overrideFormatters) : defaultFormatters;
   const muiTheme = buildTheme(theme);
   return (
     <ThemeProvider theme={muiTheme}>
       <CssBaseline />
 
-      <InnerStoriesAPIProvider props={props} />
+      <InnerStoriesAPIProvider
+        formatters={formatters as StoriesAPIFormatters}
+        props={props}
+      />
 
       <link
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@24,300,0,0"

@@ -43,15 +43,16 @@ export default function StoryProvider({
   );
   const { addStoryContext, isDebugging, isMobile } = useStoriesAPI();
 
-  const contextValue = useMemo(
+  const contextValue = useMemo<IStoryContext>(
     () => {
       const setActiveMomentIndexWithSwiper = buildMomentChangeFn(swiper, setActiveMomentIndex);
       const contextLayout = layout ?? isMobile ? 'mobile' : 'desktop';
-      const context: IStoryContext = {
+      return {
         activeMomentIndex,
         activeMomentRef,
         availableMoments,
         branding,
+        collectionId: story.collection_id,
         defaultMoment,
         expandedMomentGroups,
         groupedMoments,
@@ -65,7 +66,6 @@ export default function StoryProvider({
         story,
         storyId: story.id,
       };
-      return context;
     },
     [
       activeMomentIndex,

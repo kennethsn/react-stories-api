@@ -1,8 +1,8 @@
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { When } from 'react-if';
 
+import StoryButton from '../../StoryButton/StoryButton';
 import Animation from '../Animation/Animation';
 import PreviewableImage from '../PreviewableImage/PreviewableImage';
 import styles from './TimelineEventCard.styles';
@@ -21,12 +21,10 @@ export default function TimelineEventCard({
     title,
   } = event;
   const animation = direction === 'left' ? 'fadeUpRight' : 'fadeUpLeft';
-  const buttonLabel = button?.label;
-  const buttonHref = button?.url;
   const imageAlt = image?.alt;
   const imagePosition = image?.position ?? '50% 20%';
   const imageSrc = image?.url;
-  const showButton = !!buttonHref;
+  const showButton = !!button;
   const showDescription = !!description;
   const showImage = !!imageSrc;
   return (
@@ -59,14 +57,12 @@ export default function TimelineEventCard({
         </When>
 
         <When condition={showButton}>
-          <Button
-            href={buttonHref!}
+          <StoryButton
+            button={button!}
             size="small"
             sx={styles.button(color.background)}
             variant="outlined"
-          >
-            {buttonLabel ?? 'Learn More'}
-          </Button>
+          />
         </When>
       </Box>
     </Animation>

@@ -4,7 +4,7 @@ import StoriesAPIContext, { type IStoriesAPIContext } from '../contexts/StoriesA
 
 export default function useStoriesAPI(): IStoriesAPIContext {
   const context = useContext(StoriesAPIContext);
-  if (!context?.storyContexts) {
+  if (!context) {
     throw new Error('Using Stories API Hook outside of StoriesAPIProvider or with uninitialized values');
   }
   return context;

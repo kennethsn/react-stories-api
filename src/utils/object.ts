@@ -1,5 +1,5 @@
 /* eslint-disable no-param-reassign */
-export const deepMerge = <T>(objectA: T, objectB: T): T => Object
+export const deepMerge = <T>(objectA?: T, objectB?: T): T => ((objectA && objectB) ? Object
   .keys(objectB as object)
   .reduce((mergedObject, objectKey) => {
     const key = objectKey as keyof T;
@@ -11,6 +11,14 @@ export const deepMerge = <T>(objectA: T, objectB: T): T => Object
       mergedObject[key] = valueB;
     }
     return mergedObject;
-  }, { ...objectA });
+  }, { ...objectA }) : (objectA || objectB)) as T;
 
-export default deepMerge;
+export const objectMap = <T, Q=T>(
+  obj: T,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  fn: (key: string, value: any) => unknown,
+) => Object.fromEntries(
+    Object.entries(obj as object).map(
+      ([key, value]) => [key, fn(key, value)],
+    ),
+  ) as Q;

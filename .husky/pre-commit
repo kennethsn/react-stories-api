@@ -6,5 +6,8 @@ npm test
 # Run lint before commit
 npm run lint
 
+# Run clean before commit
+npm run clean
+
 # Run build before commit
 npm run build

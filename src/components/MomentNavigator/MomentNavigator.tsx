@@ -23,6 +23,7 @@ import styles from './MomentNavigator.styles';
 
 // KSN TODO: colors
 // KSN TODO: scroll to height on change
+// KSN TODO: Grouping sidebar content should not spread to full height
 export default function MomentNavigator() {
   const { branding, story: { image, label } } = useStory();
   const {

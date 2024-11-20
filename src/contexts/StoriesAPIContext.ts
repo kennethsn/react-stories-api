@@ -1,14 +1,21 @@
 import { createContext } from 'react';
 
-import type { AV, Story } from '../types';
+import type {
+  AV,
+  GoToPathFn,
+  StoriesAPIFormatters,
+  Story,
+} from '../types';
 import type { IStoryContext } from './StoryContext';
 
 export type IStoriesAPIContext = {
   readonly av: AV | undefined;
   readonly addStoryContext: (context: IStoryContext) => void;
+  readonly formatters: StoriesAPIFormatters;
+  readonly getStoryContext: (storyId: Story['id']) => IStoryContext | undefined
+  readonly goToPath: GoToPathFn | undefined;
   readonly isDebugging: boolean;
   readonly isMobile: boolean;
-  readonly getStoryContext: (storyId: Story['id']) => IStoryContext | undefined
   readonly setAV: (av: AV | undefined) => void;
   readonly storyContexts: Record<Story['id'], IStoryContext>;
 };

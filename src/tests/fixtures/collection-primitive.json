@@ -1,0 +1,11 @@
+{
+  "id": 1,
+  "name": "A Collection of Stories",
+  "stories": [
+    {
+      "collection_id": 1,
+      "id": "Q000",
+      "label": "Story Label"
+    }
+  ]
+}

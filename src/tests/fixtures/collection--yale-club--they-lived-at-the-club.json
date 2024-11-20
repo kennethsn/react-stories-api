@@ -1,0 +1,95 @@
+{
+  "id": 1,
+  "badge": "Featured",
+  "description": "This exhibit, \"They Lived at The Yale Club,\" was mounted in the Yale Club Library from June-November, 2024 and accompanied two lectures presented by Caroline Bartels, Yale Club Librarian & Archives Manager, on June 12 and July 10, 2024.\n\nUsing Council, House, and Library & Arts Committee Minutes, Class Books and subsequent reunion volumes, The Alumni Weekly, The Yale Daily News, articles from national newspapers, and the Club’s rich body of archival materials, the exhibit and lectures serve to tell the story of nearly fifty men who graduated between 1878 and 1928 and who called The Yale Club home. Some of these men lived at the various iterations of the Club for only a few years. Others spent their entire adult lives here, even passing away while living at the Club.\n\nThe exhibit highlights The Yale Club’s three locations: 17 Madison Square North, 30 West Forty-fourth Street, and our current home at 50 Vanderbilt Avenue. For many of the members featured here, they began living in one location and moved on as the subsequent locations were built and opened.\n\nThe exploration of the lives of these members helps tell the story of life in New York City, predominantly in the first half of the 20th century, and of the role that The Yale Club played in the history of the city at this time.",
+  "is_featured": true,
+  "name": "They Lived at The Yale Club",
+  "subtitle": "Living at the Yale Club: a Three-Part Series",
+  "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Yale_Club_Exterior.tif/lossy-page1-1200px-Yale_Club_Exterior.tif.jpg",
+  "featured_stories": [
+    {
+      "collection_id": 1,
+      "description": "An overview of the first Yale Club of New York City location, 1897-1901",
+      "id": "Q123",
+      "label": "17 Madison Square North",
+      "image": "/images/temp/17-madison.jpg"
+    },
+    {
+      "collection_id": 1,
+      "id": "Q001",
+      "badge": "New",
+      "label": "30 West Forty-Fourth Street",
+      "description": "An overview of the Second Yale Clubhouse, 1901-1915",
+      "image": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjrA_QnwPr6Xc2gvjwVzNaKD1dHnnPdTDFT_gZczNlC_Luz2LT8TBbF_32X1j2rO7xTcktQNVFVsNq3AqPr2dapKvnKNFu1YQP8KVYHPruJeXv2AEFN7ej243Gu03F4XXkfIPaU87oYwQYV/s1600/yale+club+001.JPG"
+    },
+    {
+      "collection_id": 1,
+      "id": "Q002",
+      "badge": "New",
+      "label": "50 Vanderbilt Avenue",
+      "description": "The Third and Current Yale Clubhouse, 1915-Today",
+      "image": "https://www.belmontfreeman.com/templates/yootheme/cache/73/02-The_Yale_Club_of_New_York_City_Main_Lounge_Belmont_Freeman_Architects-7319dfc3.jpeg"
+    }
+  ],
+  "stories": [
+    {
+      "collection_id": 1,
+      "description": "Remembering the Yale Alumni Association, 1868-1897",
+      "id": "Q000",
+      "label": "Before the Club",
+      "image": "https://stories-api-test.s3.amazonaws.com/temp/They+Lived+at+the+Yale+Club/17+Madison+N/1_alumni-notes-1.jpeg"
+    },
+    {
+      "collection_id": 1,
+      "description": "Early Yale Club Member and prominent New York attorney\nClass of 1887",
+      "id": "Q110",
+      "label": "Richard Dana Morse, Jr.",
+      "image": "/images/temp/richard-morse.png"
+    },
+    {
+      "collection_id": 1,
+      "description": "An overview of the first Yale Club of New York City location, 1897-1901",
+      "id": "Q042280",
+      "label": "17 Madison Square North",
+      "image": "/images/temp/17-madison.jpg"
+    },
+    {
+      "collection_id": 1,
+      "description": "Early Yale Club Member and prominent New York attorney\nClass of 1895",
+      "id": "Q13442",
+      "label": "Michael Gavin",
+      "image": "/images/temp/michael-gavin.png"
+    },
+    {
+      "collection_id": 1,
+      "id": "Q08423",
+      "badge": "New",
+      "label": "30 West Forty-Fourth Street",
+      "description": "An overview of the Second Yale Clubhouse, 1901-1915",
+      "image": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjrA_QnwPr6Xc2gvjwVzNaKD1dHnnPdTDFT_gZczNlC_Luz2LT8TBbF_32X1j2rO7xTcktQNVFVsNq3AqPr2dapKvnKNFu1YQP8KVYHPruJeXv2AEFN7ej243Gu03F4XXkfIPaU87oYwQYV/s1600/yale+club+001.JPG"
+    },
+    {
+      "collection_id": 1,
+      "id": "Q42402480",
+      "badge": "New",
+      "label": "Joseph T. P. Sullivan",
+      "description": "Yale Club Member, Class of 1916",
+      "image": "https://stories-api-test.s3.amazonaws.com/temp/They+Lived+at+the+Yale+Club/1916/Joseph+T.+P.+Sullivan+_16s/Used/JTPS+1_cropped.png"
+    },
+    {
+      "collection_id": 1,
+      "id": 3,
+      "badge": "New",
+      "label": "50 Vanderbilt Avenue",
+      "description": "The Third and Current Yale Clubhouse, 1915-Today",
+      "image": "https://www.belmontfreeman.com/templates/yootheme/cache/73/02-The_Yale_Club_of_New_York_City_Main_Lounge_Belmont_Freeman_Architects-7319dfc3.jpeg"
+    },
+    {
+      "collection_id": 1,
+      "description": "A look into the festivies and events at The Club over the years",
+      "id": "Q1342",
+      "label": "Club Traditions",
+      "image": "/images/temp/sherrys-invite.png"
+    }
+  ]
+}
