@@ -3,11 +3,16 @@ const styles = {
     color: 'text.secondary',
     whiteSpace: 'pre-wrap',
   },
-  captionContainer: {
+  captionButton: (hasContent: boolean) => ({
+    mb: 2,
+    mt: hasContent ? 2 : 0,
+  }),
+  captionContainer: (hasContent: boolean) => ({
     bgcolor: 'background.lightGrey',
+    textAlign: hasContent ? 'left' : 'center',
     px: 4,
     py: 3,
-  },
+  }),
   captionGridItem: {
     alignContent: 'center',
     overflow: 'auto',

@@ -1,12 +1,8 @@
-import { alpha } from '@mui/material/styles';
-
 const styles = {
-  button: (color: string) => ({
-    backgroundColor: alpha(color, 0.05),
-    color,
+  button: {
     m: 1,
     mb: 2,
-  }),
+  },
   contentCard: {
     background: 'background.paper',
     borderRadius: 2,

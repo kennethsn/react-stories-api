@@ -1,6 +1,7 @@
 import type { FC } from 'react';
 
 import StoriesAPIProvider from '../../providers/StoriesAPIProvider';
+import { baseStorybookDecorator } from '../../stories/decorators';
 import yaleClubCollectionData from '../../tests/fixtures/collection--yale-club--they-lived-at-the-club.json';
 import baseCollectionData from '../../tests/fixtures/collection-primitive.json';
 import { fakeGoToPath } from '../../utils/debug';
@@ -23,11 +24,7 @@ export default {
   },
   component: Collection,
   decorators: [
-    (StorybookStory: FC) => (
-      <StoriesAPIProvider>
-        <StorybookStory />
-      </StoriesAPIProvider>
-    ),
+    baseStorybookDecorator,
   ],
   parameters: {
     deepControls: { enabled: true },

@@ -1,11 +1,8 @@
-import type { ReactNode } from 'react';
-
 import type { Moment, MomentData } from '../../../types';
-import type { MomentBodyLayoutProps } from '../../MomentBodyLayout/MomentBodyLayout.types';
+import type { MomentLayoutProps } from '../../MomentLayout/MomentLayout.types';
 
-export type BaseMomentProps<T=MomentData> = MomentBodyLayoutProps & {
+export type BaseMomentProps<T=MomentData> = MomentLayoutProps & {
   readonly moment: Moment<T>;
-  readonly title?: ReactNode;
 };
 
 export type BaseMomentPropsWithoutChildren<T=MomentData> = Omit<BaseMomentProps<T>, 'children'>;

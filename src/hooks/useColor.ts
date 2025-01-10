@@ -1,17 +1,16 @@
 import { useTheme } from '@mui/material/styles';
 
 import type { Color } from '../types';
+import { buildThemeColorOverrideOptions } from '../utils';
+import { processColor } from '../utils/color';
 
 export default function useColor(color?: Color) {
-  const { palette } = useTheme();
-  if (!color?.background) {
-    return {
-      background: palette.primary.main,
-      text: palette.primary.contrastText,
-    };
-  }
+  const theme = useTheme();
+  const { background, text } = processColor(color, theme);
+  const themeOptions = buildThemeColorOverrideOptions(background, text);
   return {
-    background: color.background,
-    text: color.text || palette.getContrastText(color.background),
+    background,
+    text,
+    themeOptions,
   };
 }

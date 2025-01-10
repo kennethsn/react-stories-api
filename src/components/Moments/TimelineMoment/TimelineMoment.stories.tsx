@@ -1,7 +1,4 @@
-import { FC } from 'react';
-
-import StoriesAPIProvider from '../../../providers/StoriesAPIProvider';
-import StoryProvider from '../../../providers/StoryProvider';
+import { storyStoryBookDecorator } from '../../../stories/decorators';
 import baseStoryData from '../../../tests/fixtures/story-primitive.json';
 import TimelineMoment from './TimelineMoment';
 // KSN TODO: wrap storybook container into its own component
@@ -102,15 +99,7 @@ export default {
   },
   component: TimelineMoment,
   decorators: [
-    (StorybookStory: FC) => (
-      <div style={{ border: '1px solid #e5e5e5', height: '80vh', width: '100%' }}>
-        <StoriesAPIProvider>
-          <StoryProvider story={storyData}>
-            <StorybookStory />
-          </StoryProvider>
-        </StoriesAPIProvider>
-      </div>
-    ),
+    storyStoryBookDecorator(storyData),
   ],
   parameters: {
     deepControls: { enabled: true },

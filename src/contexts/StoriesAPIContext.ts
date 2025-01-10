@@ -1,3 +1,4 @@
+import type { Theme, ThemeOptions } from '@mui/material/styles';
 import { createContext } from 'react';
 
 import type {
@@ -16,6 +17,7 @@ export type IStoriesAPIContext = {
   readonly goToPath: GoToPathFn | undefined;
   readonly isDebugging: boolean;
   readonly isMobile: boolean;
+  readonly overrideTheme: (overrideOptions: ThemeOptions) => Theme;
   readonly setAV: (av: AV | undefined) => void;
   readonly storyContexts: Record<Story['id'], IStoryContext>;
 };

@@ -60,7 +60,7 @@ export default function TimelineEventCard({
           <StoryButton
             button={button!}
             size="small"
-            sx={styles.button(color.background)}
+            sx={styles.button}
             variant="outlined"
           />
         </When>

@@ -65,6 +65,7 @@ export default function StoryCard({
           <StoriesAPIButton
             button={button}
             size="small"
+            variant="text"
           />
         </Unless>
       </CardActions>

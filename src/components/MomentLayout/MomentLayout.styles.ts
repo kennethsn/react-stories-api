@@ -5,13 +5,13 @@ const styles = {
     overflow: 'auto',
   },
   headerCollapseButton: {
-    marginTop: '-1.5rem',
+    mt: '-1.5rem',
     position: 'absolute',
     right: '1.5rem',
     zIndex: 1,
 
     '&.collapsed': {
-      marginTop: '-0.5rem',
+      mt: '-0.5rem',
     },
   },
   headerContainer: {

@@ -1,4 +1,8 @@
-type AtLeastOne<T, U = { [K in keyof T]: Pick<T, K> }> = Partial<T> & U[keyof U];
+import type { ButtonProps } from '@mui/material/Button';
+
+import type { THEME_COLOR_OPTIONS } from './constants';
+
+export type AtLeastOne<T, U = { [K in keyof T]: Pick<T, K> }> = Partial<T> & U[keyof U];
 
 export type AV = {
   readonly momentIndex: number;
@@ -9,8 +13,10 @@ export type AV = {
 };
 
 export type Button = GoToOptions & {
-  readonly color?: 'primary' | 'secondary';
+  readonly color?: Color;
+  readonly is_disabled?: boolean;
   readonly label?: string;
+  readonly variant?: ButtonProps['variant']; // 'text' | 'outlined' | 'contained'
 };
 
 export type Collection = {
@@ -19,17 +25,21 @@ export type Collection = {
   readonly featured_stories?: StorySummary[];
   readonly id: number;
   readonly image?: string;
-  readonly name: string;
   readonly is_featured?: boolean;
+  readonly name: string;
   readonly subtitle?: string;
   readonly stories?: StorySummary[];
   readonly total_stories_count?: number;
 };
 
 export type Color = {
-  readonly background: string;
-  readonly text?: NullableString;
+  readonly background: ColorString;
+  readonly text?: Nullable<ColorString>;
 };
+
+export type ColorHex = `#${string}`;
+
+export type ColorString = ThemeColorOption | ColorHex;
 
 export type GoToOptions = { readonly newTab?: boolean; } & ({
   readonly collectionId: Collection['id'];
@@ -46,7 +56,10 @@ export type GoToPathFn = (path: string) => void;
 
 export type GroupedMoments = Array<MomentOrMomentGroup>;
 
-export type HathiTrustMomentData = AtLeastOne<{ hathi_trust_id: string; url: string }> & {
+export type HathiTrustMomentData = AtLeastOne<{
+  readonly hathi_trust_id: string;
+  readonly url: string;
+}> & {
   readonly fit?: MomentContentFit;
   readonly page_number?: number;
   readonly size?: MomentContentSize;
@@ -102,8 +115,10 @@ export type Moment<T=MomentData> = {
   readonly type: MomentType;
 };
 
-export type MomentCaption = {
-  readonly content: string;
+export type MomentCaption = AtLeastOne<{
+  readonly button?: Button;
+  readonly content?: string;
+}> & {
   readonly fit?: MomentCaptionFit;
   readonly position?: MomentCaptionPosition;
 };
@@ -153,7 +168,9 @@ export type NoIcon = {
   readonly type: 'none';
 };
 
-export type NullableString = string | null;
+export type Nullable<T> = T | null | undefined;
+
+export type NullableString = Nullable<string>;
 
 export type StoriesAPIFormatters = {
   readonly collectionPath: string;
@@ -175,6 +192,8 @@ export interface Story {
 export type StorySummary = Omit<Story, 'moments'> & {
   readonly moments?: Moment[];
 };
+
+export type ThemeColorOption = typeof THEME_COLOR_OPTIONS[number];
 
 export type Timeline = {
   readonly events: TimelineEvent[];

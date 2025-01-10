@@ -1,13 +1,13 @@
-import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid2';
-import Typography from '@mui/material/Typography';
 import { Unless } from 'react-if';
 
 import styles from './MomentBodyLayout.styles';
 import type { MomentBodyLayoutCaptionGridItemProps } from './MomentBodyLayout.types';
+import MomentBodyLayoutCaption from './MomentBodyLayoutCaption';
 
 export default function MomentBodyLayoutCaptionGridItem({
   boxShadow,
+  button,
   content,
   height,
   hide,
@@ -21,18 +21,12 @@ export default function MomentBodyLayoutCaptionGridItem({
         size={size}
         sx={styles.captionGridItem}
       >
-        <Box
+        <MomentBodyLayoutCaption
           boxShadow={boxShadow}
+          button={button}
+          content={content}
           m={m}
-          sx={styles.captionContainer}
-        >
-          <Typography
-            sx={styles.caption}
-            variant="body1"
-          >
-            {content}
-          </Typography>
-        </Box>
+        />
       </Grid>
     </Unless>
   );

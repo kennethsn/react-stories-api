@@ -47,11 +47,20 @@ function InnerStoriesAPIProvider(
   {
     formatters,
     props: { children, goToPath, isDebugging = false },
-  }: { readonly formatters: StoriesAPIFormatters, readonly props: StoriesAPIProviderProps, },
+    themeOptions,
+  }: {
+    readonly formatters: StoriesAPIFormatters,
+    readonly props: StoriesAPIProviderProps,
+    readonly themeOptions: ThemeOptions,
+  },
 ) {
   const [storyContexts, setStoryContexts] = useState<IStoriesAPIContext['storyContexts']>({});
   const [av, setAV] = useState<AV>();
   const theme = useTheme();
+  const overrideTheme = useCallback((overrideOptions: ThemeOptions) => {
+    const mergedThemeOptions = deepMerge(themeOptions, overrideOptions);
+    return buildTheme(mergedThemeOptions);
+  }, [themeOptions]);
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const addStoryContext = useCallback((context: IStoryContext) => setStoryContexts({
     ...storyContexts,
@@ -63,10 +72,11 @@ function InnerStoriesAPIProvider(
       addStoryContext,
       av,
       formatters,
-      isDebugging,
-      isMobile,
       getStoryContext,
       goToPath,
+      isDebugging,
+      isMobile,
+      overrideTheme,
       setAV,
       storyContexts,
     }),
@@ -78,6 +88,7 @@ function InnerStoriesAPIProvider(
       goToPath,
       isDebugging,
       isMobile,
+      overrideTheme,
       storyContexts,
     ],
   );
@@ -106,6 +117,7 @@ export default function StoriesAPIProvider(
       <InnerStoriesAPIProvider
         formatters={formatters as StoriesAPIFormatters}
         props={props}
+        themeOptions={theme ?? {}}
       />
 
       <link

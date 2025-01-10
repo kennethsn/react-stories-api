@@ -23,12 +23,13 @@ export default function MomentBodyLayout({
   const { layoutIsMobile } = useStory();
   const {
     caption: {
+      button,
       content: captionContent,
       fit: captionFit = 'full-width',
       position: captionPosition = 'bottom',
     } = {},
   } = moment.data;
-  const hasCaption = !!captionContent;
+  const hasCaption = !!captionContent || !!button;
   const captionIsTop = captionPosition === 'top';
   const captionFitIsFullWidth = captionFit === 'full-width';
   const showCaptionFirst = captionIsTop || (!layoutIsMobile && captionPosition === 'left');
@@ -54,6 +55,7 @@ export default function MomentBodyLayout({
   const captionGridItem = (
     <MomentBodyLayoutCaptionGridItem
       boxShadow={captionFitIsFullWidth ? 0 : 1}
+      button={button}
       content={captionContent}
       height={captionHeight}
       hide={!hasCaption}

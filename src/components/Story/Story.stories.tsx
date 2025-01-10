@@ -1,6 +1,7 @@
-import { FC } from 'react';
+import type { FC } from 'react';
 
 import StoriesAPIProvider from '../../providers/StoriesAPIProvider';
+import { baseStorybookDecorator } from '../../stories/decorators';
 import storyData from '../../tests/fixtures/grace-hopper-story-v1.json';
 import yaleClubStoryData from '../../tests/fixtures/story--yale-club--17-madison-square-north.json';
 import { fakeGoToPath } from '../../utils/debug';
@@ -33,9 +34,7 @@ export default {
   decorators: [
     (StorybookStory: FC) => (
       <div style={{ border: '1px solid #e5e5e5', height: '80vh', width: '100%' }}>
-        <StoriesAPIProvider>
-          <StorybookStory />
-        </StoriesAPIProvider>
+        {baseStorybookDecorator(StorybookStory)}
       </div>
     ),
   ],

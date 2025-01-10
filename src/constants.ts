@@ -1,3 +1,4 @@
+export const COLOR_HEX_REGEX = /^#([0-9A-Fa-f]{3}){1,2}([0-9A-Fa-f]{2})?$/;
 export const FORMATTER_TEMPLATE_REGEX = /\{(\w+)\}/g;
 export const GRID_MAX_SIZE = 12;
 export const HATHI_TRUST_BASE_URL = 'https://babel.hathitrust.org';
@@ -8,6 +9,14 @@ export const MOMENT_LAYOUT_DEFAULT_CONTENT_SIZE = 8;
 export const MOMENT_LAYOUT_MAX_CONTENT_SIZE = GRID_MAX_SIZE;
 export const STORIES_SERVICES_BASE_URL = 'https://stories.k2.services';
 export const STORIES_SERVICES_API_URL = `${STORIES_SERVICES_BASE_URL}/api/v1`;
+export const THEME_COLOR_OPTIONS = <const>[
+  'error',
+  'info',
+  'primary',
+  'secondary',
+  'success',
+  'warning',
+];
 export const YOUTUBE_BASE_URL = 'https://www.youtube.com';
 export const YOUTUBE_EMBED_URL = `${YOUTUBE_BASE_URL}/embed`;
 export const YOUTUBE_WATCH_URL = `${YOUTUBE_BASE_URL}/watch`;

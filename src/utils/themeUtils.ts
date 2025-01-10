@@ -1,6 +1,7 @@
 import { createTheme, responsiveFontSizes, type ThemeOptions } from '@mui/material/styles';
 
 import themeConfig from '../configs/themeConfig';
+import type { ColorHex } from '../types';
 import { deepMerge } from './object';
 
 export const buildTheme = (themeOptions?: ThemeOptions) => {
@@ -10,4 +11,11 @@ export const buildTheme = (themeOptions?: ThemeOptions) => {
   return responsiveTheme;
 };
 
-export default buildTheme;
+export const buildThemeColorOverrideOptions = (background: ColorHex, text: ColorHex) => ({
+  palette: {
+    primary: {
+      main: background,
+      contrastText: text,
+    },
+  },
+});
