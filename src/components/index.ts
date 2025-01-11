@@ -6,3 +6,4 @@ export * from './Collection';
 export * from './StoriesAPIButton';
 export * from './Story';
 export * from './StoryCard';
+export * from './UI/Animation';

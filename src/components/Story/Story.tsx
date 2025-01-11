@@ -6,10 +6,15 @@ import StoryWrapper from './StoryWrapper';
 // KSN TODO: Turn back on persistence
 // KSN TODO: API will cache switching stories using the provider
 
-export default function Story(props: StoryProps) {
+export default function Story({ defaultMoment, story, ...props }: StoryProps) {
   return (
-    // eslint-disable-next-line react/jsx-props-no-spreading
-    <StoryWrapper {...props}>
+    <StoryWrapper
+      key={`${story.collection_id}-${story.id}`}
+      defaultMoment={defaultMoment}
+      story={story}
+      // eslint-disable-next-line react/jsx-props-no-spreading
+      {...props}
+    >
       <StoryLayout>
         <StoryMomentsContainer />
       </StoryLayout>

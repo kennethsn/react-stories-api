@@ -17,6 +17,7 @@ export type IStoryContext = StoryProps & {
   readonly expandedMomentGroups: Record<string, boolean>;
   readonly groupedMoments: GroupedMoments;
   readonly layoutIsDesktop: boolean;
+  readonly layoutIsFullscreen: boolean;
   readonly layoutIsMobile: boolean;
   readonly setActiveMomentIndex: (index: number) => void;
   readonly setExpandedMomentGroups: (groups: Record<string, boolean>) => void;

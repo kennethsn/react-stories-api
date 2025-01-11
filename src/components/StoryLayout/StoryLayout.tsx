@@ -1,10 +1,9 @@
-import Box from '@mui/material/Box';
 import { Else, If, Then } from 'react-if';
 
 import useStory from '../../hooks/useStory';
-import styles from './StoryLayout.styles';
 import type { StoryLayoutProps } from './StoryLayout.types';
 import StoryLayoutDesktop from './StoryLayoutDesktop';
+import StoryLayoutFullscreen from './StoryLayoutFullscreen';
 import StoryLayoutMobile from './StoryLayoutMobile';
 
 // KSN TODO: Turn back on persistence
@@ -12,7 +11,7 @@ export default function StoryLayout({ children }: StoryLayoutProps) {
   const { layoutIsDesktop } = useStory();
 
   return (
-    <Box sx={styles.root}>
+    <StoryLayoutFullscreen>
       <If condition={layoutIsDesktop}>
         <Then>
           <StoryLayoutDesktop>
@@ -26,6 +25,6 @@ export default function StoryLayout({ children }: StoryLayoutProps) {
           </StoryLayoutMobile>
         </Else>
       </If>
-    </Box>
+    </StoryLayoutFullscreen>
   );
 }

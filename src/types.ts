@@ -176,6 +176,7 @@ export type StoriesAPIFormatters = {
   readonly collectionPath: string;
   readonly collectionStoriesListHeader: string;
   readonly momentPath: string;
+  readonly momentQueryParamKey: string;
   readonly storyCollectionBackButtonLabel: string; // KSN TODO: add support for this
   readonly storyPath: string;
 };

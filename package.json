@@ -1,6 +1,6 @@
 {
   "name": "react-stories-api",
-  "version": "1.0.0-dev-8",
+  "version": "1.0.0-dev-9",
   "author": "Kenneth Seals-Nutt",
   "babel": {
     "presets": [
@@ -30,7 +30,7 @@
     "react-photo-view": "^1.2.7",
     "react-player": "^2.16.0",
     "react-resizable-panels": "^2.1.7",
-    "swiper": "^11.2.0"
+    "swiper": "^11.2.1"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.26.0",

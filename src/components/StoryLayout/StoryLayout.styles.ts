@@ -1,7 +1,7 @@
 const styles = {
-  root: {
-    height: '100%',
-    width: '100%',
+  root: (isFullscreen: boolean) => ({
+    height: isFullscreen ? '100vh' : '100%',
+    width: isFullscreen ? '100vw' : '100%',
 
     '.moment-navigator-panel': {
       boxShadow: 2,
@@ -12,7 +12,7 @@ const styles = {
       height: '100%',
       width: '100%',
     },
-  },
+  }),
 };
 
 export default styles;
