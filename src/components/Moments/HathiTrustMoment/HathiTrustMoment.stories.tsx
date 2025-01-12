@@ -1,11 +1,7 @@
 import { HATHI_TRUST_LOGO_URL } from '../../../constants';
 import { storyStoryBookDecorator } from '../../../stories/decorators';
-import baseStoryData from '../../../tests/fixtures/story-primitive.json';
 import HathiTrustMoment from './HathiTrustMoment';
 // KSN TODO: wrap storybook container into its own component
-const storyData = {
-  ...baseStoryData,
-};
 
 const momentData = {
   index: 0,
@@ -76,7 +72,7 @@ export default {
   },
   component: HathiTrustMoment,
   decorators: [
-    storyStoryBookDecorator(storyData),
+    storyStoryBookDecorator(),
   ],
   parameters: {
     deepControls: { enabled: true },

@@ -2,5 +2,6 @@
   "collection_id": 1,
   "id": "Q123",
   "label": "Story Label",
-  "moments": []
+  "moments": [],
+  "status": "PUBLISHED"
 }

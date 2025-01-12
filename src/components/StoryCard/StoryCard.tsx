@@ -1,74 +1,75 @@
-import Card from '@mui/material/Card';
-import CardActionArea from '@mui/material/CardActionArea';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { Unless, When } from 'react-if';
 
-import useStoriesAPINavigation from '../../hooks/useStoriesAPINavigation';
-import { deepMerge } from '../../utils';
+import type { Button } from '../../types';
+import { isStoryPreviewing } from '../../utils';
 import { StoriesAPIButton } from '../StoriesAPIButton';
 import styles from './StoryCard.styles';
 import type { StoryCardProps } from './StoryCard.types';
+import StoryCardContainer from './StoryCardContainer';
 
 export default function StoryCard({
-  buttonLabel = 'View Story',
+  buttonLabel = 'View Story', // KSN TODO: connect this to formatters
   isHidingButton = false,
+  previewButtonLabel = 'Coming Soon', // KSN TODO: connect this to formatters
   story,
   sx,
 }: StoryCardProps) {
-  const { goTo } = useStoriesAPINavigation();
-  const button = {
+  const storyIsPreviewing = isStoryPreviewing(story);
+  const button: Button = {
     collectionId: story.collection_id,
-    label: buttonLabel,
+    is_disabled: storyIsPreviewing,
+    label: storyIsPreviewing ? previewButtonLabel : buttonLabel,
     storyId: story.id,
   };
-  const handleClick = () => goTo(button);
+  // no-op because the card is clickable
+  const handleButtonClick = () => true;
   return (
-    <Card
-      className="story-card"
-      sx={deepMerge(styles.root, sx)}
+    <StoryCardContainer
+      button={button}
+      sx={sx}
     >
-      <CardActionArea onClick={handleClick}>
-        <When condition={story.image}>
-          <CardMedia
-            alt={story.label}
-            component="img"
-            image={story.image!}
-            sx={styles.image}
-          />
-        </When>
+      <When condition={story.image}>
+        <CardMedia
+          alt={story.label}
+          component="img"
+          image={story.image!}
+          sx={styles.image}
+        />
+      </When>
 
-        <CardContent>
-          <Typography
-            component="div"
-            gutterBottom
-            sx={styles.label}
-            variant="h5"
-          >
-            {story.label}
-          </Typography>
+      <CardContent>
+        <Typography
+          component="div"
+          gutterBottom
+          sx={styles.label}
+          variant="h5"
+        >
+          {story.label}
+        </Typography>
 
-          <Typography
-            color="textSecondary"
-            sx={styles.description}
-            variant="body2"
-          >
-            {story.description}
-          </Typography>
-        </CardContent>
-      </CardActionArea>
+        <Typography
+          color="textSecondary"
+          sx={styles.description}
+          variant="body2"
+        >
+          {story.description}
+        </Typography>
+      </CardContent>
 
       <CardActions>
         <Unless condition={isHidingButton}>
           <StoriesAPIButton
             button={button}
+            onClick={handleButtonClick}
             size="small"
             variant="text"
           />
         </Unless>
       </CardActions>
-    </Card>
+    </StoryCardContainer>
   );
 }

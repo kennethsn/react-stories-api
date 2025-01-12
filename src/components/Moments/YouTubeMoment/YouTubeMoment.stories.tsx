@@ -1,10 +1,6 @@
 import { storyStoryBookDecorator } from '../../../stories/decorators';
-import baseStoryData from '../../../tests/fixtures/story-primitive.json';
 import YouTubeMoment from './YouTubeMoment';
 // KSN TODO: wrap storybook container into its own component
-const storyData = {
-  ...baseStoryData,
-};
 
 const momentData = {
   index: 0,
@@ -75,7 +71,7 @@ export default {
   },
   component: YouTubeMoment,
   decorators: [
-    storyStoryBookDecorator(storyData),
+    storyStoryBookDecorator(),
   ],
   parameters: {
     deepControls: { enabled: true },

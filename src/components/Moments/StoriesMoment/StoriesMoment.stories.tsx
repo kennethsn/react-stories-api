@@ -1,49 +1,20 @@
 import { storyStoryBookDecorator } from '../../../stories/decorators';
-import TimelineMoment from './TimelineMoment';
-// KSN TODO: wrap storybook container into its own component
+import collectionData from '../../../tests/fixtures/collection--yale-club--they-lived-at-the-club.json';
+import momentCaption from '../../../tests/fixtures/vars';
+import StoriesMoment from './StoriesMoment';
 
 const momentData = {
   index: 0,
-  type: 'timeline',
-  title: 'Science Stories',
-  subtitle: null,
-  icon: { name: 'language', type: 'mui' },
-  color: {
-    type: 'hex',
-    background: '#7dbbb1',
-    text: null,
-  },
-  label: 'Science Stories',
+  type: 'stories',
+  title: 'Collection of Stories',
+  subtitle: 'This moment type allows for story cards to be interlinked',
+  label: 'Harpers Bazaar v.42 1908',
   reference: null,
   data: {
     caption: {
       content: 'Embeddable URL with Caption',
     },
-    timeline: {
-      events: [
-        {
-          date: {
-            label: '2017',
-          },
-          title: 'Founded',
-          content: 'Science Stories was founded in 2017',
-        },
-        {
-          date: {
-            label: '2018',
-          },
-          title: 'First Event',
-          content: 'Science Stories first event was in 2018',
-        },
-        {
-          date: {
-            label: '2019',
-          },
-          title: 'First Publication',
-          content: 'Science Stories first publication was in 2019',
-        },
-      ],
-    },
+    stories: collectionData.stories,
   },
 };
 // TODO: Abstract out argtyps below
@@ -89,11 +60,8 @@ export default {
       },
       name: 'iframe Size',
     },
-    'moment.data.url': {
-      name: 'Embed URL',
-    },
   },
-  component: TimelineMoment,
+  component: StoriesMoment,
   decorators: [
     storyStoryBookDecorator(),
   ],
@@ -102,19 +70,16 @@ export default {
     layout: 'centered',
   },
   tags: ['autodocs'],
-  title: 'Moments/Timeline Moment',
+  title: 'Moments/Stories Moment',
 };
 
-export const DefaultTimelineMoment = {
-  name: 'Default Timeline',
+export const DefaultStoriesMoment = {
 };
 
-export const CardTimeline = {
+export const SideCaption = {
   args: {
-    'moment.data.caption.content': 'Science Stories was founded in 2017',
-    'moment.data.caption.position': 'left',
-    'moment.data.fit': 'card',
+    'moment.data.caption.content': momentCaption,
+    'moment.data.caption.position': 'right',
     'moment.data.size': 8,
   },
-  name: 'Card Timeline',
 };

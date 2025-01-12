@@ -19,6 +19,16 @@ export type Button = GoToOptions & {
   readonly variant?: ButtonProps['variant']; // 'text' | 'outlined' | 'contained'
 };
 
+export type CardsLayout = 'grid' | 'stack';
+
+export type CardsBaseMomentData<T> = {
+  readonly fit?: MomentContentFit;
+  readonly layout?: CardsLayout;
+  readonly size?: MomentContentSize;
+} & T;
+
+export type CardsMomentData = StoriesMomentData;
+
 export type Collection = {
   readonly badge?: string;
   readonly description?: string;
@@ -135,6 +145,7 @@ export type MomentData =
   ImageMomentData |
   IFrameMomentData |
   HathiTrustMomentData |
+  StoriesMomentData |
   TimelineMomentData |
   VideoMomentData |
   YouTubeMomentData;
@@ -154,6 +165,7 @@ export type MomentType =
   'hathiTrust' |
   'iframe' |
   'image' |
+  'stories' |
   'timeline' |
   'video' |
   'youTube' |
@@ -181,14 +193,23 @@ export type StoriesAPIFormatters = {
   readonly storyPath: string;
 };
 
-export interface Story {
+export type StoriesMomentData = CardsBaseMomentData<{
+  readonly stories: StorySummary[];
+}>;
+
+export type Story = {
   readonly collection_id: Collection['id'];
   readonly description?: NullableString;
   readonly id: string;
   readonly image?: NullableString;
   readonly label: string;
   readonly moments: Moment[];
-}
+  readonly status: StoryStatus;
+};
+
+export type StoryOrSummary = Story | StorySummary;
+
+export type StoryStatus = 'ARCHIVED' | 'DRAFT' | 'PREVIEW' | 'PUBLISHED';
 
 export type StorySummary = Omit<Story, 'moments'> & {
   readonly moments?: Moment[];
