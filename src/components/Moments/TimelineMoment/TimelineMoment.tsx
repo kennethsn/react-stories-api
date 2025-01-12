@@ -7,7 +7,6 @@ import BaseMoment from '../BaseMoment/BaseMoment';
 import type { TimelineMomentProps } from './TimelineMoment.types';
 // KSN TODO: add a defaults payload for fit & sizes to the momentConfig
 // KSN TODO: add text alignment to the momentConfig and caption UX
-// KSN TODO: timeline moment to support button clicks to other moments or other story+moment
 
 export default function TimelineMoment({ moment }: TimelineMomentProps) {
   const color = useColor(moment.color);

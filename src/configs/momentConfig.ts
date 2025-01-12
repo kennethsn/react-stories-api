@@ -3,6 +3,7 @@ import type { FC } from 'react';
 import HathiTrustMoment from '../components/Moments/HathiTrustMoment/HathiTrustMoment';
 import IFrameMoment from '../components/Moments/IFrameMoment/IFrameMoment';
 import ImageMoment from '../components/Moments/ImageMoment/ImageMoment';
+import StoriesMoment from '../components/Moments/StoriesMoment/StoriesMoment';
 import TimelineMoment from '../components/Moments/TimelineMoment/TimelineMoment';
 import VideoMoment from '../components/Moments/VideoMoment/VideoMoment';
 import YouTubeMoment from '../components/Moments/YouTubeMoment/YouTubeMoment';
@@ -28,6 +29,10 @@ const MomentConfigMap: Record<MomentType, MomentConfig> = {
   image: {
     component: ImageMoment,
     icon: { name: 'image', type: 'mui' },
+  },
+  stories: {
+    component: StoriesMoment,
+    icon: { name: 'collections_bookmark', type: 'mui' },
   },
   timeline: {
     component: TimelineMoment,

@@ -5,5 +5,6 @@ export * from './grid';
 export * from './math';
 export * from './object';
 export * from './percentage';
+export * from './storyUtils';
 export * from './themeUtils';
 export * from './url';

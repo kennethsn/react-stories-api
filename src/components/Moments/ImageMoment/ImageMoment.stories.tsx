@@ -1,10 +1,6 @@
 import { storyStoryBookDecorator } from '../../../stories/decorators';
-import baseStoryData from '../../../tests/fixtures/story-primitive.json';
 import ImageMoment from './ImageMoment';
 // KSN TODO: wrap storybook container into its own component
-const storyData = {
-  ...baseStoryData,
-};
 const squareImageUrl = 'https://www.womenshistory.org/sites/default/files/styles/main_image/public/images/2018-07/Hopper-3%20square.jpg?itok=YOyaM_zT';
 const tallImageUrl = 'http://commons.wikimedia.org/wiki/Special:FilePath/Commodore%20Grace%20M.%20Hopper%2C%20USN%20%28covered%29.jpg';
 const wideImageUrl = 'http://iiif.ss.ksn.io/iiif/2/NMAH-AC0324-0000033.jpg/full/full/0/default.jpg';
@@ -91,7 +87,7 @@ export default {
   },
   component: ImageMoment,
   decorators: [
-    storyStoryBookDecorator(storyData),
+    storyStoryBookDecorator(),
   ],
   parameters: {
     deepControls: { enabled: true },

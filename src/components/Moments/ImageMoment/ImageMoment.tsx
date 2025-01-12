@@ -3,7 +3,6 @@ import BaseMoment from '../BaseMoment/BaseMoment';
 import styles from './ImageMoment.styles';
 import type { ImageMomentProps } from './ImageMoment.types';
 // KSN TODO: lock swiper on preview
-// KSN TODO: ability to link a button in a caption
 // KSN TODO: support markdown in caption for links
 export default function ImageMoment({ moment }: ImageMomentProps) {
   const { label, title } = moment;
