@@ -1,24 +1,20 @@
-import useAV from '../../hooks/useAV';
+import { observer } from 'mobx-react-lite';
+
 import AVPlayPauseButton from '../UI/AVPlayPauseButton/AVPlayPauseButton';
 import type { MomentAVPlayPauseButtonProps } from './MomentAVPlayPauseButton.types';
 
-export default function MomentAVPlayPauseButton({
-  av,
+const MomentAVPlayPauseButton = observer(({
+  moment,
   sx,
-}: MomentAVPlayPauseButtonProps) {
-  const { isPlaying, pause, play } = useAV(av);
-  const handleClick = () => {
-    if (isPlaying) {
-      pause();
-    } else {
-      play();
-    }
-  };
+}: MomentAVPlayPauseButtonProps) => {
+  const handleClick = () => moment.toggleAV();
   return (
     <AVPlayPauseButton
-      isPlaying={isPlaying}
+      isPlaying={moment.isPlaying}
       onClick={handleClick}
       sx={sx}
     />
   );
-}
+});
+
+export default MomentAVPlayPauseButton;

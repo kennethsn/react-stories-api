@@ -1,12 +1,16 @@
+import { observer } from 'mobx-react-lite';
+
 import useCollection from '../../hooks/useCollection';
 import StoryCards from '../StoryCards/StoryCards';
 
-export default function CollectionStoriesList() {
-  const { stories, totalStoriesCount } = useCollection();
+const CollectionStoriesList = observer(() => {
+  const collection = useCollection();
   return (
     <StoryCards
-      overrideTotalCount={totalStoriesCount}
-      stories={stories}
+      overrideTotalCount={collection.totalStoriesCount}
+      stories={collection.stories}
     />
   );
-}
+});
+
+export default CollectionStoriesList;

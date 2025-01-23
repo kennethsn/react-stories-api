@@ -1,16 +1,16 @@
-import { useMoments, useStory } from '../../hooks';
+import { observer } from 'mobx-react-lite';
+
+import useMoments from '../../hooks/useMoments';
+import useStory from '../../hooks/useStory';
 import StoriesAPIButton from '../StoriesAPIButton/StoriesAPIButton';
 import type { StoryButtonProps } from './StoryButton.types';
 
-export default function StoryButton({ button, ...props }: StoryButtonProps) {
-  const { collectionId, storyId } = useStory();
-  const { selectMoment } = useMoments();
-  const buttonIsMomentWithinSameStory = !button.newTab
-    && 'moment' in button
-    && collectionId === button.collectionId
-    && storyId === button.storyId;
+const StoryButton = observer(({ button, ...props }: StoryButtonProps) => {
+  const story = useStory();
+  const moments = useMoments();
+  const buttonIsMomentWithinSameStory = story.isMomentButtonWithinSameStory(button);
   const handleClick = buttonIsMomentWithinSameStory ? (
-    () => selectMoment(button.moment)
+    () => moments.goToMomentId(button.momentId)
   ) : undefined;
   return (
     <StoriesAPIButton
@@ -20,4 +20,6 @@ export default function StoryButton({ button, ...props }: StoryButtonProps) {
       {...props}
     />
   );
-}
+});
+
+export default StoryButton;

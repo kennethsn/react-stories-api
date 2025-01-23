@@ -1,17 +1,18 @@
 /* eslint-disable no-param-reassign */
-export const deepMerge = <T>(objectA?: T, objectB?: T): T => ((objectA && objectB) ? Object
-  .keys(objectB as object)
-  .reduce((mergedObject, objectKey) => {
-    const key = objectKey as keyof T;
-    const valueA = objectA[key];
-    const valueB = objectB[key];
-    if (valueA && typeof valueB === 'object' && !Array.isArray(valueB)) {
-      mergedObject[key] = deepMerge(valueA, valueB);
-    } else {
-      mergedObject[key] = valueB;
-    }
-    return mergedObject;
-  }, { ...objectA }) : (objectA || objectB)) as T;
+export const deepMerge = <T>(objectA?: T, objectB?: T | Partial<T>): T => (
+  (objectA && objectB) ? Object
+    .keys(objectB as object)
+    .reduce((mergedObject, objectKey) => {
+      const key = objectKey as keyof T;
+      const valueA = objectA[key];
+      const valueB = objectB[key];
+      if (valueA && typeof valueB === 'object' && !Array.isArray(valueB)) {
+        mergedObject[key] = deepMerge(valueA, valueB) as never;
+      } else {
+        mergedObject[key] = valueB as never;
+      }
+      return mergedObject;
+    }, { ...objectA }) : (objectA || objectB)) as T;
 
 export const objectMap = <T, Q=T>(
   obj: T,

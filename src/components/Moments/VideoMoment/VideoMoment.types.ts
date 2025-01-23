@@ -1,4 +1,4 @@
-import type { VideoMomentData } from '../../../types';
+import type VideoMomentStore from '../../../state/moments/videoMomentStore';
 import type { AVBaseMomentPropsWithoutChildren } from '../AVBaseMoment/AVBaseMoment.types';
 
-export type VideoMomentProps = Omit<AVBaseMomentPropsWithoutChildren<VideoMomentData>, 'av'>;
+export type VideoMomentProps = Omit<AVBaseMomentPropsWithoutChildren<VideoMomentStore>, 'av'>;

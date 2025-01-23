@@ -1,135 +1,69 @@
-import {
-  type PropsWithChildren,
-  useCallback,
-  useEffect,
-  useMemo,
-  useState,
-} from 'react';
+import { autorun } from 'mobx';
+import { observer } from 'mobx-react-lite';
+import { type PropsWithChildren, useEffect } from 'react';
+import { When } from 'react-if';
 import { useSearchParams } from 'react-router-dom';
-import type { SwiperClass } from 'swiper/react';
 
 import type { StoryProps } from '../components/Story/Story.types';
-import StoryContext, { type IStoryContext } from '../contexts/StoryContext';
+import StoryContext from '../contexts/StoryContext';
+import useFormatters from '../hooks/useFormatters';
 import useStoriesAPI from '../hooks/useStoriesAPI';
-import { groupMoments, processInputMoments } from '../utils/momentUtils';
+import { Moment } from '../types';
 
-interface StoryProviderProps extends StoryProps, PropsWithChildren {
-}
+type StoryProviderProps = StoryProps & PropsWithChildren;
 
-const buildMomentChangeFn = (
-  swiper: SwiperClass | undefined,
-  setActiveMomentIndex: (index: number) => void,
-  updateRouter?: (active: number) => void,
-  onChange?: (active: number) => void,
-) => (index: number) => {
-  if (swiper) {
-    swiper.slideTo(index);
-  }
-  setActiveMomentIndex(index);
-  updateRouter?.(index);
-  onChange?.(index);
-};
-
-export default function StoryProvider({
-  branding,
+const StoryProvider = observer(({
   children,
   connectRouter,
-  defaultMoment = 0,
-  fullscreen,
-  layout,
+  defaultMomentId,
   onChange,
   story,
-}: StoryProviderProps) {
-  const {
-    addStoryContext,
-    formatters: { momentQueryParamKey },
-    isDebugging,
-    isMobile,
-  } = useStoriesAPI();
+  ...props
+}: StoryProviderProps) => {
+  const { isDebugging, stories } = useStoriesAPI();
+  const formatters = useFormatters();
   const [searchParams, setSearchParams] = useSearchParams();
-  const defaultActiveMoment = connectRouter ? (
-    Number(searchParams.get(momentQueryParamKey)) ?? defaultMoment
-  ) : (
-    Number(defaultMoment)
-  );
-  const [swiper, setSwiper] = useState<SwiperClass | undefined>(undefined);
-  const [activeMomentRef, setActiveMomentRef] = useState<IStoryContext['activeMomentRef']>(null);
-  const [activeMomentIndex, setActiveMomentIndex] = useState<number>(defaultActiveMoment);
-  const { availableMoments, groupedMoments, initialExpandedGroups } = useMemo(() => {
-    const available = processInputMoments(story.moments);
-    return { availableMoments: available, ...groupMoments(available) };
-  }, [story.moments]);
-  const [expandedMomentGroups, setExpandedMomentGroups] = useState<Record<string, boolean>>(
-    initialExpandedGroups,
-  );
 
-  const updateRouter = useCallback(
-    (moment: number) => (
-      setSearchParams({ [momentQueryParamKey]: moment.toString() }, { replace: true })
-    ),
-    [momentQueryParamKey, setSearchParams],
-  );
-
-  const contextValue = useMemo<IStoryContext>(
-    () => {
-      const setActiveMomentIndexWithSwiper = buildMomentChangeFn(
-        swiper,
-        setActiveMomentIndex,
-        connectRouter ? updateRouter : undefined,
-        onChange,
-      );
-      const contextLayout = layout ?? isMobile ? 'mobile' : 'desktop';
-      return {
-        activeMomentIndex,
-        activeMomentRef,
-        availableMoments,
-        branding,
-        collectionId: story.collection_id,
-        defaultMoment: defaultActiveMoment,
-        expandedMomentGroups,
-        groupedMoments,
-        layoutIsDesktop: contextLayout === 'desktop',
-        layoutIsFullscreen: !!fullscreen,
-        layoutIsMobile: contextLayout === 'mobile',
-        layout: contextLayout,
-        setActiveMomentIndex: setActiveMomentIndexWithSwiper,
-        setActiveMomentRef,
-        setExpandedMomentGroups,
-        setSwiper,
-        story,
-        storyId: story.id,
-      };
-    },
-    [
-      activeMomentIndex,
-      activeMomentRef,
-      availableMoments,
-      branding,
-      connectRouter,
-      defaultActiveMoment,
-      expandedMomentGroups,
-      fullscreen,
-      groupedMoments,
-      isMobile,
-      layout,
-      onChange,
-      swiper,
-      story,
-      updateRouter,
-    ],
-  );
-  useEffect(() => {
+  useEffect(() => autorun(() => {
     if (isDebugging) {
       // eslint-disable-next-line no-console
-      console.debug('StoryProvider useEffect called', contextValue, swiper?.activeIndex, activeMomentIndex);
+      console.debug('StoryProvider useEffect called');
     }
-    addStoryContext?.(contextValue);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [contextValue]);
-
+    const handleChange = (moment: Moment) => {
+      if (connectRouter) {
+        setSearchParams(
+          { [formatters.momentQueryParamKey]: moment.id },
+          { replace: true },
+        );
+      }
+      onChange?.(moment);
+    };
+    const defaultActiveMomentId = (connectRouter ? (
+      searchParams.get(formatters.momentQueryParamKey) ?? defaultMomentId
+    ) : (
+      defaultMomentId
+    ));
+    stories.loadStory({
+      connectRouter,
+      defaultMomentId: defaultActiveMomentId,
+      onChange: handleChange,
+      story,
+      ...props,
+    });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }), [
+    onChange,
+    props.editable,
+    story,
+  ]);
+  const store = stories.getStory(story.id);
   return (
-    <StoryContext.Provider value={contextValue}>
-      {children}
-    </StoryContext.Provider>
+    <When condition={!!store}>
+      <StoryContext.Provider value={store!}>
+        {children}
+      </StoryContext.Provider>
+    </When>
   );
-}
+});
+
+export default StoryProvider;

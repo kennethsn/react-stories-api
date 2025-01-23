@@ -1,42 +1,32 @@
-import { type PropsWithChildren, useMemo } from 'react';
+import { autorun } from 'mobx';
+import { observer } from 'mobx-react-lite';
+import { type PropsWithChildren, useEffect } from 'react';
+import { When } from 'react-if';
 
 import type { CollectionProps } from '../components/Collection/Collection.types';
-import CollectionContext, { type ICollectionContext } from '../contexts/CollectionContext';
+import CollectionContext from '../contexts/CollectionContext';
+import useCollections from '../hooks/useCollections';
 
 type CollectionProviderProps = CollectionProps & PropsWithChildren;
 
-export default function CollectionProvider({
+const CollectionProvider = observer(({
   collection,
   children,
-}: CollectionProviderProps) {
-  const contextValue = useMemo<ICollectionContext>(
-    () => {
-      const {
-        id: collectionId,
-        featured_stories: initFeaturedStories,
-        stories: initStories,
-        total_stories_count: initTotalStoriesCount,
-      } = collection;
-      const featuredStories = initFeaturedStories || [];
-      const featuredStoriesCount = featuredStories.length;
-      const stories = initStories || [];
-      const totalStoriesCount = initTotalStoriesCount ?? stories.length;
-      return {
-        collection,
-        collectionHasFeaturedStories: featuredStoriesCount > 0,
-        collectionId,
-        featuredStories,
-        featuredStoriesCount,
-        stories,
-        totalStoriesCount,
-      };
-    },
-    [collection],
-  );
+}: CollectionProviderProps) => {
+  const collections = useCollections();
+  useEffect(() => autorun(() => {
+    collections.addCollection(collection);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }), [collection]);
 
+  const collectionStore = collections.getCollection(collection.id);
   return (
-    <CollectionContext.Provider value={contextValue}>
-      {children}
-    </CollectionContext.Provider>
+    <When condition={!!collectionStore}>
+      <CollectionContext.Provider value={collectionStore!}>
+        {children}
+      </CollectionContext.Provider>
+    </When>
   );
-}
+});
+
+export default CollectionProvider;

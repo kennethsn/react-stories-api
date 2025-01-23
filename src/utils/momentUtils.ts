@@ -1,94 +1,58 @@
-import MomentConfigMap from '../configs/momentConfig';
 import type {
   GroupedMoments,
   InputMoment,
   Moment,
   MomentGroupWithMoments,
   MomentOrMomentGroup,
+  MomentType,
 } from '../types';
-import { buildNoIcon } from './iconUtils';
+import { randomString } from './string';
 
-type AnyMoment = InputMoment | Moment;
-
-const buildMomentGroupWithKey = (group: MomentGroupWithMoments) => ({ ...group, key: `group-${group.id}` });
-
-export const getAvailableMoments = (moments: Moment[]) => moments
-  .filter(isMomentAvailable)
-  .map((moment, index) => ({ ...moment, index }));
+export const generateMomentId = () => randomString(8, 'm-');
 
 export const groupMoments = (moments: Moment[]) => {
   const groupedMoments: GroupedMoments = [];
-  const initialExpandedGroups: Record<string, boolean> = {};
+  const initialExpandedGroups = new Set<string>();
   let currentGroup: MomentGroupWithMoments | undefined;
-  const pushCurrentGroup = () => {
-    const groupWithKey = buildMomentGroupWithKey(currentGroup!);
-    groupedMoments.push(groupWithKey);
-  };
   moments.forEach((moment) => {
     const groupId = moment.group?.id;
     if (currentGroup && groupId !== currentGroup.id) {
-      pushCurrentGroup();
+      groupedMoments.push(currentGroup);
       currentGroup = undefined;
     }
     if (!groupId) {
-      groupedMoments.push({
-        ...moment,
-        key: `moment-${moment.index}`,
-      });
+      groupedMoments.push(moment);
     } else if (currentGroup) {
       currentGroup.moments.push(moment);
     } else {
-      currentGroup = { ...moment.group!, moments: [moment] };
-      initialExpandedGroups[currentGroup.id] = true;
+      currentGroup = { ...moment.group!, moments: [moment], isGroup: true };
+      initialExpandedGroups.add(currentGroup.id);
     }
   });
   if (currentGroup) {
-    pushCurrentGroup();
+    groupedMoments.push(currentGroup);
   }
 
   return { groupedMoments, initialExpandedGroups };
 };
 
-// TODO: add a cleaner way to check than comparing whole component imports
-export const isMomentAvailable = (moment: AnyMoment) => !!getMomentConfig(moment);
-
-export const isMomentGroup = (moment: Omit<MomentOrMomentGroup, 'key'>): moment is MomentGroupWithMoments => (
-  !!(moment as MomentGroupWithMoments).moments
+export const isMomentGroup = (moment: MomentOrMomentGroup): moment is MomentGroupWithMoments => (
+  !!(moment as MomentGroupWithMoments).isGroup
 );
 
-export const getMomentComponent = (moment: AnyMoment) => {
-  const momentConfig = getMomentConfig(moment);
-  return momentConfig?.component;
-};
-
-export const getMomentConfig = (moment: AnyMoment) => {
-  const momentConfig = MomentConfigMap[moment.type];
-  if (!momentConfig) {
-    // eslint-disable-next-line no-console
-    console.warn(`No config found for moment type: ${moment.type}`);
-  }
-  return momentConfig;
-};
-
-export const getMomentIcon = (moment: AnyMoment) => {
-  const { icon } = moment;
-  if (icon) {
-    return icon;
-  }
-  const momentConfig = getMomentConfig(moment);
-  return momentConfig?.icon ?? buildNoIcon();
-};
-
-export const processInputMoments = (inputMoments: InputMoment[]) => {
+export const processInputMoments = (
+  inputMoments: InputMoment[],
+  availableMomentTypes: Set<MomentType>,
+) => {
   const outputMoments: Moment[] = [];
   inputMoments.forEach((moment) => {
-    if (!isMomentAvailable(moment)) {
+    if (!availableMomentTypes.has(moment.type)) {
       return;
     }
-    const icon = getMomentIcon(moment);
+    const id = moment.id ?? generateMomentId();
     const outputMoment = {
       ...moment,
-      icon,
+      id,
       index: outputMoments.length,
     };
     outputMoments.push(outputMoment);

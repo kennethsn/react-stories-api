@@ -1,58 +1,37 @@
 import Box from '@mui/material/Box';
-import { useCallback, useState } from 'react';
+import { observer } from 'mobx-react-lite';
 import ReactPlayer from 'react-player';
 
-import { MOMENT_LAYOUT_MAX_CONTENT_SIZE as maxContentSize } from '../../../constants';
-import useAV from '../../../hooks/useAV';
-import useStory from '../../../hooks/useStory';
-import { buildVideoAV } from '../../../utils/videoMomentUtils';
 import AVBaseMoment from '../AVBaseMoment/AVBaseMoment';
 import styles from './VideoMoment.styles';
 import type { VideoMomentProps } from './VideoMoment.types';
 
-export default function VideoMoment({ moment }: VideoMomentProps) {
-  const { storyId } = useStory();
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [isReady, setIsReady] = useState(false);
-  const av = buildVideoAV(storyId, moment, setIsPlaying);
-  const { pause, play } = useAV(av);
-  const {
-    fit = 'cover',
-    size = maxContentSize,
-    show_controls: showControls,
-    start_at: startAt,
-    url,
-  } = moment.data;
-
-  const handleReactPlayerPause = () => isPlaying && pause();
-  const handleReactPlayerPlay = () => play();
-  const handleReactPlayerReady = useCallback((player: ReactPlayer) => {
-    if (!isReady) {
-      if (startAt) {
-        player.seekTo(startAt);
-      }
-      setIsReady(true);
-    }
-  }, [isReady, startAt]);
+const VideoMoment = observer(({ moment }: VideoMomentProps) => {
+  const handleReactPlayerPause = moment.pauseHandler;
+  const handleReactPlayerPlay = () => {
+    moment.playHandler();
+  };
+  const handleReactPlayerReady = (player: ReactPlayer) => moment.loadVideoPlayer(player);
   return (
     <AVBaseMoment
-      av={av}
-      contentFit={fit}
-      contentSize={size}
+      contentFit={moment.fit}
+      contentSize={moment.size}
       moment={moment}
     >
       <Box sx={styles.root}>
         <ReactPlayer
-          controls={showControls}
+          controls={moment.showControls}
           height="100%"
           onPause={handleReactPlayerPause}
           onPlay={handleReactPlayerPlay}
           onReady={handleReactPlayerReady}
-          playing={isPlaying}
-          url={url}
+          playing={moment.videoIsPlaying}
+          url={moment.url}
           width="100%"
         />
       </Box>
     </AVBaseMoment>
   );
-}
+});
+
+export default VideoMoment;

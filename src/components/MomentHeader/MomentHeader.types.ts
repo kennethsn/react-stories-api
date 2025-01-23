@@ -1,8 +1,8 @@
 import type { ReactNode } from 'react';
 
-import type { Moment } from '../../types';
+import type MomentStore from '../../state/momentStore';
 
 export type MomentHeaderProps = {
-  readonly moment: Moment;
-  readonly title?: ReactNode;
+  readonly actions?: ReactNode;
+  readonly moment: MomentStore;
 };

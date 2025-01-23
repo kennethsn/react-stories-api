@@ -39,3 +39,12 @@ export const getFormattedArray = (template: string, values: Record<string, strin
 export const strip = (str: string, chars = ' ') => (
   str.replace(new RegExp(`^[${chars}]+|[${chars}]+$`, 'g'), '')
 );
+
+export const randomString = (length = 8, prefix = '') => {
+  const chars = 'BCDFGHJKLMNPQRSTVWXYZbcdfghjklmnpqrstvwxyz0123456789';
+  let result = prefix;
+  for (let i = 0; i < length; i += 1) {
+    result += chars.charAt(Math.floor(Math.random() * chars.length));
+  }
+  return result;
+};

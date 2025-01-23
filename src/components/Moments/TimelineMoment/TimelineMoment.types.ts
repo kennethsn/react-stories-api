@@ -1,4 +1,4 @@
-import type { TimelineMomentData } from '../../../types';
+import type TimelineMomentStore from '../../../state/moments/timelineMomentStore';
 import type { BaseMomentPropsWithoutChildren } from '../BaseMoment/BaseMoment.types';
 
-export type TimelineMomentProps = BaseMomentPropsWithoutChildren<TimelineMomentData>;
+export type TimelineMomentProps = BaseMomentPropsWithoutChildren<TimelineMomentStore>;

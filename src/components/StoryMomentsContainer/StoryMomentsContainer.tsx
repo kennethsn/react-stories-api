@@ -1,4 +1,5 @@
 import Box from '@mui/material/Box';
+import { observer } from 'mobx-react-lite';
 import {
   EffectCoverflow,
   Keyboard,
@@ -10,7 +11,7 @@ import {
 import { Swiper, SwiperClass, SwiperSlide } from 'swiper/react';
 
 import useMoments from '../../hooks/useMoments';
-import useStory from '../../hooks/useStory';
+import useStoryTheme from '../../hooks/useStoryTheme';
 import StoryMoment from '../StoryMoment/StoryMoment';
 import styles from './StoryMomentsContainer.styles';
 // KSN TODO: use focusableElements to prevent drag on everything but backgrounds
@@ -25,16 +26,16 @@ const modules = [
   Virtual,
 ];
 
-export default function StoryMomentsContainer() {
-  const { layoutIsMobile, setSwiper } = useStory();
-  const {
-    availableMoments: moments,
-    defaultMomentIndex,
-    selectMoment,
-  } = useMoments();
+const StoryMomentsContainer = observer(() => {
+  const { layoutIsMobile } = useStoryTheme();
+  const moments = useMoments();
 
   const handleSlideChange = (swiperInstance: SwiperClass) => {
-    selectMoment(swiperInstance.activeIndex);
+    moments.goToMomentIndex(swiperInstance.activeIndex);
+  };
+
+  const handleSwiper = (swiperInstance: SwiperClass) => {
+    moments.setSwiper(swiperInstance);
   };
 
   let swiperClassName = 'story-moments-container-swiper';
@@ -55,12 +56,12 @@ export default function StoryMomentsContainer() {
           stretch: 0,
         }}
         effect="coverflow"
-        initialSlide={defaultMomentIndex}
+        initialSlide={moments.defaultMomentIndex}
         keyboard={{ enabled: true }}
         modules={modules}
         navigation
         onSlideChange={handleSlideChange}
-        onSwiper={setSwiper}
+        onSwiper={handleSwiper}
         pagination={{
           clickable: true,
           dynamicBullets: true,
@@ -75,9 +76,9 @@ export default function StoryMomentsContainer() {
       >
         <div slot="container-start" />
 
-        {moments.map((moment) => (
+        {moments.moments.map((moment) => (
           <SwiperSlide
-            key={moment.index}
+            key={moment.key}
             className="story-moment-swiper-slide"
           >
             <StoryMoment moment={moment} />
@@ -86,4 +87,6 @@ export default function StoryMomentsContainer() {
       </Swiper>
     </Box>
   );
-}
+});
+
+export default StoryMomentsContainer;

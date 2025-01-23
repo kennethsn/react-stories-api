@@ -1,33 +1,24 @@
+import { observer } from 'mobx-react-lite';
+
 import PreviewableImage from '../../UI/PreviewableImage/PreviewableImage';
 import BaseMoment from '../BaseMoment/BaseMoment';
 import styles from './ImageMoment.styles';
 import type { ImageMomentProps } from './ImageMoment.types';
 // KSN TODO: lock swiper on preview
 // KSN TODO: support markdown in caption for links
-export default function ImageMoment({ moment }: ImageMomentProps) {
-  const { label, title } = moment;
-  const {
-    image: {
-      fit: imageFit = 'card',
-      position: imagePosition = 'center',
-      size: imageSize,
-      url: src,
-    },
-  } = moment.data;
-  const imageFitIsCard = imageFit === 'card';
-  const imageFitIsCover = imageFit === 'cover';
-  return (
-    <BaseMoment
-      contentFit={imageFit}
-      contentSize={imageSize}
-      moment={moment}
-    >
-      <PreviewableImage
-        alt={title ?? label}
-        className="moment-image"
-        src={src}
-        sx={styles.image(imageFitIsCard, imageFitIsCover, imagePosition)}
-      />
-    </BaseMoment>
-  );
-}
+const ImageMoment = observer(({ moment }: ImageMomentProps) => (
+  <BaseMoment
+    contentFit={moment.fit}
+    contentSize={moment.size}
+    moment={moment}
+  >
+    <PreviewableImage
+      alt={moment.alt}
+      className="moment-image"
+      src={moment.url}
+      sx={styles.image(moment)}
+    />
+  </BaseMoment>
+));
+
+export default ImageMoment;

@@ -1,8 +1,8 @@
 import type { SxProps } from '@mui/material/styles';
 
-import type { AV } from '../../types';
+import type AVBaseMomentStore from '../../state/moments/avBaseMomentStore';
 
 export type MomentAVPlayPauseButtonProps = {
-  readonly av: AV;
+  readonly moment: AVBaseMomentStore;
   readonly sx?: SxProps
 };

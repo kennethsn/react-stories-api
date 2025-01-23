@@ -1,17 +1,19 @@
 import { ThemeProvider } from '@mui/material/styles';
+import { observer } from 'mobx-react-lite';
 
-import useStoriesAPI from '../../../hooks/useStoriesAPI';
+import useStoriesAPITheme from '../../../hooks/useStoriesAPITheme';
 import type { ThemeOverrideProps } from './ThemeOverride.types';
 
-export default function ThemeOverride({
+const ThemeOverride = observer(({
   children,
   themeOptions,
-}: ThemeOverrideProps) {
-  const { overrideTheme } = useStoriesAPI();
-  const theme = overrideTheme(themeOptions);
+}: ThemeOverrideProps) => {
+  const storiesAPITheme = useStoriesAPITheme(themeOptions);
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={storiesAPITheme.muiTheme}>
       {children}
     </ThemeProvider>
   );
-}
+});
+
+export default ThemeOverride;

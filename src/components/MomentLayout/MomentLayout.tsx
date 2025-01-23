@@ -1,9 +1,11 @@
 import Box from '@mui/material/Box';
 import Collapse from '@mui/material/Collapse';
-import { useEffect, useRef, useState } from 'react';
+import { observer } from 'mobx-react-lite';
+import { useRef, useState } from 'react';
 
-import { useMoments } from '../../hooks';
-import useStory from '../../hooks/useStory';
+import useMoments from '../../hooks/useMoments';
+import useOnLoad from '../../hooks/useOnLoad';
+import useStoryTheme from '../../hooks/useStoryTheme';
 import MomentBodyLayout from '../MomentBodyLayout/MomentBodyLayout';
 import MomentHeader from '../MomentHeader/MomentHeader';
 import CollapseButton from '../UI/CollapseButton/CollapseButton';
@@ -11,19 +13,19 @@ import styles from './MomentLayout.styles';
 import type { MomentLayoutProps } from './MomentLayout.types';
 
 // KSN TODO: ref doesn't re-compute clientHeight on resize or collapsing header.
-export default function MomentLayout({
+const MomentLayout = observer(({
+  actions,
   children,
   contentFit,
   contentSize,
   moment,
-  title,
-}: MomentLayoutProps) {
+}: MomentLayoutProps) => {
   const ref = useRef<HTMLDivElement>(null);
   const [headerIsCollapsed, setHeaderIsCollapsed] = useState(false);
-  const { setMomentRef } = useMoments(moment.index);
-  const { layoutIsDesktop } = useStory();
-  useEffect(() => {
-    setMomentRef(ref);
+  const moments = useMoments();
+  const { layoutIsDesktop } = useStoryTheme();
+  useOnLoad(() => {
+    moments.setMomentRef(moment, ref);
   });
 
   const handleHeaderCollapseButtonClick = (collapsed: boolean) => setHeaderIsCollapsed(collapsed);
@@ -32,8 +34,8 @@ export default function MomentLayout({
       <Box sx={styles.headerContainer}>
         <Collapse in={!headerIsCollapsed}>
           <MomentHeader
+            actions={actions}
             moment={moment}
-            title={title}
           />
         </Collapse>
 
@@ -60,4 +62,6 @@ export default function MomentLayout({
       </Box>
     </Box>
   );
-}
+});
+
+export default MomentLayout;

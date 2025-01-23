@@ -1,13 +1,15 @@
+import ImageMomentStore from '../../../state/moments/imageMomentStore';
+
 const styles = {
-  image: (imageFitIsCard: boolean, imageFitIsCover: boolean, imagePosition: string) => ({
+  image: (moment: ImageMomentStore) => ({
     display: 'block',
-    height: imageFitIsCover ? '100%' : 'auto',
+    height: moment.fitIsCover ? '100%' : 'auto',
     maxWidth: '100%',
     maxHeight: '100%',
     mx: 'auto',
-    objectFit: imageFitIsCover ? 'cover' : 'contain',
-    objectPosition: imagePosition,
-    width: imageFitIsCard ? 'initial' : '100%',
+    objectFit: moment.fitIsCover ? 'cover' : 'contain',
+    objectPosition: moment.position,
+    width: moment.fitIsCard ? 'initial' : '100%',
   }),
 };
 

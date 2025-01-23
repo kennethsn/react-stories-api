@@ -62,6 +62,13 @@ export const goToURL = (pathOrURL: string, newTab?: boolean, goToPath?: GoToPath
   return goToPath(path);
 };
 
+export const openJSON = (json: Record<string, unknown>) => {
+  const blob = new Blob([JSON.stringify(json, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  window.open(url, '_blank');
+  URL.revokeObjectURL(url);
+};
+
 export const openNewTab = (url: string): void => {
   window.open(url, '_blank');
 };

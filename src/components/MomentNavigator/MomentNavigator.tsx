@@ -1,8 +1,7 @@
-import Collapse from '@mui/material/Collapse';
 import Grid from '@mui/material/Grid2';
 import List from '@mui/material/List';
-import ListSubheader from '@mui/material/ListSubheader';
 import Typography from '@mui/material/Typography';
+import { observer } from 'mobx-react-lite';
 import {
   Else,
   If,
@@ -13,58 +12,49 @@ import {
 import { STORIES_SERVICES_BASE_URL } from '../../constants';
 import useMoments from '../../hooks/useMoments';
 import useStory from '../../hooks/useStory';
-import type { Moment, MomentGroupWithMoments } from '../../types';
+import type MomentStore from '../../state/momentStore';
+import type { MomentGroupWithMoments } from '../../types';
 import { isMomentGroup } from '../../utils/momentUtils';
+import MomentNavigatorGroup from '../MomentNavigatorGroup/MomentNavigatorGroup';
 import MomentNavigatorHeader from '../MomentNavigatorHeader/MomentNavigatorHeader';
 import MomentNavigatorListItem from '../MomentNavigatorListItem/MomentNavigatorListItem';
 import ClickableImage from '../UI/ClickableImage/ClickableImage';
-import ExpandIcon from '../UI/ExpandIcon/ExpandIcon';
 import styles from './MomentNavigator.styles';
 
 // KSN TODO: colors
 // KSN TODO: scroll to height on change
 // KSN TODO: Grouping sidebar content should not spread to full height
-export default function MomentNavigator() {
-  const { branding, story: { image, label } } = useStory();
-  const {
-    isGroupExpanded,
-    groupedMoments,
-    goToBeginning,
-    toggleGroup,
-  } = useMoments();
+const MomentNavigator = observer(() => {
+  const story = useStory();
+  const moments = useMoments();
 
-  const handleGroupButtonClick = (groupId: string) => () => {
-    toggleGroup(groupId);
-  };
-
-  const handleImageClick = () => goToBeginning();
-  const hasBranding = !!branding;
+  const handleImageClick = () => moments.goToBeginning();
   return (
     <Grid
       container
       spacing={2}
       sx={styles.root}
     >
-      <When condition={hasBranding}>
+      <When condition={story.hasBranding}>
         <Grid
           size={12}
           sx={styles.brandingContainer}
         >
-          {branding}
+          {story.branding}
         </Grid>
       </When>
 
       <MomentNavigatorHeader />
 
-      <When condition={!!image}>
+      <When condition={!!story.image}>
         <Grid
           size={12}
           sx={styles.imageContainer}
         >
           <ClickableImage
-            alt={label}
+            alt={story.label}
             onClick={handleImageClick}
-            src={image!}
+            src={story.image!}
           />
         </Grid>
       </When>
@@ -75,63 +65,22 @@ export default function MomentNavigator() {
           subheader={<li />}
           sx={styles.listContainer}
         >
-          {groupedMoments.map((momentOrGroup) => (
+          {moments.groupedMoments.map((momentOrGroup) => (
             <If
-              key={momentOrGroup.key}
+              key={momentOrGroup.id}
               condition={isMomentGroup(momentOrGroup)}
             >
               <Then>
-                {() => {
-                  const group = momentOrGroup as MomentGroupWithMoments;
-                  const groupId = group.id;
-                  const groupIsExpanded = isGroupExpanded(groupId);
-                  return (
-                    <li key={`group-${groupId}`}>
-                      <ul>
-                        <ListSubheader
-                          onClick={handleGroupButtonClick(groupId)}
-                          sx={styles.subheader}
-                        >
-                          <ExpandIcon expanded={groupIsExpanded} />
-
-                          <Typography
-                            color="primary"
-                            sx={styles.subheaderLabel}
-                            variant="overline"
-                          >
-                            {group.label}
-                          </Typography>
-
-                        </ListSubheader>
-
-                        <Collapse
-                          in={groupIsExpanded}
-                          timeout="auto"
-                          unmountOnExit
-                        >
-                          <List
-                            component="div"
-                            dense
-                            disablePadding
-                            sx={styles.groupContainer}
-                          >
-                            {group.moments.map((moment) => (
-                              <MomentNavigatorListItem
-                                key={`moment-subgroup-${moment.index}`}
-                                moment={moment}
-                              />
-                            ))}
-                          </List>
-                        </Collapse>
-                      </ul>
-                    </li>
-                  );
-                }}
+                {() => (
+                  <MomentNavigatorGroup
+                    momentGroup={momentOrGroup as MomentGroupWithMoments<MomentStore>}
+                  />
+                )}
               </Then>
 
               <Else>
                 {() => {
-                  const moment = momentOrGroup as Moment;
+                  const moment = momentOrGroup as MomentStore;
                   return (
                     <MomentNavigatorListItem
                       key={`moment-${moment.index}`}
@@ -162,4 +111,6 @@ export default function MomentNavigator() {
       </Grid>
     </Grid>
   );
-}
+});
+
+export default MomentNavigator;

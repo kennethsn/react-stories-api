@@ -2,33 +2,28 @@ import Grid from '@mui/material/Grid2';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
+import { observer } from 'mobx-react-lite';
 import { When } from 'react-if';
 
-import useAV from '../../hooks/useAV';
-import useMoments from '../../hooks/useMoments';
-import useStory from '../../hooks/useStory';
+import type AVBaseMomentStore from '../../state/moments/avBaseMomentStore';
 import MomentAVPlayPauseButton from '../MomentAVPlayPauseButton/MomentAVPlayPauseButton';
+import StoryMomentTypography from '../StoryMoment/StoryMomentTypography';
 import Icon from '../UI/Icon/Icon';
 import styles from './MomentNavigatorListItem.styles';
 import type { MomentNavigatorListItemProps } from './MomentNavigatorListItem.types';
 
-export default function MomentNavigatorListItem({ moment }: MomentNavigatorListItemProps) {
-  const { icon, index: momentIndex, label } = moment;
-  const { storyId } = useStory();
-  const { momentIsActive, selectMoment } = useMoments(momentIndex);
-  const { av, isPlaying } = useAV({ momentIndex, storyId });
-
-  const handleClick = () => selectMoment(momentIndex);
-  const color = isPlaying ? 'primary.main' : undefined;
+const MomentNavigatorList = observer(({ moment }: MomentNavigatorListItemProps) => {
+  const handleClick = () => moment.goTo();
+  const color = moment.isPlaying ? 'primary.main' : undefined;
 
   return (
     <ListItemButton
       onClick={handleClick}
-      selected={momentIsActive}
+      selected={moment.isActive}
     >
       <ListItemIcon sx={styles.listIcon}>
         <Icon
-          icon={icon}
+          icon={moment.icon}
           sx={{ color }}
         />
       </ListItemIcon>
@@ -39,14 +34,19 @@ export default function MomentNavigatorListItem({ moment }: MomentNavigatorListI
             color={color}
             container
           >
-            <Grid size={isPlaying ? 9 : 12}>
-              {label}
+            <Grid size={moment.isPlaying ? 9 : 12}>
+              <StoryMomentTypography
+                disabled={moment.isInactive}
+                field="label"
+                moment={moment}
+                variant="body2"
+              />
             </Grid>
 
-            <When condition={isPlaying}>
+            <When condition={moment.isPlaying}>
               <Grid size={3}>
                 <MomentAVPlayPauseButton
-                  av={av!}
+                  moment={moment as AVBaseMomentStore}
                   sx={styles.avButton}
                 />
               </Grid>
@@ -57,4 +57,6 @@ export default function MomentNavigatorListItem({ moment }: MomentNavigatorListI
       />
     </ListItemButton>
   );
-}
+});
+
+export default MomentNavigatorList;

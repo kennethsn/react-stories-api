@@ -1,10 +1,11 @@
-import { buildIFrameMomentFromHathiTrust } from '../../../utils/hathiTrustUtils';
+import { observer } from 'mobx-react-lite';
+
+import type IFrameMomentStore from '../../../state/moments/iframeMomentStore';
 import IFrameMoment from '../IFrameMoment/IFrameMoment';
 import type { HathiTrustMomentProps } from './HathiTrustMoment.types';
 
-export default function HathiTrustMoment({ moment }: HathiTrustMomentProps) {
-  const iframeMoment = buildIFrameMomentFromHathiTrust(moment);
-  return (
-    <IFrameMoment moment={iframeMoment} />
-  );
-}
+const HathiTrustMoment = observer(({ moment }: HathiTrustMomentProps) => (
+  <IFrameMoment moment={moment as IFrameMomentStore} />
+));
+
+export default HathiTrustMoment;

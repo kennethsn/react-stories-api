@@ -1,8 +1,13 @@
 export { default as useAV } from './useAV';
 export { default as useCollection } from './useCollection';
+export { default as useCollections } from './useCollections';
 export { default as useColor } from './useColor';
 export { default as useElementIsVisible } from './useElementIsVisible';
+export { default as useFormatters } from './useFormatters';
 export { default as useMoments } from './useMoments';
+export { default as useOnLoad } from './useOnLoad';
 export { default as useStoriesAPI } from './useStoriesAPI';
 export { default as useStoriesAPINavigation } from './useStoriesAPINavigation';
+export { default as useStoriesAPITheme } from './useStoriesAPITheme';
 export { default as useStory } from './useStory';
+export { default as useStoryTheme } from './useStoryTheme';

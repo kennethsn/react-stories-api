@@ -1,5 +1,5 @@
 import { HATHI_TRUST_EMBED_URL } from '../constants';
-import type { HathiTrustMomentData, IFrameMomentData, Moment } from '../types';
+import type { HathiTrustMomentData } from '../types';
 import { addQueryParams } from './url';
 
 export const buildHathiTrustEmbedURL = (momentData: HathiTrustMomentData): string => {
@@ -18,20 +18,6 @@ export const buildHathiTrustEmbedURL = (momentData: HathiTrustMomentData): strin
   return addQueryParams(embedURL, queryParams);
 };
 
-const buildHathiTrustEmbedURLFromId = (hathiTrustId: string) => (
+export const buildHathiTrustEmbedURLFromId = (hathiTrustId: string) => (
   `${HATHI_TRUST_EMBED_URL}?id=${hathiTrustId}`
 );
-
-export const buildIFrameMomentFromHathiTrust = (
-  moment: Moment<HathiTrustMomentData>,
-): Moment<IFrameMomentData> => ({
-  ...moment,
-  data: {
-    ...moment.data,
-    iframe: {
-      fit: moment.data.fit,
-      size: moment.data.size,
-      url: buildHathiTrustEmbedURL(moment.data),
-    },
-  },
-});

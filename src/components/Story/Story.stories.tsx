@@ -1,11 +1,14 @@
 import type { FC } from 'react';
 
 import StoriesAPIProvider from '../../providers/StoriesAPIProvider';
+import type MomentStore from '../../state/momentStore';
 import { baseStorybookDecorator } from '../../stories/decorators';
-import storyData from '../../tests/fixtures/grace-hopper-story-v1.json';
+// import storyData from '../../tests/fixtures/grace-hopper-story-v1.json';
 import yaleClubStoryData from '../../tests/fixtures/story--yale-club--17-madison-square-north.json';
 import { fakeGoToPath } from '../../utils/debug';
 import Story from './Story';
+
+const storyData = { ...yaleClubStoryData };
 // KSN TODO: Clean this up after building core pipeline
 // KSN TODO: Show code button broken bc grace hopper story too big
 export default {
@@ -48,6 +51,7 @@ export default {
 export const SampleStory = {
   args: {
     story: storyData,
+    editable: true,
   },
 };
 
@@ -74,8 +78,12 @@ export const StoryWithBranding = {
 
 export const YaleClubStoryDemo = {
   args: {
-    defaultMoment: 1,
+    defaultMomentId: 'testing-moment',
     story: yaleClubStoryData,
+    onChange: (activeMoment: MomentStore) => {
+      // eslint-disable-next-line no-console
+      console.log('active', activeMoment);
+    },
   },
   decorators: [
     (StorybookStory: FC) => (

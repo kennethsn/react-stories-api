@@ -5,12 +5,14 @@ import type { THEME_COLOR_OPTIONS } from './constants';
 export type AtLeastOne<T, U = { [K in keyof T]: Pick<T, K> }> = Partial<T> & U[keyof U];
 
 export type AV = {
-  readonly momentIndex: number;
+  readonly momentId: Moment['id'];
   readonly pause: () => void | Promise<void>;
   readonly play: () => void | Promise<void>;
   readonly storyId: Story['id'];
-  readonly type: 'audio' | 'video';
+  readonly type: AVType;
 };
+
+export type AVType = 'audio' | 'video';
 
 export type Button = GoToOptions & {
   readonly color?: Color;
@@ -50,17 +52,29 @@ export type Color = {
 export type ColorHex = `#${string}`;
 
 export type ColorString = ThemeColorOption | ColorHex;
+export type GoToBaseOptions<T> = { readonly newTab?: boolean; } & T;
 
-export type GoToOptions = { readonly newTab?: boolean; } & ({
+export type GoToCollectionOptions = GoToBaseOptions<{
   readonly collectionId: Collection['id'];
-  readonly moment: number; // moment index
+}>;
+
+export type GoToMomentOptions = GoToStoryOptions & {
+  readonly momentId: Moment['id'];
+};
+
+export type GoToOptions =
+  GoToCollectionOptions |
+  GoToMomentOptions |
+  GoToStoryOptions |
+  GoToURLOptions;
+
+export type GoToStoryOptions = GoToCollectionOptions & {
   readonly storyId: Story['id'];
-} | {
-  readonly collectionId: Collection['id'];
-  readonly storyId?: Story['id'];
-} | {
+};
+
+export type GoToURLOptions = GoToBaseOptions<{
   readonly url: string;
-});
+}>;
 
 export type GoToPathFn = (path: string) => void;
 
@@ -104,8 +118,9 @@ export type ImageMomentData = {
   readonly image: Image;
 };
 
-export type InputMoment = Omit<Moment, 'index' | 'icon'> & {
+export type InputMoment = Omit<Moment, 'icon' | 'id' | 'index'> & {
   readonly icon?: Icon;
+  readonly id?: string;
   readonly index?: number;
 };
 
@@ -117,7 +132,8 @@ export type Moment<T=MomentData> = {
   readonly color?: Color;
   readonly data: { caption?: MomentCaption } & T;
   readonly group?: MomentGroup;
-  readonly icon: Icon;
+  readonly icon?: Icon;
+  readonly id: string;
   readonly index: number;
   readonly label: string;
   readonly subtitle?: NullableString;
@@ -155,9 +171,12 @@ export type MomentGroup = {
   readonly label: string;
 };
 
-export type MomentGroupWithMoments = MomentGroup & { moments: Moment[] };
+export type MomentGroupWithMoments<T=Moment> = MomentGroup & {
+  readonly isGroup: true;
+  readonly moments: T[];
+};
 
-export type MomentOrMomentGroup = (Moment | MomentGroupWithMoments) & { key: string };
+export type MomentOrMomentGroup = (Moment | MomentGroupWithMoments);
 
 // KSN TODO: remove string when all moments are typed
 export type MomentType =
@@ -175,6 +194,17 @@ export type MuiIcon = {
   readonly name: string;
   readonly type: 'mui';
 };
+
+export type Mutable<T, Keys extends keyof T = keyof T> = {
+  -readonly [P in Keys]: T[P];
+} & Omit<T, Keys>;
+
+export type MutableMoment<T=MomentData> = Mutable<
+Moment<T>,
+'color' | 'data' | 'group' | 'icon' | 'index' | 'label' | 'subtitle' | 'title'
+>;
+
+export type MutableStory = Mutable<Story, 'description' | 'image' | 'label' | 'moments'>;
 
 export type NoIcon = {
   readonly type: 'none';

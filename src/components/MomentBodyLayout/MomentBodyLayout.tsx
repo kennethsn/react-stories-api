@@ -1,26 +1,28 @@
 import Grid from '@mui/material/Grid2';
+import { observer } from 'mobx-react-lite';
 import {
   Else,
   If,
   Then,
 } from 'react-if';
 
-import useStory from '../../hooks/useStory';
+import useStoryTheme from '../../hooks/useStoryTheme';
 import { getGridItemHeights, getGridItemSizes } from '../../utils/momentLayoutUtils';
 import styles from './MomentBodyLayout.styles';
 import type { MomentBodyLayoutProps } from './MomentBodyLayout.types';
 import MomentBodyLayoutCaptionGridItem from './MomentBodyLayoutCaptionGridItem';
 import MomentBodyLayoutContentGridItem from './MomentBodyLayoutContentGridItem';
+
 // KSN TODO: lock swiper on preview
-// KSN TODO: ability to link a button in a caption
 // KSN TODO: support markdown in caption for links
-export default function MomentBodyLayout({
+
+const MomentBodyLayout = observer(({
   children,
   contentFit = 'card',
   contentSize: inputContentSize,
   moment,
-}: MomentBodyLayoutProps) {
-  const { layoutIsMobile } = useStory();
+}: MomentBodyLayoutProps) => {
+  const { layoutIsMobile } = useStoryTheme();
   const {
     caption: {
       button,
@@ -101,4 +103,6 @@ export default function MomentBodyLayout({
       </If>
     </Grid>
   );
-}
+});
+
+export default MomentBodyLayout;

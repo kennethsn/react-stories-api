@@ -31,6 +31,11 @@
     {
       "data": {
         "caption": {
+          "button": {
+            "label": "Explore Map",
+            "newTab": true,
+            "url": "https://maps.app.goo.gl/JRcFmPDNXaJmd3JL8"
+          },
           "content": "Join Librarian & Archives Manager Caroline Bartels as she continues to delve into more stories of members who lived at 17 Madison Square North, 30 W. 44th Street, and 50 Vanderbilt Avenue over the years and called The Yale Club home. Come hear about Edward J. Noble, founder of Lifesavers Candies, Egerton Swartwout, architect of The Yale Club at 30 W. 44th, William McChesney Martin, chairman of the Board of Governors of the Federal Reserve System, and for our DKE members, James A. Hawes, plus several others. The lives of these young men help tell the story of the early 20th century in New York City and the place of the Yale Club in that history. Recorded July 10th, 2024.",
           "position": "bottom"
         },
@@ -123,6 +128,9 @@
       "type": "image"
     },
     {
+      "color": {
+        "background": "warning"
+      },
       "data": {
         "caption": {
           "content": "There were several important steps that turned the Yale Alumni Association into the Yale Club we know and love today. To learn more about the early years of the Club, click on one of the cards' buttons below to explore the 'Before the Club' story.",
@@ -132,10 +140,10 @@
           "events": [
             {
               "button": {
-                "collectionId": 1,
+                "collectionId": 2,
                 "label": "View Story",
                 "storyId": "Q123",
-                "newTab": true
+                "momentId": "testing-moment"
               },
               "date": {
                 "day": 4,
@@ -152,6 +160,12 @@
             },
             {
               "button": {
+                "variant": "contained",
+                "color": {
+                  "background": "#000",
+                  "text": "primary"
+                },
+                "is_disabled": true,
                 "label": "View Story",
                 "url": "/stories/Q1234"
               },
@@ -210,7 +224,7 @@
                 "collectionId": 1,
                 "label": "View Story",
                 "storyId": "Q1234",
-                "moment": 6,
+                "momentId": "testing-moment",
                 "newTab": true
               },
               "title": "First order of business",
@@ -465,6 +479,7 @@
           "url": "https://stories-api-test.s3.amazonaws.com/temp/They+Lived+at+the+Yale+Club/17+Madison+N/Closing+of+the+Club+April+1901.png"
         }
       },
+      "id": "testing-moment",
       "icon": {
         "name": "local_post_office",
         "type": "mui"
@@ -478,6 +493,77 @@
       "subtitle": "Notice to Members",
       "title": "Notice to Members",
       "type": "image"
+    },
+    {
+      "index": 12,
+      "label": "Continue more stories",
+      "subtitle": "Notice to Members",
+      "title": "Notice to Members",
+      "type": "stories",
+      "data": {
+        "stories": [
+          {
+            "collection_id": 1,
+            "description": "Remembering the Yale Alumni Association, 1868-1897",
+            "id": "Q000",
+            "status": "PREVIEW",
+            "label": "Before the Club",
+            "image": "https://stories-api-test.s3.amazonaws.com/temp/They+Lived+at+the+Yale+Club/17+Madison+N/1_alumni-notes-1.jpeg"
+          },
+          {
+            "collection_id": 1,
+            "description": "Early Yale Club Member and prominent New York attorney\nClass of 1887",
+            "id": "Q110",
+            "label": "Richard Dana Morse, Jr.",
+            "image": "/images/temp/richard-morse.png"
+          },
+          {
+            "collection_id": 1,
+            "description": "An overview of the first Yale Club of New York City location, 1897-1901",
+            "id": "Q042280",
+            "label": "17 Madison Square North",
+            "image": "/images/temp/17-madison.jpg"
+          },
+          {
+            "collection_id": 1,
+            "description": "Early Yale Club Member and prominent New York attorney\nClass of 1895",
+            "id": "Q13442",
+            "label": "Michael Gavin",
+            "image": "/images/temp/michael-gavin.png"
+          },
+          {
+            "collection_id": 1,
+            "id": "Q08423",
+            "badge": "New",
+            "label": "30 West Forty-Fourth Street",
+            "description": "An overview of the Second Yale Clubhouse, 1901-1915",
+            "image": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjrA_QnwPr6Xc2gvjwVzNaKD1dHnnPdTDFT_gZczNlC_Luz2LT8TBbF_32X1j2rO7xTcktQNVFVsNq3AqPr2dapKvnKNFu1YQP8KVYHPruJeXv2AEFN7ej243Gu03F4XXkfIPaU87oYwQYV/s1600/yale+club+001.JPG"
+          },
+          {
+            "collection_id": 1,
+            "id": "Q42402480",
+            "badge": "New",
+            "label": "Joseph T. P. Sullivan",
+            "description": "Yale Club Member, Class of 1916",
+            "image": "https://stories-api-test.s3.amazonaws.com/temp/They+Lived+at+the+Yale+Club/1916/Joseph+T.+P.+Sullivan+_16s/Used/JTPS+1_cropped.png"
+          },
+          {
+            "collection_id": 1,
+            "id": "Q9582",
+            "badge": "New",
+            "label": "50 Vanderbilt Avenue",
+            "description": "The Third and Current Yale Clubhouse, 1915-Today",
+            "image": "https://www.belmontfreeman.com/templates/yootheme/cache/73/02-The_Yale_Club_of_New_York_City_Main_Lounge_Belmont_Freeman_Architects-7319dfc3.jpeg"
+          },
+          {
+            "collection_id": 1,
+            "description": "A look into the festivies and events at The Club over the years",
+            "id": "Q1342",
+            "label": "Club Traditions",
+            "image": "/images/temp/sherrys-invite.png"
+          }
+        ]
+      }
     }
   ]
 }

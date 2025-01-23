@@ -1,26 +1,30 @@
+import { observer } from 'mobx-react-lite';
+
 import { useColor } from '../../../hooks';
 import MomentLayout from '../../MomentLayout/MomentLayout';
 import ThemeOverride from '../../UI/ThemeOverride/ThemeOverride';
 import type { BaseMomentProps } from './BaseMoment.types';
 
-export default function BaseMoment({
+const BaseMoment = observer(({
+  actions,
   children,
   contentFit,
   contentSize,
   moment,
-  title,
-}: BaseMomentProps) {
+}: BaseMomentProps) => {
   const { themeOptions } = useColor(moment.color);
   return (
     <ThemeOverride themeOptions={themeOptions}>
       <MomentLayout
+        actions={actions}
         contentFit={contentFit}
         contentSize={contentSize}
         moment={moment}
-        title={title}
       >
         {children}
       </MomentLayout>
     </ThemeOverride>
   );
-}
+});
+
+export default BaseMoment;

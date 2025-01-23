@@ -1,11 +1,9 @@
-import type { AV, MomentData } from '../../../types';
+import type AVBaseMomentStore from '../../../state/moments/avBaseMomentStore';
 import type { BaseMomentProps } from '../BaseMoment/BaseMoment.types';
 
-export type AVBaseMomentProps<T=MomentData> = BaseMomentProps<T> & {
-  av: AV;
-};
+export type AVBaseMomentProps<T=AVBaseMomentStore> = BaseMomentProps<T>;
 
-export type AVBaseMomentPropsWithoutChildren<T=MomentData> = Omit<
+export type AVBaseMomentPropsWithoutChildren<T=AVBaseMomentStore> = Omit<
 AVBaseMomentProps<T>,
 'children'
 >;

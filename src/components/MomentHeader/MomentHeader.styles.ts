@@ -1,5 +1,6 @@
 const styles = {
   icon: {
+    display: 'inline-block',
     fontSize: '1.5rem',
     pb: 0.25,
     mr: '0.25rem',
@@ -15,6 +16,7 @@ const styles = {
     textTransform: 'none',
   },
   title: {
+    display: 'inline-block',
     lineHeight: 1,
   },
 };

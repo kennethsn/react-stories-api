@@ -18,6 +18,17 @@ export const THEME_COLOR_OPTIONS = <const>[
   'success',
   'warning',
 ];
+export const TYPOGRAPHY_COLOR_OPTIONS = <const>{
+  error: 'error.main',
+  info: 'info.main',
+  primary: 'primary.main',
+  secondary: 'secondary.main',
+  success: 'success.main',
+  textDisabled: 'text.disabled',
+  textPrimary: 'text.primary',
+  textSecondary: 'text.secondary',
+  warning: 'warning.main',
+};
 export const YOUTUBE_BASE_URL = 'https://www.youtube.com';
 export const YOUTUBE_EMBED_URL = `${YOUTUBE_BASE_URL}/embed`;
 export const YOUTUBE_WATCH_URL = `${YOUTUBE_BASE_URL}/watch`;

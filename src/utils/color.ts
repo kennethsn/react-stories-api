@@ -1,6 +1,7 @@
+import type { TypographyProps } from '@mui/material';
 import type { Theme } from '@mui/material/styles';
 
-import { COLOR_HEX_REGEX, THEME_COLOR_OPTIONS } from '../constants';
+import { COLOR_HEX_REGEX, THEME_COLOR_OPTIONS, TYPOGRAPHY_COLOR_OPTIONS } from '../constants';
 import type {
   Color,
   ColorHex,
@@ -58,3 +59,9 @@ export const processColor = (color: Nullable<Color>, theme: Theme): {
     text,
   };
 };
+
+export const getThemeColorFromTypographyColor = (
+  typographyColor: TypographyProps['color'],
+) => (
+  TYPOGRAPHY_COLOR_OPTIONS[typographyColor as keyof typeof TYPOGRAPHY_COLOR_OPTIONS]
+);

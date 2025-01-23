@@ -2,6 +2,19 @@
   "collection_id": 1,
   "id": "Q123",
   "label": "Story Label",
-  "moments": [],
+  "moments": [
+    {
+      "data": {
+        "image": {
+          "url": "https://example.com/image.jpg"
+        }
+      },
+      "id": "moment-0",
+      "index": 0,
+      "label": "Sample Moment",
+      "title": "Sample Moment",
+      "type": "image"
+    }
+  ],
   "status": "PUBLISHED"
 }

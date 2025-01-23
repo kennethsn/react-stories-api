@@ -20,110 +20,39 @@ import 'swiper/css/effect-coverflow';
 import 'swiper/css/virtual';
 
 import CssBaseline from '@mui/material/CssBaseline';
-import { type ThemeOptions, ThemeProvider, useTheme } from '@mui/material/styles';
-import useMediaQuery from '@mui/material/useMediaQuery';
-import {
-  type PropsWithChildren,
-  useCallback,
-  useMemo,
-  useState,
-} from 'react';
+import { type ThemeOptions, ThemeProvider } from '@mui/material/styles';
+import type { PropsWithChildren } from 'react';
 
-import defaultFormatters from '../configs/formattersConfig';
-import StoriesAPIContext, { type IStoriesAPIContext } from '../contexts/StoriesAPIContext';
-import type { IStoryContext } from '../contexts/StoryContext';
-import type { AV, StoriesAPIFormatters, Story } from '../types';
-import { deepMerge } from '../utils';
-import { buildTheme } from '../utils/themeUtils';
+import RootStore, { type RootStoreOptions } from '../state/rootStore';
 
-type StoriesAPIProviderProps = PropsWithChildren & {
-  readonly formatters?: Partial<StoriesAPIFormatters>;
-  readonly goToPath?: (path: string) => void;
-  readonly isDebugging?: boolean;
+type StoriesAPIProviderProps = PropsWithChildren & Omit<RootStoreOptions, 'themeOptions'> & {
   readonly theme?: ThemeOptions;
 };
 
-function InnerStoriesAPIProvider(
-  {
-    formatters,
-    props: { children, goToPath, isDebugging = false },
-    themeOptions,
-  }: {
-    readonly formatters: StoriesAPIFormatters,
-    readonly props: StoriesAPIProviderProps,
-    readonly themeOptions: ThemeOptions,
-  },
-) {
-  const [storyContexts, setStoryContexts] = useState<IStoriesAPIContext['storyContexts']>({});
-  const [av, setAV] = useState<AV>();
-  const theme = useTheme();
-  const overrideTheme = useCallback((overrideOptions: ThemeOptions) => {
-    const mergedThemeOptions = deepMerge(themeOptions, overrideOptions);
-    return buildTheme(mergedThemeOptions);
-  }, [themeOptions]);
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-  const addStoryContext = useCallback((context: IStoryContext) => setStoryContexts({
-    ...storyContexts,
-    [context.story.id]: context,
-  }), [storyContexts]);
-  const getStoryContext = useCallback((storyId: Story['id']) => storyContexts[storyId], [storyContexts]);
-  const contextValue = useMemo(
-    () => ({
-      addStoryContext,
-      av,
-      formatters,
-      getStoryContext,
-      goToPath,
-      isDebugging,
-      isMobile,
-      overrideTheme,
-      setAV,
-      storyContexts,
-    }),
-    [
-      addStoryContext,
-      av,
-      formatters,
-      getStoryContext,
-      goToPath,
-      isDebugging,
-      isMobile,
-      overrideTheme,
-      storyContexts,
-    ],
-  );
+RootStore.initContext();
 
+export default function StoriesAPIProvider({
+  children,
+  theme = undefined,
+  ...props
+}: StoriesAPIProviderProps) {
+  const { Provider: RootStoreProvider } = RootStore.contextInstance;
+  const store = new RootStore({
+    themeOptions: theme,
+    ...props,
+  });
   return (
-    <StoriesAPIContext.Provider value={contextValue}>
-      {children}
-    </StoriesAPIContext.Provider>
-  );
-}
+    <RootStoreProvider value={store}>
+      <ThemeProvider theme={store.theme.muiTheme}>
+        <CssBaseline />
 
-export default function StoriesAPIProvider(
-  {
-    formatters: overrideFormatters = undefined,
-    theme = undefined,
-    ...props
-  }: StoriesAPIProviderProps,
-) {
-  const formatters = overrideFormatters
-    ? deepMerge(defaultFormatters, overrideFormatters) : defaultFormatters;
-  const muiTheme = buildTheme(theme);
-  return (
-    <ThemeProvider theme={muiTheme}>
-      <CssBaseline />
+        {children}
 
-      <InnerStoriesAPIProvider
-        formatters={formatters as StoriesAPIFormatters}
-        props={props}
-        themeOptions={theme ?? {}}
-      />
-
-      <link
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@24,300,0,0"
-        rel="stylesheet"
-      />
-    </ThemeProvider>
+        <link
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@24,300,0,0"
+          rel="stylesheet"
+        />
+      </ThemeProvider>
+    </RootStoreProvider>
   );
 }

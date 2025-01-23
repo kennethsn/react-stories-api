@@ -1,5 +1,6 @@
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid2';
+import { observer } from 'mobx-react-lite';
 import { When } from 'react-if';
 
 import useCollection from '../../hooks/useCollection';
@@ -11,11 +12,11 @@ import CollectionHeaderDescription from './CollectionHeaderDescription';
 import CollectionHeaderTitle from './CollectionHeaderTitle';
 import CollectionHeaderTitleColumn from './CollectionHeaderTitleColumn';
 
-export default function CollectionHeader({ card }: CollectionHeaderProps) {
-  const { collection, collectionHasFeaturedStories } = useCollection();
+const CollectionHeader = observer(({ card }: CollectionHeaderProps) => {
+  const collection = useCollection();
   const showCard = !!card;
-  const showFeaturedStoriesList = collectionHasFeaturedStories && !showCard;
-  const showTitleAsColumn = showCard && !collection.description;
+  const showFeaturedStoriesList = !showCard && collection.hasFeaturedStories;
+  const showTitleAsColumn = showCard && collection.doesNotHaveDescription;
   const showTitleAsRow = !showTitleAsColumn;
   return (
     <Box sx={styles.container(collection.image)}>
@@ -46,4 +47,6 @@ export default function CollectionHeader({ card }: CollectionHeaderProps) {
       </Grid>
     </Box>
   );
-}
+});
+
+export default CollectionHeader;

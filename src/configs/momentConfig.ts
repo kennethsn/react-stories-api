@@ -1,50 +1,59 @@
-import type { FC } from 'react';
-
-import HathiTrustMoment from '../components/Moments/HathiTrustMoment/HathiTrustMoment';
-import IFrameMoment from '../components/Moments/IFrameMoment/IFrameMoment';
-import ImageMoment from '../components/Moments/ImageMoment/ImageMoment';
-import StoriesMoment from '../components/Moments/StoriesMoment/StoriesMoment';
-import TimelineMoment from '../components/Moments/TimelineMoment/TimelineMoment';
-import VideoMoment from '../components/Moments/VideoMoment/VideoMoment';
-import YouTubeMoment from '../components/Moments/YouTubeMoment/YouTubeMoment';
 import { HATHI_TRUST_LOGO_URL } from '../constants';
+import HathiTrustMomentStore from '../state/moments/hathiTrustMomentStore';
+import IFrameMomentStore from '../state/moments/iframeMomentStore';
+import ImageMomentStore from '../state/moments/imageMomentStore';
+import StoriesMomentStore from '../state/moments/storiesMomentStore';
+import TimelineMomentStore from '../state/moments/timelineMomentStore';
+import VideoMomentStore from '../state/moments/videoMomentStore';
+import YouTubeMomentStore from '../state/moments/youTubeMomentStore';
+import MomentsStore from '../state/momentsStore';
+import MomentStore from '../state/momentStore';
 import type { Icon, Moment, MomentType } from '../types';
 
-type MomentConfig = {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  component: FC<{ moment: Moment<any> }>;
+// KSN TODO: Add Plugin framework to bind component as a caller
+export type MomentConfig = {
+  component: string;
   icon?: Icon;
+  store: (moments: MomentsStore, moment: Moment<never>) => MomentStore;
 };
 
-// KSN TODO: Move the component import into moment router, then make this just a config
+export type IMomentConfigMap = Record<MomentType, MomentConfig>;
+
 const MomentConfigMap: Record<MomentType, MomentConfig> = {
   hathiTrust: {
-    component: HathiTrustMoment,
+    component: 'HathiTrustMoment',
     icon: { name: 'HathiTrust', type: 'image', url: HATHI_TRUST_LOGO_URL },
+    store: HathiTrustMomentStore.build,
   },
   iframe: {
-    component: IFrameMoment,
+    component: 'IFrameMoment',
     icon: { name: 'language', type: 'mui' },
+    store: IFrameMomentStore.build,
   },
   image: {
-    component: ImageMoment,
+    component: 'ImageMoment',
     icon: { name: 'image', type: 'mui' },
+    store: ImageMomentStore.build,
   },
   stories: {
-    component: StoriesMoment,
+    component: 'StoriesMoment',
     icon: { name: 'collections_bookmark', type: 'mui' },
+    store: StoriesMomentStore.build,
   },
   timeline: {
-    component: TimelineMoment,
+    component: 'TimelineMoment',
     icon: { name: 'event_note', type: 'mui' },
+    store: TimelineMomentStore.build,
   },
   video: {
-    component: VideoMoment,
+    component: 'VideoMoment',
     icon: { name: 'videocam', type: 'mui' },
+    store: VideoMomentStore.build,
   },
   youTube: {
-    component: YouTubeMoment,
+    component: 'YouTubeMoment',
     icon: { name: 'youtube_activity', type: 'mui' },
+    store: YouTubeMomentStore.build,
   },
 };
 

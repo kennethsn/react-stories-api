@@ -1,10 +1,10 @@
-import { buildVideoMomentFromYouTube } from '../../../utils/youTubeUtils';
+import { observer } from 'mobx-react-lite';
+
 import VideoMoment from '../VideoMoment/VideoMoment';
 import type { YouTubeMomentProps } from './YouTubeMoment.types';
 
-export default function YouTubeMoment({ moment }: YouTubeMomentProps) {
-  const videoMoment = buildVideoMomentFromYouTube(moment);
-  return (
-    <VideoMoment moment={videoMoment} />
-  );
-}
+const YouTubeMoment = observer(({ moment }: YouTubeMomentProps) => (
+  <VideoMoment moment={moment} />
+));
+
+export default YouTubeMoment;

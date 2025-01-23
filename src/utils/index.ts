@@ -6,5 +6,6 @@ export * from './math';
 export * from './object';
 export * from './percentage';
 export * from './storyUtils';
+export * from './string';
 export * from './themeUtils';
 export * from './url';

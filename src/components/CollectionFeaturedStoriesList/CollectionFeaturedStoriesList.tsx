@@ -1,14 +1,13 @@
 import Grid from '@mui/material/Grid2';
+import { observer } from 'mobx-react-lite';
 
 import useCollection from '../../hooks/useCollection';
-import { buildDynamicGridSize } from '../../utils';
 import StoryCard from '../StoryCard/StoryCard';
 import Animation from '../UI/Animation/Animation';
 import styles from './CollectionFeaturedStoriesList.styles';
 
-export default function CollectionFeaturedStoriesList() {
-  const { featuredStories, featuredStoriesCount } = useCollection();
-  const gridSize = buildDynamicGridSize(featuredStoriesCount);
+const CollectionFeaturedStoriesList = observer(() => {
+  const collection = useCollection();
   return (
     <Grid
       size={12}
@@ -19,10 +18,10 @@ export default function CollectionFeaturedStoriesList() {
         spacing={3}
         sx={styles.container}
       >
-        {featuredStories.map((story) => (
+        {collection.featuredStories.map((story) => (
           <Grid
             key={story.id}
-            size={gridSize}
+            size={collection.gridSize}
           >
             <Animation
               animation="fade"
@@ -38,4 +37,6 @@ export default function CollectionFeaturedStoriesList() {
       </Grid>
     </Grid>
   );
-}
+});
+
+export default CollectionFeaturedStoriesList;

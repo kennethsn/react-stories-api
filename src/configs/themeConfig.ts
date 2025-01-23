@@ -1,4 +1,4 @@
-import { grey } from '@mui/material/colors';
+import { green, grey } from '@mui/material/colors';
 import type { ThemeOptions } from '@mui/material/styles';
 
 declare module '@mui/material/styles' {
@@ -38,6 +38,9 @@ const baseThemeConfig: ThemeOptions = {
     background: {
       grey: grey[100],
       lightGrey: grey[50],
+    },
+    success: {
+      main: green[500],
     },
     text: {
       primary: grey[800],

@@ -1,4 +1,4 @@
 export type FullscreenButtonProps = {
-  className?: string;
-  elementSelector: string;
+  readonly className?: string;
+  readonly elementSelector: string;
 };

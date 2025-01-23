@@ -1,5 +1,5 @@
-import type { Moment } from '../../types';
+import type MomentStore from '../../state/momentStore';
 
 export type MomentNavigatorListItemProps = {
-  moment: Moment;
+  readonly moment: MomentStore;
 };

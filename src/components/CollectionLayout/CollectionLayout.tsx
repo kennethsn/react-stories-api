@@ -1,7 +1,7 @@
 import Grid from '@mui/material/Grid2';
+import { observer } from 'mobx-react-lite';
 import { When } from 'react-if';
 
-import { useStoriesAPI } from '../../hooks';
 import useCollection from '../../hooks/useCollection';
 import CollectionHeader from '../CollectionHeader/CollectionHeader';
 import StoryCard from '../StoryCard/StoryCard';
@@ -10,18 +10,10 @@ import TemplatedTypography from '../UI/TemplatedTypography/TemplatedTypography';
 import styles from './CollectionLayout.styles';
 import type { CollectionLayoutProps } from './CollectionLayout.types';
 
-export default function CollectionLayout({ children }: CollectionLayoutProps) {
-  const { formatters: { collectionStoriesListHeader } } = useStoriesAPI();
-  const {
-    collection,
-    featuredStories,
-    featuredStoriesCount,
-    totalStoriesCount,
-    stories,
-  } = useCollection();
-  const showStoriesList = totalStoriesCount > 1;
+const CollectionLayout = observer(({ children }: CollectionLayoutProps) => {
+  const collection = useCollection();
   const renderStoryCard = () => {
-    if (featuredStoriesCount === 1) {
+    if (collection.hasOneFeaturedStory) {
       return (
         <Animation
           animation="fadeUpLeft"
@@ -29,25 +21,26 @@ export default function CollectionLayout({ children }: CollectionLayoutProps) {
         >
           <StoryCard
             buttonLabel="View Featured Story"
-            story={featuredStories[0]}
+            story={collection.firstFeaturedStory}
           />
         </Animation>
       );
     }
-    if (totalStoriesCount === 1) {
+    if (collection.hasOneStory) {
       return (
         <Animation
           animation="fadeUpLeft"
           persist
         >
-          <StoryCard story={stories[0]} />
+          <StoryCard story={collection.firstStory} />
         </Animation>
       );
     }
     return undefined;
   };
   const card = renderStoryCard();
-  const showListHeader = showStoriesList && Boolean(collection.description || card);
+  const showListHeader = collection.shouldShowStoriesList
+   && Boolean(collection.hasDescription || card);
 
   return (
     <Grid container>
@@ -67,12 +60,12 @@ export default function CollectionLayout({ children }: CollectionLayoutProps) {
             valueSx={styles.storiesSectionHeaderValue}
             variant="h4"
           >
-            {collectionStoriesListHeader}
+            {collection.storiesListHeader}
           </TemplatedTypography>
         </Grid>
       </When>
 
-      <When condition={showStoriesList}>
+      <When condition={collection.shouldShowStoriesList}>
         <Grid
           size={12}
           sx={styles.storiesSection}
@@ -82,4 +75,6 @@ export default function CollectionLayout({ children }: CollectionLayoutProps) {
       </When>
     </Grid>
   );
-}
+});
+
+export default CollectionLayout;

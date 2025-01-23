@@ -1,9 +1,10 @@
 import { storyStoryBookDecorator } from '../../../stories/decorators';
 import collectionData from '../../../tests/fixtures/collection--yale-club--they-lived-at-the-club.json';
-import momentCaption from '../../../tests/fixtures/vars';
+import { momentCaption } from '../../../tests/fixtures/vars';
 import StoriesMoment from './StoriesMoment';
 
 const momentData = {
+  id: 'moment-1',
   index: 0,
   type: 'stories',
   title: 'Collection of Stories',

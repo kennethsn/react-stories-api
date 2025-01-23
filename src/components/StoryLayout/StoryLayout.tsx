@@ -1,14 +1,15 @@
+import { observer } from 'mobx-react-lite';
 import { Else, If, Then } from 'react-if';
 
-import useStory from '../../hooks/useStory';
+import useStoryTheme from '../../hooks/useStoryTheme';
 import type { StoryLayoutProps } from './StoryLayout.types';
 import StoryLayoutDesktop from './StoryLayoutDesktop';
 import StoryLayoutFullscreen from './StoryLayoutFullscreen';
 import StoryLayoutMobile from './StoryLayoutMobile';
 
 // KSN TODO: Turn back on persistence
-export default function StoryLayout({ children }: StoryLayoutProps) {
-  const { layoutIsDesktop } = useStory();
+const StoryLayout = observer(({ children }: StoryLayoutProps) => {
+  const { layoutIsDesktop } = useStoryTheme();
 
   return (
     <StoryLayoutFullscreen>
@@ -27,4 +28,6 @@ export default function StoryLayout({ children }: StoryLayoutProps) {
       </If>
     </StoryLayoutFullscreen>
   );
-}
+});
+
+export default StoryLayout;

@@ -1,4 +1,4 @@
-import type { HathiTrustMomentData } from '../../../types';
+import type HathiTrustMomentStore from '../../../state/moments/hathiTrustMomentStore';
 import type { BaseMomentPropsWithoutChildren } from '../BaseMoment/BaseMoment.types';
 
-export type HathiTrustMomentProps = BaseMomentPropsWithoutChildren<HathiTrustMomentData>;
+export type HathiTrustMomentProps = BaseMomentPropsWithoutChildren<HathiTrustMomentStore>;

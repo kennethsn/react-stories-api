@@ -6,6 +6,7 @@ import { goToURL, openNewTab } from '../utils';
 import { formatString } from '../utils/string';
 import useStoriesAPI from './useStoriesAPI';
 
+// TODO: move to store
 const buildGoToFn = (
   goToPath: (path: string) => void,
   formatters: StoriesAPIFormatters,
@@ -15,9 +16,9 @@ const buildGoToFn = (
     return goToURL(to.url, newTab, goToPath);
   }
   let formatter = formatters.collectionPath;
-  if ('moment' in to) {
+  if ('momentId' in to) {
     formatter = formatters.momentPath;
-  } else if (to.storyId) {
+  } else if ('storyId' in to) {
     formatter = formatters.storyPath;
   }
   const path = formatString(formatter, to);
@@ -25,12 +26,12 @@ const buildGoToFn = (
 };
 
 export default function useStoriesAPINavigation() {
-  const { formatters, goToPath } = useStoriesAPI();
+  const storiesAPI = useStoriesAPI();
   const navigate = useNavigate();
-  const goToPathFn = goToPath ?? navigate;
+  const goToPathFn = storiesAPI.goToPath ?? navigate;
 
   return useMemo(() => ({
-    goTo: buildGoToFn(goToPathFn, formatters),
+    goTo: buildGoToFn(goToPathFn, storiesAPI.formatters.formatters),
     goToPath: goToPathFn,
-  }), [formatters, goToPathFn]);
+  }), [storiesAPI.formatters.formatters, goToPathFn]);
 }

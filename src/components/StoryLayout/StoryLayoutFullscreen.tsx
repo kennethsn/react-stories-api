@@ -1,14 +1,15 @@
 import Box from '@mui/material/Box';
+import { observer } from 'mobx-react-lite';
 import { Else, If, Then } from 'react-if';
 
 import { STORY_ANIMATION_SPEED } from '../../constants';
-import useStory from '../../hooks/useStory';
+import useStoryTheme from '../../hooks/useStoryTheme';
 import Animation from '../UI/Animation/Animation';
 import styles from './StoryLayout.styles';
 import type { StoryLayoutProps } from './StoryLayout.types';
 
-export default function StoryLayoutFullscreen({ children }: StoryLayoutProps) {
-  const { layoutIsFullscreen } = useStory();
+const StoryLayoutFullscreen = observer(({ children }: StoryLayoutProps) => {
+  const { layoutIsFullscreen } = useStoryTheme();
   const sx = styles.root(layoutIsFullscreen);
   return (
     <If condition={layoutIsFullscreen}>
@@ -31,4 +32,6 @@ export default function StoryLayoutFullscreen({ children }: StoryLayoutProps) {
       </Else>
     </If>
   );
-}
+});
+
+export default StoryLayoutFullscreen;
