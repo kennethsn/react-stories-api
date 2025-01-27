@@ -1,4 +1,6 @@
 import commonjs from '@rollup/plugin-commonjs';
+import dynamicImportVars from '@rollup/plugin-dynamic-import-vars';
+import json from '@rollup/plugin-json';
 import resolve from '@rollup/plugin-node-resolve';
 import typescript from '@rollup/plugin-typescript';
 import dts from 'rollup-plugin-dts';
@@ -33,12 +35,15 @@ export default [
         inject: true,
       }),
       resolve(),
+      dynamicImportVars({
+        exclude: ['**/*.test.ts', '**/*.stories.tsx', '**/*.json', 'node_modules/**'],
+      }),
       typescript({
-        exclude: ['**/*.test.ts', '**/*.stories.tsx'],
+        exclude: ['**/*.test.ts', '**/*.stories.tsx', 'dist'],
         filterRoot: './src',
         tsconfig: './tsconfig.json',
       }),
-
+      json(),
     ],
   },
   {

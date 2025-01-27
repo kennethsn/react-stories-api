@@ -1,29 +1,27 @@
 import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
 import { observer } from 'mobx-react-lite';
 import { When } from 'react-if';
 
 import useCollection from '../../hooks/useCollection';
+import CollectionTypography from '../CollectionTypography/CollectionTypography';
 import styles from './CollectionHeaderTitle.styles';
 
 const CollectionHeaderTitle = observer(() => {
   const collection = useCollection();
   return (
     <Box sx={styles.title}>
-      <Typography
+      <CollectionTypography
         color="primary"
+        field="name"
         variant="h2"
-      >
-        {collection.name}
-      </Typography>
+      />
 
       <When condition={collection.hasSubtitle}>
-        <Typography
+        <CollectionTypography
+          field="subtitle"
           sx={styles.subtitle}
           variant="h3"
-        >
-          {collection.subtitle}
-        </Typography>
+        />
       </When>
     </Box>
   );

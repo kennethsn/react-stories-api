@@ -6,20 +6,28 @@ import { When } from 'react-if';
 import type { CollectionProps } from '../components/Collection/Collection.types';
 import CollectionContext from '../contexts/CollectionContext';
 import useCollections from '../hooks/useCollections';
+import type CollectionStore from '../state/collectionStore';
+import type { AtLeastOne, Collection } from '../types';
 
-type CollectionProviderProps = CollectionProps & PropsWithChildren;
+type CollectionProviderProps = Omit<CollectionProps, 'collection'> & PropsWithChildren & AtLeastOne<{
+  readonly collection?: Collection;
+  readonly store?: CollectionStore;
+}>;
 
 const CollectionProvider = observer(({
   collection,
   children,
+  editable,
+  store,
 }: CollectionProviderProps) => {
   const collections = useCollections();
   useEffect(() => autorun(() => {
-    collections.addCollection(collection);
+    if (store) return;
+    collections.addCollection(collection!, { editable, source: 'local' });
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }), [collection]);
 
-  const collectionStore = collections.getCollection(collection.id);
+  const collectionStore = store ?? collections.getCollection(collection!.id);
   return (
     <When condition={!!collectionStore}>
       <CollectionContext.Provider value={collectionStore!}>

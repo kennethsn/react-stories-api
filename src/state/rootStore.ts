@@ -4,6 +4,7 @@ import { type Context, createContext } from 'react';
 
 import MomentConfigMap from '../configs/momentConfig';
 import type { StoriesAPIFormatters } from '../types';
+import APIStore, { type APIStoreOptions } from './apiStore';
 import AVStore from './avStore';
 import CollectionsStore from './collectionsStore';
 import FormattersStore from './formattersStore';
@@ -11,6 +12,7 @@ import StoriesStore from './storiesStore';
 import ThemeStore from './themeStore';
 
 export type RootStoreOptions = {
+  readonly api?: APIStoreOptions;
   readonly formatters?: Partial<StoriesAPIFormatters>;
   readonly goToPath?: (path: string) => void;
   readonly isDebugging?: boolean;
@@ -19,6 +21,8 @@ export type RootStoreOptions = {
 };
 
 export default class RootStore {
+  api: APIStore;
+
   av: AVStore;
 
   collections: CollectionsStore;
@@ -38,6 +42,7 @@ export default class RootStore {
   theme: ThemeStore;
 
   constructor({
+    api,
     formatters,
     goToPath,
     isDebugging = false,
@@ -45,6 +50,7 @@ export default class RootStore {
     themeOptions,
   }: RootStoreOptions = {}) {
     makeAutoObservable(this);
+    this.api = new APIStore(this, api);
     this.av = new AVStore(this);
     this.collections = new CollectionsStore(this);
     this.formatters = new FormattersStore(this, formatters);

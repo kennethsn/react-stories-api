@@ -6,6 +6,7 @@ import type {
   GoToMomentOptions,
   Moment,
   MutableStory,
+  SaveStatus,
   Story,
 } from '../types';
 import { openJSON } from '../utils/url';
@@ -36,7 +37,7 @@ export default class StoryStore {
 
   resetKey = 0; // controls re-render when reset button is hit
 
-  saveStatus?: 'saving' | 'saved' | 'error';
+  saveStatus?: SaveStatus;
 
   story: MutableStory;
 
@@ -107,11 +108,11 @@ export default class StoryStore {
   }
 
   get isSaved() {
-    return this.saveStatus === 'saved';
+    return this.saveStatus === 'SUCCESS';
   }
 
   get isSaving() {
-    return this.saveStatus === 'saving';
+    return this.saveStatus === 'SAVING';
   }
 
   get label() {
@@ -171,11 +172,11 @@ export default class StoryStore {
   }
 
   async save() {
-    this.saveStatus = 'saving';
+    this.saveStatus = 'SAVING';
     const story = this.toJSON();
     await this.options.onSave?.(story);
     runInAction(() => {
-      this.saveStatus = 'saved';
+      this.saveStatus = 'SUCCESS';
       this.isEdited = false;
     });
   }

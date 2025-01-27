@@ -11,6 +11,7 @@ import Collection from './Collection';
 export default {
   args: {
     collection: baseCollectionData,
+    editable: false,
   },
   argTypes: {
     'collection.description': {
@@ -20,6 +21,10 @@ export default {
     'collection.name': {
       control: 'text',
       name: 'Collection Name',
+    },
+    editable: {
+      control: 'boolean',
+      name: 'Editable',
     },
   },
   component: Collection,
@@ -37,6 +42,7 @@ export default {
 export const SampleCollection = {
   args: {
     collection: yaleClubCollectionData,
+    editable: true,
   },
 };
 

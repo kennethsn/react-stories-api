@@ -1,7 +1,7 @@
 import { makeAutoObservable } from 'mobx';
 
-import type { Collection } from '../types';
-import CollectionStore from './collectionStore';
+import type { Collection, CollectionId } from '../types';
+import CollectionStore, { type CollectionStoreOptions } from './collectionStore';
 import type RootStore from './rootStore';
 
 export default class CollectionsStore {
@@ -17,16 +17,39 @@ export default class CollectionsStore {
     return Array.from(this.collections.keys());
   }
 
-  addCollection(collection: Collection) {
-    const collectionStore = new CollectionStore(this.root, collection);
+  addCollection(collection: Collection, options: Omit<CollectionStoreOptions, 'collection'>) {
+    const collectionStore = new CollectionStore(this.root, {
+      ...options,
+      collection,
+    });
+    collectionStore.init();
     this.collections.set(collection.id, collectionStore);
   }
 
-  getCollection(collectionId: Collection['id']) {
+  getCollection(collectionId: CollectionId) {
     return this.collections.get(collectionId);
   }
 
-  removeCollection(collectionId: Collection['id']) {
+  hasCollection(collectionId: CollectionId) {
+    return this.collections.has(collectionId);
+  }
+
+  async loadCollection(
+    collectionId: CollectionId,
+    options: Omit<CollectionStoreOptions, 'collection' | 'source'> = {},
+  ) {
+    if (this.hasCollection(collectionId)) {
+      return;
+    }
+    // TODO: handle loading
+    // TODO: handle error
+    const collection = await this.root.api.getCollection(collectionId);
+    if (collection) {
+      this.addCollection(collection, { ...options, source: 'api' });
+    }
+  }
+
+  removeCollection(collectionId: CollectionId) {
     this.collections.delete(collectionId);
   }
 }

@@ -8,13 +8,17 @@ import type { Story } from '../types';
 
 const baseStory: Story = baseStoryData as Story;
 
-export const baseStorybookDecorator = (StorybookStory: FC) => (
+export const baseStorybookDecorator = (StorybookStory: FC, providerProps = {}) => (
   <BrowserRouter>
-    <StoriesAPIProvider>
+    <StoriesAPIProvider {...providerProps}>
       <StorybookStory />
     </StoriesAPIProvider>
   </BrowserRouter>
 );
+
+export const customProviderStorybookDecorator = (providerProps = {}) => (
+  StorybookStory: FC,
+) => baseStorybookDecorator(StorybookStory, providerProps);
 
 export const storyStoryBookDecorator = (story: Partial<Story> = {}) => (StorybookStory: FC) => (
   <BrowserRouter>

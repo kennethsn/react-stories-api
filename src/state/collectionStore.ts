@@ -1,13 +1,54 @@
-import { makeAutoObservable } from 'mobx';
+import {
+  makeAutoObservable,
+  reaction,
+  runInAction,
+  toJS,
+} from 'mobx';
 
-import type { Collection } from '../types';
-import { buildDynamicGridSize } from '../utils';
+import type {
+  Collection,
+  DataSource,
+  MutableCollection,
+  SaveStatus,
+} from '../types';
+import { buildDynamicGridSize } from '../utils/grid';
+import { openJSON } from '../utils/url';
 import type RootStore from './rootStore';
 
+export type CollectionStoreOptions = {
+  readonly collection: Collection;
+  readonly editable?: boolean;
+  readonly onSave?: (collection: Collection) => Promise<void>;
+  readonly source?: DataSource;
+};
+
+export type EditableCollectionKeys = 'description' | 'name' | 'subtitle';
+
 export default class CollectionStore {
-  constructor(public root: RootStore, public collection: Collection) {
+  collection: MutableCollection;
+
+  private initialCollection: Collection;
+
+  isEditable: boolean;
+
+  isEdited: boolean = false;
+
+  page = 1;
+
+  resetKey = 0; // controls re-render when reset button is hit
+
+  saveStatus?: SaveStatus;
+
+  private source: DataSource = 'local';
+
+  storiesAreLoading = false;
+
+  constructor(public root: RootStore, public options: CollectionStoreOptions) {
     makeAutoObservable(this);
-    this.collection = collection;
+    this.initialCollection = options.collection;
+    this.isEditable = !!options.editable;
+    this.collection = { ...options.collection };
+    this.source = options.source ?? 'local';
     this.root = root;
   }
 
@@ -67,6 +108,26 @@ export default class CollectionStore {
     return this.collection.image;
   }
 
+  get isDownloadable() {
+    return this.isEditable;
+  }
+
+  get isResettable() {
+    return this.isEdited;
+  }
+
+  get isSavable() {
+    return this.isEdited;
+  }
+
+  get isSaved() {
+    return this.saveStatus === 'SUCCESS';
+  }
+
+  get isSaving() {
+    return this.saveStatus === 'SAVING';
+  }
+
   get name() {
     return this.collection.name;
   }
@@ -93,5 +154,75 @@ export default class CollectionStore {
 
   get totalStoriesCount() {
     return this.collection.total_stories_count ?? this.storiesCount;
+  }
+
+  get sourceIsAPI() {
+    return this.source === 'api';
+  }
+
+  download() {
+    const json = this.toJSON();
+    openJSON(json);
+  }
+
+  getField(field: EditableCollectionKeys) {
+    return this.collection[field] ?? '';
+  }
+
+  init() {
+    if (this.sourceIsAPI) {
+      reaction(this.watchLoadStoriesOptions, this.loadStoriesEffect, { fireImmediately: true });
+    }
+  }
+
+  async loadStories() {
+    this.storiesAreLoading = true;
+    const { stories, total_count: totalCount } = await this.root.api.getStories(this.id);
+    runInAction(() => {
+      this.collection.total_stories_count = totalCount;
+      this.collection.stories = stories;
+      this.storiesAreLoading = false;
+    });
+  }
+
+  loadStoriesEffect = () => {
+    this.loadStories();
+  };
+
+  onEdit() {
+    this.isEdited = true;
+    this.saveStatus = undefined;
+  }
+
+  reset() {
+    this.collection = { ...this.initialCollection };
+    this.init();
+    this.isEdited = false;
+    this.resetKey += 1;
+  }
+
+  async save() {
+    this.saveStatus = 'SAVING';
+    const story = this.toJSON();
+    await this.options.onSave?.(story);
+    runInAction(() => {
+      this.saveStatus = 'SUCCESS';
+      this.isEdited = false;
+    });
+  }
+
+  toJSON() {
+    return toJS(this.collection);
+  }
+
+  updateField(field: EditableCollectionKeys, value: string) {
+    runInAction(() => {
+      this.collection[field] = value;
+      this.onEdit();
+    });
+  }
+
+  watchLoadStoriesOptions() {
+    return { page: this.page };
   }
 }

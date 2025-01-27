@@ -44,6 +44,8 @@ export type Collection = {
   readonly total_stories_count?: number;
 };
 
+export type CollectionId = Collection['id'];
+
 export type Color = {
   readonly background: ColorString;
   readonly text?: Nullable<ColorString>;
@@ -52,6 +54,9 @@ export type Color = {
 export type ColorHex = `#${string}`;
 
 export type ColorString = ThemeColorOption | ColorHex;
+
+export type DataSource = 'api' | 'local';
+
 export type GoToBaseOptions<T> = { readonly newTab?: boolean; } & T;
 
 export type GoToCollectionOptions = GoToBaseOptions<{
@@ -199,6 +204,8 @@ export type Mutable<T, Keys extends keyof T = keyof T> = {
   -readonly [P in Keys]: T[P];
 } & Omit<T, Keys>;
 
+export type MutableCollection = Mutable<Collection>;
+
 export type MutableMoment<T=MomentData> = Mutable<
 Moment<T>,
 'color' | 'data' | 'group' | 'icon' | 'index' | 'label' | 'subtitle' | 'title'
@@ -214,6 +221,8 @@ export type Nullable<T> = T | null | undefined;
 
 export type NullableString = Nullable<string>;
 
+export type SaveStatus = 'FAILED' | 'SAVING' | 'SUCCESS';
+
 export type StoriesAPIFormatters = {
   readonly collectionPath: string;
   readonly collectionStoriesListHeader: string;
@@ -221,6 +230,12 @@ export type StoriesAPIFormatters = {
   readonly momentQueryParamKey: string;
   readonly storyCollectionBackButtonLabel: string; // KSN TODO: add support for this
   readonly storyPath: string;
+};
+
+export type StoriesAPIStoriesResponse = {
+  readonly count: number;
+  readonly stories: StorySummary[];
+  readonly total_count: number;
 };
 
 export type StoriesMomentData = CardsBaseMomentData<{
@@ -236,6 +251,8 @@ export type Story = {
   readonly moments: Moment[];
   readonly status: StoryStatus;
 };
+
+export type StoryId = Story['id'];
 
 export type StoryOrSummary = Story | StorySummary;
 

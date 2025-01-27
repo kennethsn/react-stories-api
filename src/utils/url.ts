@@ -1,9 +1,11 @@
 import type { GoToPathFn } from '../types';
 import { strip } from './string';
 
+export type QueryParams = Record<string, string | undefined>;
+
 export const addQueryParams = (
   url: string,
-  params: Record<string, string | undefined>,
+  params: QueryParams,
 ): string => {
   const urlObj = new URL(url);
   Object.entries(params).forEach(([key, value]) => {
@@ -13,16 +15,10 @@ export const addQueryParams = (
   return urlObj.toString();
 };
 
-export const isExternalURL = (url: string): boolean => isURL(url) && !isInternalURL(url);
-
-export const isInternalURL = (url: string): boolean => getBaseURL(url) === getBaseURL();
-
-export const isURL = (url: string): boolean => {
-  try {
-    return !!new URL(url);
-  } catch {
-    return false;
-  }
+export const buildURL = (baseURL: string, path?: string, queryParams?: QueryParams) => {
+  const url = `${baseURL}${path ?? ''}`;
+  if (queryParams) return addQueryParams(url, queryParams);
+  return url;
 };
 
 export const getBaseURL = (url?: string): string => {
@@ -60,6 +56,18 @@ export const goToURL = (pathOrURL: string, newTab?: boolean, goToPath?: GoToPath
   }
   const path = isURL(pathOrURL) ? getPath(pathOrURL) : pathOrURL;
   return goToPath(path);
+};
+
+export const isExternalURL = (url: string): boolean => isURL(url) && !isInternalURL(url);
+
+export const isInternalURL = (url: string): boolean => getBaseURL(url) === getBaseURL();
+
+export const isURL = (url: string): boolean => {
+  try {
+    return !!new URL(url);
+  } catch {
+    return false;
+  }
 };
 
 export const openJSON = (json: Record<string, unknown>) => {

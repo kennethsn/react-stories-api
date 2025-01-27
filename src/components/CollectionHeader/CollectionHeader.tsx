@@ -4,6 +4,7 @@ import { observer } from 'mobx-react-lite';
 import { When } from 'react-if';
 
 import useCollection from '../../hooks/useCollection';
+import CollectionActions from '../CollectionActions/CollectionActions';
 import CollectionFeaturedStoriesList
   from '../CollectionFeaturedStoriesList/CollectionFeaturedStoriesList';
 import styles from './CollectionHeader.styles';
@@ -20,6 +21,8 @@ const CollectionHeader = observer(({ card }: CollectionHeaderProps) => {
   const showTitleAsRow = !showTitleAsColumn;
   return (
     <Box sx={styles.container(collection.image)}>
+      <CollectionActions />
+
       <When condition={showTitleAsRow}>
         <CollectionHeaderTitle />
       </When>
