@@ -1,5 +1,5 @@
 import { makeAutoObservable, runInAction, toJS } from 'mobx';
-import type { ReactNode } from 'react';
+import type { FC, ReactNode } from 'react';
 
 import type {
   Button,
@@ -23,6 +23,7 @@ export type StoryStoreOptions = {
   readonly layout?: 'desktop' | 'mobile';
   readonly onChange?: (moment: Moment) => void;
   readonly onSave?: (story: Story) => Promise<void>;
+  readonly slots?: { [key: string]: FC };
   readonly story: Story;
 };
 
@@ -34,8 +35,6 @@ export default class StoryStore {
   isEdited: boolean = false;
 
   moments: MomentsStore;
-
-  resetKey = 0; // controls re-render when reset button is hit
 
   saveStatus?: SaveStatus;
 
@@ -69,6 +68,10 @@ export default class StoryStore {
 
   get description() {
     return this.story.description;
+  }
+
+  get getField() {
+    return (field: EditableStoryKeys) => this.story[field] ?? '';
   }
 
   get hasBranding() {
@@ -119,6 +122,10 @@ export default class StoryStore {
     return this.story.label;
   }
 
+  get slots() {
+    return this.options.slots;
+  }
+
   get saveButtonTitle() {
     return this.isSaved ? 'Story Saved Successfully!' : `Save "${this.label}" Story`;
   }
@@ -140,8 +147,12 @@ export default class StoryStore {
     this.options.onChange?.(moment);
   }
 
-  getField(field: EditableStoryKeys) {
-    return this.story[field] ?? '';
+  getSlotComponent(slot: string) {
+    return this.slots?.[slot];
+  }
+
+  isSlotAvailable(slot: string) {
+    return !!this.slots?.[slot];
   }
 
   isLayoutDesktop(defaultValue = false) {
@@ -168,7 +179,6 @@ export default class StoryStore {
     this.story = { ...this.initialStory };
     this.moments.reset();
     this.isEdited = false;
-    this.resetKey += 1;
   }
 
   async save() {

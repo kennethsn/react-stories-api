@@ -6,6 +6,14 @@ type FormattedArrayItem = {
   value: string;
 };
 
+export const cleanInputValue = (value: string, originalValue?: string) => {
+  const cleanedValue = value.trim();
+  if (!cleanedValue || (originalValue && cleanedValue === originalValue)) {
+    return undefined;
+  }
+  return cleanedValue;
+};
+
 // Stories API Template Language is to use curly braces to interpolate values into strings.
 // For example, 'Welcome to the {storyLabel} Story'
 export const formatString = (
@@ -36,10 +44,6 @@ export const getFormattedArray = (template: string, values: Record<string, strin
   return result;
 };
 
-export const strip = (str: string, chars = ' ') => (
-  str.replace(new RegExp(`^[${chars}]+|[${chars}]+$`, 'g'), '')
-);
-
 export const randomString = (length = 8, prefix = '') => {
   const chars = 'BCDFGHJKLMNPQRSTVWXYZbcdfghjklmnpqrstvwxyz0123456789';
   let result = prefix;
@@ -48,3 +52,12 @@ export const randomString = (length = 8, prefix = '') => {
   }
   return result;
 };
+
+export const strip = (str: string, chars = ' ') => (
+  str.replace(new RegExp(`^[${chars}]+|[${chars}]+$`, 'g'), '')
+);
+
+export const toKebabCase = (str: string) => str
+  .replace(/([a-z])([A-Z])/g, '$1-$2')
+  .replace(/\s+/g, '-')
+  .toLowerCase();

@@ -1,6 +1,11 @@
 import TextField, { TextFieldProps } from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
-import { type ChangeEvent, useCallback, useState } from 'react';
+import {
+  type ChangeEvent,
+  useCallback,
+  useEffect,
+  useState,
+} from 'react';
 import { Else, If, Then } from 'react-if';
 
 import { getThemeColorFromTypographyColor } from '../../../utils/color';
@@ -8,18 +13,23 @@ import styles from './EditableTypography.styles';
 import type { EditableTypographyProps } from './EditableTypography.types';
 
 export default function EditableTypography({
-  children: defaultValue,
   color,
   fullWidth = true,
   multiline = true,
   onBlur,
   onChange,
   textFieldProps,
+  value: defaultValue,
   variant,
   ...props
 }: EditableTypographyProps) {
   const [isEditing, setIsEditing] = useState(false);
   const [value, setValue] = useState(defaultValue);
+
+  useEffect(() => {
+    setValue(defaultValue);
+  }, [defaultValue]);
+
   const textFieldColor = color ? getThemeColorFromTypographyColor(color) : 'inherit';
 
   const handleBlur = useCallback(() => {
@@ -74,7 +84,7 @@ export default function EditableTypography({
           onClick={handleClick}
           variant={variant}
         >
-          {value}
+          {defaultValue}
         </Typography>
       </Else>
     </If>

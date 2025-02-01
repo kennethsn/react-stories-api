@@ -1,11 +1,12 @@
 import Collapse from '@mui/material/Collapse';
 import List from '@mui/material/List';
 import ListSubheader from '@mui/material/ListSubheader';
-import Typography from '@mui/material/Typography';
 import { observer } from 'mobx-react-lite';
 
 import useMoments from '../../hooks/useMoments';
+import { cleanInputValue } from '../../utils';
 import MomentNavigatorListItem from '../MomentNavigatorListItem/MomentNavigatorListItem';
+import EditableTypography from '../UI/EditableTypography/EditableTypography';
 import ExpandIcon from '../UI/ExpandIcon/ExpandIcon';
 import styles from './MomentNavigatorGroup.styles';
 import type { MomentNavigatorGroupProps } from './MomentNavigatorGroup.types';
@@ -19,6 +20,13 @@ const MomentNavigatorGroup = observer(({ momentGroup }: MomentNavigatorGroupProp
     moments.toggleGroup(groupId);
   };
 
+  const handleTypograpahyBlur = (value: string) => {
+    const cleanedValue = cleanInputValue(value, momentGroup.label);
+    if (cleanedValue) {
+      moments.updateMomentGroup(groupId, cleanedValue);
+    }
+  };
+
   return (
     <li key={`group-${groupId}`}>
       <ul>
@@ -28,13 +36,14 @@ const MomentNavigatorGroup = observer(({ momentGroup }: MomentNavigatorGroupProp
         >
           <ExpandIcon expanded={groupIsExpanded} />
 
-          <Typography
+          <EditableTypography
             color="primary"
+            disabled={!moments.areEditable}
+            onBlur={handleTypograpahyBlur}
             sx={styles.subheaderLabel}
+            value={momentGroup.label}
             variant="overline"
-          >
-            {momentGroup.label}
-          </Typography>
+          />
         </ListSubheader>
 
         <Collapse

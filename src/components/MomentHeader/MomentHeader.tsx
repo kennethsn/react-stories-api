@@ -4,6 +4,7 @@ import { When } from 'react-if';
 
 import useColor from '../../hooks/useColor';
 import StoryMomentTypography from '../StoryMoment/StoryMomentTypography';
+import StorySlot from '../StorySlot/StorySlot';
 import Icon from '../UI/Icon/Icon';
 import styles from './MomentHeader.styles';
 import type { MomentHeaderProps } from './MomentHeader.types';
@@ -48,8 +49,9 @@ const MomentHeader = observer(({ actions, moment }: MomentHeaderProps) => {
           variant="overline"
         />
       </When>
-    </Box>
 
+      <StorySlot component="MomentHeaderActions" />
+    </Box>
   );
 });
 

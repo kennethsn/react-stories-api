@@ -23,25 +23,15 @@ const MomentBodyLayout = observer(({
   moment,
 }: MomentBodyLayoutProps) => {
   const { layoutIsMobile } = useStoryTheme();
-  const {
-    caption: {
-      button,
-      content: captionContent,
-      fit: captionFit = 'full-width',
-      position: captionPosition = 'bottom',
-    } = {},
-  } = moment.data;
-  const hasCaption = !!captionContent || !!button;
-  const captionIsTop = captionPosition === 'top';
-  const captionFitIsFullWidth = captionFit === 'full-width';
-  const showCaptionFirst = captionIsTop || (!layoutIsMobile && captionPosition === 'left');
-  const layoutIsVertical = layoutIsMobile || captionIsTop || captionPosition === 'bottom';
+  const { captionPosition } = moment;
+  const showCaptionFirst = moment.captionIsTop || (!layoutIsMobile && captionPosition === 'left');
+  const layoutIsVertical = layoutIsMobile || moment.captionIsTop || captionPosition === 'bottom';
   const layoutIsHorizontal = !layoutIsVertical;
   const contentFitIsCard = contentFit === 'card';
 
   const { caption: captionSize, content: contentSize } = getGridItemSizes(
     inputContentSize,
-    hasCaption,
+    moment.hasCaption,
     layoutIsHorizontal,
     layoutIsMobile,
   );
@@ -51,17 +41,15 @@ const MomentBodyLayout = observer(({
     captionPosition,
     layoutIsHorizontal,
     layoutIsMobile,
-    hasCaption,
+    moment.hasCaption,
   );
 
   const captionGridItem = (
     <MomentBodyLayoutCaptionGridItem
-      boxShadow={captionFitIsFullWidth ? 0 : 1}
-      button={button}
-      content={captionContent}
+      boxShadow={moment.captionIsFullWidth ? 0 : 1}
       height={captionHeight}
-      hide={!hasCaption}
-      m={captionFitIsFullWidth ? 0 : 3}
+      hide={!moment.hasCaption}
+      m={moment.captionIsFullWidth ? 0 : 3}
       size={captionSize}
     />
   );
@@ -83,7 +71,7 @@ const MomentBodyLayout = observer(({
 
   return (
     <Grid
-      bgcolor={captionFitIsFullWidth ? 'background.lightGrey' : undefined}
+      bgcolor={moment.captionIsFullWidth ? 'background.lightGrey' : undefined}
       container
       spacing={0}
       sx={styles.root}

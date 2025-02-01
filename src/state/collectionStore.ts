@@ -35,8 +35,6 @@ export default class CollectionStore {
 
   page = 1;
 
-  resetKey = 0; // controls re-render when reset button is hit
-
   saveStatus?: SaveStatus;
 
   private source: DataSource = 'local';
@@ -74,6 +72,10 @@ export default class CollectionStore {
 
   get firstStory() {
     return this.stories[0];
+  }
+
+  get getField() {
+    return (field: EditableCollectionKeys) => this.collection[field] ?? '';
   }
 
   get gridSize() {
@@ -165,10 +167,6 @@ export default class CollectionStore {
     openJSON(json);
   }
 
-  getField(field: EditableCollectionKeys) {
-    return this.collection[field] ?? '';
-  }
-
   init() {
     if (this.sourceIsAPI) {
       reaction(this.watchLoadStoriesOptions, this.loadStoriesEffect, { fireImmediately: true });
@@ -198,7 +196,6 @@ export default class CollectionStore {
     this.collection = { ...this.initialCollection };
     this.init();
     this.isEdited = false;
-    this.resetKey += 1;
   }
 
   async save() {

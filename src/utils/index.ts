@@ -3,6 +3,7 @@ export * from './dom';
 export * from './fullscreen';
 export * from './grid';
 export * from './math';
+export * from './momentUtils';
 export * from './object';
 export * from './percentage';
 export * from './storyUtils';

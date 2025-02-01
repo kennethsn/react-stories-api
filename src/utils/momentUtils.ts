@@ -6,7 +6,9 @@ import type {
   MomentOrMomentGroup,
   MomentType,
 } from '../types';
-import { randomString } from './string';
+import { randomString, toKebabCase } from './string';
+
+export const generateMomentGroupId = (groupLabel: string) => toKebabCase(groupLabel);
 
 export const generateMomentId = () => randomString(8, 'm-');
 

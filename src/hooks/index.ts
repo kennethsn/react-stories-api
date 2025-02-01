@@ -4,6 +4,7 @@ export { default as useCollections } from './useCollections';
 export { default as useColor } from './useColor';
 export { default as useElementIsVisible } from './useElementIsVisible';
 export { default as useFormatters } from './useFormatters';
+export { default as useMoment } from './useMoment';
 export { default as useMoments } from './useMoments';
 export { default as useOnLoad } from './useOnLoad';
 export { default as useStoriesAPI } from './useStoriesAPI';

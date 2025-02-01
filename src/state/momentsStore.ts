@@ -2,9 +2,14 @@ import { makeAutoObservable, runInAction, toJS } from 'mobx';
 import type { RefObject } from 'react';
 import type { SwiperClass } from 'swiper/react';
 
-import type { InputMoment, Moment, MutableMoment } from '../types';
+import type {
+  InputMoment,
+  Moment,
+  MomentGroup,
+  MutableMoment,
+} from '../types';
 import { buildMap, getElementHeight, getRelativeHeight } from '../utils';
-import { groupMoments, processInputMoments } from '../utils/momentUtils';
+import { generateMomentGroupId, groupMoments, processInputMoments } from '../utils/momentUtils';
 import type MomentStore from './momentStore';
 import type RootStore from './rootStore';
 import type StoryStore from './storyStore';
@@ -49,6 +54,10 @@ export default class MomentsStore {
 
   get activeMomentRef() {
     return this.activeMomentRefs[this.activeMomentIndex];
+  }
+
+  get areEditable() {
+    return this.story.isEditable;
   }
 
   get availableMomentTypes() {
@@ -239,5 +248,18 @@ export default class MomentsStore {
 
   toJSON() {
     return toJS(this.moments.map((moment) => moment.toJSON()));
+  }
+
+  updateMomentGroup(groupId: MomentGroup['id'], newLabel: MomentGroup['label']) {
+    const newGroup = {
+      id: generateMomentGroupId(newLabel),
+      label: newLabel,
+    };
+    this.moments.forEach((moment) => {
+      if (moment.groupId === groupId) {
+        moment.updateGroup(newGroup);
+      }
+    });
+    this.onEdit();
   }
 }

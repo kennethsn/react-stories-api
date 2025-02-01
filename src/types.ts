@@ -223,6 +223,8 @@ export type NullableString = Nullable<string>;
 
 export type SaveStatus = 'FAILED' | 'SAVING' | 'SUCCESS';
 
+export type SerializableRecord = Record<string, string | boolean | number | object | null>;
+
 export type StoriesAPIFormatters = {
   readonly collectionPath: string;
   readonly collectionStoriesListHeader: string;

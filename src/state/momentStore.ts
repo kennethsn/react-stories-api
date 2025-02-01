@@ -1,28 +1,45 @@
 import {
-  action, computed, makeObservable, observable, toJS,
+  action,
+  computed,
+  makeObservable,
+  observable,
+  toJS,
 } from 'mobx';
 
-import type { Moment, MomentData, MutableMoment } from '../types';
+import type {
+  Moment,
+  MomentData,
+  MomentGroup,
+  MutableMoment,
+  SerializableRecord,
+} from '../types';
 import { buildNoIcon } from '../utils/iconUtils';
 import type MomentsStore from './momentsStore';
-
-export type EditableMomentKeys = 'label' | 'subtitle' | 'title';
 
 export default class MomentStore<T = MomentData> {
   private initialMoment: Moment<T>;
 
   moment: MutableMoment<T>;
 
-  resetKey = 0; // controls re-render when reset button is hit
-
   constructor(private moments: MomentsStore, moment: Moment<T>) {
     makeObservable(this, {
       av: computed,
+      caption: computed,
+      captionButton: computed,
+      captionFit: computed,
+      captionIsFullWidth: computed,
+      captionIsTop: computed,
+      captionPosition: computed,
       color: computed,
       data: computed,
-      getField: action,
+      getField: computed,
       getRelativeHeight: action,
       group: computed,
+      groupId: computed,
+      hasCaption: computed,
+      hasCaptionButton: computed,
+      hasCaptionContent: computed,
+      hasGroup: computed,
       hasIcon: computed,
       hasSubtitle: computed,
       icon: computed,
@@ -50,6 +67,30 @@ export default class MomentStore<T = MomentData> {
     return this.moments.root.av;
   }
 
+  get caption() {
+    return this.data.caption;
+  }
+
+  get captionButton() {
+    return this.caption?.button;
+  }
+
+  get captionFit() {
+    return this.caption?.fit ?? 'full-width';
+  }
+
+  get captionIsFullWidth() {
+    return this.captionFit === 'full-width';
+  }
+
+  get captionPosition() {
+    return this.caption?.position ?? 'bottom';
+  }
+
+  get captionIsTop() {
+    return this.captionPosition === 'top';
+  }
+
   get color() {
     return this.moment.color;
   }
@@ -66,8 +107,44 @@ export default class MomentStore<T = MomentData> {
     return this.moment.data;
   }
 
+  get getField() {
+    return (fieldPath: string) => {
+      const fields = fieldPath.split('.');
+      let current: SerializableRecord = this.moment;
+
+      for (let i = 0; i < fields.length; i += 1) {
+        if (!current[fields[i]]) {
+          return undefined;
+        }
+        current = current[fields[i]] as SerializableRecord;
+      }
+
+      return current;
+    };
+  }
+
   get group() {
     return this.moment.group;
+  }
+
+  get groupId() {
+    return this.group?.id;
+  }
+
+  get hasCaption() {
+    return this.hasCaptionContent || this.hasCaptionButton;
+  }
+
+  get hasCaptionButton() {
+    return !!this.captionButton;
+  }
+
+  get hasCaptionContent() {
+    return !!this.caption?.content;
+  }
+
+  get hasGroup() {
+    return !!this.group;
   }
 
   get hasIcon() {
@@ -98,8 +175,16 @@ export default class MomentStore<T = MomentData> {
     return this.story.isEditable;
   }
 
+  get isFirst() {
+    return this.index === 0;
+  }
+
   get isInactive() {
     return !this.isActive;
+  }
+
+  get isLast() {
+    return this.id === this.story.moments.lastMoment.id;
   }
 
   get isPlaying() {
@@ -137,10 +222,6 @@ export default class MomentStore<T = MomentData> {
     return this.moment.type;
   }
 
-  getField(field: EditableMomentKeys) {
-    return this.moment[field] ?? '';
-  }
-
   getRelativeHeight(value: number, algorithm?: 'absolute' | 'percentage') {
     return this.moments.getRelativeHeight(value, algorithm);
   }
@@ -155,15 +236,29 @@ export default class MomentStore<T = MomentData> {
 
   reset() {
     this.moment = { ...this.initialMoment };
-    this.resetKey += 1;
   }
 
   toJSON() {
     return toJS(this.moment);
   }
 
-  updateField(field: EditableMomentKeys, value: string) {
-    this.moment[field] = value;
+  updateField(fieldPath: string, value: SerializableRecord[keyof SerializableRecord]) {
+    const fields = fieldPath.split('.');
+    let current: SerializableRecord = this.moment;
+
+    for (let i = 0; i < fields.length - 1; i += 1) {
+      if (!current?.[fields[i]]) {
+        current[fields[i]] = {};
+      }
+      current = current[fields[i]] as SerializableRecord;
+    }
+
+    current[fields[fields.length - 1]] = value;
+    this.onEdit();
+  }
+
+  updateGroup(group: MomentGroup) {
+    this.moment.group = group;
     this.onEdit();
   }
 

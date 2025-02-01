@@ -7,8 +7,6 @@ import MomentBodyLayoutCaption from './MomentBodyLayoutCaption';
 
 export default function MomentBodyLayoutCaptionGridItem({
   boxShadow,
-  button,
-  content,
   height,
   hide,
   size,
@@ -23,8 +21,6 @@ export default function MomentBodyLayoutCaptionGridItem({
       >
         <MomentBodyLayoutCaption
           boxShadow={boxShadow}
-          button={button}
-          content={content}
           m={m}
         />
       </Grid>

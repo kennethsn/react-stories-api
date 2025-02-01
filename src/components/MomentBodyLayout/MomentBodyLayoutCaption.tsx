@@ -1,40 +1,39 @@
 import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
+import { observer } from 'mobx-react-lite';
 import { When } from 'react-if';
 
+import useMoment from '../../hooks/useMoment';
 import StoryButton from '../StoryButton/StoryButton';
+import StoryMomentTypography from '../StoryMoment/StoryMomentTypography';
 import styles from './MomentBodyLayout.styles';
 import type { MomentBodyLayoutCaptionProps } from './MomentBodyLayout.types';
 
-export default function MomentBodyLayoutCaption({
-  boxShadow,
-  button,
-  content,
-  m,
-}: MomentBodyLayoutCaptionProps) {
-  const hasContent = !!content;
+const MomentBodyLayoutCaption = observer(({ boxShadow, m }: MomentBodyLayoutCaptionProps) => {
+  const moment = useMoment();
   return (
     <Box
       boxShadow={boxShadow}
       m={m}
-      sx={styles.captionContainer(hasContent)}
+      sx={styles.captionContainer(moment.hasCaptionContent)}
     >
-      <When condition={hasContent}>
-        <Typography
+      <When condition={moment.hasCaptionContent}>
+        <StoryMomentTypography
+          field="data.caption.content"
+          moment={moment}
           sx={styles.caption}
           variant="body1"
-        >
-          {content}
-        </Typography>
+        />
       </When>
 
-      <When condition={!!button}>
+      <When condition={moment.hasCaptionButton}>
         <StoryButton
-          button={button!}
-          sx={styles.captionButton(hasContent)}
+          button={moment.captionButton!}
+          sx={styles.captionButton(moment.hasCaptionContent)}
           variant="outlined"
         />
       </When>
     </Box>
   );
-}
+});
+
+export default MomentBodyLayoutCaption;

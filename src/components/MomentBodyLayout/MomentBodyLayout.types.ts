@@ -1,24 +1,18 @@
 import type { GridSize } from '@mui/material/Grid2';
 import type { ReactNode } from 'react';
 
-import type {
-  Button,
-  Moment,
-  MomentContentFit,
-  MomentContentSize,
-} from '../../types';
+import type MomentStore from '../../state/momentStore';
+import type { MomentContentFit, MomentContentSize } from '../../types';
 
 export type MomentBodyLayoutProps = {
   readonly children: ReactNode;
   readonly contentFit?: MomentContentFit;
   readonly contentSize?: MomentContentSize;
-  readonly moment: Moment;
+  readonly moment: MomentStore;
 };
 
 export type MomentBodyLayoutCaptionGridItemProps = {
   readonly boxShadow: number;
-  readonly button?: Button;
-  readonly content?: string;
   readonly height?: string;
   readonly hide: boolean;
   readonly size: GridSize;
@@ -27,8 +21,6 @@ export type MomentBodyLayoutCaptionGridItemProps = {
 
 export type MomentBodyLayoutCaptionProps = {
   readonly boxShadow: number;
-  readonly button?: Button;
-  readonly content?: string;
   readonly m: number;
 };
 

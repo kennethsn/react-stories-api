@@ -1,6 +1,7 @@
 import { observer } from 'mobx-react-lite';
 import { lazy, Suspense } from 'react';
 
+import { MomentProvider } from '../../providers';
 import type { StoryMomentProps } from './StoryMoment.types';
 
 // KSN TODO: Add skeleton loader
@@ -10,9 +11,11 @@ const StoryMoment = observer(({ moment }: StoryMomentProps) => {
   const Moment = lazy(() => import(`../Moments/${moment.component}/${moment.component}.tsx`));
 
   return (
-    <Suspense fallback={loading}>
-      <Moment moment={moment} />
-    </Suspense>
+    <MomentProvider moment={moment}>
+      <Suspense fallback={loading}>
+        <Moment moment={moment} />
+      </Suspense>
+    </MomentProvider>
   );
 });
 
