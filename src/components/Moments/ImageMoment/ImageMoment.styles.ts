@@ -1,15 +1,18 @@
+import type { SxProps } from '@mui/material';
+
 import ImageMomentStore from '../../../state/moments/imageMomentStore';
 
 const styles = {
-  image: (moment: ImageMomentStore) => ({
+  image: (moment: ImageMomentStore): SxProps => ({
     display: 'block',
-    height: moment.fitIsCover ? '100%' : 'auto',
-    maxWidth: '100%',
-    maxHeight: '100%',
+    filter: moment.fitIsCard ? 'drop-shadow(0px 0px 6px rgba(50, 50, 50, 0.6))' : undefined,
+    height: (moment.fitIsCover || moment.fitIsCard) ? '100%' : 'auto',
+    maxWidth: moment.fitIsCard ? undefined : '100%',
+    maxHeight: moment.fitIsCard ? undefined : '100%',
     mx: 'auto',
     objectFit: moment.fitIsCover ? 'cover' : 'contain',
     objectPosition: moment.position,
-    width: moment.fitIsCard ? 'initial' : '100%',
+    width: '100%',
   }),
 };
 

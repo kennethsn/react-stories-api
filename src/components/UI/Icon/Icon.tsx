@@ -1,5 +1,6 @@
 import Box from '@mui/material/Box';
 import MUIIcon from '@mui/material/Icon';
+import { observer } from 'mobx-react-lite';
 import { Else, If, Then } from 'react-if';
 
 import type { ImageIcon, MuiIcon } from '../../../types';
@@ -8,8 +9,7 @@ import { deepMerge } from '../../../utils/object';
 import styles from './Icon.styles';
 import type { IconProps } from './Icon.types';
 
-// KSN TODO: add image type
-export default function Icon({ icon, sx }: IconProps) {
+const Icon = observer(({ icon, sx }: IconProps) => {
   if (isNoIcon(icon)) {
     return null;
   }
@@ -37,4 +37,6 @@ export default function Icon({ icon, sx }: IconProps) {
       </If>
     </Box>
   );
-}
+});
+
+export default Icon;

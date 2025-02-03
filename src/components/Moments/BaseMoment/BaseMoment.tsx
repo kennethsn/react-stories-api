@@ -11,6 +11,7 @@ const BaseMoment = observer(({
   contentFit,
   contentSize,
   moment,
+  noContentElevation,
 }: BaseMomentProps) => {
   const { themeOptions } = useColor(moment.color);
   return (
@@ -20,6 +21,7 @@ const BaseMoment = observer(({
         contentFit={contentFit}
         contentSize={contentSize}
         moment={moment}
+        noContentElevation={noContentElevation}
       >
         {children}
       </MomentLayout>

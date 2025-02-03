@@ -19,6 +19,7 @@ const MomentLayout = observer(({
   contentFit,
   contentSize,
   moment,
+  noContentElevation,
 }: MomentLayoutProps) => {
   const ref = useRef<HTMLDivElement>(null);
   const [headerIsCollapsed, setHeaderIsCollapsed] = useState(false);
@@ -56,6 +57,7 @@ const MomentLayout = observer(({
           contentFit={contentFit}
           contentSize={contentSize}
           moment={moment}
+          noContentElevation={noContentElevation}
         >
           {children}
         </MomentBodyLayout>

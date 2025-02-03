@@ -9,6 +9,7 @@ export type MomentBodyLayoutProps = {
   readonly contentFit?: MomentContentFit;
   readonly contentSize?: MomentContentSize;
   readonly moment: MomentStore;
+  readonly noContentElevation?: boolean; // Image Moment uses its own elevation
 };
 
 export type MomentBodyLayoutCaptionGridItemProps = {

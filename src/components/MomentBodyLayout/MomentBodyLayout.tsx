@@ -21,6 +21,7 @@ const MomentBodyLayout = observer(({
   contentFit = 'card',
   contentSize: inputContentSize,
   moment,
+  noContentElevation,
 }: MomentBodyLayoutProps) => {
   const { layoutIsMobile } = useStoryTheme();
   const { captionPosition } = moment;
@@ -56,8 +57,8 @@ const MomentBodyLayout = observer(({
 
   const contentGridItem = (
     <MomentBodyLayoutContentGridItem
-      borderRadius={contentFitIsCard ? 2 : 0}
-      boxShadow={contentFitIsCard ? 4 : 0}
+      borderRadius={contentFitIsCard && !noContentElevation ? 2 : 0}
+      boxShadow={contentFitIsCard && !noContentElevation ? 4 : 0}
       display={contentFitIsCard ? 'block' : 'flex'}
       height={contentHeight}
       maxHeight={contentFitIsCard ? '80%' : undefined}

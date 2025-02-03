@@ -11,6 +11,7 @@ const ImageMoment = observer(({ moment }: ImageMomentProps) => (
     contentFit={moment.fit}
     contentSize={moment.size}
     moment={moment}
+    noContentElevation
   >
     <PreviewableImage
       alt={moment.alt}
