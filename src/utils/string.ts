@@ -1,4 +1,5 @@
 import { FORMATTER_TEMPLATE_REGEX } from '../constants';
+import type { SerializeableValue } from '../types';
 
 type FormattedArrayItem = {
   key?: string;
@@ -61,3 +62,10 @@ export const toKebabCase = (str: string) => str
   .replace(/([a-z])([A-Z])/g, '$1-$2')
   .replace(/\s+/g, '-')
   .toLowerCase();
+
+export const toString = (value: SerializeableValue | undefined) => {
+  if (value === null || value === undefined || value === false) {
+    return '';
+  }
+  return value.toString();
+};

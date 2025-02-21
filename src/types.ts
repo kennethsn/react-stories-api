@@ -57,6 +57,8 @@ export type ColorString = ThemeColorOption | ColorHex;
 
 export type DataSource = 'api' | 'local';
 
+export type EditableCollectionKeys = 'description' | 'image' | 'name' | 'subtitle';
+
 export type GoToBaseOptions<T> = { readonly newTab?: boolean; } & T;
 
 export type GoToCollectionOptions = GoToBaseOptions<{
@@ -204,7 +206,7 @@ export type Mutable<T, Keys extends keyof T = keyof T> = {
   -readonly [P in Keys]: T[P];
 } & Omit<T, Keys>;
 
-export type MutableCollection = Mutable<Collection>;
+export type MutableCollection = Mutable<Collection, EditableCollectionKeys>;
 
 export type MutableMoment<T=MomentData> = Mutable<
 Moment<T>,
@@ -223,7 +225,9 @@ export type NullableString = Nullable<string>;
 
 export type SaveStatus = 'FAILED' | 'SAVING' | 'SUCCESS';
 
-export type SerializableRecord = Record<string, string | boolean | number | object | null>;
+export type SerializableRecord = Record<string, SerializeableValue>;
+
+export type SerializeableValue = boolean | null | number | object | string;
 
 export type StoriesAPIFormatters = {
   readonly collectionPath: string;

@@ -4,10 +4,13 @@ import {
   runInAction,
   toJS,
 } from 'mobx';
+import type { FC } from 'react';
 
+import type { CollectionSlotProps } from '../components/CollectionSlot/CollectionSlot.types';
 import type {
   Collection,
   DataSource,
+  EditableCollectionKeys,
   MutableCollection,
   SaveStatus,
 } from '../types';
@@ -19,10 +22,9 @@ export type CollectionStoreOptions = {
   readonly collection: Collection;
   readonly editable?: boolean;
   readonly onSave?: (collection: Collection) => Promise<void>;
+  readonly slots?: { [key: string]: FC<Omit<CollectionSlotProps, 'component'>> };
   readonly source?: DataSource;
 };
-
-export type EditableCollectionKeys = 'description' | 'name' | 'subtitle';
 
 export default class CollectionStore {
   collection: MutableCollection;
@@ -138,6 +140,10 @@ export default class CollectionStore {
     return this.totalStoriesCount > 1;
   }
 
+  get slots() {
+    return this.options.slots;
+  }
+
   get stories() {
     return this.collection.stories ?? [];
   }
@@ -167,17 +173,27 @@ export default class CollectionStore {
     openJSON(json);
   }
 
+  getSlotComponent(slot: string) {
+    return this.slots?.[slot];
+  }
+
   init() {
     if (this.sourceIsAPI) {
       reaction(this.watchLoadStoriesOptions, this.loadStoriesEffect, { fireImmediately: true });
     }
   }
 
+  isSlotAvailable(slot: string) {
+    return !!this.slots?.[slot];
+  }
+
   async loadStories() {
     this.storiesAreLoading = true;
     const { stories, total_count: totalCount } = await this.root.api.getStories(this.id);
     runInAction(() => {
+      // @ts-expect-error editing a read-only value
       this.collection.total_stories_count = totalCount;
+      // @ts-expect-error editing a read-only value
       this.collection.stories = stories;
       this.storiesAreLoading = false;
     });

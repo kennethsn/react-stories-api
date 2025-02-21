@@ -1,15 +1,18 @@
 import { observer } from 'mobx-react-lite';
 
 import { useCollection } from '../../hooks';
+import CollectionSlot from '../CollectionSlot/CollectionSlot';
 import BoundActions from '../UI/BoundActions/BoundActions';
 import styles from './CollectionActions.styles';
 
-// TODO: Allow prop slot for custom actions to use in workspace (add story)
 const CollectionActions = observer(() => {
   const collection = useCollection();
 
   return (
     <BoundActions
+      prepend={(
+        <CollectionSlot component="CollectionActions" />
+      )}
       store={collection}
       sx={styles.root}
       type="Collection"

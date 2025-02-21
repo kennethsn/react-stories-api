@@ -15,6 +15,7 @@ export default function StoryCard({
   buttonLabel = 'View Story', // KSN TODO: connect this to formatters
   isHidingButton = false,
   previewButtonLabel = 'Coming Soon', // KSN TODO: connect this to formatters
+  slot,
   story,
   sx,
 }: StoryCardProps) {
@@ -32,6 +33,8 @@ export default function StoryCard({
       button={button}
       sx={sx}
     >
+      {slot}
+
       <When condition={story.image}>
         <CardMedia
           alt={story.label}

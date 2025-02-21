@@ -19,11 +19,12 @@ const CollectionProvider = observer(({
   children,
   editable,
   store,
+  ...props
 }: CollectionProviderProps) => {
   const collections = useCollections();
   useEffect(() => autorun(() => {
     if (store) return;
-    collections.addCollection(collection!, { editable, source: 'local' });
+    collections.addCollection(collection!, { editable, source: 'local', ...props });
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }), [collection]);
 

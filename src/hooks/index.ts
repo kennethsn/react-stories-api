@@ -7,6 +7,7 @@ export { default as useFormatters } from './useFormatters';
 export { default as useMoment } from './useMoment';
 export { default as useMoments } from './useMoments';
 export { default as useOnLoad } from './useOnLoad';
+export { default as useStories } from './useStories';
 export { default as useStoriesAPI } from './useStoriesAPI';
 export { default as useStoriesAPINavigation } from './useStoriesAPINavigation';
 export { default as useStoriesAPITheme } from './useStoriesAPITheme';

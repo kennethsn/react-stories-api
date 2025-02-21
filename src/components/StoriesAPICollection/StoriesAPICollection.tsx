@@ -4,8 +4,8 @@ import { lazy, Suspense, useEffect } from 'react';
 import { Else, If, Then } from 'react-if';
 import { useParams } from 'react-router-dom';
 
-import { useCollections } from '../../hooks';
-import { CollectionProvider } from '../../providers';
+import useCollections from '../../hooks/useCollections';
+import CollectionProvider from '../../providers/CollectionProvider';
 import type { StoriesAPICollectionProps } from './StoriesAPICollection.types';
 
 // TODO: No Stories

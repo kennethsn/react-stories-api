@@ -8,7 +8,8 @@ import ActionButton from '../ActionButton/ActionButton';
 import type { BoundActionsProps } from './BoundActions.types';
 
 const BoundActions = observer(({
-  children,
+  append,
+  prepend,
   store,
   sx,
   type,
@@ -29,6 +30,8 @@ const BoundActions = observer(({
 
   return (
     <Box sx={sx}>
+      {prepend}
+
       <ActionButton
         icon={FileDownloadTwoToneIcon}
         isHidden={!store.isDownloadable}
@@ -54,7 +57,7 @@ const BoundActions = observer(({
         title={saveButtonTitle}
       />
 
-      {children}
+      {append}
     </Box>
   );
 });

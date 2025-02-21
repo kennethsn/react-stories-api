@@ -2,6 +2,7 @@ import Grid from '@mui/material/Grid2';
 import { observer } from 'mobx-react-lite';
 
 import useCollection from '../../hooks/useCollection';
+import CollectionSlot from '../CollectionSlot/CollectionSlot';
 import StoryCard from '../StoryCard/StoryCard';
 import Animation from '../UI/Animation/Animation';
 import styles from './CollectionFeaturedStoriesList.styles';
@@ -29,6 +30,12 @@ const CollectionFeaturedStoriesList = observer(() => {
             >
               <StoryCard
                 buttonLabel="View Featured Story"
+                slot={(
+                  <CollectionSlot
+                    component="FeaturedStoryCard"
+                    story={story}
+                  />
+                )}
                 story={story}
               />
             </Animation>

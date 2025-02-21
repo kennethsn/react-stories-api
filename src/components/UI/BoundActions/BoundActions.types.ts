@@ -1,7 +1,8 @@
 import type { BoxProps } from '@mui/material/Box';
-import type { PropsWithChildren } from 'react';
 
-export type BoundActionsProps = PropsWithChildren & {
+export type BoundActionsProps = {
+  readonly append?: React.ReactNode;
+  readonly prepend?: React.ReactNode;
   readonly store: {
     readonly download: () => void;
     readonly isDownloadable: boolean;

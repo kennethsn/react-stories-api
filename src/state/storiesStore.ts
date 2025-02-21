@@ -1,11 +1,11 @@
 import { makeAutoObservable } from 'mobx';
 
-import type { Story } from '../types';
+import type { CollectionId, StoryId } from '../types';
 import type RootStore from './rootStore';
 import StoryStore, { type StoryStoreOptions } from './storyStore';
 
 export default class StoriesStore {
-  private stories: Map<Story['id'], StoryStore>;
+  private stories: Map<StoryId, StoryStore>;
 
   constructor(public root: RootStore) {
     makeAutoObservable(this);
@@ -23,6 +23,23 @@ export default class StoriesStore {
     return story;
   }
 
+  async fetchAndLoadStory(
+    collectionId: CollectionId,
+    storyId: StoryId,
+    storyOptions: Omit<StoryStoreOptions, 'story'>,
+  ) {
+    // TODO: handle loading
+    // TODO: handle error
+    const story = await this.fetchStory(collectionId, storyId);
+    if (story) {
+      this.loadStory({ ...storyOptions, story });
+    }
+  }
+
+  fetchStory(collectionId: CollectionId, storyId: StoryId) {
+    return this.root.api.getStory(collectionId, storyId);
+  }
+
   getOrAddStory(storyOptions: StoryStoreOptions) {
     const story = this.getStory(storyOptions.story.id);
     if (story) {
@@ -31,11 +48,11 @@ export default class StoriesStore {
     return this.addStory(storyOptions);
   }
 
-  getStory(storyId: Story['id']) {
+  getStory(storyId: StoryId) {
     return this.stories.get(storyId);
   }
 
-  isStoryLoaded(storyId: Story['id']) {
+  isStoryLoaded(storyId: StoryId) {
     return this.stories.has(storyId);
   }
 
@@ -45,7 +62,7 @@ export default class StoriesStore {
     }
   }
 
-  removeStory(storyId: Story['id']) {
+  removeStory(storyId: StoryId) {
     this.stories.delete(storyId);
   }
 }

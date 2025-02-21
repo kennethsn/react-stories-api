@@ -1,7 +1,13 @@
 import { makeAutoObservable } from 'mobx';
 
 import { STORIES_SERVICES_BASE_URL } from '../constants';
-import type { Collection, CollectionId, StoriesAPIStoriesResponse } from '../types';
+import type {
+  Collection,
+  CollectionId,
+  StoriesAPIStoriesResponse,
+  Story,
+  StoryId,
+} from '../types';
 import { buildURL } from '../utils';
 import type RootStore from './rootStore';
 
@@ -48,5 +54,9 @@ export default class APIStore {
 
   async getStories(collectionId: CollectionId) {
     return this.get<StoriesAPIStoriesResponse>(`/collections/${collectionId}/stories`);
+  }
+
+  async getStory(collectionId: CollectionId, storyId: StoryId) {
+    return this.get<Story>(`/collections/${collectionId}/stories/${storyId}`);
   }
 }

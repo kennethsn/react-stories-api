@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite';
 
-import { cleanInputValue } from '../../../utils/string';
+import { cleanInputValue, toString } from '../../../utils/string';
 import EditableTypography from '../EditableTypography/EditableTypography';
 import type { BoundTypographyProps } from './BoundTypography.types';
 
@@ -10,8 +10,10 @@ const BoundTypography = observer(<T extends string>({
   store,
   ...props
 }: BoundTypographyProps<T>) => {
+  const getValue = () => toString(store.getField(field));
+
   const handleBlur = (value: string) => {
-    const cleanedValue = cleanInputValue(value, store.getField(field));
+    const cleanedValue = cleanInputValue(value, getValue());
     if (cleanedValue) {
       store.updateField(field, cleanedValue);
     }
@@ -22,7 +24,7 @@ const BoundTypography = observer(<T extends string>({
       {...props}
       disabled={disabled || !store.isEditable}
       onBlur={handleBlur}
-      value={store.getField(field)}
+      value={getValue()}
     />
   );
 });

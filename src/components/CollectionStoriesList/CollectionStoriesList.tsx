@@ -8,6 +8,7 @@ const CollectionStoriesList = observer(() => {
   return (
     <StoryCards
       overrideTotalCount={collection.totalStoriesCount}
+      slotComponent={collection.getSlotComponent('StoryCard')}
       stories={collection.stories}
     />
   );
