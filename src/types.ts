@@ -57,7 +57,9 @@ export type ColorString = ThemeColorOption | ColorHex;
 
 export type DataSource = 'api' | 'local';
 
-export type EditableCollectionKeys = 'description' | 'image' | 'name' | 'subtitle';
+export type EditableCollectionKey = 'description' | 'image' | 'name' | 'subtitle';
+
+export type EditableStoryKey = 'description' | 'image' | 'is_featured' | 'label' | 'moments' | 'status';
 
 export type GoToBaseOptions<T> = { readonly newTab?: boolean; } & T;
 
@@ -183,6 +185,8 @@ export type MomentGroupWithMoments<T=Moment> = MomentGroup & {
   readonly moments: T[];
 };
 
+export type MomentId = Moment['id'];
+
 export type MomentOrMomentGroup = (Moment | MomentGroupWithMoments);
 
 // KSN TODO: remove string when all moments are typed
@@ -206,14 +210,14 @@ export type Mutable<T, Keys extends keyof T = keyof T> = {
   -readonly [P in Keys]: T[P];
 } & Omit<T, Keys>;
 
-export type MutableCollection = Mutable<Collection, EditableCollectionKeys>;
+export type MutableCollection = Mutable<Collection, EditableCollectionKey>;
 
 export type MutableMoment<T=MomentData> = Mutable<
 Moment<T>,
 'color' | 'data' | 'group' | 'icon' | 'index' | 'label' | 'subtitle' | 'title'
 >;
 
-export type MutableStory = Mutable<Story, 'description' | 'image' | 'label' | 'moments'>;
+export type MutableStory = Mutable<Story, EditableStoryKey>;
 
 export type NoIcon = {
   readonly type: 'none';
@@ -253,6 +257,7 @@ export type Story = {
   readonly description?: NullableString;
   readonly id: string;
   readonly image?: NullableString;
+  readonly is_featured?: boolean;
   readonly label: string;
   readonly moments: Moment[];
   readonly status: StoryStatus;

@@ -18,6 +18,7 @@ const MomentNavigatorHeader = observer(() => {
       <StoryTypography
         color="primary"
         field="label"
+        required
         variant="h6"
       />
 

@@ -18,7 +18,7 @@ import { isMomentGroup } from '../../utils/momentUtils';
 import MomentNavigatorGroup from '../MomentNavigatorGroup/MomentNavigatorGroup';
 import MomentNavigatorHeader from '../MomentNavigatorHeader/MomentNavigatorHeader';
 import MomentNavigatorListItem from '../MomentNavigatorListItem/MomentNavigatorListItem';
-import ClickableImage from '../UI/ClickableImage/ClickableImage';
+import PreviewableImage from '../UI/PreviewableImage/PreviewableImage';
 import styles from './MomentNavigator.styles';
 
 // KSN TODO: colors
@@ -51,7 +51,7 @@ const MomentNavigator = observer(() => {
           size={12}
           sx={styles.imageContainer}
         >
-          <ClickableImage
+          <PreviewableImage
             alt={story.label}
             onClick={handleImageClick}
             src={story.image!}

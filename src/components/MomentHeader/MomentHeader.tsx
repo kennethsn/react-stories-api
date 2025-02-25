@@ -31,6 +31,7 @@ const MomentHeader = observer(({ actions, moment }: MomentHeaderProps) => {
           fullWidth={false}
           moment={moment}
           multiline={false}
+          required
           sx={styles.title}
           variant="h6"
         />

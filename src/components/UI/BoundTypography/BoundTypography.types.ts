@@ -7,6 +7,6 @@ export type BoundTypographyProps<Keys extends string=string> =
     readonly store: {
       readonly getField: (field: Keys) => SerializeableValue | undefined;
       readonly isEditable: boolean;
-      readonly updateField: (field: Keys, value: string) => void;
+      readonly updateField: (field: Keys, value: never) => void;
     };
   };

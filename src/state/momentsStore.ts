@@ -223,6 +223,7 @@ export default class MomentsStore {
   }
 
   reset() {
+    this.inputMoments = this.story.story.moments;
     this.moments = this.buildMoments();
   }
 

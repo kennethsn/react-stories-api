@@ -44,6 +44,7 @@ const MomentNavigatorListItem = observer(({ moment }: MomentNavigatorListItemPro
                   disabled={moment.isInactive}
                   field="label"
                   moment={moment}
+                  required
                   variant="body2"
                 />
               </Grid>

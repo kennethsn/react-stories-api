@@ -12,9 +12,6 @@ import type { StoriesAPICollectionProps } from './StoriesAPICollection.types';
 // TODO: API Task handling
 // TODO: Stories Loading
 // TODO: Search
-// TODO: Ability to mark favorites
-// TODO: Edit image
-// TODO: View Component that binds to route
 // TODO: Collection loading
 
 const Collection = lazy(() => import('../Collection/Collection'));

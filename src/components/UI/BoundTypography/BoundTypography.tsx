@@ -7,6 +7,7 @@ import type { BoundTypographyProps } from './BoundTypography.types';
 const BoundTypography = observer(<T extends string>({
   disabled,
   field,
+  required,
   store,
   ...props
 }: BoundTypographyProps<T>) => {
@@ -14,9 +15,10 @@ const BoundTypography = observer(<T extends string>({
 
   const handleBlur = (value: string) => {
     const cleanedValue = cleanInputValue(value, getValue());
-    if (cleanedValue) {
-      store.updateField(field, cleanedValue);
+    if (cleanedValue === undefined || (required && !cleanedValue)) {
+      return;
     }
+    store.updateField(field, cleanedValue as never);
   };
   return (
     <EditableTypography
@@ -24,6 +26,7 @@ const BoundTypography = observer(<T extends string>({
       {...props}
       disabled={disabled || !store.isEditable}
       onBlur={handleBlur}
+      required={required}
       value={getValue()}
     />
   );

@@ -7,6 +7,7 @@ export type BoundActionsProps = {
     readonly download: () => void;
     readonly isDownloadable: boolean;
     readonly isEditable: boolean;
+    readonly isFailed: boolean;
     readonly isResettable: boolean;
     readonly isSavable: boolean;
     readonly isSaved: boolean;

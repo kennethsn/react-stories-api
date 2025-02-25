@@ -13,6 +13,7 @@ import type { PreviewableImageProps } from './PreviewableImage.types';
 export default function PreviewableImage({
   alt,
   className,
+  onClick,
   src,
   sx,
 }: PreviewableImageProps) {
@@ -23,6 +24,7 @@ export default function PreviewableImage({
           alt={alt}
           className={className}
           component="img"
+          onClick={onClick}
           src={src}
           sx={sx}
         />

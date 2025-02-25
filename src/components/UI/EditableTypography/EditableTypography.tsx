@@ -18,6 +18,7 @@ export default function EditableTypography({
   multiline = true,
   onBlur,
   onChange,
+  required,
   textFieldProps,
   value: defaultValue,
   variant,
@@ -52,12 +53,15 @@ export default function EditableTypography({
     }
   }, [props.disabled]);
 
+  const text = (required && !defaultValue) ? 'Enter text...' : defaultValue;
+
   return (
     <If condition={isEditing}>
       <Then>
         <TextField
           fullWidth={fullWidth}
           multiline={multiline}
+          required={required}
           variant="standard"
           // eslint-disable-next-line react/jsx-props-no-spreading
           {...props}
@@ -84,7 +88,7 @@ export default function EditableTypography({
           onClick={handleClick}
           variant={variant}
         >
-          {defaultValue}
+          {text}
         </Typography>
       </Else>
     </If>

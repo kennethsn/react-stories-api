@@ -7,6 +7,16 @@ import { observer } from 'mobx-react-lite';
 import ActionButton from '../ActionButton/ActionButton';
 import type { BoundActionsProps } from './BoundActions.types';
 
+const getSaveButtonTitle = (type: string, store: BoundActionsProps['store']) => {
+  if (store.isFailed) {
+    return `Failed to save ${type}. Please reset ${type} or try again`;
+  }
+  if (store.isSaved) {
+    return `${type} Saved Successfully!`;
+  }
+  return `Save ${type}`;
+};
+
 const BoundActions = observer(({
   append,
   prepend,
@@ -14,7 +24,7 @@ const BoundActions = observer(({
   sx,
   type,
 }: BoundActionsProps) => {
-  const saveButtonTitle = store.isSaved ? `${type} Saved Successfully!` : `Save ${type}`;
+  const saveButtonTitle = getSaveButtonTitle(type, store);
 
   const handleDownloadButtonClick = () => {
     store.download();
@@ -50,6 +60,7 @@ const BoundActions = observer(({
         color="primary"
         icon={PublishedWithChangesIcon}
         isDisabled={!store.isSavable}
+        isFailed={store.isFailed}
         isHidden={!store.isEditable}
         isLoading={store.isSaving}
         isSuccessful={store.isSaved}

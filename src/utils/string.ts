@@ -9,6 +9,11 @@ type FormattedArrayItem = {
 
 export const cleanInputValue = (value: string, originalValue?: string) => {
   const cleanedValue = value.trim();
+  // Clear the value
+  if (!cleanedValue && originalValue) {
+    return '';
+  }
+  // No change
   if (!cleanedValue || (originalValue && cleanedValue === originalValue)) {
     return undefined;
   }

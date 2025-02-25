@@ -10,7 +10,7 @@ import type { CollectionSlotProps } from '../components/CollectionSlot/Collectio
 import type {
   Collection,
   DataSource,
-  EditableCollectionKeys,
+  EditableCollectionKey,
   MutableCollection,
   SaveStatus,
 } from '../types';
@@ -77,7 +77,7 @@ export default class CollectionStore {
   }
 
   get getField() {
-    return (field: EditableCollectionKeys) => this.collection[field] ?? '';
+    return (field: EditableCollectionKey) => this.collection[field] ?? '';
   }
 
   get gridSize() {
@@ -114,6 +114,10 @@ export default class CollectionStore {
 
   get isDownloadable() {
     return this.isEditable;
+  }
+
+  get isFailed() {
+    return this.saveStatus === 'FAILED';
   }
 
   get isResettable() {
@@ -208,6 +212,11 @@ export default class CollectionStore {
     this.saveStatus = undefined;
   }
 
+  refresh = async () => {
+    this.collection = await this.root.api.getCollection(this.id);
+    await this.loadStories();
+  };
+
   reset() {
     this.collection = { ...this.initialCollection };
     this.init();
@@ -216,19 +225,25 @@ export default class CollectionStore {
 
   async save() {
     this.saveStatus = 'SAVING';
-    const story = this.toJSON();
-    await this.options.onSave?.(story);
-    runInAction(() => {
-      this.saveStatus = 'SUCCESS';
-      this.isEdited = false;
-    });
+    const collection = this.toJSON();
+    try {
+      await this.options.onSave?.(collection);
+      runInAction(() => {
+        this.saveStatus = 'SUCCESS';
+        this.isEdited = false;
+      });
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error(error);
+      this.saveStatus = 'FAILED';
+    }
   }
 
   toJSON() {
     return toJS(this.collection);
   }
 
-  updateField(field: EditableCollectionKeys, value: string) {
+  updateField(field: EditableCollectionKey, value: string) {
     runInAction(() => {
       this.collection[field] = value;
       this.onEdit();

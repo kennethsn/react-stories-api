@@ -4,6 +4,7 @@ import { When } from 'react-if';
 
 import useCollection from '../../hooks/useCollection';
 import CollectionHeader from '../CollectionHeader/CollectionHeader';
+import CollectionSlot from '../CollectionSlot/CollectionSlot';
 import StoryCard from '../StoryCard/StoryCard';
 import Animation from '../UI/Animation/Animation';
 import TemplatedTypography from '../UI/TemplatedTypography/TemplatedTypography';
@@ -21,6 +22,12 @@ const CollectionLayout = observer(({ children }: CollectionLayoutProps) => {
         >
           <StoryCard
             buttonLabel="View Featured Story"
+            slot={(
+              <CollectionSlot
+                component="FeaturedStoryCard"
+                story={collection.firstFeaturedStory}
+              />
+            )}
             story={collection.firstFeaturedStory}
           />
         </Animation>
@@ -32,7 +39,15 @@ const CollectionLayout = observer(({ children }: CollectionLayoutProps) => {
           animation="fadeUpLeft"
           persist
         >
-          <StoryCard story={collection.firstStory} />
+          <StoryCard
+            slot={(
+              <CollectionSlot
+                component="StoryCard"
+                story={collection.firstFeaturedStory}
+              />
+          )}
+            story={collection.firstStory}
+          />
         </Animation>
       );
     }

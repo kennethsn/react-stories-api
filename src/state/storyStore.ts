@@ -3,17 +3,18 @@ import type { FC, ReactNode } from 'react';
 
 import type {
   Button,
+  EditableStoryKey,
   GoToMomentOptions,
   Moment,
   MutableStory,
   SaveStatus,
   Story,
 } from '../types';
+import { objectsAreEqual } from '../utils';
 import { openJSON } from '../utils/url';
 import MomentsStore from './momentsStore';
 import type RootStore from './rootStore';
 
-export type EditableStoryKeys = 'description' | 'image' | 'label';
 export type StoryStoreOptions = {
   readonly branding?: ReactNode;
   readonly connectRouter?: boolean;
@@ -71,7 +72,7 @@ export default class StoryStore {
   }
 
   get getField() {
-    return (field: EditableStoryKeys) => this.story[field] ?? '';
+    return (field: EditableStoryKey) => this.story[field] ?? '';
   }
 
   get hasBranding() {
@@ -92,6 +93,10 @@ export default class StoryStore {
 
   get isDownloadable() {
     return this.isEditable;
+  }
+
+  get isFailed() {
+    return this.saveStatus === 'FAILED';
   }
 
   get isFullscreen() {
@@ -175,24 +180,46 @@ export default class StoryStore {
     this.saveStatus = undefined;
   }
 
+  pause() {
+    this.av.pause();
+  }
+
   reset() {
     this.story = { ...this.initialStory };
-    this.moments.reset();
+    this.resetMoments();
     this.isEdited = false;
+  }
+
+  resetMoments() {
+    this.moments.reset();
   }
 
   async save() {
     this.saveStatus = 'SAVING';
     const story = this.toJSON();
-    await this.options.onSave?.(story);
-    runInAction(() => {
-      this.saveStatus = 'SUCCESS';
-      this.isEdited = false;
-    });
+    try {
+      await this.options.onSave?.(story);
+      runInAction(() => {
+        this.saveStatus = 'SUCCESS';
+        this.isEdited = false;
+      });
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error(error);
+      this.saveStatus = 'FAILED';
+    }
   }
 
-  pause() {
-    this.av.pause();
+  setStory(story: Story) {
+    if (objectsAreEqual(this.story, story)) {
+      return this.story;
+    }
+    runInAction(() => {
+      this.story = story;
+      this.resetMoments();
+      this.onEdit();
+    });
+    return this.story;
   }
 
   toggleIsEditable() {
@@ -207,7 +234,7 @@ export default class StoryStore {
     });
   }
 
-  updateField(field: EditableStoryKeys, value: string) {
+  updateField(field: EditableStoryKey, value: never) {
     runInAction(() => {
       this.story[field] = value;
       this.onEdit();
