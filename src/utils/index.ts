@@ -2,6 +2,7 @@ export * from './array';
 export * from './dom';
 export * from './fullscreen';
 export * from './grid';
+export * from './keyboard';
 export * from './math';
 export * from './momentUtils';
 export * from './object';

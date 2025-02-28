@@ -13,6 +13,7 @@ const CollectionHeaderTitle = observer(() => {
       <CollectionTypography
         color="primary"
         field="name"
+        required
         variant="h2"
       />
 

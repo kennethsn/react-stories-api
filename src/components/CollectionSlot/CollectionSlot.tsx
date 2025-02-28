@@ -8,8 +8,10 @@ const CollectionSlot = observer(({ component, ...props }: CollectionSlotProps) =
   const { Component, slotIsAvailable } = useCollectionSlot(component);
   return (
     <When condition={slotIsAvailable}>
-      {/* eslint-disable-next-line react/jsx-props-no-spreading */}
-      <Component {...props} />
+      {() => (
+        // eslint-disable-next-line react/jsx-props-no-spreading
+        <Component {...props} />
+      )}
     </When>
   );
 });

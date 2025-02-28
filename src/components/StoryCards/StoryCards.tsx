@@ -10,6 +10,7 @@ export default function StoryCards(props: StoryCardsProps & { array: true }): Re
 export default function StoryCards(props: StoryCardsProps): ReactNode;
 
 export default function StoryCards({
+  enableAll,
   array,
   stories,
   slotComponent: SlotComponent,
@@ -20,6 +21,7 @@ export default function StoryCards({
       key={story.id}
       // KSN TODO: make configurable
       buttonLabel="Learn More"
+      isDisabled={enableAll ? false : undefined}
       slot={SlotComponent ? <SlotComponent story={story} /> : null}
       story={story}
       sx={styles.storyCard}

@@ -1,4 +1,13 @@
 const styles = {
+  paginationContainer: {
+    alignItems: 'center',
+    display: 'flex',
+    justifyContent: 'center',
+  },
+  searchContainer: {
+    py: 2,
+    px: { xs: 1, md: 10 },
+  },
   storiesContainer: {
     alignItems: 'center',
     justifyContent: 'center',

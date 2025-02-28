@@ -10,7 +10,7 @@ import StoryWrapper from './StoryWrapper';
 
 const Story = observer(({ story, ...props }: StoryProps) => (
   <StoryWrapper
-    key={`${story.collection_id}-${story.id}`}
+    key={`story-${story?.collection_id}-${story?.id}`}
     story={story}
       // eslint-disable-next-line react/jsx-props-no-spreading
     {...props}

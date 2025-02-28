@@ -1,3 +1,6 @@
+import type { IconButtonProps } from '@mui/material';
+
 export type ExpandIconProps = {
-  expanded: boolean;
+  readonly expanded: boolean;
+  readonly sx?: IconButtonProps['sx'];
 };

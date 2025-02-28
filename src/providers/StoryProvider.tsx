@@ -2,64 +2,47 @@ import { autorun } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import { type PropsWithChildren, useEffect } from 'react';
 import { When } from 'react-if';
-import { useSearchParams } from 'react-router-dom';
 
 import type { StoryProps } from '../components/Story/Story.types';
 import StoryContext from '../contexts/StoryContext';
-import useFormatters from '../hooks/useFormatters';
 import useStoriesAPI from '../hooks/useStoriesAPI';
-import { Moment } from '../types';
+import type StoryStore from '../state/storyStore';
+import type { Story } from '../types';
 
-type StoryProviderProps = StoryProps & PropsWithChildren;
+type StoryProviderProps = Omit<StoryProps, 'story'> & PropsWithChildren & {
+  readonly story?: Story;
+  readonly store?: StoryStore
+};
 
 const StoryProvider = observer(({
   children,
-  connectRouter,
-  defaultMomentId,
-  onChange,
-  story,
+  store,
   ...props
 }: StoryProviderProps) => {
+  const { story } = props;
+  if (!story && !store) {
+    throw new Error('Story not found.');
+  }
   const { isDebugging, stories } = useStoriesAPI();
-  const formatters = useFormatters();
-  const [searchParams, setSearchParams] = useSearchParams();
 
   useEffect(() => autorun(() => {
+    if (store) return;
     if (isDebugging) {
       // eslint-disable-next-line no-console
       console.debug('StoryProvider useEffect called');
     }
-    const handleChange = (moment: Moment) => {
-      if (connectRouter) {
-        setSearchParams(
-          { [formatters.momentQueryParamKey]: moment.id },
-          { replace: true },
-        );
-      }
-      onChange?.(moment);
-    };
-    const defaultActiveMomentId = (connectRouter ? (
-      searchParams.get(formatters.momentQueryParamKey) ?? defaultMomentId
-    ) : (
-      defaultMomentId
-    ));
-    stories.loadStory({
-      connectRouter,
-      defaultMomentId: defaultActiveMomentId,
-      onChange: handleChange,
-      story,
-      ...props,
-    });
+
+    stories.loadStory({ story: story!, ...props });
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }), [
-    onChange,
+    props.onChange,
     props.editable,
-    story,
+    props.story,
   ]);
-  const store = stories.getStory(story.id);
+  const storyStore = store ?? stories.getStory(story!.id);
   return (
-    <When condition={!!store}>
-      <StoryContext.Provider value={store!}>
+    <When condition={!!storyStore}>
+      <StoryContext.Provider value={storyStore!}>
         {children}
       </StoryContext.Provider>
     </When>

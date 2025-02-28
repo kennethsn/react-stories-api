@@ -10,6 +10,7 @@ export type StoryCardContainerProps = PropsWithChildren & {
 
 export type StoryCardProps = {
   readonly buttonLabel?: string;
+  readonly isDisabled?: boolean | undefined;
   readonly isHidingButton?: boolean;
   readonly previewButtonLabel?: string;
   readonly slot?: ReactNode;

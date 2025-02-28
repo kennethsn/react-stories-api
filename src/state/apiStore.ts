@@ -4,11 +4,12 @@ import { STORIES_SERVICES_BASE_URL } from '../constants';
 import type {
   Collection,
   CollectionId,
+  StoriesAPIStoriesQueryParams,
   StoriesAPIStoriesResponse,
   Story,
   StoryId,
 } from '../types';
-import { buildURL } from '../utils';
+import { buildURL, type QueryParams } from '../utils';
 import type RootStore from './rootStore';
 
 export type APIStoreOptions = {
@@ -38,12 +39,15 @@ export default class APIStore {
     return `${this.baseURL}/api`;
   }
 
-  async get<T>(path: string, queryParams?: Record<string, string | number>): Promise<T> {
+  /**
+   * @throws {{ code: number}}
+   */
+  async get<T>(path: string, queryParams?: QueryParams): Promise<T> {
     const url = buildURL(this.url, path, { ...this.baseQueryParams, ...queryParams });
     const response = await fetch(url.toString());
     const data = await response.json();
     if (!response.ok) {
-      throw new Error(data?.detail ?? `Error fetching data: ${response.statusText}`);
+      throw { ...data, code: response.status };
     }
     return data;
   }
@@ -52,8 +56,8 @@ export default class APIStore {
     return this.get<Collection>(`/collections/${collectionId}`);
   }
 
-  async getStories(collectionId: CollectionId) {
-    return this.get<StoriesAPIStoriesResponse>(`/collections/${collectionId}/stories`);
+  async getStories(collectionId: CollectionId, options?: StoriesAPIStoriesQueryParams) {
+    return this.get<StoriesAPIStoriesResponse>(`/collections/${collectionId}/stories`, options);
   }
 
   async getStory(collectionId: CollectionId, storyId: StoryId) {

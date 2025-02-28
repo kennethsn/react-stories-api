@@ -135,10 +135,6 @@ export default class StoryStore {
     return this.isSaved ? 'Story Saved Successfully!' : `Save "${this.label}" Story`;
   }
 
-  get shouldConnectRouter() {
-    return !!this.options.connectRouter;
-  }
-
   get shouldShowActions() {
     return this.isPlaying || this.isDownloadable || this.isSavable;
   }

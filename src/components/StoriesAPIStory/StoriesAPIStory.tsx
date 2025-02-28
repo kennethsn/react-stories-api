@@ -1,53 +1,91 @@
 import { autorun } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import { lazy, Suspense, useEffect } from 'react';
-import { Else, If, Then } from 'react-if';
-import { useParams } from 'react-router-dom';
+import { Case, Switch } from 'react-if';
+import { useParams, useSearchParams } from 'react-router-dom';
 
+import useFormatters from '../../hooks/useFormatters';
 import useStories from '../../hooks/useStories';
+import { StoryProvider } from '../../providers';
+import type { Moment } from '../../types';
+import StoryError from '../StoryError/StoryError';
+import StoryLoader from '../StoryLoader/StoryLoader';
 import type { StoriesAPIStoryProps } from './StoriesAPIStory.types';
 
-// TODO: No Story Data or Error
 // TODO: API Task handling
-// TODO: Loading UI
 
 const Story = lazy(() => import('../Story/Story'));
 
-const StoriesAPIStory = observer(({
-  connectRouter,
-  ...props
-}: StoriesAPIStoryProps) => {
+const StoriesAPIStory = observer((props: StoriesAPIStoryProps) => {
+  const {
+    connectRouter,
+    defaultMomentId,
+    editable,
+    fullscreen: isFullscreen,
+    onChange,
+  } = props;
   const routeParams = useParams<{ collectionId: string, storyId: string }>();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const formatters = useFormatters();
   const stories = useStories();
   const collectionId = connectRouter ? Number(routeParams.collectionId) : props.collectionId!;
   const storyId = connectRouter ? routeParams.storyId : props.storyId;
   if (!storyId || !collectionId) {
     throw new Error('Story or Collection not found.');
   }
+  const defaultActiveMomentId = (connectRouter ? (
+    searchParams.get(formatters.momentQueryParamKey) ?? defaultMomentId
+  ) : (
+    defaultMomentId
+  ));
+
+  const handleChange = (moment: Moment) => {
+    onChange?.(moment);
+    if (connectRouter) {
+      setSearchParams(
+        { [formatters.momentQueryParamKey]: moment.id },
+        { replace: true },
+      );
+    }
+  };
+
   useEffect(() => autorun(() => {
-    stories.fetchAndLoadStory(collectionId, storyId, props);
+    stories.fetchAndLoadStory(collectionId, storyId, {
+      ...props,
+      connectRouter,
+      defaultMomentId: defaultActiveMomentId,
+      onChange: handleChange,
+    });
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }), [collectionId, storyId, props.editable]);
+  }), [collectionId, storyId, editable]);
 
   const story = stories.getStory(storyId!);
-  return (
-    <Suspense fallback={<div>{/* TODO: Loader & Error handling */}</div>}>
-      <If condition={!!story}>
-        <Then>
-          {() => (
-            <Story
-              connectRouter={connectRouter}
-              // eslint-disable-next-line react/jsx-props-no-spreading
-              {...props}
-              story={story!.story}
-            />
-          )}
-        </Then>
 
-        <Else>
-          {/* TODO: Loader & Error handling */}
-        </Else>
-      </If>
+  const loader = <StoryLoader isFullscreen={isFullscreen} />;
+
+  return (
+    <Suspense fallback={loader}>
+      <Switch>
+        <Case condition={stories.isStoryLoaded(storyId)}>
+          {() => (
+            <StoryProvider story={story!.story}>
+              <Story />
+            </StoryProvider>
+          )}
+        </Case>
+
+        <Case condition={stories.isStoryError(storyId)}>
+          <StoryError
+            collectionId={collectionId}
+            isFullscreen={isFullscreen}
+            storyId={storyId}
+          />
+        </Case>
+
+        <Case condition={stories.isStoryLoading(storyId)}>
+          {loader}
+        </Case>
+      </Switch>
     </Suspense>
   );
 });

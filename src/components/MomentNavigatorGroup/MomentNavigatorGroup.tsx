@@ -34,7 +34,10 @@ const MomentNavigatorGroup = observer(({ momentGroup }: MomentNavigatorGroupProp
           onClick={handleGroupButtonClick}
           sx={styles.subheader}
         >
-          <ExpandIcon expanded={groupIsExpanded} />
+          <ExpandIcon
+            expanded={groupIsExpanded}
+            sx={styles.expandIcon}
+          />
 
           <EditableTypography
             color="primary"

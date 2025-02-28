@@ -1,3 +1,5 @@
+export const COLLECTION_STORIES_DEFAULT_PAGE_SIZE = 24;
+export const COLLECTION_SEARCH_MIN_THRESHOLD = 3;
 export const COLOR_HEX_REGEX = /^#([0-9A-Fa-f]{3}){1,2}([0-9A-Fa-f]{2})?$/;
 export const FORMATTER_TEMPLATE_REGEX = /\{(\w+)\}/g;
 export const GRID_MAX_SIZE = 12;

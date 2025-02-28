@@ -5,7 +5,7 @@ import Typography from '@mui/material/Typography';
 import { Unless, When } from 'react-if';
 
 import type { Button } from '../../types';
-import { isStoryPreviewing } from '../../utils';
+import { isStoryPreviewing, isStoryUnpublished } from '../../utils';
 import { StoriesAPIButton } from '../StoriesAPIButton';
 import styles from './StoryCard.styles';
 import type { StoryCardProps } from './StoryCard.types';
@@ -13,6 +13,7 @@ import StoryCardContainer from './StoryCardContainer';
 
 export default function StoryCard({
   buttonLabel = 'View Story', // KSN TODO: connect this to formatters
+  isDisabled,
   isHidingButton = false,
   previewButtonLabel = 'Coming Soon', // KSN TODO: connect this to formatters
   slot,
@@ -22,7 +23,7 @@ export default function StoryCard({
   const storyIsPreviewing = isStoryPreviewing(story);
   const button: Button = {
     collectionId: story.collection_id,
-    is_disabled: storyIsPreviewing,
+    is_disabled: typeof isDisabled === 'boolean' ? isDisabled : isStoryUnpublished(story),
     label: storyIsPreviewing ? previewButtonLabel : buttonLabel,
     storyId: story.id,
   };

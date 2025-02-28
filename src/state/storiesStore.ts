@@ -4,13 +4,21 @@ import type { CollectionId, StoryId } from '../types';
 import type RootStore from './rootStore';
 import StoryStore, { type StoryStoreOptions } from './storyStore';
 
+type StoryFetchState = {
+  readonly errorCode?: number;
+  readonly status: 'loading' | 'error' | 'success';
+};
+
 export default class StoriesStore {
   private stories: Map<StoryId, StoryStore>;
+
+  private storyFetchStates: Map<StoryId, StoryFetchState>;
 
   constructor(public root: RootStore) {
     makeAutoObservable(this);
     this.root = root;
     this.stories = new Map();
+    this.storyFetchStates = new Map();
   }
 
   get storyIds() {
@@ -28,16 +36,23 @@ export default class StoriesStore {
     storyId: StoryId,
     storyOptions: Omit<StoryStoreOptions, 'story'>,
   ) {
-    // TODO: handle loading
-    // TODO: handle error
     const story = await this.fetchStory(collectionId, storyId);
     if (story) {
       this.loadStory({ ...storyOptions, story });
     }
   }
 
-  fetchStory(collectionId: CollectionId, storyId: StoryId) {
-    return this.root.api.getStory(collectionId, storyId);
+  async fetchStory(collectionId: CollectionId, storyId: StoryId) {
+    this.updateStoryFetchState(storyId, { status: 'loading' });
+    try {
+      const story = await this.root.api.getStory(collectionId, storyId);
+      this.updateStoryFetchState(storyId, { status: 'success' });
+      return story;
+    } catch (error) {
+      const errorCode = (error as { code: number }).code ?? 500;
+      this.updateStoryFetchState(storyId, { errorCode, status: 'error' });
+      throw error;
+    }
   }
 
   getOrAddStory(storyOptions: StoryStoreOptions) {
@@ -52,8 +67,28 @@ export default class StoriesStore {
     return this.stories.get(storyId);
   }
 
+  getStoryFetchErrorCode(storyId: StoryId) {
+    return this.getStoryFetchState(storyId)?.errorCode;
+  }
+
+  getStoryFetchState(storyId: StoryId) {
+    return this.storyFetchStates.get(storyId);
+  }
+
+  getStoryFetchStatus(storyId: StoryId) {
+    return this.getStoryFetchState(storyId)?.status;
+  }
+
+  isStoryError(storyId: StoryId) {
+    return this.getStoryFetchStatus(storyId) === 'error';
+  }
+
   isStoryLoaded(storyId: StoryId) {
     return this.stories.has(storyId);
+  }
+
+  isStoryLoading(storyId: StoryId) {
+    return this.getStoryFetchStatus(storyId) === 'loading';
   }
 
   loadStory(storyOptions: StoryStoreOptions) {
@@ -64,5 +99,9 @@ export default class StoriesStore {
 
   removeStory(storyId: StoryId) {
     this.stories.delete(storyId);
+  }
+
+  updateStoryFetchState(storyId: StoryId, fetchState: StoryFetchState) {
+    this.storyFetchStates.set(storyId, fetchState);
   }
 }

@@ -41,7 +41,6 @@ export default class CollectionsStore {
     if (this.hasCollection(collectionId)) {
       return;
     }
-    // TODO: handle loading
     // TODO: handle error
     const collection = await this.root.api.getCollection(collectionId);
     if (collection) {

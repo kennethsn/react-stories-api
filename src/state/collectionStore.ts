@@ -1,32 +1,46 @@
 import {
   makeAutoObservable,
-  reaction,
   runInAction,
   toJS,
 } from 'mobx';
 import type { FC } from 'react';
 
 import type { CollectionSlotProps } from '../components/CollectionSlot/CollectionSlot.types';
+import { COLLECTION_SEARCH_MIN_THRESHOLD, COLLECTION_STORIES_DEFAULT_PAGE_SIZE } from '../constants';
 import type {
   Collection,
   DataSource,
   EditableCollectionKey,
   MutableCollection,
   SaveStatus,
+  StoriesAPIStoriesResponse,
+  StoryStatus,
 } from '../types';
 import { buildDynamicGridSize } from '../utils/grid';
 import { openJSON } from '../utils/url';
 import type RootStore from './rootStore';
 
 export type CollectionStoreOptions = {
+  // Forces search to be enabled regardless of the number of stories
+  readonly alwaysEnableSearch?: boolean;
   readonly collection: Collection;
   readonly editable?: boolean;
+  // Allow clicking on stories that do not have a 'PUBLISHED' status
+  readonly enableAllStories?: boolean;
+  readonly onPageChange?: (page: number, collection: CollectionStore) => Promise<void>;
   readonly onSave?: (collection: Collection) => Promise<void>;
+  readonly onSearch?: (searchInput: string, collection: CollectionStore) => Promise<void>;
+  readonly page?: number;
+  readonly searchInput?: string;
   readonly slots?: { [key: string]: FC<Omit<CollectionSlotProps, 'component'>> };
   readonly source?: DataSource;
 };
 
+const defaultPageNumber = 1;
+
 export default class CollectionStore {
+  allStoriesAreEnabled: boolean;
+
   collection: MutableCollection;
 
   private initialCollection: Collection;
@@ -35,19 +49,30 @@ export default class CollectionStore {
 
   isEdited: boolean = false;
 
-  page = 1;
+  page = defaultPageNumber;
+
+  pageSize = COLLECTION_STORIES_DEFAULT_PAGE_SIZE; // TODO: make this configurable
 
   saveStatus?: SaveStatus;
 
+  searchInput = '';
+
   private source: DataSource = 'local';
+
+  private storiesAPIResponse?: StoriesAPIStoriesResponse;
 
   storiesAreLoading = false;
 
+  storyStatuses?: StoryStatus[];
+
   constructor(public root: RootStore, public options: CollectionStoreOptions) {
     makeAutoObservable(this);
+    this.allStoriesAreEnabled = !!options.enableAllStories;
+    this.collection = { ...options.collection };
     this.initialCollection = options.collection;
     this.isEditable = !!options.editable;
-    this.collection = { ...options.collection };
+    this.page = options.page ?? defaultPageNumber;
+    this.searchInput = options.searchInput ?? '';
     this.source = options.source ?? 'local';
     this.root = root;
   }
@@ -136,12 +161,41 @@ export default class CollectionStore {
     return this.saveStatus === 'SAVING';
   }
 
+  get lastPage() {
+    return this.storiesAPIResponse?.last_page ?? defaultPageNumber;
+  }
+
   get name() {
     return this.collection.name;
   }
 
+  get noCurrentStories() {
+    return this.storiesCount === 0;
+  }
+
+  get overrideTotalStoriesCount() {
+    return this.searchIsEnabled ? (
+      Math.max(this.totalStoriesCount, COLLECTION_SEARCH_MIN_THRESHOLD)
+    ) : this.totalStoriesCount;
+  }
+
+  get searchIsEnabled() {
+    return !!this.options.onSearch && (
+      this.options.alwaysEnableSearch
+      || this.totalStoriesCount >= COLLECTION_SEARCH_MIN_THRESHOLD
+    );
+  }
+
+  get shouldShowNoResultsMessage() {
+    return this.noCurrentStories && !this.storiesAreLoading;
+  }
+
+  get shouldShowPagination() {
+    return this.lastPage > 1;
+  }
+
   get shouldShowStoriesList() {
-    return this.totalStoriesCount > 1;
+    return this.searchIsEnabled || this.totalStoriesCount > 1;
   }
 
   get slots() {
@@ -149,7 +203,7 @@ export default class CollectionStore {
   }
 
   get stories() {
-    return this.collection.stories ?? [];
+    return this.storiesAPIResponse?.stories ?? this.collection.stories ?? [];
   }
 
   get storiesCount() {
@@ -165,11 +219,20 @@ export default class CollectionStore {
   }
 
   get totalStoriesCount() {
-    return this.collection.total_stories_count ?? this.storiesCount;
+    return (
+      this.storiesAPIResponse?.total_count
+        ?? this.collection.total_stories_count
+        ?? this.storiesCount
+    );
   }
 
   get sourceIsAPI() {
     return this.source === 'api';
+  }
+
+  async changePage(page: number) {
+    this.setPage(page);
+    await this.loadStories();
   }
 
   download() {
@@ -183,7 +246,7 @@ export default class CollectionStore {
 
   init() {
     if (this.sourceIsAPI) {
-      reaction(this.watchLoadStoriesOptions, this.loadStoriesEffect, { fireImmediately: true });
+      this.loadStories();
     }
   }
 
@@ -193,19 +256,18 @@ export default class CollectionStore {
 
   async loadStories() {
     this.storiesAreLoading = true;
-    const { stories, total_count: totalCount } = await this.root.api.getStories(this.id);
+    const options = {
+      page: this.page,
+      page_size: this.pageSize,
+      q: this.searchInput || undefined,
+      statuses: this.storyStatuses,
+    };
+    const storiesAPIResponse = await this.root.api.getStories(this.id, options);
     runInAction(() => {
-      // @ts-expect-error editing a read-only value
-      this.collection.total_stories_count = totalCount;
-      // @ts-expect-error editing a read-only value
-      this.collection.stories = stories;
+      this.storiesAPIResponse = storiesAPIResponse;
       this.storiesAreLoading = false;
     });
   }
-
-  loadStoriesEffect = () => {
-    this.loadStories();
-  };
 
   onEdit() {
     this.isEdited = true;
@@ -221,6 +283,10 @@ export default class CollectionStore {
     this.collection = { ...this.initialCollection };
     this.init();
     this.isEdited = false;
+  }
+
+  resetPage() {
+    this.setPage(defaultPageNumber);
   }
 
   async save() {
@@ -239,6 +305,23 @@ export default class CollectionStore {
     }
   }
 
+  async search() {
+    this.resetPage();
+    await this.loadStories();
+  }
+
+  setPage(page: number) {
+    this.page = page;
+  }
+
+  setSearchInput(input: string) {
+    this.searchInput = input;
+  }
+
+  setStoryStatuses(statuses: StoryStatus[]) {
+    this.storyStatuses = statuses;
+  }
+
   toJSON() {
     return toJS(this.collection);
   }
@@ -248,9 +331,5 @@ export default class CollectionStore {
       this.collection[field] = value;
       this.onEdit();
     });
-  }
-
-  watchLoadStoriesOptions() {
-    return { page: this.page };
   }
 }

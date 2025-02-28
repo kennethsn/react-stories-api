@@ -1,7 +1,7 @@
 import type { GoToPathFn } from '../types';
 import { strip } from './string';
 
-export type QueryParams = Record<string, string | undefined>;
+export type QueryParams = Record<string, number | string | string[] | undefined>;
 
 export const addQueryParams = (
   url: string,
@@ -10,7 +10,7 @@ export const addQueryParams = (
   const urlObj = new URL(url);
   Object.entries(params).forEach(([key, value]) => {
     if (value === undefined) return;
-    urlObj.searchParams.append(key, value);
+    urlObj.searchParams.append(key, value as string);
   });
   return urlObj.toString();
 };

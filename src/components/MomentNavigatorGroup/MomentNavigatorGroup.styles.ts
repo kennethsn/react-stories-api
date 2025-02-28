@@ -1,4 +1,18 @@
 const styles = {
+  expandIcon: {
+    ml: -0.5,
+    mr: 1,
+    p: 0,
+    transition: 'transform 0.2s',
+
+    '&:hover': {
+      transform: 'scale(1.2)',
+    },
+
+    '.MuiSvgIcon-root': {
+      m: 0,
+    },
+  },
   groupContainer: {
     borderLeft: '1px solid',
     borderLeftColor: 'primary.main',

@@ -242,8 +242,16 @@ export type StoriesAPIFormatters = {
   readonly storyPath: string;
 };
 
+export type StoriesAPIStoriesQueryParams = {
+  readonly page?: number;
+  readonly per_size?: number;
+  readonly q?: string;
+  readonly statuses?: StoryStatus[];
+};
+
 export type StoriesAPIStoriesResponse = {
   readonly count: number;
+  readonly last_page: number;
   readonly stories: StorySummary[];
   readonly total_count: number;
 };

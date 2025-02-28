@@ -8,4 +8,7 @@ export * from './Story';
 export * from './StoryCard';
 export * from './UI/ActionButton';
 export * from './UI/Animation';
+export * from './UI/ConditionalIconButton';
 export * from './UI/EditableTypography';
+export * from './UI/SearchInput';
+export * from './UI/StatusPage';
