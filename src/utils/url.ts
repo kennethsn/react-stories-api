@@ -1,7 +1,7 @@
 import type { GoToPathFn } from '../types';
 import { strip } from './string';
 
-export type QueryParams = Record<string, number | string | string[] | undefined>;
+export type QueryParams = Record<string, number | string | string[] | boolean | undefined>;
 
 export const addQueryParams = (
   url: string,
@@ -80,3 +80,5 @@ export const openJSON = (json: Record<string, unknown>) => {
 export const openNewTab = (url: string): void => {
   window.open(url, '_blank');
 };
+
+export const stripTrailingSlash = (url: string): string => url.replace(/\/+$/, '');

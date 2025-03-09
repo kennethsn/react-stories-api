@@ -13,8 +13,8 @@ import type {
   EditableCollectionKey,
   MutableCollection,
   SaveStatus,
+  StoriesAPIStatus,
   StoriesAPIStoriesResponse,
-  StoryStatus,
 } from '../types';
 import { buildDynamicGridSize } from '../utils/grid';
 import { openJSON } from '../utils/url';
@@ -63,7 +63,7 @@ export default class CollectionStore {
 
   storiesAreLoading = false;
 
-  storyStatuses?: StoryStatus[];
+  storyStatuses?: StoriesAPIStatus[];
 
   constructor(public root: RootStore, public options: CollectionStoreOptions) {
     makeAutoObservable(this);
@@ -75,6 +75,19 @@ export default class CollectionStore {
     this.searchInput = options.searchInput ?? '';
     this.source = options.source ?? 'local';
     this.root = root;
+  }
+
+  get badge() {
+    if (this.collection.badge) {
+      return this.collection.badge;
+    }
+    if (this.isPreview) {
+      return 'Coming Soon';
+    }
+    if (this.isFeatured) {
+      return 'Featured';
+    }
+    return null;
   }
 
   get description() {
@@ -109,12 +122,20 @@ export default class CollectionStore {
     return buildDynamicGridSize(this.featuredStoriesCount);
   }
 
+  get hasBadge() {
+    return !!this.badge;
+  }
+
   get hasDescription() {
     return !!this.description;
   }
 
   get hasFeaturedStories() {
     return this.featuredStoriesCount > 0;
+  }
+
+  get hasImage() {
+    return !!this.image;
   }
 
   get hasOneFeaturedStory() {
@@ -143,6 +164,18 @@ export default class CollectionStore {
 
   get isFailed() {
     return this.saveStatus === 'FAILED';
+  }
+
+  get isFeatured() {
+    return this.collection.is_featured;
+  }
+
+  get isPreview() {
+    return this.status === 'PREVIEW';
+  }
+
+  get isPublished() {
+    return this.status === 'PUBLISHED';
   }
 
   get isResettable() {
@@ -200,6 +233,10 @@ export default class CollectionStore {
 
   get slots() {
     return this.options.slots;
+  }
+
+  get status() {
+    return this.collection.status;
   }
 
   get stories() {
@@ -318,7 +355,7 @@ export default class CollectionStore {
     this.searchInput = input;
   }
 
-  setStoryStatuses(statuses: StoryStatus[]) {
+  setStoryStatuses(statuses: StoriesAPIStatus[]) {
     this.storyStatuses = statuses;
   }
 
@@ -328,8 +365,16 @@ export default class CollectionStore {
 
   updateField(field: EditableCollectionKey, value: string) {
     runInAction(() => {
-      this.collection[field] = value;
+      this.collection[field] = value as never;
       this.onEdit();
     });
+  }
+
+  updatePageTitle() {
+    const title = this.root.formatters.formatCollectionPageTitle({
+      collectionId: this.id,
+      collectionName: this.name,
+    });
+    this.root.dom.updatePageTitle(title);
   }
 }

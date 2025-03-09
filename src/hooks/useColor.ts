@@ -1,8 +1,8 @@
 import { useTheme } from '@mui/material/styles';
 
 import type { Color } from '../types';
-import { buildThemeColorOverrideOptions } from '../utils';
 import { processColor } from '../utils/color';
+import { buildThemeColorOverrideOptions } from '../utils/themeUtils';
 
 export default function useColor(color?: Color) {
   const theme = useTheme();

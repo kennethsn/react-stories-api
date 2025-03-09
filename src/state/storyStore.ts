@@ -10,7 +10,7 @@ import type {
   SaveStatus,
   Story,
 } from '../types';
-import { objectsAreEqual } from '../utils';
+import { objectsAreEqual } from '../utils/object';
 import { openJSON } from '../utils/url';
 import MomentsStore from './momentsStore';
 import type RootStore from './rootStore';
@@ -65,6 +65,10 @@ export default class StoryStore {
 
   get collectionId() {
     return this.story.collection_id;
+  }
+
+  get collectionName() {
+    return this.story.collection_name;
   }
 
   get description() {
@@ -127,16 +131,20 @@ export default class StoryStore {
     return this.story.label;
   }
 
-  get slots() {
-    return this.options.slots;
-  }
-
   get saveButtonTitle() {
     return this.isSaved ? 'Story Saved Successfully!' : `Save "${this.label}" Story`;
   }
 
   get shouldShowActions() {
     return this.isPlaying || this.isDownloadable || this.isSavable;
+  }
+
+  get slots() {
+    return this.options.slots;
+  }
+
+  get status() {
+    return this.story.status;
   }
 
   download() {
@@ -235,5 +243,15 @@ export default class StoryStore {
       this.story[field] = value;
       this.onEdit();
     });
+  }
+
+  updatePageTitle() {
+    const title = this.root.formatters.formatStoryPageTitle({
+      collectionId: this.collectionId,
+      collectionName: this.collectionName,
+      storyId: this.id,
+      storyLabel: this.label,
+    });
+    this.root.dom.updatePageTitle(title);
   }
 }

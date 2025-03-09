@@ -4,12 +4,14 @@ import { STORIES_SERVICES_BASE_URL } from '../constants';
 import type {
   Collection,
   CollectionId,
+  StoriesAPICollectionsQueryParams,
+  StoriesAPICollectionsResponse,
   StoriesAPIStoriesQueryParams,
   StoriesAPIStoriesResponse,
   Story,
   StoryId,
 } from '../types';
-import { buildURL, type QueryParams } from '../utils';
+import { buildURL, type QueryParams } from '../utils/url';
 import type RootStore from './rootStore';
 
 export type APIStoreOptions = {
@@ -54,6 +56,10 @@ export default class APIStore {
 
   async getCollection(collectionId: CollectionId) {
     return this.get<Collection>(`/collections/${collectionId}`);
+  }
+
+  async getCollections(options: StoriesAPICollectionsQueryParams) {
+    return this.get<StoriesAPICollectionsResponse>('/collections', options);
   }
 
   async getStories(collectionId: CollectionId, options?: StoriesAPIStoriesQueryParams) {

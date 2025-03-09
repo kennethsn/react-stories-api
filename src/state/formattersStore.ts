@@ -1,8 +1,9 @@
 import { makeAutoObservable } from 'mobx';
 
 import defaultFormatters from '../configs/formattersConfig';
-import type { StoriesAPIFormatters } from '../types';
-import { deepMerge } from '../utils';
+import type { CollectionId, StoriesAPIFormatters, StoryId } from '../types';
+import { deepMerge } from '../utils/object';
+import { formatString } from '../utils/string';
 import type RootStore from './rootStore';
 
 export default class FormattersStore {
@@ -14,11 +15,35 @@ export default class FormattersStore {
     this.root = root;
   }
 
+  get collectionPath() {
+    return this.formatters.collectionPath;
+  }
+
   get collectionStoriesListHeader() {
     return this.formatters.collectionStoriesListHeader;
   }
 
   get momentQueryParamKey() {
     return this.formatters.momentQueryParamKey;
+  }
+
+  get storyPath() {
+    return this.formatters.storyPath;
+  }
+
+  formatCollectionPageTitle(options: {
+    readonly collectionId: CollectionId;
+    readonly collectionName: string;
+  }) {
+    return formatString(this.formatters.collectionPageTitle, options);
+  }
+
+  formatStoryPageTitle(options: {
+    readonly collectionId: CollectionId;
+    readonly collectionName: string;
+    readonly storyId: StoryId;
+    readonly storyLabel: string;
+  }) {
+    return formatString(this.formatters.storyPageTitle, options);
   }
 }

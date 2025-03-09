@@ -2,7 +2,7 @@ import { autorun } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import { lazy, Suspense, useEffect } from 'react';
 import { Case, Switch } from 'react-if';
-import { useParams, useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 
 import useFormatters from '../../hooks/useFormatters';
 import useStories from '../../hooks/useStories';
@@ -24,12 +24,15 @@ const StoriesAPIStory = observer((props: StoriesAPIStoryProps) => {
     fullscreen: isFullscreen,
     onChange,
   } = props;
-  const routeParams = useParams<{ collectionId: string, storyId: string }>();
   const [searchParams, setSearchParams] = useSearchParams();
   const formatters = useFormatters();
   const stories = useStories();
-  const collectionId = connectRouter ? Number(routeParams.collectionId) : props.collectionId!;
-  const storyId = connectRouter ? routeParams.storyId : props.storyId;
+  let { collectionId, storyId } = props;
+  if (connectRouter) {
+    const routeParams = stories.getStoryRouteParams();
+    collectionId = routeParams.collectionId;
+    storyId = routeParams.storyId;
+  }
   if (!storyId || !collectionId) {
     throw new Error('Story or Collection not found.');
   }
@@ -49,13 +52,16 @@ const StoriesAPIStory = observer((props: StoriesAPIStoryProps) => {
     }
   };
 
-  useEffect(() => autorun(() => {
-    stories.fetchAndLoadStory(collectionId, storyId, {
+  useEffect(() => autorun(async () => {
+    const storyStore = await stories.fetchAndLoadStory(collectionId, storyId, {
       ...props,
       connectRouter,
       defaultMomentId: defaultActiveMomentId,
       onChange: handleChange,
     });
+    if (connectRouter) {
+      storyStore?.updatePageTitle();
+    }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }), [collectionId, storyId, editable]);
 

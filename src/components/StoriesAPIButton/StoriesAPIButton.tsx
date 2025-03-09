@@ -2,7 +2,7 @@ import Button, { type ButtonProps } from '@mui/material/Button';
 
 import useColor from '../../hooks/useColor';
 import useStoriesAPINavigation from '../../hooks/useStoriesAPINavigation';
-import { deepMerge } from '../../utils';
+import { deepMerge } from '../../utils/object';
 import ThemeOverride from '../UI/ThemeOverride/ThemeOverride';
 import styles from './StoriesAPIButton.styles';
 import type { StoriesAPIButtonProps } from './StoriesAPIButton.types';

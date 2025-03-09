@@ -14,3 +14,8 @@ export const getRelativeHeight = (
   const height = getElementHeight(ref);
   return getRelativeValue(height, value, algorithm);
 };
+
+export const setPageTitle = (document: Document, title: string) => {
+  // eslint-disable-next-line no-param-reassign
+  document.title = title;
+};

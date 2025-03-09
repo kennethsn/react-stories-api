@@ -1,0 +1,37 @@
+[
+  {
+    "id": 3,
+    "badge": null,
+    "is_featured": true,
+    "name": "They Lived at The Yale Club",
+    "subtitle": "Living at the Yale Club: a Three-Part Series",
+    "description": "This exhibit, \"They Lived at The Yale Club,\" was mounted in the Yale Club Library from June-November, 2024 and accompanied two lectures presented by Caroline Bartels, Yale Club Librarian & Archives Manager, on June 12 and July 10, 2024.\n\nUsing Council, House, and Library & Arts Committee Minutes, Class Books and subsequent reunion volumes, The Alumni Weekly, The Yale Daily News, articles from national newspapers, and the Club’s rich body of archival materials, the exhibit and lectures serve to tell the story of nearly fifty men who graduated between 1878 and 1928 and who called The Yale Club home. Some of these men lived at the various iterations of the Club for only a few years. Others spent their entire adult lives here, even passing away while living at the Club.\n\nThe exhibit highlights The Yale Club’s three locations: 17 Madison Square North, 30 West Forty-fourth Street, and our current home at 50 Vanderbilt Avenue. For many of the members featured here, they began living in one location and moved on as the subsequent locations were built and opened.\n\nThe exploration of the lives of these members helps tell the story of life in New York City, predominantly in the first half of the 20th century, and of the role that The Yale Club played in the history of the city at this time.",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Yale_Club_Exterior.tif/lossy-page1-1200px-Yale_Club_Exterior.tif.jpg",
+    "status": "PUBLISHED"
+  },
+  {
+    "id": 4,
+    "badge": "New",
+    "name": "Yale Club Day",
+    "subtitle": "Yale Club Member, 1913-1921",
+    "description": "The first in a series of articles about notable Yale alumni who lived at the Yale Club of New York City.",
+    "image": "https://stories-api-test.s3.amazonaws.com/temp/They+Lived+at+the+Yale+Club/Yale+Club+Day+banquet.png",
+    "status": "PUBLISHED"
+  },
+  {
+    "id": 5,
+    "badge": "New",
+    "name": "Yale Club in World War I",
+    "subtitle": "Remembering those who served and their connection to The Club",
+    "description": "Remembering those who served and their connection to The Club.",
+    "status": "DRAFT"
+  },
+  {
+    "id": 6,
+    "name": "Art at The Club",
+    "subtitle": "Exploring The Yale Club's Portraits and Decorative Arts",
+    "description": "The first in a series of articles about notable Yale alumni who lived at the Yale Club of New York City.",
+    "image": "https://media.licdn.com/dms/image/v2/C5622AQHmo4kGdPBEwQ/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1677701111400?e=2147483647&v=beta&t=qNRvuwNHJXs3wkWoxDpWkSoH3OffaTFJBbKVmOO0NB8",
+    "status": "PREVIEW"
+  }
+]

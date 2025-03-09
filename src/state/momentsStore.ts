@@ -8,7 +8,8 @@ import type {
   MomentGroup,
   MutableMoment,
 } from '../types';
-import { buildMap, getElementHeight, getRelativeHeight } from '../utils';
+import { buildMap } from '../utils/array';
+import { getElementHeight, getRelativeHeight } from '../utils/dom';
 import { generateMomentGroupId, groupMoments, processInputMoments } from '../utils/momentUtils';
 import type MomentStore from './momentStore';
 import type RootStore from './rootStore';

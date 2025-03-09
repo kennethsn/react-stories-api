@@ -4,7 +4,7 @@ import ListSubheader from '@mui/material/ListSubheader';
 import { observer } from 'mobx-react-lite';
 
 import useMoments from '../../hooks/useMoments';
-import { cleanInputValue } from '../../utils';
+import { cleanInputValue } from '../../utils/string';
 import MomentNavigatorListItem from '../MomentNavigatorListItem/MomentNavigatorListItem';
 import EditableTypography from '../UI/EditableTypography/EditableTypography';
 import ExpandIcon from '../UI/ExpandIcon/ExpandIcon';

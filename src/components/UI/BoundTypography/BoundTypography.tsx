@@ -5,13 +5,14 @@ import EditableTypography from '../EditableTypography/EditableTypography';
 import type { BoundTypographyProps } from './BoundTypography.types';
 
 const BoundTypography = observer(<T extends string>({
+  computed,
   disabled,
   field,
   required,
   store,
   ...props
 }: BoundTypographyProps<T>) => {
-  const getValue = () => toString(store.getField(field));
+  const getValue = () => toString(computed ? store[field as never] : store.getField(field));
 
   const handleBlur = (value: string) => {
     const cleanedValue = cleanInputValue(value, getValue());

@@ -3,10 +3,11 @@ import { makeAutoObservable } from 'mobx';
 import { type Context, createContext } from 'react';
 
 import MomentConfigMap from '../configs/momentConfig';
-import type { StoriesAPIFormatters } from '../types';
+import type { ProjectId, StoriesAPIFormatters } from '../types';
 import APIStore, { type APIStoreOptions } from './apiStore';
 import AVStore from './avStore';
 import CollectionsStore from './collectionsStore';
+import DOMStore from './domStore';
 import FormattersStore from './formattersStore';
 import StoriesStore from './storiesStore';
 import ThemeStore from './themeStore';
@@ -14,6 +15,7 @@ import ThemeStore from './themeStore';
 export type RootStoreOptions = {
   readonly api?: APIStoreOptions;
   readonly formatters?: Partial<StoriesAPIFormatters>;
+  readonly projectId?: ProjectId;
   readonly goToPath?: (path: string) => void;
   readonly isDebugging?: boolean;
   readonly isMobile?: boolean;
@@ -29,6 +31,8 @@ export default class RootStore {
 
   static contextInstance: Context<RootStore>;
 
+  dom: DOMStore;
+
   formatters: FormattersStore;
 
   goToPath?: (path: string) => void;
@@ -36,6 +40,8 @@ export default class RootStore {
   isDebugging = false;
 
   momentConfigMap = MomentConfigMap;
+
+  projectId?: ProjectId;
 
   stories: StoriesStore;
 
@@ -47,17 +53,20 @@ export default class RootStore {
     goToPath,
     isDebugging = false,
     isMobile,
+    projectId,
     themeOptions,
   }: RootStoreOptions = {}) {
     makeAutoObservable(this);
     this.api = new APIStore(this, api);
     this.av = new AVStore(this);
     this.collections = new CollectionsStore(this);
+    this.dom = new DOMStore(this);
     this.formatters = new FormattersStore(this, formatters);
     this.goToPath = goToPath;
     this.stories = new StoriesStore(this);
     this.theme = new ThemeStore(this, { isMobile, themeOptions });
     this.isDebugging = isDebugging;
+    this.projectId = projectId;
   }
 
   static initContext() {

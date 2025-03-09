@@ -2,7 +2,7 @@ import Card from '@mui/material/Card';
 import CardActionArea from '@mui/material/CardActionArea';
 
 import useStoriesAPINavigation from '../../hooks/useStoriesAPINavigation';
-import { deepMerge } from '../../utils';
+import { deepMerge } from '../../utils/object';
 import styles from './StoryCard.styles';
 import type { StoryCardContainerProps } from './StoryCard.types';
 

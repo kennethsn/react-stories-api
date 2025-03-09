@@ -38,8 +38,9 @@ export default class StoriesStore {
   ) {
     const story = await this.fetchStory(collectionId, storyId);
     if (story) {
-      this.loadStory({ ...storyOptions, story });
+      return this.loadStory({ ...storyOptions, story });
     }
+    return undefined;
   }
 
   async fetchStory(collectionId: CollectionId, storyId: StoryId) {
@@ -79,6 +80,15 @@ export default class StoriesStore {
     return this.getStoryFetchState(storyId)?.status;
   }
 
+  getStoryRouteParams(): { collectionId?: CollectionId; storyId?: StoryId } {
+    const formatter = this.root.formatters.storyPath;
+    const params = this.root.dom.getRouteParams(formatter);
+    return {
+      ...params,
+      collectionId: params.collectionId ? Number(params.collectionId) : undefined,
+    };
+  }
+
   isStoryError(storyId: StoryId) {
     return this.getStoryFetchStatus(storyId) === 'error';
   }
@@ -93,8 +103,9 @@ export default class StoriesStore {
 
   loadStory(storyOptions: StoryStoreOptions) {
     if (!this.isStoryLoaded(storyOptions.story.id)) {
-      this.addStory(storyOptions);
+      return this.addStory(storyOptions);
     }
+    return this.getStory(storyOptions.story.id);
   }
 
   removeStory(storyId: StoryId) {

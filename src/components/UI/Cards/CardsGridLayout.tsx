@@ -1,7 +1,8 @@
 import { Masonry } from '@mui/lab';
 
-import { deepMerge, getRandomNumber } from '../../../utils';
 import { buildDynamicGridColumns } from '../../../utils/grid';
+import { getRandomNumber } from '../../../utils/math';
+import { deepMerge } from '../../../utils/object';
 import Animation from '../Animation/Animation';
 import styles from './Cards.styles';
 import type { CardsLayoutProps } from './Cards.types';

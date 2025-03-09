@@ -5,7 +5,7 @@ import Typography from '@mui/material/Typography';
 import { Unless, When } from 'react-if';
 
 import type { Button } from '../../types';
-import { isStoryPreviewing, isStoryUnpublished } from '../../utils';
+import { isStoryPreviewing, isStoryUnpublished } from '../../utils/storyUtils';
 import { StoriesAPIButton } from '../StoriesAPIButton';
 import styles from './StoryCard.styles';
 import type { StoryCardProps } from './StoryCard.types';

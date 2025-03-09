@@ -1,22 +1,22 @@
 import { customProviderStorybookDecorator } from '../../stories/decorators';
-import StoriesAPIStory from './StoriesAPIStory';
+import StoriesAPICollections from './StoriesAPICollections';
 
 export default {
   argTypes: {
-    collectionId: {
+    projectId: {
       control: {
         type: 'number',
       },
-      description: 'Collection ID',
+      description: 'Project ID',
     },
-    storyId: {
+    enableAllCollections: {
       control: {
-        type: 'number',
+        type: 'boolean',
       },
-      description: 'Story ID',
+      description: 'Enable all collections',
     },
   },
-  component: StoriesAPIStory,
+  component: StoriesAPICollections,
   decorators: [
     customProviderStorybookDecorator({
       api: {
@@ -29,14 +29,14 @@ export default {
     layout: 'centered',
   },
   tags: ['autodocs'],
-  title: 'Stories API Story',
+  title: 'Stories API Collections',
 };
 
-export const Story = {
+export const Collections = {
   args: {
-    collectionId: 1,
+    alwaysEnableSearch: true,
+    projectId: 1,
     editable: true,
-    fullscreen: true,
-    storyId: 'Q123',
+    enableAllCollections: true,
   },
 };

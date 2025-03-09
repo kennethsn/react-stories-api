@@ -50,6 +50,36 @@ export const getFormattedArray = (template: string, values: Record<string, strin
   return result;
 };
 
+export const getFormattedStringValue = (
+  formattedString: string,
+  template: string,
+  key: string,
+) => {
+  const valueMap = getFormattedStringValues(formattedString, template);
+  return valueMap[key];
+};
+
+export const getFormattedStringValues = (
+  formattedString: string,
+  template: string,
+): { [key: string]: string } => {
+  // Create a regular expression from the template with {key} placeholders
+  const regex = new RegExp(
+    template.replace(/{([^}]+)}/g, '(?<$1>[^,]+)'),
+  );
+  // Match the formattedString against the regular expression
+  const match = formattedString.match(regex);
+  if (!match) {
+    return {};
+  }
+  const result: { [key: string]: string } = {};
+  Object.keys(match.groups!).forEach((key) => {
+    result[key] = match.groups![key].trim();
+  });
+
+  return result;
+};
+
 export const randomString = (length = 8, prefix = '') => {
   const chars = 'BCDFGHJKLMNPQRSTVWXYZbcdfghjklmnpqrstvwxyz0123456789';
   let result = prefix;

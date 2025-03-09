@@ -2,7 +2,7 @@ import { autorun } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import { lazy, Suspense, useEffect } from 'react';
 import { Else, If, Then } from 'react-if';
-import { useParams, useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 
 import useCollections from '../../hooks/useCollections';
 import CollectionProvider from '../../providers/CollectionProvider';
@@ -13,17 +13,19 @@ import type { StoriesAPICollectionProps } from './StoriesAPICollection.types';
 
 const Collection = lazy(() => import('../Collection/Collection'));
 
+// TODO: Project-wide Search
+// TODO: Collection status pages
 const StoriesAPICollection = observer(({
   connectRouter,
   onSearch,
   ...props
 }: StoriesAPICollectionProps) => {
-  const routeParams = useParams<{ collectionId: string }>();
   const [searchParams, setSearchParams] = useSearchParams();
   const collections = useCollections();
   let { collectionId, page, searchInput } = props;
   if (connectRouter) {
-    collectionId = Number(routeParams.collectionId);
+    const routeParams = collections.getCollectionRouteParams();
+    collectionId = routeParams.collectionId;
     page = Number(searchParams.get('page')) || page;
     searchInput = searchParams.get('q') || searchInput;
   }
@@ -52,14 +54,17 @@ const StoriesAPICollection = observer(({
     }
   };
 
-  useEffect(() => autorun(() => {
-    collections.loadCollection(collectionId, {
+  useEffect(() => autorun(async () => {
+    const collectionStore = await collections.loadCollection(collectionId, {
       ...props,
       onPageChange: handlePageChange,
       onSearch: handleSearch,
       page,
       searchInput,
     });
+    if (connectRouter) {
+      collectionStore?.updatePageTitle();
+    }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }), [collectionId, props.editable]);
 

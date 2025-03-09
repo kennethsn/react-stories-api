@@ -3,6 +3,7 @@ import type { EditableTypographyProps } from '../EditableTypography/EditableTypo
 
 export type BoundTypographyProps<Keys extends string=string> =
   Omit<EditableTypographyProps, 'value'> & {
+    readonly computed?: boolean;
     readonly field: Keys;
     readonly store: {
       readonly getField: (field: Keys) => SerializeableValue | undefined;

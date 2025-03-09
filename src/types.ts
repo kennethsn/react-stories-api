@@ -32,15 +32,16 @@ export type CardsBaseMomentData<T> = {
 export type CardsMomentData = StoriesMomentData;
 
 export type Collection = {
-  readonly badge?: string;
-  readonly description?: string;
+  readonly badge?: NullableString;
+  readonly description?: NullableString;
   readonly featured_stories?: StorySummary[];
   readonly id: number;
-  readonly image?: string;
+  readonly image?: NullableString;
   readonly is_featured?: boolean;
   readonly name: string;
-  readonly subtitle?: string;
+  readonly status: StoriesAPIStatus;
   readonly stories?: StorySummary[];
+  readonly subtitle?: NullableString;
   readonly total_stories_count?: number;
 };
 
@@ -57,7 +58,7 @@ export type ColorString = ThemeColorOption | ColorHex;
 
 export type DataSource = 'api' | 'local';
 
-export type EditableCollectionKey = 'description' | 'image' | 'name' | 'subtitle';
+export type EditableCollectionKey = 'badge' | 'description' | 'image' | 'name' | 'status' | 'subtitle';
 
 export type EditableStoryKey = 'description' | 'image' | 'is_featured' | 'label' | 'moments' | 'status';
 
@@ -227,55 +228,76 @@ export type Nullable<T> = T | null | undefined;
 
 export type NullableString = Nullable<string>;
 
+export type ProjectId = number;
+
 export type SaveStatus = 'FAILED' | 'SAVING' | 'SUCCESS';
 
 export type SerializableRecord = Record<string, SerializeableValue>;
 
 export type SerializeableValue = boolean | null | number | object | string;
 
+export type StoriesAPICollectionsQueryParams = {
+  readonly page?: number; // KSN TODO: Pagination
+  readonly page_size?: number; // KSN TODO: Pagination
+  readonly q?: string; // KSN TODO: Search
+  readonly featured?: boolean;
+  readonly project_id: ProjectId;
+  readonly statuses?: StoriesAPIStatus[];
+};
+
+export type StoriesAPICollectionsResponse = StoriesAPIListResponse<{
+  readonly collections: Collection[];
+}>;
+
 export type StoriesAPIFormatters = {
+  readonly collectionPageTitle: string;
   readonly collectionPath: string;
   readonly collectionStoriesListHeader: string;
   readonly momentPath: string;
   readonly momentQueryParamKey: string;
   readonly storyCollectionBackButtonLabel: string; // KSN TODO: add support for this
+  readonly storyPageTitle: string;
   readonly storyPath: string;
 };
 
-export type StoriesAPIStoriesQueryParams = {
-  readonly page?: number;
-  readonly per_size?: number;
-  readonly q?: string;
-  readonly statuses?: StoryStatus[];
-};
-
-export type StoriesAPIStoriesResponse = {
+export type StoriesAPIListResponse<T> = {
   readonly count: number;
   readonly last_page: number;
-  readonly stories: StorySummary[];
   readonly total_count: number;
+} & T;
+
+export type StoriesAPIStatus = 'ARCHIVED' | 'DRAFT' | 'PREVIEW' | 'PUBLISHED';
+
+export type StoriesAPIStoriesQueryParams = {
+  readonly page?: number;
+  readonly page_size?: number;
+  readonly q?: string;
+  readonly statuses?: StoriesAPIStatus[];
 };
+
+export type StoriesAPIStoriesResponse = StoriesAPIListResponse<{
+  readonly stories: StorySummary[];
+}>;
 
 export type StoriesMomentData = CardsBaseMomentData<{
   readonly stories: StorySummary[];
 }>;
 
 export type Story = {
-  readonly collection_id: Collection['id'];
+  readonly collection_id: CollectionId;
+  readonly collection_name: string;
   readonly description?: NullableString;
   readonly id: string;
   readonly image?: NullableString;
   readonly is_featured?: boolean;
   readonly label: string;
   readonly moments: Moment[];
-  readonly status: StoryStatus;
+  readonly status: StoriesAPIStatus;
 };
 
 export type StoryId = Story['id'];
 
 export type StoryOrSummary = Story | StorySummary;
-
-export type StoryStatus = 'ARCHIVED' | 'DRAFT' | 'PREVIEW' | 'PUBLISHED';
 
 export type StorySummary = Omit<Story, 'moments'> & {
   readonly moments?: Moment[];

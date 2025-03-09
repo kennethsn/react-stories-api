@@ -1,7 +1,8 @@
 import type { ThemeOptions } from '@mui/material/styles';
 import { makeAutoObservable } from 'mobx';
 
-import { buildTheme, deepMerge } from '../utils';
+import { deepMerge } from '../utils/object';
+import { buildTheme } from '../utils/themeUtils';
 import type RootStore from './rootStore';
 
 export type ThemeStoreOptions = {
