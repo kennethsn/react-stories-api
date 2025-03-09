@@ -257,8 +257,8 @@ export default class CollectionStore {
 
   get totalStoriesCount() {
     return (
-      this.storiesAPIResponse?.total_count
-        ?? this.collection.total_stories_count
+      this.collection.total_stories_count
+      ?? this.storiesAPIResponse?.total_count
         ?? this.storiesCount
     );
   }

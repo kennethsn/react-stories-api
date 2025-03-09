@@ -1,6 +1,6 @@
 {
   "name": "react-stories-api",
-  "version": "1.0.0-dev-20",
+  "version": "1.0.0-dev-21",
   "author": "Kenneth Seals-Nutt",
   "babel": {
     "presets": [
@@ -25,35 +25,36 @@
   },
   "description": "React Components for building interactive data storytelling interfaces with the Stories API",
   "dependencies": {
-    "@fontsource/roboto": "^5.1.1",
+    "@fontsource/roboto": "^5.2.5",
     "react-if": "^4.1.5",
     "react-photo-view": "^1.2.7",
     "react-player": "^2.16.0",
     "react-resizable-panels": "^2.1.7",
-    "swiper": "^11.2.4"
+    "swiper": "^11.2.5"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.26.9",
     "@babel/preset-react": "^7.26.3",
     "@babel/preset-typescript": "^7.26.0",
-    "@chromatic-com/storybook": "^3.2.4",
-    "@commitlint/cli": "^19.7.1",
-    "@commitlint/config-conventional": "^19.7.1",
-    "@commitlint/cz-commitlint": "^19.6.1",
-    "@commitlint/prompt-cli": "^19.7.1",
-    "@rollup/plugin-commonjs": "^28.0.2",
+    "@chromatic-com/storybook": "^3.2.5",
+    "@commitlint/cli": "^19.8.0",
+    "@commitlint/config-conventional": "^19.8.0",
+    "@commitlint/cz-commitlint": "^19.8.0",
+    "@commitlint/prompt-cli": "^19.8.0",
+    "@rollup/plugin-commonjs": "^28.0.3",
     "@rollup/plugin-dynamic-import-vars": "^2.1.5",
     "@rollup/plugin-json": "^6.1.0",
     "@rollup/plugin-node-resolve": "^16.0.0",
     "@rollup/plugin-typescript": "^11.1.6",
-    "@storybook/addon-essentials": "^8.5.8",
-    "@storybook/addon-interactions": "^8.5.8",
-    "@storybook/addon-links": "^8.5.8",
-    "@storybook/addon-onboarding": "^8.5.8",
-    "@storybook/blocks": "^8.5.8",
-    "@storybook/react": "^8.5.8",
-    "@storybook/react-vite": "^8.5.8",
-    "@storybook/test": "^8.5.8",
+    "@storybook/addon-essentials": "^8.6.4",
+    "@storybook/addon-interactions": "^8.6.4",
+    "@storybook/addon-links": "^8.6.4",
+    "@storybook/addon-mdx-gfm": "^8.6.4",
+    "@storybook/addon-onboarding": "^8.6.4",
+    "@storybook/blocks": "^8.6.4",
+    "@storybook/react": "^8.6.4",
+    "@storybook/react-vite": "^8.6.4",
+    "@storybook/test": "^8.6.4",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.2.0",
     "@types/jest": "^29.5.14",
@@ -77,15 +78,15 @@
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "relative-deps": "^1.0.7",
-    "rollup": "^4.34.8",
+    "rollup": "^4.35.0",
     "rollup-plugin-dts": "^6.1.1",
     "rollup-plugin-peer-deps-external": "^2.2.4",
     "rollup-plugin-postcss": "^4.0.2",
     "standard-version": "^9.5.0",
-    "storybook": "^8.5.8",
+    "storybook": "^8.6.4",
     "storybook-addon-deep-controls": "^0.9.2",
     "tslib": "^2.8.1",
-    "typescript": "^5.7.3"
+    "typescript": "^5.8.2"
   },
   "exports": {
     ".": {
@@ -116,13 +117,13 @@
   "peerDependencies": {
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
-    "@mui/icons-material": "^6.4.5",
-    "@mui/lab": "^6.0.0-beta.28",
-    "@mui/material": "^6.4.5",
+    "@mui/icons-material": "^6.4.7",
+    "@mui/lab": "^6.0.0-beta.30",
+    "@mui/material": "^6.4.7",
     "mobx": "^6.13.6",
     "mobx-react-lite": "^4.1.0",
     "react": ">=18",
-    "react-router-dom": "^7.2.0"
+    "react-router-dom": "^7.3.0"
   },
   "repository": {
     "type": "git",

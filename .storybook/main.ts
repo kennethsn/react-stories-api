@@ -8,18 +8,25 @@ const config: StorybookConfig = {
     '@storybook/addon-links',
     '@storybook/addon-onboarding',
     'storybook-addon-deep-controls',
+    '@storybook/addon-mdx-gfm'
   ],
+
   core: {
     disableTelemetry: true,
   },
-  docs: {
-    autodocs: 'tag',
-  },
+
+  docs: {},
+
   framework: {
     name: '@storybook/react-vite',
     options: {},
   },
+
   stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
+
+  typescript: {
+    reactDocgen: 'react-docgen-typescript'
+  }
 };
 
 export default config;

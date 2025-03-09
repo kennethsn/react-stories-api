@@ -12,8 +12,10 @@ const Collections = lazy(() => import('../Collections/Collections'));
 const StoriesAPICollections = observer(({
   enableAllCollections,
   featured,
+  layout,
   projectId,
   statuses,
+  sx,
 }: StoriesAPICollectionsProps) => {
   const collections = useCollections();
   const options = {
@@ -44,7 +46,8 @@ const StoriesAPICollections = observer(({
           <Collections
             collections={collections.getCollectionsList(options)!}
             enableAllCollections={enableAllCollections}
-            layout="sections"
+            layout={layout}
+            sx={sx}
           />
         </Else>
       </If>
