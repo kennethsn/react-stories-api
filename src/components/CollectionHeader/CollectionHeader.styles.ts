@@ -1,5 +1,7 @@
+import type { NullableString } from '../../types';
+
 const styles = {
-  container: (image?: string) => ({
+  container: (image?: NullableString) => ({
     alignItems: 'center',
     background: image && (
       `linear-gradient(160deg, #b6b6b6e6, #f5f5f5 75%), url(${image}) no-repeat center center`
