@@ -52,16 +52,17 @@ const StoriesAPIStory = observer((props: StoriesAPIStoryProps) => {
     }
   };
 
-  useEffect(() => autorun(async () => {
-    const storyStore = await stories.fetchAndLoadStory(collectionId, storyId, {
+  useEffect(() => autorun(() => {
+    stories.fetchAndLoadStory(collectionId, storyId, {
       ...props,
       connectRouter,
       defaultMomentId: defaultActiveMomentId,
       onChange: handleChange,
+    }, (story) => {
+      if (connectRouter) {
+        story?.updatePageTitle();
+      }
     });
-    if (connectRouter) {
-      storyStore?.updatePageTitle();
-    }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }), [collectionId, storyId, editable]);
 

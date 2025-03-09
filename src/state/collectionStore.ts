@@ -43,6 +43,8 @@ export default class CollectionStore {
 
   collection: MutableCollection;
 
+  initialized = false;
+
   private initialCollection: Collection;
 
   isEditable: boolean;
@@ -282,6 +284,7 @@ export default class CollectionStore {
   }
 
   init() {
+    this.initialized = true;
     if (this.sourceIsAPI) {
       this.loadStories();
     }

@@ -16,7 +16,7 @@ type GetCollectionsListOptions = {
 };
 
 export default class CollectionsStore {
-  private collections: Map<CollectionId, CollectionStore>;
+  private collections: Map<CollectionId, { isLoading: boolean, collection?: CollectionStore }>;
 
   private collectionsListCache: Map<string, { isLoading: boolean, collectionIds?: CollectionId[] }>;
 
@@ -31,7 +31,7 @@ export default class CollectionsStore {
     return (options: GetCollectionsListOptions) => {
       const key = JSON.stringify(options);
       const collectionIds = this.collectionsListCache.get(key)?.collectionIds ?? [];
-      return collectionIds.map((collectionId) => this.collections.get(collectionId)!);
+      return collectionIds.map((collectionId) => this.getCollection(collectionId)!);
     };
   }
 
@@ -58,11 +58,12 @@ export default class CollectionsStore {
     if (loadStories) {
       collectionStore.init();
     }
-    this.collections.set(collection.id, collectionStore);
+    this.collections.set(collection.id, { isLoading: false, collection: collectionStore });
+    return collectionStore;
   }
 
   getCollection(collectionId: CollectionId) {
-    return this.collections.get(collectionId);
+    return this.collections.get(collectionId)?.collection;
   }
 
   getCollectionRouteParams() {
@@ -78,19 +79,32 @@ export default class CollectionsStore {
     return this.collections.has(collectionId);
   }
 
+  isCollectionLoading(collectionId: CollectionId) {
+    return this.collections.get(collectionId)?.isLoading;
+  }
+
   async loadCollection(
     collectionId: CollectionId,
     options: Omit<CollectionStoreOptions, 'collection' | 'source'> = {},
+    callback?: (collectionStore: CollectionStore) => void,
   ) {
+    if (this.isCollectionLoading(collectionId)) {
+      return;
+    }
+    let collectionStore: CollectionStore;
     if (this.hasCollection(collectionId)) {
-      return this.getCollection(collectionId);
+      collectionStore = this.getCollection(collectionId)!;
+      if (!collectionStore.initialized) {
+        collectionStore.init();
+        this.collections.set(collectionId, { isLoading: false, collection: collectionStore });
+      }
+    } else {
+      this.collections.set(collectionId, { isLoading: true, collection: undefined });
+      // TODO: handle error
+      const collection = await this.root.api.getCollection(collectionId);
+      collectionStore = this.addCollection(collection, { ...options, source: 'api' });
     }
-    // TODO: handle error
-    const collection = await this.root.api.getCollection(collectionId);
-    if (collection) {
-      this.addCollection(collection, { ...options, source: 'api' });
-    }
-    return this.getCollection(collectionId);
+    callback?.(collectionStore);
   }
 
   async loadCollections(options: {

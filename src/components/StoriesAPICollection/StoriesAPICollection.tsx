@@ -54,17 +54,22 @@ const StoriesAPICollection = observer(({
     }
   };
 
-  useEffect(() => autorun(async () => {
-    const collectionStore = await collections.loadCollection(collectionId, {
-      ...props,
-      onPageChange: handlePageChange,
-      onSearch: handleSearch,
-      page,
-      searchInput,
-    });
-    if (connectRouter) {
-      collectionStore?.updatePageTitle();
-    }
+  useEffect(() => autorun(() => {
+    collections.loadCollection(
+      collectionId,
+      {
+        ...props,
+        onPageChange: handlePageChange,
+        onSearch: handleSearch,
+        page,
+        searchInput,
+      },
+      (collectionStore) => {
+        if (connectRouter) {
+          collectionStore?.updatePageTitle();
+        }
+      },
+    );
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }), [collectionId, props.editable]);
 

@@ -35,20 +35,17 @@ export default class StoriesStore {
     collectionId: CollectionId,
     storyId: StoryId,
     storyOptions: Omit<StoryStoreOptions, 'story'>,
+    callback?: (story: StoryStore) => void,
   ) {
-    const story = await this.fetchStory(collectionId, storyId);
-    if (story) {
-      return this.loadStory({ ...storyOptions, story });
+    if (this.isStoryLoading(storyId) || this.isStoryLoaded(storyId)) {
+      return;
     }
-    return undefined;
-  }
-
-  async fetchStory(collectionId: CollectionId, storyId: StoryId) {
     this.updateStoryFetchState(storyId, { status: 'loading' });
     try {
       const story = await this.root.api.getStory(collectionId, storyId);
+      const store = this.loadStory({ ...storyOptions, story });
       this.updateStoryFetchState(storyId, { status: 'success' });
-      return story;
+      callback?.(store);
     } catch (error) {
       const errorCode = (error as { code: number }).code ?? 500;
       this.updateStoryFetchState(storyId, { errorCode, status: 'error' });
@@ -105,7 +102,7 @@ export default class StoriesStore {
     if (!this.isStoryLoaded(storyOptions.story.id)) {
       return this.addStory(storyOptions);
     }
-    return this.getStory(storyOptions.story.id);
+    return this.getStory(storyOptions.story.id)!;
   }
 
   removeStory(storyId: StoryId) {
