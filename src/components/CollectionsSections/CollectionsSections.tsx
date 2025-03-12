@@ -5,6 +5,7 @@ import CollectionSection from '../CollectionSection/CollectionSection';
 import type { CollectionsSectionsProps } from './CollectionsSections.types';
 
 const CollectionsSections = observer(({
+  collectionPathFormatter,
   collections,
   enableAllCollections,
 }: CollectionsSectionsProps) => (
@@ -19,6 +20,7 @@ const CollectionsSections = observer(({
       >
         <CollectionSection
           collection={collection}
+          collectionPathFormatter={collectionPathFormatter}
           enabled={enableAllCollections}
         />
       </Grid>

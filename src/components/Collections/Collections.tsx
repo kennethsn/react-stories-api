@@ -8,6 +8,7 @@ import CollectionsSections from '../CollectionsSections/CollectionsSections';
 import type { CollectionsProps } from './Collections.types';
 
 const Collections = observer(({
+  collectionPathFormatter,
   collections,
   enableAllCollections,
   layout,
@@ -17,6 +18,7 @@ const Collections = observer(({
     <If condition={layout === 'sections'}>
       <Then>
         <CollectionsSections
+          collectionPathFormatter={collectionPathFormatter}
           collections={collections}
           enableAllCollections={enableAllCollections}
         />
@@ -24,6 +26,7 @@ const Collections = observer(({
 
       <Else>
         <CollectionsList
+          collectionPathFormatter={collectionPathFormatter}
           collections={collections}
           enableAllCollections={enableAllCollections}
         />

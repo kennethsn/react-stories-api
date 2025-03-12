@@ -62,7 +62,10 @@ export type EditableCollectionKey = 'badge' | 'description' | 'image' | 'name' |
 
 export type EditableStoryKey = 'description' | 'image' | 'is_featured' | 'label' | 'moments' | 'status';
 
-export type GoToBaseOptions<T> = { readonly newTab?: boolean; } & T;
+export type GoToBaseOptions<T> = {
+  readonly formatter?: string;
+  readonly newTab?: boolean;
+} & T;
 
 export type GoToCollectionOptions = GoToBaseOptions<{
   readonly collectionId: Collection['id'];

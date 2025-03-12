@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 import type { GoToOptions, StoriesAPIFormatters } from '../types';
 import { formatString } from '../utils/string';
-import { goToURL, openNewTab } from '../utils/url';
+import { getPathFormatter, goToURL, openNewTab } from '../utils/url';
 import useStoriesAPI from './useStoriesAPI';
 
 // TODO: move to store
@@ -20,12 +20,7 @@ const buildGoToFn = (
 };
 
 const buildGetPathFn = (formatters: StoriesAPIFormatters) => (to: GoToOptions) => {
-  let formatter = formatters.collectionPath;
-  if ('momentId' in to) {
-    formatter = formatters.momentPath;
-  } else if ('storyId' in to) {
-    formatter = formatters.storyPath;
-  }
+  const formatter = getPathFormatter(to, formatters);
   return formatString(formatter, to);
 };
 

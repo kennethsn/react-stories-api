@@ -1,4 +1,4 @@
-import { makeAutoObservable } from 'mobx';
+import { makeAutoObservable, runInAction } from 'mobx';
 
 import type {
   Collection,
@@ -95,11 +95,15 @@ export default class CollectionsStore {
     if (this.hasCollection(collectionId)) {
       collectionStore = this.getCollection(collectionId)!;
       if (!collectionStore.initialized) {
-        collectionStore.init();
-        this.collections.set(collectionId, { isLoading: false, collection: collectionStore });
+        runInAction(() => {
+          collectionStore.init();
+          this.collections.set(collectionId, { isLoading: false, collection: collectionStore });
+        });
       }
     } else {
-      this.collections.set(collectionId, { isLoading: true, collection: undefined });
+      runInAction(() => {
+        this.collections.set(collectionId, { isLoading: true, collection: undefined });
+      });
       // TODO: handle error
       const collection = await this.root.api.getCollection(collectionId);
       collectionStore = this.addCollection(collection, { ...options, source: 'api' });
@@ -120,7 +124,9 @@ export default class CollectionsStore {
     if (!projectId) {
       throw new Error('Project ID is required to load collections.');
     }
-    this.collectionsListCache.set(key, { isLoading: true });
+    runInAction(() => {
+      this.collectionsListCache.set(key, { isLoading: true });
+    });
     const { collections } = await this.root.api.getCollections({
       featured: options.featured,
       project_id: projectId,
@@ -128,7 +134,9 @@ export default class CollectionsStore {
     });
     collections.forEach((collection) => this.addCollection(collection, { source: 'api' }, false));
     const collectionIds = collections.map(({ id }) => id);
-    this.collectionsListCache.set(key, { isLoading: false, collectionIds });
+    runInAction(() => {
+      this.collectionsListCache.set(key, { isLoading: false, collectionIds });
+    });
   }
 
   removeCollection(collectionId: CollectionId) {

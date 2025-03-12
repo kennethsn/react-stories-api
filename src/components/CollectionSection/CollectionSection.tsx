@@ -8,7 +8,11 @@ import ContainerBadge from '../UI/ContainerBadge/ContainerBadge';
 import styles from './CollectionSection.styles';
 import type { CollectionSectionProps } from './CollectionSection.types';
 
-const CollectionSection = observer(({ collection, enabled }: CollectionSectionProps) => {
+const CollectionSection = observer(({
+  collection,
+  collectionPathFormatter,
+  enabled,
+}: CollectionSectionProps) => {
   const isDisabled = enabled ? false : !collection.isPublished;
   return (
     <Grid
@@ -71,6 +75,7 @@ const CollectionSection = observer(({ collection, enabled }: CollectionSectionPr
           <StoriesAPIButton
             button={{
               collectionId: collection.id,
+              formatter: collectionPathFormatter,
               label: 'View Collection',
             }}
             color="secondary"

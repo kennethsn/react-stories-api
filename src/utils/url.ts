@@ -1,4 +1,4 @@
-import type { GoToPathFn } from '../types';
+import type { GoToOptions, GoToPathFn, StoriesAPIFormatters } from '../types';
 import { strip } from './string';
 
 export type QueryParams = Record<string, number | string | string[] | boolean | undefined>;
@@ -30,6 +30,18 @@ export const getBaseURL = (url?: string): string => {
 export const getPath = (url: string): string => {
   const baseURL = getBaseURL(url);
   return strip(url, baseURL);
+};
+
+export const getPathFormatter = (to: GoToOptions, formatters: StoriesAPIFormatters) => {
+  if (to.formatter) {
+    return to.formatter;
+  }
+  if ('momentId' in to) {
+    return formatters.momentPath;
+  } if ('storyId' in to) {
+    return formatters.storyPath;
+  }
+  return formatters.collectionPath;
 };
 
 export const getQueryParam = (url: string, key: string): string | null | undefined => {

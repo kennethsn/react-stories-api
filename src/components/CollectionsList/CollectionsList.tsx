@@ -5,7 +5,11 @@ import CollectionsListItem from '../CollectionsListItem/CollectionsListItem';
 import styles from './CollectionsList.styles';
 import type { CollectionsListProps } from './CollectionsList.types';
 
-const CollectionsList = observer(({ collections, enableAllCollections }: CollectionsListProps) => (
+const CollectionsList = observer(({
+  collections,
+  collectionPathFormatter,
+  enableAllCollections,
+}: CollectionsListProps) => (
   <Grid
     container
     spacing={3}
@@ -18,6 +22,7 @@ const CollectionsList = observer(({ collections, enableAllCollections }: Collect
       >
         <CollectionsListItem
           collection={collection}
+          collectionPathFormatter={collectionPathFormatter}
           enabled={enableAllCollections}
         />
       </Grid>

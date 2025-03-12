@@ -10,16 +10,23 @@ import ContainerBadge from '../UI/ContainerBadge/ContainerBadge';
 import styles from './CollectionsListItem.styles';
 import type { CollectionsListItemProps } from './CollectionsListItem.types';
 
-const CollectionsListItem = observer(({ collection, enabled }: CollectionsListItemProps) => {
+const CollectionsListItem = observer(({
+  collection,
+  collectionPathFormatter,
+  enabled,
+}: CollectionsListItemProps) => {
   const { getPath } = useStoriesAPINavigation();
   const isDisabled = enabled ? false : !collection.isPublished;
+  const to = isDisabled ? undefined : (
+    getPath({ collectionId: collection.id, formatter: collectionPathFormatter })
+  );
   return (
     <Grid
       component={isDisabled ? 'div' : Link}
       container
       spacing={0}
       sx={styles.root(isDisabled)}
-      to={isDisabled ? undefined : getPath({ collectionId: collection.id })}
+      to={to}
     >
       <When condition={collection.hasBadge}>
         <ContainerBadge
