@@ -10,6 +10,7 @@ const BaseMoment = observer(({
   children,
   contentFit,
   contentSize,
+  hideContent,
   moment,
   noContentElevation,
 }: BaseMomentProps) => {
@@ -20,6 +21,7 @@ const BaseMoment = observer(({
         actions={actions}
         contentFit={contentFit}
         contentSize={contentSize}
+        hideContent={hideContent}
         moment={moment}
         noContentElevation={noContentElevation}
       >

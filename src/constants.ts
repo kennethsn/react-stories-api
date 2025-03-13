@@ -31,6 +31,10 @@ export const TYPOGRAPHY_COLOR_OPTIONS = <const>{
   textSecondary: 'text.secondary',
   warning: 'warning.main',
 };
+export const WIKIDATA_BASE_URL = 'https://m.wikidata.org';
+export const WIKIDATA_LOGO_URL = 'https://upload.wikimedia.org/wikipedia/commons/6/66/Wikidata-logo-en.svg';
+export const WIKIPEDIA_BASE_URL = 'https://m.wikipedia.org';
+export const WIKIPEDIA_LOGO_URL = 'https://upload.wikimedia.org/wikipedia/commons/b/b3/Wikipedia-logo-v2-en.svg';
 export const YOUTUBE_BASE_URL = 'https://www.youtube.com';
 export const YOUTUBE_EMBED_URL = `${YOUTUBE_BASE_URL}/embed`;
 export const YOUTUBE_WATCH_URL = `${YOUTUBE_BASE_URL}/watch`;

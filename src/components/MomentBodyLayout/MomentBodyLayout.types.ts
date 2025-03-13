@@ -5,9 +5,10 @@ import type MomentStore from '../../state/momentStore';
 import type { MomentContentFit, MomentContentSize } from '../../types';
 
 export type MomentBodyLayoutProps = {
-  readonly children: ReactNode;
+  readonly children?: ReactNode;
   readonly contentFit?: MomentContentFit;
   readonly contentSize?: MomentContentSize;
+  readonly hideContent?: boolean; // Ignores children
   readonly moment: MomentStore;
   readonly noContentElevation?: boolean; // Image Moment uses its own elevation
 };

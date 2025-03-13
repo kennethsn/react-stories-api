@@ -5,6 +5,7 @@ import BaseMoment from '../BaseMoment/BaseMoment';
 import styles from './ImageMoment.styles';
 import type { ImageMomentProps } from './ImageMoment.types';
 // KSN TODO: lock swiper on preview
+// TODO: Add a caption prop
 // KSN TODO: support markdown in caption for links
 const ImageMoment = observer(({ moment }: ImageMomentProps) => (
   <BaseMoment

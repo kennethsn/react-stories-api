@@ -67,6 +67,16 @@ export type GoToBaseOptions<T> = {
   readonly newTab?: boolean;
 } & T;
 
+export type GalleryImage = {
+  url: string;
+  caption?: string;
+};
+
+export type GalleryMomentData = {
+  images: GalleryImage[];
+  layout: 'cards';
+};
+
 export type GoToCollectionOptions = GoToBaseOptions<{
   readonly collectionId: Collection['id'];
 }>;
@@ -101,6 +111,10 @@ export type HathiTrustMomentData = AtLeastOne<{
   readonly page_number?: number;
   readonly size?: MomentContentSize;
   readonly view?: 'flip' | 'scroll';
+};
+
+export type HTMLMomentData = {
+  readonly content: string; // HTML String
 };
 
 export type Icon = ImageIcon | MuiIcon | NoIcon;
@@ -171,12 +185,18 @@ export type MomentContentFit = 'card' | 'cover' | 'full';
 export type MomentContentSize = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
 
 export type MomentData =
+  GalleryMomentData |
   ImageMomentData |
   IFrameMomentData |
   HathiTrustMomentData |
+  HTMLMomentData |
+  PDFMomentData |
   StoriesMomentData |
+  TextMomentData |
   TimelineMomentData |
   VideoMomentData |
+  WikidataMomentData |
+  WikipediaMomentData |
   YouTubeMomentData;
 
 export type MomentGroup = {
@@ -196,12 +216,18 @@ export type MomentOrMomentGroup = (Moment | MomentGroupWithMoments);
 // KSN TODO: remove string when all moments are typed
 export type MomentType =
   'base' |
+  'gallery' |
   'hathiTrust' |
+  'html' |
   'iframe' |
   'image' |
+  'pdf' |
   'stories' |
+  'text' |
   'timeline' |
   'video' |
+  'wikidata' |
+  'wikipedia' |
   'youTube' |
   string;
 
@@ -232,6 +258,12 @@ export type Nullable<T> = T | null | undefined;
 export type NullableString = Nullable<string>;
 
 export type ProjectId = number;
+
+export type PDFMomentData = {
+  readonly fit?: MomentContentFit;
+  readonly size?: MomentContentSize;
+  readonly url: string;
+};
 
 export type SaveStatus = 'FAILED' | 'SAVING' | 'SUCCESS';
 
@@ -306,6 +338,13 @@ export type StorySummary = Omit<Story, 'moments'> & {
   readonly moments?: Moment[];
 };
 
+export type TextMomentData = {
+  readonly caption: {
+    content: string;
+    position?: MomentCaptionPosition;
+  };
+};
+
 export type ThemeColorOption = typeof THEME_COLOR_OPTIONS[number];
 
 export type Timeline = {
@@ -349,6 +388,22 @@ export type VideoMomentData = {
   readonly start_at?: number; // Seconds
   readonly url: string;
 };
+
+export type WikidataMomentData = WikiMediaBaseMomentData<AtLeastOne<{ // TODO: WikidataMomentData
+  readonly entity_id: string; // QID
+  readonly url: string;
+}>>;
+
+export type WikiMediaBaseMomentData<T> = {
+  readonly fit?: MomentContentFit;
+  readonly language_code?: string;
+  readonly size?: MomentContentSize;
+} & T;
+
+export type WikipediaMomentData = WikiMediaBaseMomentData<AtLeastOne<{
+  readonly page_key: string;
+  readonly url: string;
+}>>;
 
 export type YouTubeMomentData = AtLeastOne<{ readonly video_id: string; readonly url: string }> &
 Omit<VideoMomentData, 'url'>;
