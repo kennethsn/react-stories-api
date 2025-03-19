@@ -6,17 +6,25 @@ import type {
   ProjectId,
   StoriesAPIStatus,
 } from '../types';
+import { formatString } from '../utils';
 import CollectionStore, { type CollectionStoreOptions } from './collectionStore';
 import type RootStore from './rootStore';
 
+type CollectionCacheKey = CollectionId | string;
 type GetCollectionsListOptions = {
   readonly featured?: boolean;
   readonly projectId?: ProjectId;
   readonly statuses?: StoriesAPIStatus[];
 };
+const buildLookupKey = (collectionId: CollectionId | string, cacheKey?: string) => (cacheKey ? (
+  formatString(cacheKey, { collectionId })
+) : collectionId);
 
 export default class CollectionsStore {
-  private collections: Map<CollectionId, { isLoading: boolean, collection?: CollectionStore }>;
+  private collections: Map<CollectionCacheKey, {
+    readonly isLoading: boolean,
+    readonly collection?: CollectionStore,
+  }>;
 
   private collectionsListCache: Map<string, { isLoading: boolean, collectionIds?: CollectionId[] }>;
 
@@ -50,7 +58,9 @@ export default class CollectionsStore {
     collection: Collection,
     options: Omit<CollectionStoreOptions, 'collection'>,
     loadStories: boolean = true,
+    cacheKey?: string,
   ) {
+    const key = buildLookupKey(collection.id, cacheKey);
     const collectionStore = new CollectionStore(this.root, {
       ...options,
       collection,
@@ -58,12 +68,13 @@ export default class CollectionsStore {
     if (loadStories) {
       collectionStore.init();
     }
-    this.collections.set(collection.id, { isLoading: false, collection: collectionStore });
+    this.collections.set(key, { isLoading: false, collection: collectionStore });
     return collectionStore;
   }
 
-  getCollection(collectionId: CollectionId) {
-    return this.collections.get(collectionId)?.collection;
+  getCollection(collectionId: CollectionCacheKey, cacheKey?: string) {
+    const key = buildLookupKey(collectionId, cacheKey);
+    return this.collections.get(key)?.collection;
   }
 
   getCollectionRouteParams() {
@@ -75,11 +86,11 @@ export default class CollectionsStore {
     };
   }
 
-  hasCollection(collectionId: CollectionId) {
+  hasCollection(collectionId: CollectionCacheKey) {
     return this.collections.has(collectionId);
   }
 
-  isCollectionLoading(collectionId: CollectionId) {
+  isCollectionLoading(collectionId: CollectionCacheKey) {
     return this.collections.get(collectionId)?.isLoading;
   }
 
@@ -87,26 +98,28 @@ export default class CollectionsStore {
     collectionId: CollectionId,
     options: Omit<CollectionStoreOptions, 'collection' | 'source'> = {},
     callback?: (collectionStore: CollectionStore) => void,
+    cacheKey?: string,
   ) {
-    if (this.isCollectionLoading(collectionId)) {
+    const key = buildLookupKey(collectionId, cacheKey);
+    if (this.isCollectionLoading(key)) {
       return;
     }
     let collectionStore: CollectionStore;
-    if (this.hasCollection(collectionId)) {
-      collectionStore = this.getCollection(collectionId)!;
+    if (this.hasCollection(key)) {
+      collectionStore = this.getCollection(key)!;
       if (!collectionStore.initialized) {
         runInAction(() => {
           collectionStore.init();
-          this.collections.set(collectionId, { isLoading: false, collection: collectionStore });
+          this.collections.set(key, { isLoading: false, collection: collectionStore });
         });
       }
     } else {
       runInAction(() => {
-        this.collections.set(collectionId, { isLoading: true, collection: undefined });
+        this.collections.set(key, { isLoading: true, collection: undefined });
       });
       // TODO: handle error
       const collection = await this.root.api.getCollection(collectionId);
-      collectionStore = this.addCollection(collection, { ...options, source: 'api' });
+      collectionStore = this.addCollection(collection, { ...options, source: 'api' }, true, cacheKey);
     }
     callback?.(collectionStore);
   }

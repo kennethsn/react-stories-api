@@ -1,4 +1,4 @@
-import { makeAutoObservable } from 'mobx';
+import { makeAutoObservable, runInAction } from 'mobx';
 
 import type { CollectionId, StoryId } from '../types';
 import type RootStore from './rootStore';
@@ -8,6 +8,8 @@ type StoryFetchState = {
   readonly errorCode?: number;
   readonly status: 'loading' | 'error' | 'success';
 };
+
+// TODO: CollectionId needs to be added to all the lookups
 
 export default class StoriesStore {
   private stories: Map<StoryId, StoryStore>;
@@ -37,18 +39,24 @@ export default class StoriesStore {
     storyOptions: Omit<StoryStoreOptions, 'story'>,
     callback?: (story: StoryStore) => void,
   ) {
-    if (this.isStoryLoading(storyId) || this.isStoryLoaded(storyId)) {
+    if (this.storyHasFetchStatus(storyId)) {
       return;
     }
-    this.updateStoryFetchState(storyId, { status: 'loading' });
+    runInAction(() => {
+      this.updateStoryFetchState(storyId, { status: 'loading' });
+    });
     try {
       const story = await this.root.api.getStory(collectionId, storyId);
       const store = this.loadStory({ ...storyOptions, story });
-      this.updateStoryFetchState(storyId, { status: 'success' });
+      runInAction(() => {
+        this.updateStoryFetchState(storyId, { status: 'success' });
+      });
       callback?.(store);
     } catch (error) {
       const errorCode = (error as { code: number }).code ?? 500;
-      this.updateStoryFetchState(storyId, { errorCode, status: 'error' });
+      runInAction(() => {
+        this.updateStoryFetchState(storyId, { errorCode, status: 'error' });
+      });
       throw error;
     }
   }
@@ -107,6 +115,10 @@ export default class StoriesStore {
 
   removeStory(storyId: StoryId) {
     this.stories.delete(storyId);
+  }
+
+  storyHasFetchStatus(storyId: StoryId) {
+    return this.storyFetchStates.has(storyId);
   }
 
   updateStoryFetchState(storyId: StoryId, fetchState: StoryFetchState) {

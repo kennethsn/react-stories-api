@@ -16,6 +16,7 @@ const Collection = lazy(() => import('../Collection/Collection'));
 // TODO: Project-wide Search
 // TODO: Collection status pages
 const StoriesAPICollection = observer(({
+  cacheKey,
   connectRouter,
   onSearch,
   ...props
@@ -32,7 +33,7 @@ const StoriesAPICollection = observer(({
   if (!collectionId) {
     throw new Error('Collection not found.');
   }
-  const collection = collections.getCollection(collectionId);
+  const collection = collections.getCollection(collectionId, cacheKey);
 
   const updateSearchParams = (collectionStore: CollectionStore) => {
     setSearchParams(
@@ -69,6 +70,7 @@ const StoriesAPICollection = observer(({
           collectionStore?.updatePageTitle();
         }
       },
+      cacheKey,
     );
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }), [collectionId, props.editable]);

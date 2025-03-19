@@ -1,5 +1,6 @@
 import Box from '@mui/material/Box';
 import { observer } from 'mobx-react-lite';
+import { ErrorBoundaryContext } from 'react-use-error-boundary';
 import {
   EffectCoverflow,
   Keyboard,
@@ -81,7 +82,9 @@ const StoryMomentsContainer = observer(() => {
             key={moment.key}
             className="story-moment-swiper-slide"
           >
-            <StoryMoment moment={moment} />
+            <ErrorBoundaryContext>
+              <StoryMoment moment={moment} />
+            </ErrorBoundaryContext>
           </SwiperSlide>
         ))}
       </Swiper>
