@@ -67,14 +67,11 @@ export type GoToBaseOptions<T> = {
   readonly newTab?: boolean;
 } & T;
 
-export type GalleryImage = {
-  url: string;
-  caption?: string;
-};
-
 export type GalleryMomentData = {
-  images: GalleryImage[];
-  layout: 'cards';
+  readonly fit?: MomentContentFit;
+  readonly images: Image[];
+  readonly layout?: 'cards';
+  readonly size?: MomentContentSize;
 };
 
 export type GoToCollectionOptions = GoToBaseOptions<{
@@ -128,6 +125,8 @@ export type IFrameMomentData = {
 };
 
 export type Image = {
+  readonly alt: string;
+  readonly caption?: string;
   readonly fit?: MomentContentFit;
   readonly position?: string; // Object-fit CSS property for cover fit
   // Note: Size works best with fit: 'cover' or left/right captions
@@ -389,18 +388,18 @@ export type VideoMomentData = {
   readonly url: string;
 };
 
-export type WikidataMomentData = WikiMediaBaseMomentData<AtLeastOne<{ // TODO: WikidataMomentData
+export type WikidataMomentData = WikimediaBaseMomentData<AtLeastOne<{
   readonly entity_id: string; // QID
   readonly url: string;
 }>>;
 
-export type WikiMediaBaseMomentData<T> = {
+export type WikimediaBaseMomentData<T> = {
   readonly fit?: MomentContentFit;
   readonly language_code?: string;
   readonly size?: MomentContentSize;
 } & T;
 
-export type WikipediaMomentData = WikiMediaBaseMomentData<AtLeastOne<{
+export type WikipediaMomentData = WikimediaBaseMomentData<AtLeastOne<{
   readonly page_key: string;
   readonly url: string;
 }>>;

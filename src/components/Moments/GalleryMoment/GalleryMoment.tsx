@@ -1,20 +1,22 @@
 import 'swiper/css';
 import 'swiper/css/effect-cards';
 
+import Box from '@mui/material/Box';
 import { observer } from 'mobx-react-lite';
+import { When } from 'react-if';
 import type { Swiper as SwiperClass } from 'swiper';
 import { EffectCards } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
+import StoryMomentTypography from '../../StoryMoment/StoryMomentTypography';
 import PreviewableImage from '../../UI/PreviewableImage/PreviewableImage';
 import BaseMoment from '../BaseMoment/BaseMoment';
+import styles from './GalleryMoment.styles';
 import type { GalleryMomentProps } from './GalleryMoment.types';
 
 // TODO: Consider consolidating with CardsBaseMoment
 
 const GalleryMoment = observer(({ moment }: GalleryMomentProps) => {
-  const { activeCaption } = moment;
-
   const handleOnImageSwipe = (swiper: SwiperClass) => {
     if (!moment) {
       return;
@@ -23,35 +25,44 @@ const GalleryMoment = observer(({ moment }: GalleryMomentProps) => {
   };
 
   return (
-    <BaseMoment moment={moment}>
-      <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+    <BaseMoment
+      contentFit={moment.fit}
+      contentSize={moment.size}
+      moment={moment}
+    >
+      <Box sx={styles.container}>
         <Swiper
           className="gallery-swiper"
           effect="cards"
           grabCursor
           modules={[EffectCards]}
           onSlideChange={handleOnImageSwipe}
-          style={{ width: '320px', height: '480px' }}
+          style={styles.swiper(moment)}
         >
           {moment.data.images.map((image, index) => (
-            <SwiperSlide key={image.url} className="gallery-slide">
+            <SwiperSlide
+              key={image.url}
+              className="gallery-slide"
+            >
               <PreviewableImage
-                alt={image.caption || `Gallery image ${index + 1}`}
+                alt={image.alt ?? image.caption ?? `Gallery image ${index + 1}`}
                 src={image.url}
-                sx={{
-                  width: '100%', height: '100%', objectFit: 'cover', borderRadius: '8px',
-                }}
+                sx={styles.image}
               />
             </SwiperSlide>
           ))}
         </Swiper>
 
-        <div style={{ flex: 1 }}>
-          <p style={{ fontSize: '16px', color: '#333', fontWeight: '500' }}>
-            {activeCaption}
-          </p>
-        </div>
-      </div>
+        <When condition={moment.activeCaption}>
+          <StoryMomentTypography
+            computed
+            field="activeCaption"
+            moment={moment}
+            sx={styles.caption}
+            variant="body1"
+          />
+        </When>
+      </Box>
     </BaseMoment>
   );
 });

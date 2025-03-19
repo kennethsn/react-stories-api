@@ -1,5 +1,9 @@
 import {
-  action, computed, makeObservable, observable, override,
+  action,
+  computed,
+  makeObservable,
+  observable,
+  override,
 } from 'mobx';
 
 import type { GalleryMomentData, Moment } from '../../types';
@@ -14,6 +18,7 @@ export default class GalleryMomentStore extends MomentStore<GalleryMomentData> {
     makeObservable(this, {
       activeCaption: computed,
       activeImageIndex: observable,
+      fit: computed,
       setActiveImageIndex: action,
       caption: override,
       url: computed,
@@ -24,8 +29,29 @@ export default class GalleryMomentStore extends MomentStore<GalleryMomentData> {
     return this.data.images[this.activeImageIndex]?.caption || '';
   }
 
+  set activeCaption(value: string) {
+    // @ts-expect-error - allow edits in story builder
+    this.data.images[this.activeImageIndex].caption = value;
+  }
+
   get caption() {
     return this.data.caption;
+  }
+
+  get hasActiveCaption() {
+    return !!this.activeCaption;
+  }
+
+  get hasGalleryCaptions() {
+    return this.data.images.some((image) => !!image.caption);
+  }
+
+  get fit() {
+    return this.data.fit ?? 'full';
+  }
+
+  get size() {
+    return this.data.size;
   }
 
   get url() {

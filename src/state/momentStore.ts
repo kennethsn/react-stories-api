@@ -13,6 +13,7 @@ import type {
   MutableMoment,
   SerializableRecord,
 } from '../types';
+import { updateObject } from '../utils';
 import { buildNoIcon } from '../utils/iconUtils';
 import type MomentsStore from './momentsStore';
 
@@ -242,18 +243,13 @@ export default class MomentStore<T = MomentData> {
     return toJS(this.moment);
   }
 
-  updateField(fieldPath: string, value: SerializableRecord[keyof SerializableRecord]) {
-    const fields = fieldPath.split('.');
-    let current: SerializableRecord = this.moment;
-
-    for (let i = 0; i < fields.length - 1; i += 1) {
-      if (!current?.[fields[i]]) {
-        current[fields[i]] = {};
-      }
-      current = current[fields[i]] as SerializableRecord;
-    }
-
-    current[fields[fields.length - 1]] = value;
+  updateField(
+    fieldPath: string,
+    value: SerializableRecord[keyof SerializableRecord],
+    isComputed?: boolean,
+  ) {
+    const object = (isComputed ? this : this.moment) as SerializableRecord;
+    updateObject(object, fieldPath, value);
     this.onEdit();
   }
 

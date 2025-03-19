@@ -1,3 +1,5 @@
+import type { SerializableRecord } from '../types';
+
 /* eslint-disable no-param-reassign */
 export const deepMerge = <T>(objectA?: T, objectB?: T | Partial<T>): T => (
   (objectA && objectB) ? Object
@@ -39,4 +41,21 @@ export const objectsAreEqual = <T=object>(obj1: T, obj2: T): boolean => {
   return keys1.every((key) => (
     objectsAreEqual((obj1 as Record<string, unknown>)[key], (obj2 as Record<string, unknown>)[key])
   ));
+};
+
+export const updateObject = (
+  object: SerializableRecord,
+  fieldPath: string,
+  value: SerializableRecord[keyof SerializableRecord],
+) => {
+  const fields = fieldPath.split('.');
+  let current = object;
+  for (let i = 0; i < fields.length - 1; i += 1) {
+    if (!current?.[fields[i]]) {
+      current[fields[i]] = {};
+    }
+    current = current[fields[i]] as SerializableRecord;
+  }
+
+  current[fields[fields.length - 1]] = value;
 };
