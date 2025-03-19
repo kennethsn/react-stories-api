@@ -125,7 +125,7 @@ export type IFrameMomentData = {
 };
 
 export type Image = {
-  readonly alt: string;
+  readonly alt?: string;
   readonly caption?: string;
   readonly fit?: MomentContentFit;
   readonly position?: string; // Object-fit CSS property for cover fit
