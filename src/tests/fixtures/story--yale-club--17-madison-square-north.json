@@ -469,6 +469,122 @@
     {
       "data": {
         "caption": {
+          "content": "Along with Evarts Tracy, Class of 1890, Egerton Swartwout designed the building at 30 W. 44th Street, currently The Penn Club.",
+          "position": "top"
+        },
+        "entity_id": "Q38082",
+        "size": 8
+      },
+      "group": {
+        "label": "They Lived at the Club",
+        "id": "people"
+      },
+      "index": 12,
+      "label": "Wikidata Moment",
+      "subtitle": "Architect of 30 W 44th St",
+      "title": "Egerton Swartwout",
+      "type": "wikidata"
+    },
+    {
+      "data": {
+        "caption": {
+          "content": "Along with Evarts Tracy, Class of 1890, Egerton Swartwout designed the building at 30 W. 44th Street, currently The Penn Club.",
+          "position": "top"
+        },
+        "page_key": "Egerton_Swartwout",
+        "size": 8
+      },
+      "group": {
+        "label": "They Lived at the Club",
+        "id": "people"
+      },
+      "index": 12,
+      "label": "Egerton Swartwout",
+      "subtitle": "Architect of 30 W 44th St",
+      "title": "Egerton Swartwout",
+      "type": "wikipedia"
+    },
+    {
+      "data": {
+        "caption": {
+          "content": "Wilcox wrote a detailed essay on the building of the new clubhouse at 50 Vanderbilt Ave. for Architectural Record, Vol. XXXVIII, July-December 1915",
+          "position": "top"
+        },
+        "size": 8,
+        "url": "https://stories-api-test.s3.us-east-1.amazonaws.com/temp/They+Lived+at+the+Yale+Club/Marrion+Wilcox+1878/Marrion+Wilcox+--+The+Architectural+Record.pdf"
+      },
+      "group": {
+        "label": "They Lived at the Club",
+        "id": "people"
+      },
+      "index": 13,
+      "label": "Marrion Wilcox",
+      "subtitle": "The Architectural Record",
+      "title": "The Yale Club's New House",
+      "type": "pdf"
+    },
+    {
+      "data": {
+        "caption": {
+           "content": "Council Minutes Dec. 13, 1911\n“Library Committee no report. On motion, duly seconded, Mr. Marrion Wilcox was elected to this Committee.”\n\nCouncil Minutes November 12, 1913\n“The Library Committee asked for the appropriation of $100.00, and that Mr. Marrion Wilcox be appointed as Librarian for the ensuing six months, in lieu of salary to be given occupancy of room 74 for the above mentioned time, without obligation on his part, which was granted.”\n\nCouncil Minutes Nov. 11th, 1914\n“It was moved that the question of allowing Mr. Marrion Wilcox to occupy the room at the Club without charge in view of the services which he was rendering the Committee be left to the Chairman, Mr. Bertron, with power to report at the next meeting.”\n\nCouncil Minutes Dec. 9th, 1914\n“In regard to the resignation of Marrion Wilcox as a member of the Library Committee and also as to the question of whether he should be allowed to occupy a room free of charge after the first of the year, it was decided to defer action until the next meeting.“\n\nIn 1915, Wilcox asked to be moved from Resident to Non-Resident. He continued as a member of the Yale Club until his death in 1926." ,
+           "fit": "card"
+          }
+      },
+      "group": {
+        "label": "They Lived at the Club",
+        "id": "people"
+      },
+      "index": 14,
+      "label": "Marrion Wilcox 2",
+      "subtitle": "Council Meeting Notes",
+      "title": "Marrion Wilcox",
+      "type": "text"
+    },
+    {
+      "data": {
+        "content": "<h2>Member number 278</h2><p>Stokes was a very active member of his class, involved in the class dinners held at 17 Madison Square North.</p>"
+      },
+      "group": {
+        "label": "They Lived at the Club",
+        "id": "people"
+      },
+      "index": 15,
+      "label": "Horace S. Stokes",
+      "subtitle": "Class of 1889",
+      "title": "Horace S. Stokes",
+      "type": "html"
+    },
+
+    {
+      "data": {
+        "images": [
+          {
+            "url": "https://stories-api-test.s3.amazonaws.com/temp/They+Lived+at+the+Yale+Club/1887/M.+A.+Caldwell+1887/M.+A.+Caldwell+1887+--+Quarter+Century+Record+3+1912.jpg"
+          },
+          {
+            "url": "https://stories-api-test.s3.us-east-1.amazonaws.com/temp/They+Lived+at+the+Yale+Club/1894/James+Anderson+Hawes+1894/J.+A.+Hawes+1894+--+YDN+11.2.1898.png",
+            "caption": "From the Yale Daily News, 11.2.1898. Hawes, even four years out of college, was incredibly involved with his class. This is from a class dinner held at 17 Madison Square North"
+          },
+          {
+            "url": "https://stories-api-test.s3.us-east-1.amazonaws.com/temp/They+Lived+at+the+Yale+Club/1894/James+Anderson+Hawes+1894/Obit+1+1936.png",
+            "caption": "At the time of his death, Hawes was living at 50 Vanderbilt Ave. in addition to a house in Purchase, NY. He had been involved in all three clubs, living at 30 W. 44th when it was the DKE Club and at 50 Vanderbilt Avenue from 1926 to his death in 1936."
+          }
+        ]
+      },
+      "group": {
+        "label": "They Lived at the Club",
+        "id": "people"
+      },
+      "index": 16,
+      "label": "James Anderson Hawes",
+      "subtitle": "Class of 1894, Member number 176",
+      "title": "James Anderson Hawes",
+      "type": "gallery"
+    },
+
+    {
+      "data": {
+        "caption": {
           "content": "The club announces its closing in April of 1901. Click on the image to read the full notice.\n\n Continue the exhibit by going to the next story on 30 West Forty-Forth Street.",
           "position": "left"
         },
@@ -488,14 +604,14 @@
         "label": "Closing The Club",
         "id": "closing-the-club"
       },
-      "index": 11,
+      "index": 17,
       "label": "Notice to Members (1901)",
       "subtitle": "Notice to Members",
       "title": "Notice to Members",
       "type": "image"
     },
     {
-      "index": 12,
+      "index": 18,
       "label": "Continue more stories",
       "subtitle": "Notice to Members",
       "title": "Notice to Members",

@@ -50,6 +50,7 @@ export default {
 
 export const SampleStory = {
   args: {
+    defaultMomentId: 'testing-moment',
     story: storyData,
     editable: true,
   },

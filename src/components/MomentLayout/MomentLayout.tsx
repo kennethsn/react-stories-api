@@ -18,6 +18,7 @@ const MomentLayout = observer(({
   children,
   contentFit,
   contentSize,
+  hideContent,
   moment,
   noContentElevation,
 }: MomentLayoutProps) => {
@@ -56,6 +57,7 @@ const MomentLayout = observer(({
         <MomentBodyLayout
           contentFit={contentFit}
           contentSize={contentSize}
+          hideContent={hideContent}
           moment={moment}
           noContentElevation={noContentElevation}
         >

@@ -19,7 +19,7 @@ const BoundTypography = observer(<T extends string>({
     if (cleanedValue === undefined || (required && !cleanedValue)) {
       return;
     }
-    store.updateField(field, cleanedValue as never);
+    store.updateField(field, cleanedValue as never, computed);
   };
   return (
     <EditableTypography

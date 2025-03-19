@@ -20,6 +20,7 @@ const MomentBodyLayout = observer(({
   children,
   contentFit = 'card',
   contentSize: inputContentSize,
+  hideContent,
   moment,
   noContentElevation,
 }: MomentBodyLayoutProps) => {
@@ -55,7 +56,7 @@ const MomentBodyLayout = observer(({
     />
   );
 
-  const contentGridItem = (
+  const contentGridItem = hideContent ? null : (
     <MomentBodyLayoutContentGridItem
       borderRadius={contentFitIsCard && !noContentElevation ? 2 : 0}
       boxShadow={contentFitIsCard && !noContentElevation ? 4 : 0}
