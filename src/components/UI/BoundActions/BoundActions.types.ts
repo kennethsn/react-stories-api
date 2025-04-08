@@ -2,6 +2,7 @@ import type { BoxProps } from '@mui/material/Box';
 
 export type BoundActionsProps = {
   readonly append?: React.ReactNode;
+  readonly className?: string;
   readonly prepend?: React.ReactNode;
   readonly store: {
     readonly download: () => void;

@@ -4,6 +4,9 @@ const styles = {
     display: 'flex',
     justifyContent: 'center',
   },
+  root: {
+    position: 'relative',
+  },
   searchContainer: {
     py: 2,
     px: { xs: 1, md: 10 },

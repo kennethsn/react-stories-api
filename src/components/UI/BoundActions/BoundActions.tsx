@@ -4,6 +4,7 @@ import PublishedWithChangesIcon from '@mui/icons-material/PublishedWithChanges';
 import Box from '@mui/material/Box';
 import { observer } from 'mobx-react-lite';
 
+import { classNames } from '../../../utils/dom';
 import ActionButton from '../ActionButton/ActionButton';
 import type { BoundActionsProps } from './BoundActions.types';
 
@@ -19,6 +20,7 @@ const getSaveButtonTitle = (type: string, store: BoundActionsProps['store']) => 
 
 const BoundActions = observer(({
   append,
+  className,
   prepend,
   store,
   sx,
@@ -39,7 +41,10 @@ const BoundActions = observer(({
   };
 
   return (
-    <Box sx={sx}>
+    <Box
+      className={classNames('BoundActions', className)}
+      sx={sx}
+    >
       {prepend}
 
       <ActionButton

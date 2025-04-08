@@ -283,11 +283,13 @@ export default class CollectionStore {
     return this.slots?.[slot];
   }
 
-  init() {
-    this.initialized = true;
+  async init() {
     if (this.sourceIsAPI) {
-      this.loadStories();
+      await this.loadStories();
     }
+    runInAction(() => {
+      this.initialized = true;
+    });
   }
 
   isSlotAvailable(slot: string) {

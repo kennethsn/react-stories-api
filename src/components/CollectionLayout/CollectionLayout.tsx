@@ -68,7 +68,11 @@ const CollectionLayout = observer(({ children }: CollectionLayoutProps) => {
   };
 
   return (
-    <Grid container>
+    <Grid
+      className="StoriesAPICollection"
+      container
+      sx={styles.root}
+    >
       <Grid size={12}>
         <CollectionHeader card={card} />
       </Grid>

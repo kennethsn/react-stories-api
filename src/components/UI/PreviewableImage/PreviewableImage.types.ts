@@ -1,9 +1,9 @@
 import type { SxProps } from '@mui/material/styles';
 
 export type PreviewableImageProps = {
-  alt: string;
-  className?: string;
-  onClick?: () => void;
-  src: string;
-  sx?: SxProps;
+  readonly alt: string;
+  readonly className?: string;
+  readonly onClick?: () => void;
+  readonly src: string;
+  readonly sx?: SxProps;
 };

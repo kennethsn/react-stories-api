@@ -9,6 +9,7 @@ import type { StatusPageProps } from './StatusPage.types';
 
 export default function StatusPage({
   children,
+  iconComponent: Icon = AutoAwesomeTwoToneIcon,
   isFullscreen,
   isLoading,
   message,
@@ -22,7 +23,7 @@ export default function StatusPage({
 
       <Grid>
         <When condition={isFullscreen}>
-          <AutoAwesomeTwoToneIcon sx={styles.icon} />
+          <Icon sx={styles.icon} />
         </When>
 
         <When condition={isLoading}>

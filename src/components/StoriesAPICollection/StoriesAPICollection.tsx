@@ -81,7 +81,7 @@ const StoriesAPICollection = observer(({
 
   return (
     <Suspense fallback={loader}>
-      <If condition={!!collection}>
+      <If condition={collection?.initialized}>
         <Then>
           <CollectionProvider
             // eslint-disable-next-line react/jsx-props-no-spreading

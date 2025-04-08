@@ -2,6 +2,10 @@ import type { RefObject } from 'react';
 
 import { getRelativeValue } from './math';
 
+export const classNames = (...classes: (string | undefined)[]) => (
+  classes.filter(Boolean).join(' ')
+);
+
 export const getElementHeight = (ref: RefObject<HTMLDivElement> | null) => (
   ref?.current?.clientHeight || 0
 );

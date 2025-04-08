@@ -107,9 +107,9 @@ export default class CollectionsStore {
     let collectionStore: CollectionStore;
     if (this.hasCollection(key)) {
       collectionStore = this.getCollection(key)!;
-      if (!collectionStore.initialized) {
-        runInAction(() => {
-          collectionStore.init();
+      if (!collectionStore.initialized && !collectionStore.storiesAreLoading) {
+        await runInAction(async () => {
+          await collectionStore.init();
           this.collections.set(key, { isLoading: false, collection: collectionStore });
         });
       }
