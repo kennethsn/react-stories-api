@@ -11,6 +11,7 @@ import type {
   MomentData,
   MomentGroup,
   MutableMoment,
+  NullableString,
   SerializableRecord,
 } from '../types';
 import { updateObject } from '../utils';
@@ -109,18 +110,18 @@ export default class MomentStore<T = MomentData> {
   }
 
   get getField() {
-    return (fieldPath: string) => {
+    return <ValueType=NullableString>(fieldPath: string): ValueType => {
       const fields = fieldPath.split('.');
       let current: SerializableRecord = this.moment;
 
       for (let i = 0; i < fields.length; i += 1) {
         if (!current[fields[i]]) {
-          return undefined;
+          return undefined as ValueType;
         }
         current = current[fields[i]] as SerializableRecord;
       }
 
-      return current;
+      return current as ValueType;
     };
   }
 

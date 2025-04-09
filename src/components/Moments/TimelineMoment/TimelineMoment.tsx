@@ -11,7 +11,9 @@ import type { TimelineMomentProps } from './TimelineMoment.types';
 const TimelineMoment = observer(({ moment }: TimelineMomentProps) => {
   const color = useColor(moment.color);
   const { layoutIsMobile } = useStoryTheme();
-  const imageMaxHeight = moment.getRelativeHeight(0.8);
+  // TODO: relative height is no longer working
+  // const imageMaxHeight = moment.getRelativeHeight(0.8);
+  const imageMaxHeight = '40vh' as unknown as number;
   const position = layoutIsMobile ? 'right' : 'alternate';
   const getEventDirection = (index: number) => (
     (position === 'right' || index % 2 === 0) ? 'right' : 'left'
