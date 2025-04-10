@@ -4,6 +4,7 @@ import TimelineItem from '@mui/lab/TimelineItem';
 import TimelineOppositeContent from '@mui/lab/TimelineOppositeContent';
 import TimelineSeparator from '@mui/lab/TimelineSeparator';
 import Typography from '@mui/material/Typography';
+import { observer } from 'mobx-react-lite';
 import { When } from 'react-if';
 
 import Animation from '../Animation/Animation';
@@ -12,13 +13,13 @@ import TimelineEventDot from '../TimelineEventDot/TimelineEventDot';
 import styles from './TimelineEvent.styles';
 import type { TimelineEventProps } from './TimelineEvent.types';
 
-export default function TimelineEvent({
+const TimelineEvent = observer(({
   color,
   direction,
   event,
   imageMaxHeight,
   timelinePosition,
-}: TimelineEventProps) {
+}: TimelineEventProps) => {
   const timelineIsRight = timelinePosition === 'right';
   const animation = direction === 'left' ? 'fadeDownLeft' : 'fadeDownRight';
   const label = (
@@ -70,4 +71,6 @@ export default function TimelineEvent({
       </TimelineContent>
     </TimelineItem>
   );
-}
+});
+
+export default TimelineEvent;

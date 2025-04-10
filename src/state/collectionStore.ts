@@ -338,6 +338,7 @@ export default class CollectionStore {
     try {
       await this.options.onSave?.(collection);
       runInAction(() => {
+        this.initialCollection = deepCopy(collection);
         this.saveStatus = 'SUCCESS';
         this.isEdited = false;
       });

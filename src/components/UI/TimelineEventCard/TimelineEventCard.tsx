@@ -1,5 +1,6 @@
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
+import { observer } from 'mobx-react-lite';
 import { When } from 'react-if';
 
 import StoryButton from '../../StoryButton/StoryButton';
@@ -8,12 +9,12 @@ import PreviewableImage from '../PreviewableImage/PreviewableImage';
 import styles from './TimelineEventCard.styles';
 import type { TimelineEventCardProps } from './TimelineEventCard.types';
 
-export default function TimelineEventCard({
+const TimelineEventCard = observer(({
   color,
   direction,
   event,
   imageMaxHeight,
-}: TimelineEventCardProps) {
+}: TimelineEventCardProps) => {
   const {
     button,
     description,
@@ -67,4 +68,6 @@ export default function TimelineEventCard({
       </Box>
     </Animation>
   );
-}
+});
+
+export default TimelineEventCard;

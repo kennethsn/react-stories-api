@@ -1,4 +1,5 @@
 import Button, { type ButtonProps } from '@mui/material/Button';
+import { observer } from 'mobx-react-lite';
 
 import useColor from '../../hooks/useColor';
 import useStoriesAPINavigation from '../../hooks/useStoriesAPINavigation';
@@ -7,13 +8,13 @@ import ThemeOverride from '../UI/ThemeOverride/ThemeOverride';
 import styles from './StoriesAPIButton.styles';
 import type { StoriesAPIButtonProps } from './StoriesAPIButton.types';
 
-export default function StoriesAPIButton({
+const StoriesAPIButton = observer(({
   button,
   onClick,
   variant,
   sx,
   ...props
-}: StoriesAPIButtonProps) {
+}: StoriesAPIButtonProps) => {
   const { background, themeOptions } = useColor(button.color);
   const { goTo } = useStoriesAPINavigation();
   const handleClick: ButtonProps['onClick'] = (e) => (onClick ? onClick(e) : goTo(button));
@@ -31,4 +32,6 @@ export default function StoriesAPIButton({
       </Button>
     </ThemeOverride>
   );
-}
+});
+
+export default StoriesAPIButton;

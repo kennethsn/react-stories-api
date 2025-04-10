@@ -204,6 +204,7 @@ export default class StoryStore {
     try {
       await this.options.onSave?.(story);
       runInAction(() => {
+        this.initialStory = deepCopy(story);
         this.saveStatus = 'SUCCESS';
         this.isEdited = false;
       });
