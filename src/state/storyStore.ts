@@ -10,7 +10,7 @@ import type {
   SaveStatus,
   Story,
 } from '../types';
-import { objectsAreEqual } from '../utils/object';
+import { deepCopy, objectsAreEqual } from '../utils/object';
 import { openJSON } from '../utils/url';
 import MomentsStore from './momentsStore';
 import type RootStore from './rootStore';
@@ -43,10 +43,10 @@ export default class StoryStore {
 
   constructor(public root: RootStore, public options: StoryStoreOptions) {
     makeAutoObservable(this);
-    this.initialStory = options.story;
+    this.initialStory = deepCopy(options.story);
     this.isEditable = !!options.editable;
     this.options = options;
-    this.story = { ...options.story };
+    this.story = deepCopy(options.story);
     this.root = root;
     this.moments = new MomentsStore(this.root, this);
   }
@@ -189,7 +189,7 @@ export default class StoryStore {
   }
 
   reset() {
-    this.story = { ...this.initialStory };
+    this.story = deepCopy(this.initialStory);
     this.resetMoments();
     this.isEdited = false;
   }

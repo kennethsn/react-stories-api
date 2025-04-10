@@ -1,5 +1,7 @@
 import type { SerializableRecord } from '../types';
 
+export const deepCopy = <T>(obj: T): T => JSON.parse(JSON.stringify(obj));
+
 /* eslint-disable no-param-reassign */
 export const deepMerge = <T>(objectA?: T, objectB?: T | Partial<T>): T => (
   (objectA && objectB) ? Object

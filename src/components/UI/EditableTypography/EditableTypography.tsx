@@ -1,5 +1,6 @@
 import TextField, { TextFieldProps } from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
+import parse from 'html-react-parser';
 import {
   type ChangeEvent,
   useCallback,
@@ -19,6 +20,7 @@ export default function EditableTypography({
   onBlur,
   onChange,
   required,
+  richText,
   textFieldProps,
   value: defaultValue,
   variant,
@@ -88,7 +90,7 @@ export default function EditableTypography({
           onClick={handleClick}
           variant={variant}
         >
-          {text}
+          {richText ? parse(text) : text}
         </Typography>
       </Else>
     </If>

@@ -11,9 +11,11 @@ const styles = {
     display: 'flex',
     gap: '16px',
     height: '100%',
+    justifyContent: 'center',
 
     '& .gallery-swiper': {
       p: 3,
+      mx: 2,
 
       '& .gallery-slide': {
         alignSelf: 'center',

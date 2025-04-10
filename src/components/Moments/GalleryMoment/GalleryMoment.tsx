@@ -58,6 +58,7 @@ const GalleryMoment = observer(({ moment }: GalleryMomentProps) => {
             computed
             field="activeCaption"
             moment={moment}
+            richText
             sx={styles.caption}
             variant="body1"
           />

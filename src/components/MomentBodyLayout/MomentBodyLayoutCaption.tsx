@@ -20,6 +20,7 @@ const MomentBodyLayoutCaption = observer(({ boxShadow, m }: MomentBodyLayoutCapt
         <StoryMomentTypography
           field="data.caption.content"
           moment={moment}
+          richText
           sx={styles.caption}
           variant="body1"
         />

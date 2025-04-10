@@ -17,6 +17,7 @@ import type {
   StoriesAPIStoriesResponse,
 } from '../types';
 import { buildDynamicGridSize } from '../utils/grid';
+import { deepCopy } from '../utils/object';
 import { openJSON } from '../utils/url';
 import type RootStore from './rootStore';
 
@@ -70,8 +71,8 @@ export default class CollectionStore {
   constructor(public root: RootStore, public options: CollectionStoreOptions) {
     makeAutoObservable(this);
     this.allStoriesAreEnabled = !!options.enableAllStories;
-    this.collection = { ...options.collection };
-    this.initialCollection = options.collection;
+    this.collection = deepCopy(options.collection);
+    this.initialCollection = deepCopy(options.collection);
     this.isEditable = !!options.editable;
     this.page = options.page ?? defaultPageNumber;
     this.searchInput = options.searchInput ?? '';
@@ -322,7 +323,7 @@ export default class CollectionStore {
   };
 
   reset() {
-    this.collection = { ...this.initialCollection };
+    this.collection = deepCopy(this.initialCollection);
     this.init();
     this.isEdited = false;
   }

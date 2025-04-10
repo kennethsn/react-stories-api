@@ -14,8 +14,8 @@ import type {
   NullableString,
   SerializableRecord,
 } from '../types';
-import { updateObject } from '../utils';
 import { buildNoIcon } from '../utils/iconUtils';
+import { deepCopy, updateObject } from '../utils/object';
 import type MomentsStore from './momentsStore';
 
 export default class MomentStore<T = MomentData> {
@@ -60,9 +60,9 @@ export default class MomentStore<T = MomentData> {
       type: computed,
       updateField: action,
     });
-    this.initialMoment = moment;
+    this.initialMoment = deepCopy(moment);
+    this.moment = deepCopy(moment);
     this.moments = moments;
-    this.moment = { ...moment };
   }
 
   get av() {
@@ -237,7 +237,7 @@ export default class MomentStore<T = MomentData> {
   }
 
   reset() {
-    this.moment = { ...this.initialMoment };
+    this.moment = deepCopy(this.initialMoment);
   }
 
   toJSON() {

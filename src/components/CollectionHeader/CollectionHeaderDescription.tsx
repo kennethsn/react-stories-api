@@ -13,6 +13,7 @@ const CollectionHeaderDescription = observer(() => {
       <Grid size={{ xs: 12, md: 'grow' }}>
         <CollectionTypography
           field="description"
+          richText
           sx={styles.typography}
           variant="body1"
         />
