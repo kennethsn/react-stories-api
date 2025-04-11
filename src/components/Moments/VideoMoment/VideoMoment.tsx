@@ -20,6 +20,7 @@ const VideoMoment = observer(({ moment }: VideoMomentProps) => {
     >
       <Box sx={styles.root}>
         <ReactPlayer
+          key={`${moment.id}-${moment.url}-${moment.showControls}`}
           controls={moment.showControls}
           height="100%"
           onPause={handleReactPlayerPause}
