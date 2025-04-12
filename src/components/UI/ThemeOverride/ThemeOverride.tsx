@@ -2,6 +2,7 @@ import { ThemeProvider } from '@mui/material/styles';
 import { observer } from 'mobx-react-lite';
 
 import useStoriesAPITheme from '../../../hooks/useStoriesAPITheme';
+import StoriesAPIThemeProvider from '../../../providers/StoriesAPIThemeProvider';
 import type { ThemeOverrideProps } from './ThemeOverride.types';
 
 const ThemeOverride = observer(({
@@ -10,9 +11,11 @@ const ThemeOverride = observer(({
 }: ThemeOverrideProps) => {
   const storiesAPITheme = useStoriesAPITheme(themeOptions);
   return (
-    <ThemeProvider theme={storiesAPITheme.muiTheme}>
-      {children}
-    </ThemeProvider>
+    <StoriesAPIThemeProvider theme={themeOptions}>
+      <ThemeProvider theme={storiesAPITheme.muiTheme}>
+        {children}
+      </ThemeProvider>
+    </StoriesAPIThemeProvider>
   );
 });
 

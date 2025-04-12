@@ -17,6 +17,9 @@ const styles = {
       width: '100%',
     },
   },
+  name: ({ palette }: Theme) => ({
+    color: palette.primary.contrastText,
+  }),
   subtitle: ({ palette }: Theme) => ({
     color: palette.secondary.light,
     fontStyle: 'italic',

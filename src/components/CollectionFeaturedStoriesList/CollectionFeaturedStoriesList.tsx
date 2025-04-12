@@ -30,6 +30,7 @@ const CollectionFeaturedStoriesList = observer(() => {
             >
               <StoryCard
                 buttonLabel="View Featured Story"
+                isDisabled={collection.allStoriesAreEnabled ? false : undefined}
                 slot={(
                   <CollectionSlot
                     component="FeaturedStoryCard"

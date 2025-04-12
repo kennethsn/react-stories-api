@@ -24,6 +24,7 @@ import { type ThemeOptions, ThemeProvider } from '@mui/material/styles';
 import type { PropsWithChildren } from 'react';
 
 import RootStore, { type RootStoreOptions } from '../state/rootStore';
+import StoriesAPIThemeProvider from './StoriesAPIThemeProvider';
 
 type StoriesAPIProviderProps = PropsWithChildren & Omit<RootStoreOptions, 'themeOptions'> & {
   readonly theme?: ThemeOptions;
@@ -43,16 +44,18 @@ export default function StoriesAPIProvider({
   });
   return (
     <RootStoreProvider value={store}>
-      <ThemeProvider theme={store.theme.muiTheme}>
-        <CssBaseline />
+      <StoriesAPIThemeProvider theme={theme}>
+        <ThemeProvider theme={store.theme.muiTheme}>
+          <CssBaseline />
 
-        {children}
+          {children}
 
-        <link
-          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@24,300,0,0"
-          rel="stylesheet"
-        />
-      </ThemeProvider>
+          <link
+            href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@24,300,0,0"
+            rel="stylesheet"
+          />
+        </ThemeProvider>
+      </StoriesAPIThemeProvider>
     </RootStoreProvider>
   );
 }

@@ -47,7 +47,7 @@ const CollectionSection = observer(({
         sx={styles.contentContainer}
       >
         <Typography
-          color="white"
+          sx={styles.name}
           variant="h2"
         >
           {collection.name}

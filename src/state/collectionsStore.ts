@@ -72,6 +72,10 @@ export default class CollectionsStore {
     return collectionStore;
   }
 
+  clearCollectionsListCache() {
+    this.collectionsListCache.clear();
+  }
+
   getCollection(collectionId: CollectionCacheKey, cacheKey?: string) {
     const key = buildLookupKey(collectionId, cacheKey);
     return this.collections.get(key)?.collection;
