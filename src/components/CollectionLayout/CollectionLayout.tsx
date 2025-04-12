@@ -26,6 +26,7 @@ const CollectionLayout = observer(({ children }: CollectionLayoutProps) => {
         >
           <StoryCard
             buttonLabel="View Featured Story"
+            isDisabled={collection.allStoriesAreEnabled ? false : undefined}
             slot={(
               <CollectionSlot
                 component="FeaturedStoryCard"
@@ -44,12 +45,13 @@ const CollectionLayout = observer(({ children }: CollectionLayoutProps) => {
           persist
         >
           <StoryCard
+            isDisabled={collection.allStoriesAreEnabled ? false : undefined}
             slot={(
               <CollectionSlot
                 component="StoryCard"
                 story={collection.firstStory}
               />
-          )}
+            )}
             story={collection.firstStory}
           />
         </Animation>

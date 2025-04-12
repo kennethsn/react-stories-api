@@ -3,6 +3,7 @@ import Typography from '@mui/material/Typography';
 import { observer } from 'mobx-react-lite';
 import { Unless, When } from 'react-if';
 
+import CollectionTypography from '../CollectionTypography/CollectionTypography';
 import { StoriesAPIButton } from '../StoriesAPIButton';
 import ContainerBadge from '../UI/ContainerBadge/ContainerBadge';
 import styles from './CollectionSection.styles';
@@ -63,12 +64,13 @@ const CollectionSection = observer(({
         </When>
 
         <When condition={collection.hasDescription}>
-          <Typography
+          <CollectionTypography
+            collection={collection}
+            field="description"
+            richText
             sx={styles.description}
             variant="body1"
-          >
-            {collection.description}
-          </Typography>
+          />
         </When>
 
         <Unless condition={isDisabled}>
