@@ -7,7 +7,7 @@ import { useSearchParams } from 'react-router-dom';
 import useFormatters from '../../hooks/useFormatters';
 import useStories from '../../hooks/useStories';
 import { StoryProvider } from '../../providers';
-import type { Moment } from '../../types';
+import type MomentStore from '../../state/momentStore';
 import StoryError from '../StoryError/StoryError';
 import StoryLoader from '../StoryLoader/StoryLoader';
 import type { StoriesAPIStoryProps } from './StoriesAPIStory.types';
@@ -42,7 +42,7 @@ const StoriesAPIStory = observer((props: StoriesAPIStoryProps) => {
     defaultMomentId
   ));
 
-  const handleChange = (moment: Moment) => {
+  const handleChange = (moment: MomentStore) => {
     onChange?.(moment);
     if (connectRouter) {
       setSearchParams(
