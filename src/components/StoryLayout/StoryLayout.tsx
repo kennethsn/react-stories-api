@@ -8,11 +8,11 @@ import StoryLayoutFullscreen from './StoryLayoutFullscreen';
 import StoryLayoutMobile from './StoryLayoutMobile';
 
 // KSN TODO: Turn back on persistence
-const StoryLayout = observer(({ children }: StoryLayoutProps) => {
+const StoryLayout = observer(({ children, sx }: StoryLayoutProps) => {
   const { layoutIsDesktop } = useStoryTheme();
 
   return (
-    <StoryLayoutFullscreen>
+    <StoryLayoutFullscreen sx={sx}>
       <If condition={layoutIsDesktop}>
         <Then>
           <StoryLayoutDesktop>

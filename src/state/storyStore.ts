@@ -155,7 +155,7 @@ export default class StoryStore {
     openJSON(json);
   }
 
-  emitChangeEvent(moment: Moment) {
+  emitChangeEvent(moment: MomentStore) {
     this.options.onChange?.(moment);
   }
 

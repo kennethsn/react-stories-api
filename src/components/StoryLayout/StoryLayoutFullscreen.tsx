@@ -4,13 +4,14 @@ import { Else, If, Then } from 'react-if';
 
 import { STORY_ANIMATION_SPEED } from '../../constants';
 import useStoryTheme from '../../hooks/useStoryTheme';
+import { deepMerge } from '../../utils';
 import Animation from '../UI/Animation/Animation';
 import styles from './StoryLayout.styles';
 import type { StoryLayoutProps } from './StoryLayout.types';
 
-const StoryLayoutFullscreen = observer(({ children }: StoryLayoutProps) => {
+const StoryLayoutFullscreen = observer(({ children, sx: sxProp }: StoryLayoutProps) => {
   const { layoutIsFullscreen } = useStoryTheme();
-  const sx = styles.root(layoutIsFullscreen);
+  const sx = deepMerge(styles.root(layoutIsFullscreen), sxProp);
   return (
     <If condition={layoutIsFullscreen}>
       <Then>
