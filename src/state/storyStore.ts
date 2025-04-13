@@ -24,7 +24,7 @@ export type StoryStoreOptions = {
   readonly fullscreen?: boolean;
   readonly layout?: 'desktop' | 'mobile';
   readonly onChange?: (moment: MomentStore) => void;
-  readonly onLoad?: (story: Story, store: StoryStore) => Promise<void>;
+  readonly onLoad?: (story: Story, store: StoryStore) => void;
   readonly onSave?: (story: Story) => Promise<void>;
   readonly slots?: { [key: string]: FC };
   readonly story: Story;

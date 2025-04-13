@@ -186,7 +186,9 @@ export default class MomentsStore {
 
   goToMomentIndex(index: number) {
     runInAction(() => {
-      this.swiper?.slideTo(index);
+      if (index !== this.activeMomentIndex) {
+        this.swiper?.slideTo(index);
+      }
       this.setActiveMomentIndex(index);
       const moment = this.moments[index];
       if (moment.group) {
@@ -228,7 +230,8 @@ export default class MomentsStore {
     this.moments = this.buildMoments();
   }
 
-  private setActiveMomentIndex(index: number) {
+  // Note: this does not transition swiper, use goToMomentIndex
+  setActiveMomentIndex(index: number) {
     this.activeMomentIndex = index;
   }
 
