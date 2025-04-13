@@ -244,14 +244,15 @@ export default class MomentStore<T = MomentData> {
     return toJS(this.moment);
   }
 
-  updateField(
+  updateField<IValue=SerializableRecord[keyof SerializableRecord]>(
     fieldPath: string,
-    value: SerializableRecord[keyof SerializableRecord],
+    value: IValue,
     isComputed?: boolean,
   ) {
     const object = (isComputed ? this : this.moment) as SerializableRecord;
-    updateObject(object, fieldPath, value);
+    updateObject(object, fieldPath, value as SerializableRecord[keyof SerializableRecord]);
     this.onEdit();
+    return object;
   }
 
   updateGroup(group: MomentGroup) {

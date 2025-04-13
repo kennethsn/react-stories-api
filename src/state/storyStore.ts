@@ -13,6 +13,7 @@ import type {
 import { deepCopy, objectsAreEqual } from '../utils/object';
 import { openJSON } from '../utils/url';
 import MomentsStore from './momentsStore';
+import type MomentStore from './momentStore';
 import type RootStore from './rootStore';
 
 export type StoryStoreOptions = {
@@ -22,7 +23,8 @@ export type StoryStoreOptions = {
   readonly editable?: boolean;
   readonly fullscreen?: boolean;
   readonly layout?: 'desktop' | 'mobile';
-  readonly onChange?: (moment: Moment) => void;
+  readonly onChange?: (moment: MomentStore) => void;
+  readonly onLoad?: (story: Story, store: StoryStore) => Promise<void>;
   readonly onSave?: (story: Story) => Promise<void>;
   readonly slots?: { [key: string]: FC };
   readonly story: Story;
@@ -49,6 +51,7 @@ export default class StoryStore {
     this.story = deepCopy(options.story);
     this.root = root;
     this.moments = new MomentsStore(this.root, this);
+    options.onLoad?.(this.story, this);
   }
 
   get av() {
