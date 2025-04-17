@@ -42,7 +42,9 @@ export default class StoriesStore {
     if (this.storyHasFetchStatus(storyId)) {
       if (this.getStoryFetchState(storyId)?.status === 'success') {
         const story = this.getStory(storyId);
-        story.options = { ...story.options, ...storyOptions };
+        if (story) {
+          story.options = { ...story.options, ...storyOptions };
+        }
       }
       return;
     }
