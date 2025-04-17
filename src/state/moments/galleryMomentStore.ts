@@ -26,7 +26,7 @@ export default class GalleryMomentStore extends MomentStore<GalleryMomentData> {
   }
 
   get activeCaption() {
-    return this.data.images[this.activeImageIndex]?.caption || '';
+    return this.activeImage?.caption || '';
   }
 
   set activeCaption(value: string) {
@@ -34,8 +34,20 @@ export default class GalleryMomentStore extends MomentStore<GalleryMomentData> {
     this.data.images[this.activeImageIndex].caption = value;
   }
 
+  get activeCaptionButton() {
+    return this.activeImage?.caption_button;
+  }
+
+  get activeImage() {
+    return this.data.images[this.activeImageIndex];
+  }
+
   get caption() {
     return this.data.caption;
+  }
+
+  get fit() {
+    return this.data.fit ?? 'full';
   }
 
   get hasActiveCaption() {
@@ -46,8 +58,8 @@ export default class GalleryMomentStore extends MomentStore<GalleryMomentData> {
     return this.data.images.some((image) => !!image.caption);
   }
 
-  get fit() {
-    return this.data.fit ?? 'full';
+  get shouldShowCaption() {
+    return this.hasActiveCaption || !!this.activeCaptionButton;
   }
 
   get size() {

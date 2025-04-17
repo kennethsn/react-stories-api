@@ -8,11 +8,11 @@ import type { Swiper as SwiperClass } from 'swiper';
 import { EffectCards } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
-import StoryMomentTypography from '../../StoryMoment/StoryMomentTypography';
 import PreviewableImage from '../../UI/PreviewableImage/PreviewableImage';
 import BaseMoment from '../BaseMoment/BaseMoment';
 import styles from './GalleryMoment.styles';
 import type { GalleryMomentProps } from './GalleryMoment.types';
+import GalleryMomentCaption from './GalleryMomentCaption';
 
 // TODO: Consider consolidating with CardsBaseMoment
 
@@ -24,13 +24,15 @@ const GalleryMoment = observer(({ moment }: GalleryMomentProps) => {
     moment.setActiveImageIndex(swiper.activeIndex);
   };
 
+  const fitIsFullWidth = moment.fit === 'full';
+
   return (
     <BaseMoment
       contentFit={moment.fit}
       contentSize={moment.size}
       moment={moment}
     >
-      <Box sx={styles.container}>
+      <Box sx={styles.container(fitIsFullWidth ? [] : moment.data.images)}>
         <Swiper
           className="gallery-swiper"
           effect="cards"
@@ -47,21 +49,14 @@ const GalleryMoment = observer(({ moment }: GalleryMomentProps) => {
               <PreviewableImage
                 alt={image.alt ?? image.caption ?? `Gallery image ${index + 1}`}
                 src={image.url}
-                sx={styles.image}
+                sx={styles.image(fitIsFullWidth)}
               />
             </SwiperSlide>
           ))}
         </Swiper>
 
-        <When condition={moment.activeCaption}>
-          <StoryMomentTypography
-            computed
-            field="activeCaption"
-            moment={moment}
-            richText
-            sx={styles.caption}
-            variant="body1"
-          />
+        <When condition={moment.shouldShowCaption}>
+          <GalleryMomentCaption moment={moment} />
         </When>
       </Box>
     </BaseMoment>

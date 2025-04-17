@@ -21,6 +21,9 @@ const styles = {
       },
     },
   }),
+  typography: {
+    whiteSpace: 'pre-wrap',
+  },
 };
 
 export default styles;

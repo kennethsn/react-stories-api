@@ -9,6 +9,7 @@ import {
 } from 'react';
 import { Else, If, Then } from 'react-if';
 
+import { deepMerge } from '../../../utils';
 import { getThemeColorFromTypographyColor } from '../../../utils/color';
 import styles from './EditableTypography.styles';
 import type { EditableTypographyProps } from './EditableTypography.types';
@@ -88,6 +89,7 @@ export default function EditableTypography({
           // eslint-disable-next-line react/jsx-props-no-spreading
           {...props}
           onClick={handleClick}
+          sx={deepMerge(styles.typography, props.sx)}
           variant={variant}
         >
           {richText ? parse(text) : text}

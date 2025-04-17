@@ -1,6 +1,6 @@
 {
   "name": "react-stories-api",
-  "version": "1.0.0-dev-34",
+  "version": "1.0.0-dev-35",
   "author": "Kenneth Seals-Nutt",
   "babel": {
     "presets": [
@@ -79,7 +79,7 @@
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "relative-deps": "^1.0.7",
-    "rollup": "^4.39.0",
+    "rollup": "^4.40.0",
     "rollup-plugin-dts": "^6.2.1",
     "rollup-plugin-peer-deps-external": "^2.2.4",
     "rollup-plugin-postcss": "^4.0.2",

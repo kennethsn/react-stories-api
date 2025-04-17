@@ -127,6 +127,7 @@ export type IFrameMomentData = {
 export type Image = {
   readonly alt?: string;
   readonly caption?: string;
+  readonly caption_button?: Button; // TODO: eventually merge with caption
   readonly fit?: MomentContentFit;
   readonly position?: string; // Object-fit CSS property for cover fit
   // Note: Size works best with fit: 'cover' or left/right captions

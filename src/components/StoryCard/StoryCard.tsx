@@ -68,6 +68,7 @@ export default function StoryCard({
         <Unless condition={isHidingButton}>
           <StoriesAPIButton
             button={button}
+            component="div"
             onClick={handleButtonClick}
             size="small"
             variant="text"

@@ -40,6 +40,10 @@ export default class StoriesStore {
     callback?: (story: StoryStore) => void,
   ) {
     if (this.storyHasFetchStatus(storyId)) {
+      if (this.getStoryFetchState(storyId)?.status === 'success') {
+        const story = this.getStory(storyId);
+        story.options = { ...story.options, ...storyOptions };
+      }
       return;
     }
     runInAction(() => {

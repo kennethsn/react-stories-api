@@ -54,10 +54,16 @@ export const updateObject = (
   let current = object;
   for (let i = 0; i < fields.length - 1; i += 1) {
     if (!current?.[fields[i]]) {
-      current[fields[i]] = {};
+      const isNumber = fields[i + 1] && !Number.isNaN(Number(fields[i + 1]));
+      if (isNumber) {
+        current[fields[i]] = [];
+      } else {
+        current[fields[i]] = {};
+      }
     }
     current = current[fields[i]] as SerializableRecord;
   }
 
   current[fields[fields.length - 1]] = value;
+  return object;
 };
