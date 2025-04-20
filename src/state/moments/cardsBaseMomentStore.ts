@@ -9,6 +9,7 @@ export default class CardsBaseMomentStore<T> extends MomentStore<CardsBaseMoment
   constructor(moments: MomentsStore, moment: Moment<CardsBaseMomentData<T>>) {
     super(moments, moment);
     makeObservable(this, {
+      disableAnimation: computed,
       fit: computed,
       layout: computed,
       size: computed,
