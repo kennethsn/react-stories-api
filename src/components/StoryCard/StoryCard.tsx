@@ -15,6 +15,7 @@ export default function StoryCard({
   buttonLabel = 'View Story', // KSN TODO: connect this to formatters
   isDisabled,
   isHidingButton = false,
+  newTab,
   previewButtonLabel = 'Coming Soon', // KSN TODO: connect this to formatters
   slot,
   story,
@@ -22,10 +23,11 @@ export default function StoryCard({
 }: StoryCardProps) {
   const storyIsPreviewing = isStoryPreviewing(story);
   const button: Button = {
-    collectionId: story.collection_id,
+    collection_id: story.collection_id,
     is_disabled: typeof isDisabled === 'boolean' ? isDisabled : isStoryUnpublished(story),
     label: storyIsPreviewing ? previewButtonLabel : buttonLabel,
-    storyId: story.id,
+    new_tab: newTab,
+    story_id: story.id,
   };
   // no-op because the card is clickable
   const handleButtonClick = () => true;

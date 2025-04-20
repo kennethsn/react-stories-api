@@ -48,6 +48,7 @@ export default class MomentStore<T = MomentData> {
       id: computed,
       index: computed,
       isActive: computed,
+      isDefault: computed,
       isEditable: computed,
       isInactive: computed,
       isPlaying: computed,
@@ -171,6 +172,10 @@ export default class MomentStore<T = MomentData> {
 
   get isActive() {
     return this.moments.isMomentActive(this.moment);
+  }
+
+  get isDefault() {
+    return this.moments.defaultMoment?.id === this.id;
   }
 
   get isEditable() {

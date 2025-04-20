@@ -38,6 +38,7 @@ const CollectionFeaturedStoriesList = observer(() => {
                   />
                 )}
                 story={story}
+                sx={styles.storyCard}
               />
             </Animation>
           </Grid>

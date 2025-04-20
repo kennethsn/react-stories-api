@@ -88,7 +88,7 @@ const CollectionLayout = observer(({ children }: CollectionLayoutProps) => {
           <TemplatedTypography
             color="textSecondary"
             sx={styles.storiesSectionHeader}
-            values={{ collectionName: collection.name }}
+            values={{ collection_name: collection.name }}
             valueSx={styles.storiesSectionHeaderValue}
             variant="h4"
           >

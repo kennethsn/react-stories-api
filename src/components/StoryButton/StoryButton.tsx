@@ -10,7 +10,7 @@ const StoryButton = observer(({ button, ...props }: StoryButtonProps) => {
   const moments = useMoments();
   const buttonIsMomentWithinSameStory = story.isMomentButtonWithinSameStory(button);
   const handleClick = buttonIsMomentWithinSameStory ? (
-    () => moments.goToMomentId(button.momentId)
+    () => moments.goToMomentId(button.moment_id)
   ) : undefined;
   return (
     <StoriesAPIButton

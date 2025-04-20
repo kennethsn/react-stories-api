@@ -5,6 +5,7 @@ import type { CardsLayout } from '../../../types';
 
 export type CardsProps = {
   readonly children: readonly ReactNode[];
+  readonly disableAnimation?: boolean;
   readonly keyFn?: (index: number) => string;
   readonly layout?: CardsLayout;
   readonly overrideTotalCount?: number; // Used for layouts with pagination

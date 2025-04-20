@@ -76,7 +76,7 @@ const CollectionSection = observer(({
         <Unless condition={isDisabled}>
           <StoriesAPIButton
             button={{
-              collectionId: collection.id,
+              collection_id: collection.id,
               formatter: collectionPathFormatter,
               label: 'View Collection',
             }}

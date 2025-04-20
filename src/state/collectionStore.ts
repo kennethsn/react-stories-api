@@ -379,8 +379,8 @@ export default class CollectionStore {
 
   updatePageTitle() {
     const title = this.root.formatters.formatCollectionPageTitle({
-      collectionId: this.id,
-      collectionName: this.name,
+      collection_id: this.id,
+      collection_name: this.name,
     });
     this.root.dom.updatePageTitle(title);
   }

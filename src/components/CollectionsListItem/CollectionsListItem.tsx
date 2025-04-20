@@ -18,7 +18,7 @@ const CollectionsListItem = observer(({
   const { getPath } = useStoriesAPINavigation();
   const isDisabled = enabled ? false : !collection.isPublished;
   const to = isDisabled ? undefined : (
-    getPath({ collectionId: collection.id, formatter: collectionPathFormatter })
+    getPath({ collection_id: collection.id, formatter: collectionPathFormatter })
   );
   return (
     <Grid

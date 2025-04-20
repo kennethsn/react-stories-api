@@ -86,7 +86,7 @@ export default class CollectionsStore {
     const params = this.root.dom.getRouteParams(formatter);
     return {
       ...params,
-      collectionId: params.collectionId ? Number(params.collectionId) : undefined,
+      collectionId: params.collection_id ? Number(params.collection_id) : undefined,
     };
   }
 

@@ -1,4 +1,5 @@
 import { Masonry } from '@mui/lab';
+import { Else, If, Then } from 'react-if';
 
 import { buildDynamicGridColumns } from '../../../utils/grid';
 import { getRandomNumber } from '../../../utils/math';
@@ -9,6 +10,7 @@ import type { CardsLayoutProps } from './Cards.types';
 
 export default function CardsGridLayout({
   children,
+  disableAnimation,
   keyFn,
   overrideTotalCount,
   sx,
@@ -24,13 +26,21 @@ export default function CardsGridLayout({
           key={keyFn(index)}
           style={{ flexShrink: 0 }}
         >
-          <Animation
-            animation="fadeUp"
-            persist
-            speed={getRandomNumber(600, 1500)}
-          >
-            {item}
-          </Animation>
+          <If condition={disableAnimation}>
+            <Then>
+              {item}
+            </Then>
+
+            <Else>
+              <Animation
+                animation="fadeUp"
+                persist
+                speed={getRandomNumber(600, 1500)}
+              >
+                {item}
+              </Animation>
+            </Else>
+          </If>
         </div>
       ))}
     </Masonry>

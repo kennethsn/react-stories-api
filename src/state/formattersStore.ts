@@ -32,17 +32,17 @@ export default class FormattersStore {
   }
 
   formatCollectionPageTitle(options: {
-    readonly collectionId: CollectionId;
-    readonly collectionName: string;
+    readonly collection_id: CollectionId;
+    readonly collection_name: string;
   }) {
     return formatString(this.formatters.collectionPageTitle, options);
   }
 
   formatStoryPageTitle(options: {
-    readonly collectionId: CollectionId;
-    readonly collectionName: string;
-    readonly storyId: StoryId;
-    readonly storyLabel: string;
+    readonly collection_id: CollectionId;
+    readonly collection_name: string;
+    readonly story_id: StoryId;
+    readonly story_label: string;
   }) {
     return formatString(this.formatters.storyPageTitle, options);
   }

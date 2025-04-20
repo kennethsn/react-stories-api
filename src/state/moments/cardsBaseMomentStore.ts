@@ -15,6 +15,10 @@ export default class CardsBaseMomentStore<T> extends MomentStore<CardsBaseMoment
     });
   }
 
+  get disableAnimation() {
+    return this.isDefault;
+  }
+
   get fit() {
     return this.data.fit ?? 'full';
   }

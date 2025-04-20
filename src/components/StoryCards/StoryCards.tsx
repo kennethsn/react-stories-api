@@ -1,5 +1,7 @@
+import Box from '@mui/material/Box';
 import type { ReactNode } from 'react';
 
+import { deepMerge } from '../../utils';
 import StoryCard from '../StoryCard/StoryCard';
 import Cards from '../UI/Cards/Cards';
 import styles from './StoryCards.styles';
@@ -10,22 +12,29 @@ export default function StoryCards(props: StoryCardsProps & { array: true }): Re
 export default function StoryCards(props: StoryCardsProps): ReactNode;
 
 export default function StoryCards({
-  enableAll,
   array,
+  cardSx,
+  enableAll,
+  newTab,
   stories,
   slotComponent: SlotComponent,
   ...cardsProps
 }: StoryCardsProps): ReactNode | ReactNode[] {
   const cards = stories.map((story) => (
-    <StoryCard
+    <Box
       key={story.id}
+      sx={styles.wrapper}
+    >
+      <StoryCard
       // KSN TODO: make configurable
-      buttonLabel="Learn More"
-      isDisabled={enableAll ? false : undefined}
-      slot={SlotComponent ? <SlotComponent story={story} /> : null}
-      story={story}
-      sx={styles.storyCard}
-    />
+        buttonLabel="Learn More"
+        isDisabled={enableAll ? false : undefined}
+        newTab={newTab}
+        slot={SlotComponent ? <SlotComponent story={story} /> : null}
+        story={story}
+        sx={deepMerge(styles.storyCard, cardSx)}
+      />
+    </Box>
   ));
   return array ? cards : (
     // eslint-disable-next-line react/jsx-props-no-spreading

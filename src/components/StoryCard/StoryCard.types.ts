@@ -1,4 +1,4 @@
-import type { SxProps } from '@mui/system';
+import type { SxProps } from '@mui/material/styles';
 import type { PropsWithChildren, ReactNode } from 'react';
 
 import type { Button, StoryOrSummary } from '../../types';
@@ -12,6 +12,7 @@ export type StoryCardProps = {
   readonly buttonLabel?: string;
   readonly isDisabled?: boolean | undefined;
   readonly isHidingButton?: boolean;
+  readonly newTab?: Button['new_tab'];
   readonly previewButtonLabel?: string;
   readonly slot?: ReactNode;
   readonly story: StoryOrSummary;

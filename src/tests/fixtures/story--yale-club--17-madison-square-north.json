@@ -1,136 +1,121 @@
 {
-  "collection_id": 1,
+  "collection_id": 2,
+  "collection_name": "They Lived at The Yale Club",
   "description": "The First Yale Clubhouse",
-  "id": "Q123",
+  "id": "Q001",
   "image": "https://stories-api-test.s3.amazonaws.com/temp/They+Lived+at+the+Yale+Club/17+Madison+N/17+Madison.jpg",
+  "is_featured": true,
   "label": "17 Madison Square North",
   "moments": [
     {
       "data": {
-        "caption": {
-          "content": "The four-story building, plus basement, featured here outlined in blue is the original Yale Club house at 17 Madison Square North (17 East 26th St.), rented on June 2nd, 1897 at the 2nd meeting of the newly incorporated Yale Club.\n\n The Club had previously been used by the “Lambs Club.” Upon renting the Club, the governing body immediately obtained a “Raines Law License” which allowed the Club to have a bar. The other photos featured here of 17 Madison Square are from 1905, when the former Yale Club was taken up by the The Women’s University Club.  The photos give an idea as to what the interior of the Club might have looked like in our tenure. In addition to the rooms pictured here, the club also housed a billiards room in the basement.",
-          "position": "left"
-        },
-        "image": {
-          "fit": "cover",
-          "position": "left",
-          "size": 4,
-          "url": "https://stories-api-test.s3.amazonaws.com/temp/They+Lived+at+the+Yale+Club/17+Madison+N/17+Madison+in+blue.jpg"
-        }
+        "stories": [
+          {
+            "collection_id": 2,
+            "description": "The Second Yale Clubhouse",
+            "id": "Q002",
+            "image": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjrA_QnwPr6Xc2gvjwVzNaKD1dHnnPdTDFT_gZczNlC_Luz2LT8TBbF_32X1j2rO7xTcktQNVFVsNq3AqPr2dapKvnKNFu1YQP8KVYHPruJeXv2AEFN7ej243Gu03F4XXkfIPaU87oYwQYV/s1600/yale+club+001.JPG",
+            "is_featured": true,
+            "label": "30 West Forty-Fourth Street",
+            "status": "PUBLISHED"
+          }
+        ]
       },
       "icon": {
-        "name": "photo_album",
+        "name": "contacts",
         "type": "mui"
       },
       "index": 0,
-      "label": "Introduction",
-      "subtitle": "The Original Yale Club House",
-      "title": "17 Madison Square North",
-      "type": "image"
-    },
-    {
-      "data": {
-        "caption": {
-          "button": {
-            "label": "Explore Map",
-            "newTab": true,
-            "url": "https://maps.app.goo.gl/JRcFmPDNXaJmd3JL8"
+      "label": "People of the Club",
+      "subtitle": "Remembering the stories of the Club's earliest members",
+      "title": "They Lived at the Yale Club",
+      "type": "stories",
+      "id": "m-nnxs6J2V",
+      "meta": {
+        "stories": [
+          {
+            "story": {
+              "collection_id": 2,
+              "id": "Q002",
+              "label": "30 West Forty-Fourth Street"
+            }
+          }
+        ]
+      },
+      "": {
+        "data": {
+          "stories": [
+            {
+              "collection_id": 2,
+              "description": "The Second Yale Clubhouse",
+              "id": "Q002",
+              "image": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjrA_QnwPr6Xc2gvjwVzNaKD1dHnnPdTDFT_gZczNlC_Luz2LT8TBbF_32X1j2rO7xTcktQNVFVsNq3AqPr2dapKvnKNFu1YQP8KVYHPruJeXv2AEFN7ej243Gu03F4XXkfIPaU87oYwQYV/s1600/yale+club+001.JPG",
+              "is_featured": true,
+              "label": "30 West Forty-Fourth Street",
+              "status": "PUBLISHED"
+            }
+          ]
+        },
+        "icon": {
+          "name": "contacts",
+          "type": "mui"
+        },
+        "index": 0,
+        "label": "People of the Club",
+        "subtitle": "Remembering the stories of the Club's earliest members",
+        "title": "They Lived at the Yale Club",
+        "type": "stories",
+        "id": "m-nnxs6J2V",
+        "meta": {
+          "stories": [
+            {
+              "story": {
+                "collection_id": 2,
+                "id": "Q002",
+                "label": "30 West Forty-Fourth Street"
+              }
+            }
+          ]
+        },
+        "": {
+          "data": {
+            "stories": [
+              {
+                "collection_id": 2,
+                "description": "The Second Yale Clubhouse",
+                "id": "Q002",
+                "image": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjrA_QnwPr6Xc2gvjwVzNaKD1dHnnPdTDFT_gZczNlC_Luz2LT8TBbF_32X1j2rO7xTcktQNVFVsNq3AqPr2dapKvnKNFu1YQP8KVYHPruJeXv2AEFN7ej243Gu03F4XXkfIPaU87oYwQYV/s1600/yale+club+001.JPG",
+                "is_featured": true,
+                "label": "30 West Forty-Fourth Street",
+                "status": "PUBLISHED"
+              }
+            ]
           },
-          "content": "Join Librarian & Archives Manager Caroline Bartels as she continues to delve into more stories of members who lived at 17 Madison Square North, 30 W. 44th Street, and 50 Vanderbilt Avenue over the years and called The Yale Club home. Come hear about Edward J. Noble, founder of Lifesavers Candies, Egerton Swartwout, architect of The Yale Club at 30 W. 44th, William McChesney Martin, chairman of the Board of Governors of the Federal Reserve System, and for our DKE members, James A. Hawes, plus several others. The lives of these young men help tell the story of the early 20th century in New York City and the place of the Yale Club in that history. Recorded July 10th, 2024.",
-          "position": "bottom"
-        },
-        "fit": "card",
-        "size": 7,
-        "start_at": 122,
-        "video_id": "bOl0-yBfXBU"
-      },
-      "index": 0,
-      "label": "Happy Hour For the Mind",
-      "subtitle": "They Lived at the Yale Club pt. 1",
-      "title": "Happy Hour For the Mind",
-      "type": "youTube"
-    },
-    {
-      "data": {
-        "caption": {
-          "content": "The first meeting of the alumni of Yale College took place on February 17th, 1868, but they do not officially become the Yale Alumni Association until March 4th, 1868. The Club Archives contain the original minutes of the Club from 1868 through 1873. ",
-          "position": "right"
-        },
-        "image": {
-          "fit": "card",
-          "size": 7,
-          "url": "https://stories-api-test.s3.amazonaws.com/temp/They+Lived+at+the+Yale+Club/17+Madison+N/1_alumni-notes-1.jpeg"
+          "icon": {
+            "name": "contacts",
+            "type": "mui"
+          },
+          "index": 0,
+          "label": "People of the Club",
+          "subtitle": "Remembering the stories of the Club's earliest members",
+          "title": "They Lived at the Yale Club",
+          "type": "stories",
+          "id": "m-nnxs6J2V",
+          "meta": {
+            "stories": [
+              {
+                "story": {
+                  "collection_id": 2,
+                  "id": "Q002",
+                  "label": "30 West Forty-Fourth Street"
+                }
+              }
+            ]
+          }
         }
-      },
-      "icon": {
-        "name": "diversity_3",
-        "type": "mui"
-      },
-      "group": {
-        "label": "Before the Club",
-        "id": "before-the-club"
-      },
-      "index": 1,
-      "label": "First Meeting (1868)",
-      "title": "First Meeting (1868)",
-      "type": "image"
+      }
     },
     {
-      "data": {
-        "caption": {
-          "content": "In these early years, without a clubhouse, the monthly meetings of the entire Yale Alumni Association, which quickly grew to hundreds of members, were generally held on the third Friday of every month in places like Delmonico’s and Sherry’s. This invitation from a meeting at Sherry’s from January 16, 1895 is part of an early scrapbook of treasures that chart the early years of the Club.",
-          "position": "left"
-        },
-        "image": {
-          "fit": "card",
-          "size": 7,
-          "url": "https://stories-api-test.s3.amazonaws.com/temp/They+Lived+at+the+Yale+Club/Sherry_s+invitation+1895.jpg"
-        }
-      },
-      "icon": {
-        "name": "school",
-        "type": "mui"
-      },
-      "group": {
-        "label": "Before the Club",
-        "id": "before-the-club"
-      },
-      "index": 2,
-      "label": "Yale Alumni Association",
-      "title": "Yale Alumni Association",
-      "type": "image"
-    },
-    {
-      "data": {
-        "caption": {
-          "content": "One of the first resolutions that club members made was to obtain a “Raines Law License” which would allow them to provide alcohol in the new clubhouse.",
-          "position": "left"
-        },
-        "image": {
-          "fit": "cover",
-          "position": "top",
-          "size": 8,
-          "url": "https://img.newspapers.com/img/img?user=7657948&id=542167102&clippingId=83590940&width=787&height=3993&crop=1599_924_787_3993&rotation=0"
-        }
-      },
-      "icon": {
-        "name": "sports_bar",
-        "type": "mui"
-      },
-      "group": {
-        "label": "Before the Club",
-        "id": "before-the-club"
-      },
-      "index": 3,
-      "label": "First Order of Business",
-      "subtitle": "Yale Club acquired an alcohol license in 1897",
-      "title": "Raines Law License",
-      "type": "image"
-    },
-    {
-      "color": {
-        "background": "warning"
-      },
       "data": {
         "caption": {
           "content": "There were several important steps that turned the Yale Alumni Association into the Yale Club we know and love today. To learn more about the early years of the Club, click on one of the cards' buttons below to explore the 'Before the Club' story.",
@@ -140,34 +125,10 @@
           "events": [
             {
               "button": {
-                "collectionId": 2,
+                "collection_id": 1,
                 "label": "View Story",
-                "storyId": "Q123",
-                "momentId": "testing-moment"
-              },
-              "date": {
-                "day": 4,
-                "label": "1868",
-                "month": 3,
-                "year": 1868
-              },
-              "description": "For a number of years, the Club held its three social meetings at these large restaurants as well as the annual dinner. (I’ll add in an image of one of the early dinner receipts).",
-              "image": {
-                "alt": "Sherry's invitation 1895",
-                "url": "https://stories-api-test.s3.amazonaws.com/temp/They+Lived+at+the+Yale+Club/Sherry_s+invitation+1895.jpg"
-              },
-              "title": "Yale Alumni Association Meetings"
-            },
-            {
-              "button": {
-                "variant": "contained",
-                "color": {
-                  "background": "#000",
-                  "text": "primary"
-                },
-                "is_disabled": true,
-                "label": "View Story",
-                "url": "/stories/Q1234"
+                "moment": 1,
+                "story_id": "Q000"
               },
               "date": {
                 "day": 1,
@@ -180,8 +141,10 @@
             },
             {
               "button": {
+                "collection_id": 1,
                 "label": "View Story",
-                "url": "/stories/Q1234"
+                "moment": 1,
+                "story_id": "Q000"
               },
               "date": {
                 "day": 15,
@@ -204,6 +167,7 @@
             {
               "button": {
                 "label": "Explore Map",
+                "newTab": true,
                 "url": "https://maps.app.goo.gl/JRcFmPDNXaJmd3JL8"
               },
               "date": {
@@ -221,13 +185,11 @@
             },
             {
               "button": {
-                "collectionId": 1,
+                "collection_id": 1,
                 "label": "View Story",
-                "storyId": "Q1234",
-                "momentId": "testing-moment",
-                "newTab": true
+                "moment": 2,
+                "story_id": "Q000"
               },
-              "title": "First order of business",
               "date": {
                 "day": 5,
                 "label": "1897",
@@ -239,24 +201,500 @@
                 "alt": "Newspaper clipping",
                 "position": "top",
                 "url": "https://img.newspapers.com/img/img?user=7657948&id=542167102&clippingId=83590940&width=787&height=3993&crop=1599_924_787_3993&rotation=0"
-              }
+              },
+              "title": "First order of business"
             }
           ]
         }
-      },
-      "group": {
-        "label": "Before the Club",
-        "id": "before-the-club"
       },
       "icon": {
         "name": "file_map_stack",
         "type": "mui"
       },
-      "index": 0,
+      "index": 1,
       "label": "Forming The First Clubhouse",
       "subtitle": "Key Events that led to the Club's Incorporation",
       "title": "From Social Meetings to Incorporation",
-      "type": "timeline"
+      "type": "timeline",
+      "id": "m-W5sP9QX4",
+      "": {
+        "data": {
+          "caption": {
+            "content": "There were several important steps that turned the Yale Alumni Association into the Yale Club we know and love today. To learn more about the early years of the Club, click on one of the cards' buttons below to explore the 'Before the Club' story.",
+            "position": "top"
+          },
+          "timeline": {
+            "events": [
+              {
+                "button": {
+                  "collection_id": 1,
+                  "label": "View Story",
+                  "moment": 1,
+                  "story_id": "Q000"
+                },
+                "date": {
+                  "day": 1,
+                  "label": "1890",
+                  "month": 1,
+                  "year": 1890
+                },
+                "title": "Discussions of a clubhouse",
+                "description": "Finally, in the late 1890s, several members expressed the desire to have our own clubhouse, similar to the clubhouse founded by Harvard in 1865."
+              },
+              {
+                "button": {
+                  "collection_id": 1,
+                  "label": "View Story",
+                  "moment": 1,
+                  "story_id": "Q000"
+                },
+                "date": {
+                  "day": 15,
+                  "label": "1897",
+                  "month": 4,
+                  "year": 1897
+                },
+                "description": "On April 15, 1897, the club leaders passed around a memorandum proposing such a clubhouse, and within a month 500 signatures had been collected.",
+                "title": "Collecting Signatures"
+              },
+              {
+                "date": {
+                  "day": 26,
+                  "label": "1897",
+                  "month": 5,
+                  "year": 1897
+                },
+                "title": "The Yale Club incorporates"
+              },
+              {
+                "button": {
+                  "label": "Explore Map",
+                  "newTab": true,
+                  "url": "https://maps.app.goo.gl/JRcFmPDNXaJmd3JL8"
+                },
+                "date": {
+                  "day": 2,
+                  "label": "1897",
+                  "month": 6,
+                  "year": 1897
+                },
+                "description": "Members decide they would rent 17 East 26th St, also known as 17 Madison Square North, from the McCoon Estate for $6,000 for three years. ",
+                "image": {
+                  "alt": "17 Madison with annotation",
+                  "url": "https://stories-api-test.s3.amazonaws.com/temp/They+Lived+at+the+Yale+Club/17+Madison+N/17+Madison+in+blue.jpg"
+                },
+                "title": "Finding a clubhouse"
+              },
+              {
+                "button": {
+                  "collection_id": 1,
+                  "label": "View Story",
+                  "moment": 2,
+                  "story_id": "Q000"
+                },
+                "date": {
+                  "day": 5,
+                  "label": "1897",
+                  "month": 6,
+                  "year": 1897
+                },
+                "description": "One of the first resolutions that club members made was to obtain a “Raines Law License” which would allow them to provide alcohol in the new clubhouse.",
+                "image": {
+                  "alt": "Newspaper clipping",
+                  "position": "top",
+                  "url": "https://img.newspapers.com/img/img?user=7657948&id=542167102&clippingId=83590940&width=787&height=3993&crop=1599_924_787_3993&rotation=0"
+                },
+                "title": "First order of business"
+              }
+            ]
+          }
+        },
+        "icon": {
+          "name": "file_map_stack",
+          "type": "mui"
+        },
+        "index": 0,
+        "label": "Forming The First Clubhouse",
+        "subtitle": "Key Events that led to the Club's Incorporation",
+        "title": "From Social Meetings to Incorporation",
+        "type": "timeline",
+        "id": "m-W5sP9QX4"
+      }
+    },
+    {
+      "data": {
+        "caption": {
+          "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec purus feugiat",
+          "button": {
+            "color": {
+              "text": "",
+              "background": "secondary"
+            },
+            "url": "",
+            "variant": "contained",
+            "collection_id": 5,
+            "story_id": "5",
+            "moment_id": "5",
+            "is_disabled": false
+          }
+        },
+        "images": [
+          {
+            "url": "https://stories-api-test.s3.us-east-1.amazonaws.com/temp/They+Lived+at+the+Yale+Club/YC+30+W.+44th/Building+in+1901.png",
+            "caption": "Test 2",
+            "position": "bottom"
+          },
+          {
+            "url": "https://stories-api-dev-local-ksn.s3.amazonaws.com/images/Library_Old_YC_1901.original.png",
+            "caption": null
+          },
+          {
+            "url": "https://stories-api-test.s3.amazonaws.com/temp/They+Lived+at+the+Yale+Club/17+Madison+N/17+Madison+in+blue.jpg",
+            "caption": null
+          }
+        ],
+        "fit": "cover",
+        "size": 9
+      },
+      "id": "m-hTrLtMPl",
+      "type": "gallery",
+      "index": 2,
+      "label": "Gallery Moment Test",
+      "image": {
+        "id": 3,
+        "meta": {
+          "tags": [],
+          "type": "blog.BlogImage",
+          "detail_url": "http://localhost/publisher/blog/content/api/main/images/3/",
+          "download_url": "https://stories-api-dev-local-ksn.s3.amazonaws.com/original_images/Library_Old_YC_1901.png"
+        },
+        "title": "Library Old YC 1901",
+        "width": 633,
+        "height": 450,
+        "thumbnail": {
+          "url": "https://stories-api-dev-local-ksn.s3.amazonaws.com/images/Library_Old_YC_1901.max-165x165.png",
+          "full_url": "https://stories-api-dev-local-ksn.s3.amazonaws.com/images/Library_Old_YC_1901.max-165x165.png",
+          "width": 165,
+          "height": 117,
+          "alt": "Library Old YC 1901"
+        },
+        "caption": "This is a caption Test Project Articles",
+        "caption_text": "This is a caption Test Project Articles",
+        "collection_id": 2,
+        "created_at": "2025-04-02T16:45:58.203255Z",
+        "filename": "Library_Old_YC_1901.png",
+        "url": "https://stories-api-dev-local-ksn.s3.amazonaws.com/images/Library_Old_YC_1901.original.png",
+        "source": "BLOG_IMAGES"
+      },
+      "meta": {
+        "images": {
+          "1": {
+            "image": {
+              "id": 3,
+              "meta": {
+                "tags": [],
+                "type": "blog.BlogImage",
+                "detail_url": "http://localhost/publisher/blog/content/api/main/images/3/",
+                "download_url": "https://stories-api-dev-local-ksn.s3.amazonaws.com/original_images/Library_Old_YC_1901.png"
+              },
+              "title": "Library Old YC 1901",
+              "width": 633,
+              "height": 450,
+              "thumbnail": {
+                "url": "https://stories-api-dev-local-ksn.s3.amazonaws.com/images/Library_Old_YC_1901.max-165x165.png",
+                "full_url": "https://stories-api-dev-local-ksn.s3.amazonaws.com/images/Library_Old_YC_1901.max-165x165.png",
+                "width": 165,
+                "height": 117,
+                "alt": "Library Old YC 1901"
+              },
+              "caption": "This is a caption Test Project Articles",
+              "caption_text": "This is a caption Test Project Articles",
+              "collection_id": 2,
+              "created_at": "2025-04-02T16:45:58.203255Z",
+              "filename": "Library_Old_YC_1901.png",
+              "url": "https://stories-api-dev-local-ksn.s3.amazonaws.com/images/Library_Old_YC_1901.original.png",
+              "source": "BLOG_IMAGES"
+            }
+          },
+          "2": {
+            "image": {
+              "source": "URL",
+              "url": "https://stories-api-test.s3.amazonaws.com/temp/They+Lived+at+the+Yale+Club/17+Madison+N/17+Madison+in+blue.jpg"
+            }
+          }
+        }
+      },
+      "caption": "This is a caption Test Project Articles",
+      "": {
+        "data": {
+          "caption": {
+            "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec purus feugiat",
+            "button": {
+              "color": {
+                "text": "",
+                "background": "secondary"
+              },
+              "url": "",
+              "variant": "contained",
+              "collection_id": 5,
+              "story_id": "5",
+              "moment_id": "5",
+              "is_disabled": false
+            }
+          },
+          "images": [
+            {
+              "url": "https://stories-api-test.s3.us-east-1.amazonaws.com/temp/They+Lived+at+the+Yale+Club/YC+30+W.+44th/Building+in+1901.png",
+              "caption": "Test 2",
+              "position": "bottom"
+            }
+          ],
+          "fit": "cover",
+          "size": 9
+        },
+        "id": "m-hTrLtMPl",
+        "type": "gallery",
+        "index": 0,
+        "label": "Gallery Moment Test",
+        "image": {
+          "id": 3,
+          "meta": {
+            "tags": [],
+            "type": "blog.BlogImage",
+            "detail_url": "http://localhost/publisher/blog/content/api/main/images/3/",
+            "download_url": "https://stories-api-dev-local-ksn.s3.amazonaws.com/original_images/Library_Old_YC_1901.png"
+          },
+          "title": "Library Old YC 1901",
+          "width": 633,
+          "height": 450,
+          "thumbnail": {
+            "url": "https://stories-api-dev-local-ksn.s3.amazonaws.com/images/Library_Old_YC_1901.max-165x165.png",
+            "full_url": "https://stories-api-dev-local-ksn.s3.amazonaws.com/images/Library_Old_YC_1901.max-165x165.png",
+            "width": 165,
+            "height": 117,
+            "alt": "Library Old YC 1901"
+          },
+          "caption": "This is a caption Test Project Articles",
+          "caption_text": "This is a caption Test Project Articles",
+          "collection_id": 2,
+          "created_at": "2025-04-02T16:45:58.203255Z",
+          "filename": "Library_Old_YC_1901.png",
+          "url": "https://stories-api-dev-local-ksn.s3.amazonaws.com/images/Library_Old_YC_1901.original.png",
+          "source": "BLOG_IMAGES"
+        },
+        "meta": {
+          "images": {}
+        },
+        "caption": "This is a caption Test Project Articles",
+        "": {
+          "data": {
+            "caption": {
+              "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec purus feugiat",
+              "button": {
+                "color": {
+                  "text": "",
+                  "background": "secondary"
+                },
+                "url": "",
+                "variant": "contained",
+                "collection_id": 5,
+                "story_id": "5",
+                "moment_id": "5",
+                "is_disabled": false
+              }
+            },
+            "images": [
+              {
+                "url": "https://stories-api-test.s3.us-east-1.amazonaws.com/temp/They+Lived+at+the+Yale+Club/YC+30+W.+44th/Building+in+1901.png",
+                "caption": "Test 2",
+                "position": "bottom"
+              }
+            ],
+            "fit": "cover",
+            "size": 9
+          },
+          "id": "m-hTrLtMPl",
+          "type": "gallery",
+          "index": 0,
+          "label": "Gallery Moment Test",
+          "image": {
+            "id": 3,
+            "meta": {
+              "tags": [],
+              "type": "blog.BlogImage",
+              "detail_url": "http://localhost/publisher/blog/content/api/main/images/3/",
+              "download_url": "https://stories-api-dev-local-ksn.s3.amazonaws.com/original_images/Library_Old_YC_1901.png"
+            },
+            "title": "Library Old YC 1901",
+            "width": 633,
+            "height": 450,
+            "thumbnail": {
+              "url": "https://stories-api-dev-local-ksn.s3.amazonaws.com/images/Library_Old_YC_1901.max-165x165.png",
+              "full_url": "https://stories-api-dev-local-ksn.s3.amazonaws.com/images/Library_Old_YC_1901.max-165x165.png",
+              "width": 165,
+              "height": 117,
+              "alt": "Library Old YC 1901"
+            },
+            "caption": "This is a caption Test Project Articles",
+            "caption_text": "This is a caption Test Project Articles",
+            "collection_id": 2,
+            "created_at": "2025-04-02T16:45:58.203255Z",
+            "filename": "Library_Old_YC_1901.png",
+            "url": "https://stories-api-dev-local-ksn.s3.amazonaws.com/images/Library_Old_YC_1901.original.png",
+            "source": "BLOG_IMAGES"
+          },
+          "meta": {
+            "images": {}
+          },
+          "caption": "This is a caption Test Project Articles",
+          "": {
+            "data": {
+              "caption": {
+                "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec purus feugiat",
+                "button": {
+                  "color": {
+                    "text": "",
+                    "background": "secondary"
+                  },
+                  "url": "",
+                  "variant": "contained",
+                  "collection_id": 5,
+                  "story_id": "5",
+                  "moment_id": "5",
+                  "is_disabled": false
+                }
+              },
+              "images": [
+                {
+                  "caption": "This is a caption Test Project Articles",
+                  "position": "",
+                  "url": "https://stories-api-dev-local-ksn.s3.amazonaws.com/images/Library_Old_YC_1901.original.png"
+                },
+                {
+                  "url": "https://stories-api-test.s3.us-east-1.amazonaws.com/temp/They+Lived+at+the+Yale+Club/YC+30+W.+44th/Building+in+1901.png",
+                  "caption": "Test 2",
+                  "position": "bottom"
+                },
+                {}
+              ],
+              "fit": "cover",
+              "size": 9
+            },
+            "id": "m-hTrLtMPl",
+            "type": "gallery",
+            "index": 0,
+            "label": "Gallery Moment Test",
+            "image": {
+              "id": 3,
+              "meta": {
+                "tags": [],
+                "type": "blog.BlogImage",
+                "detail_url": "http://localhost/publisher/blog/content/api/main/images/3/",
+                "download_url": "https://stories-api-dev-local-ksn.s3.amazonaws.com/original_images/Library_Old_YC_1901.png"
+              },
+              "title": "Library Old YC 1901",
+              "width": 633,
+              "height": 450,
+              "thumbnail": {
+                "url": "https://stories-api-dev-local-ksn.s3.amazonaws.com/images/Library_Old_YC_1901.max-165x165.png",
+                "full_url": "https://stories-api-dev-local-ksn.s3.amazonaws.com/images/Library_Old_YC_1901.max-165x165.png",
+                "width": 165,
+                "height": 117,
+                "alt": "Library Old YC 1901"
+              },
+              "caption": "This is a caption Test Project Articles",
+              "caption_text": "This is a caption Test Project Articles",
+              "collection_id": 2,
+              "created_at": "2025-04-02T16:45:58.203255Z",
+              "filename": "Library_Old_YC_1901.png",
+              "url": "https://stories-api-dev-local-ksn.s3.amazonaws.com/images/Library_Old_YC_1901.original.png",
+              "source": "BLOG_IMAGES"
+            },
+            "meta": {
+              "images": {
+                "0": {
+                  "image": {
+                    "id": 3,
+                    "meta": {
+                      "tags": [],
+                      "type": "blog.BlogImage",
+                      "detail_url": "http://localhost/publisher/blog/content/api/main/images/3/",
+                      "download_url": "https://stories-api-dev-local-ksn.s3.amazonaws.com/original_images/Library_Old_YC_1901.png"
+                    },
+                    "title": "Library Old YC 1901",
+                    "width": 633,
+                    "height": 450,
+                    "thumbnail": {
+                      "url": "https://stories-api-dev-local-ksn.s3.amazonaws.com/images/Library_Old_YC_1901.max-165x165.png",
+                      "full_url": "https://stories-api-dev-local-ksn.s3.amazonaws.com/images/Library_Old_YC_1901.max-165x165.png",
+                      "width": 165,
+                      "height": 117,
+                      "alt": "Library Old YC 1901"
+                    },
+                    "caption": "This is a caption Test Project Articles",
+                    "caption_text": "This is a caption Test Project Articles",
+                    "collection_id": 2,
+                    "created_at": "2025-04-02T16:45:58.203255Z",
+                    "filename": "Library_Old_YC_1901.png",
+                    "url": "https://stories-api-dev-local-ksn.s3.amazonaws.com/images/Library_Old_YC_1901.original.png",
+                    "source": "BLOG_IMAGES"
+                  },
+                  "use_blog_caption": true
+                },
+                "1": {
+                  "image": {
+                    "source": "URL",
+                    "url": "https://stories-api-test.s3.us-east-1.amazonaws.com/temp/They+Lived+at+the+Yale+Club/YC+30+W.+44th/Building+in+1901.png"
+                  }
+                }
+              }
+            },
+            "caption": "This is a caption Test Project Articles"
+          }
+        }
+      }
+    },
+    {
+      "data": {
+        "caption": {
+          "content": "The four-story building, plus basement, featured here outlined in blue is the original Yale Club house at 17 Madison Square North (17 East 26th St.), rented on June 2nd, 1897 at the 2nd meeting of the newly incorporated Yale Club.\n\n The Club had previously been used by the “Lambs Club.” Upon renting the Club, the governing body immediately obtained a “Raines Law License” which allowed the Club to have a bar. The other photos featured here of 17 Madison Square are from 1905, when the former Yale Club was taken up by the The Women’s University Club.  The photos give an idea as to what the interior of the Club might have looked like in our tenure. In addition to the rooms pictured here, the club also housed a billiards room in the basement.",
+          "position": "left"
+        },
+        "image": {
+          "fit": "cover",
+          "position": "left",
+          "size": 4,
+          "url": "https://stories-api-test.s3.amazonaws.com/temp/They+Lived+at+the+Yale+Club/17+Madison+N/17+Madison+in+blue.jpg"
+        }
+      },
+      "icon": {
+        "name": "photo_album",
+        "type": "mui"
+      },
+      "index": 3,
+      "label": "Introduction",
+      "subtitle": "The Original Yale Club House",
+      "title": "17 Madison Square North",
+      "type": "image",
+      "id": "m-wR5lvLmp"
+    },
+    {
+      "data": {
+        "caption": {
+          "content": "Join Librarian & Archives Manager Caroline Bartels as she continues to delve into more stories of members who lived at 17 Madison Square North, 30 W. 44th Street, and 50 Vanderbilt Avenue over the years and called The Yale Club home. Come hear about Edward J. Noble, founder of Lifesavers Candies, Egerton Swartwout, architect of The Yale Club at 30 W. 44th, William McChesney Martin, chairman of the Board of Governors of the Federal Reserve System, and for our DKE members, James A. Hawes, plus several others. The lives of these young men help tell the story of the early 20th century in New York City and the place of the Yale Club in that history. Recorded July 10th, 2024.",
+          "position": "bottom"
+        },
+        "fit": "card",
+        "size": 7,
+        "start_at": 122,
+        "video_id": "bOl0-yBfXBU"
+      },
+      "index": 4,
+      "label": "Happy Hour For the Mind",
+      "subtitle": "They Lived at the Yale Club pt. 1",
+      "title": "Happy Hour For the Mind",
+      "type": "youTube",
+      "id": "m-3fSpXlSB"
     },
     {
       "data": {
@@ -274,22 +712,24 @@
         "label": "Opening the Club",
         "id": "opening-the-club"
       },
-      "index": 4,
+      "index": 5,
       "label": "In the Press",
       "subtitle": "Harper’s Weekly, Vol. 41, January-June, 1897",
       "title": "Spreading the Word",
-      "type": "image"
+      "type": "image",
+      "id": "m-JcNz88FC"
     },
     {
       "data": {
         "caption": {
           "content": "This notice comes from the Club’s early scrapbook, kept primarily by Samuel Betts ‘75, who was one of the early secretaries of the Club.",
           "fit": "full-width",
-          "position": "top"
+          "position": "right"
         },
         "image": {
-          "fit": "full-width",
-          "size": 8,
+          "fit": "card",
+          "position": "top",
+          "size": 4,
           "url": "https://stories-api-test.s3.amazonaws.com/temp/They+Lived+at+the+Yale+Club/17+Madison+N/notice+to+members.jpg"
         }
       },
@@ -301,21 +741,22 @@
         "label": "Opening the Club",
         "id": "opening-the-club"
       },
-      "index": 5,
+      "index": 6,
       "label": "Notice to Members (1897)",
       "title": "Notice to Members",
-      "type": "image"
+      "type": "image",
+      "id": "m-d1DqZ3tJ"
     },
     {
       "data": {
         "caption": {
           "content": "Included in the scrapbook is a receipt for his annual dues payment of $20.00 as a resident member, dated October 8, 1897. The Club opened informally on October 7th.",
-          "fit": "full-width",
+          "fit": "card",
           "position": "bottom"
         },
         "image": {
-          "fit": "full-width",
-          "size": 8,
+          "fit": "card",
+          "size": 6,
           "url": "https://stories-api-test.s3.amazonaws.com/temp/They+Lived+at+the+Yale+Club/17+Madison+N/1_dues-receipt.jpeg"
         }
       },
@@ -327,34 +768,18 @@
         "label": "Opening the Club",
         "id": "opening-the-club"
       },
-      "index": 6,
+      "index": 7,
       "label": "Annual Dues (1897)",
       "title": "Annual Dues",
-      "type": "image"
+      "type": "image",
+      "id": "m-8Q7FW29l"
     },
     {
       "data": {
-        "image": {
-          "fit": "full-width",
-          "size": 8,
-          "url": "https://stories-api-test.s3.amazonaws.com/temp/They+Lived+at+the+Yale+Club/17+Madison+N/17+Madison+Square.jpg"
-        }
-      },
-      "icon": {
-        "name": "gavel",
-        "type": "mui"
-      },
-      "group": {
-        "label": "Opening the Club",
-        "id": "opening-the-club"
-      },
-      "index": 7,
-      "label": "Forming Policies",
-      "title": "Forming Policies",
-      "type": "image"
-    },
-    {
-      "data": {
+        "caption": {
+          "content": "The grand opening party or “Club Night” was held on October 15th in connection with the first annual meeting.",
+          "position": "top"
+        },
         "image": {
           "fit": "card",
           "size": 8,
@@ -373,13 +798,40 @@
       "label": "Grand Opening (1898)",
       "subtitle": "Grand Opening party held on Oct. 15 with first annual meeting",
       "title": "\"Club Night\"",
-      "type": "image"
+      "type": "image",
+      "id": "m-MwmhfYXv"
     },
     {
       "data": {
         "image": {
           "fit": "full-width",
-          "size": 12,
+          "size": 8,
+          "url": "https://stories-api-test.s3.amazonaws.com/temp/They+Lived+at+the+Yale+Club/17+Madison+N/17+Madison+Square.jpg"
+        }
+      },
+      "group": {
+        "id": "opening-the-club",
+        "label": "Opening the Club"
+      },
+      "icon": {
+        "name": "gavel",
+        "type": "mui"
+      },
+      "index": 9,
+      "label": "Forming Policies",
+      "title": "Forming Policies",
+      "type": "image",
+      "id": "m-ghmrZkbZ"
+    },
+    {
+      "data": {
+        "caption": {
+          "content": "The Clubmen of New York, 1898-1899, was a publication that featured the Yale Club in its first year of operation. The publication was a directory of the",
+          "position": "right"
+        },
+        "image": {
+          "fit": "full-width",
+          "size": 7,
           "url": "https://stories-api-test.s3.amazonaws.com/temp/They+Lived+at+the+Yale+Club/17+Madison+N/Clubmen+of+New+York+1898-1899.png"
         }
       },
@@ -391,11 +843,12 @@
         "label": "Life at the Club",
         "id": "life-at-the-club"
       },
-      "index": 9,
-      "label": "The Clubmen of NY Feature",
+      "index": 10,
+      "label": "'The Clubmen of NY' Feature",
       "subtitle": "The Clubmen of New York, 1898-1899",
       "title": "Featured in Publications",
-      "type": "image"
+      "type": "image",
+      "id": "m-Xwh9ngjW"
     },
     {
       "data": {
@@ -416,268 +869,134 @@
         "label": "Life at the Club",
         "id": "life-at-the-club"
       },
-      "index": 9,
-      "label": "The Woman's University Club Feature",
+      "index": 11,
+      "label": "'The Woman's University Club' Feature",
       "subtitle": "Harper's Bazaar, Vol. 42, 1908. Content Provided by HathiTrust.",
       "title": "The Woman's University Club Feature",
-      "type": "hathiTrust"
+      "type": "hathiTrust",
+      "id": "m-01R26Ncm"
     },
     {
       "data": {
+        "caption": {
+          "content": "Member numbers in the exhibit come from this Record, dated Oct. 1, 1915 - Apr. 1, 1919.\n\nLow member numbers indicate early membership in the Club.",
+          "position": "right"
+        },
         "image": {
-          "fit": "full-width",
-          "size": 12,
-          "url": "https://stories-api-test.s3.amazonaws.com/temp/They+Lived+at+the+Yale+Club/1887/Richard+Dana+Morse+1887/Richard+Dana+Morse+1887+--+1912-1915+3.jpg"
+          "fit": "card",
+          "size": 5,
+          "url": "https://stories-api-test.s3.us-east-1.amazonaws.com/temp/yale-club-nyc/records/record-1915-10-1.jpg"
         }
       },
+      "group": {
+        "id": "people",
+        "label": "They Lived at the Club"
+      },
       "icon": {
-        "name": "contacts",
+        "name": "badge",
         "type": "mui"
       },
-      "group": {
-        "label": "They Lived at the Club",
-        "id": "people"
-      },
-      "index": 10,
-      "label": "Richard Dana Morse, Jr.",
-      "subtitle": "Lived at the Club 1912-1915",
-      "title": "Richard Dana Morse, Jr. '1887",
-      "type": "image"
+      "index": 12,
+      "label": "Managing Member Numbers",
+      "title": "Managing Member Numbers",
+      "type": "image",
+      "id": "m-YZ1QKYK4"
     },
     {
       "data": {
+        "caption": {
+          "content": "Brooklyn Life, August 11, 1900, reported on the growing membership of The Yale Club, though they erroneously note that the new building being erected by the Club was on East Forty-fourth Street – they were referring to 30 West Forty-fourth.",
+          "position": "top"
+        },
         "image": {
-          "fit": "full-width",
-          "size": 12,
-          "url": "https://stories-api-test.s3.amazonaws.com/temp/They+Lived+at+the+Yale+Club/1887/M.+A.+Caldwell+1887/M.+A.+Caldwell+1887+--+Quarter+Century+Record+3+1912.jpg"
+          "fit": "cover",
+          "position": "top left",
+          "size": 9,
+          "url": "https://stories-api-test.s3.us-east-1.amazonaws.com/temp/yale-club-nyc/records/brooklyn-life--1900-08-11.jpg"
         }
       },
+      "group": {
+        "id": "expanding-the-club",
+        "label": "Expanding The Club"
+      },
       "icon": {
-        "name": "contacts",
+        "name": "groups",
         "type": "mui"
-      },
-      "group": {
-        "label": "They Lived at the Club",
-        "id": "people"
-      },
-      "index": 11,
-      "label": "M. A. Caldwell.",
-      "subtitle": "Lived at the Club 1912-1915",
-      "title": "M. A. Caldwell. '1887",
-      "type": "image"
-    },
-    {
-      "data": {
-        "caption": {
-          "content": "Along with Evarts Tracy, Class of 1890, Egerton Swartwout designed the building at 30 W. 44th Street, currently The Penn Club.",
-          "position": "top"
-        },
-        "entity_id": "Q38082",
-        "size": 8
-      },
-      "group": {
-        "label": "They Lived at the Club",
-        "id": "people"
-      },
-      "index": 12,
-      "label": "Wikidata Moment",
-      "subtitle": "Architect of 30 W 44th St",
-      "title": "Egerton Swartwout",
-      "type": "wikidata"
-    },
-    {
-      "data": {
-        "caption": {
-          "content": "Along with Evarts Tracy, Class of 1890, Egerton Swartwout designed the building at 30 W. 44th Street, currently The Penn Club.",
-          "position": "top"
-        },
-        "page_key": "Egerton_Swartwout",
-        "size": 8
-      },
-      "group": {
-        "label": "They Lived at the Club",
-        "id": "people"
-      },
-      "index": 12,
-      "label": "Egerton Swartwout",
-      "subtitle": "Architect of 30 W 44th St",
-      "title": "Egerton Swartwout",
-      "type": "wikipedia"
-    },
-    {
-      "data": {
-        "caption": {
-          "content": "Wilcox wrote a detailed essay on the building of the new clubhouse at 50 Vanderbilt Ave. for Architectural Record, Vol. XXXVIII, July-December 1915",
-          "position": "top"
-        },
-        "size": 8,
-        "url": "https://stories-api-test.s3.us-east-1.amazonaws.com/temp/They+Lived+at+the+Yale+Club/Marrion+Wilcox+1878/Marrion+Wilcox+--+The+Architectural+Record.pdf"
-      },
-      "group": {
-        "label": "They Lived at the Club",
-        "id": "people"
       },
       "index": 13,
-      "label": "Marrion Wilcox",
-      "subtitle": "The Architectural Record",
-      "title": "The Yale Club's New House",
-      "type": "pdf"
+      "label": "Growing Membershp",
+      "subtitle": "'Brooklyn Life', August 11, 1900",
+      "title": "Featured in Publications",
+      "type": "image",
+      "id": "m-PR1XhkcW"
     },
     {
       "data": {
         "caption": {
-          "content": "Council Minutes Dec. 13, 1911\n“Library Committee no report. On motion, duly seconded, Mr. Marrion Wilcox was elected to this Committee.”\n\nCouncil Minutes November 12, 1913\n“The Library Committee asked for the appropriation of $100.00, and that Mr. Marrion Wilcox be appointed as Librarian for the ensuing six months, in lieu of salary to be given occupancy of room 74 for the above mentioned time, without obligation on his part, which was granted.”\n\nCouncil Minutes Nov. 11th, 1914\n“It was moved that the question of allowing Mr. Marrion Wilcox to occupy the room at the Club without charge in view of the services which he was rendering the Committee be left to the Chairman, Mr. Bertron, with power to report at the next meeting.”\n\nCouncil Minutes Dec. 9th, 1914\n“In regard to the resignation of Marrion Wilcox as a member of the Library Committee and also as to the question of whether he should be allowed to occupy a room free of charge after the first of the year, it was decided to defer action until the next meeting.“\n\nIn 1915, Wilcox asked to be moved from Resident to Non-Resident. He continued as a member of the Yale Club until his death in 1926.",
-          "fit": "card"
+          "content": "The Brooklyn Daily Eagle, September 9, 1900 also reported on the building of 30 West Forty-fourth, but they also report on 17 Madison Square North, though they list the billiards room as being on the upper floors rather than in the basement.",
+          "position": "right"
+        },
+        "image": {
+          "fit": "cover",
+          "position": "top right",
+          "size": 7,
+          "url": "https://stories-api-test.s3.us-east-1.amazonaws.com/temp/yale-club-nyc/records/brooklyn-daily-eagle--1900-09.jpg"
         }
       },
+      "icon": {
+        "name": "construction",
+        "type": "mui"
+      },
       "group": {
-        "label": "They Lived at the Club",
-        "id": "people"
+        "label": "Expanding The Club",
+        "id": "expanding-the-club"
       },
       "index": 14,
-      "label": "Marrion Wilcox 2",
-      "subtitle": "Council Meeting Notes",
-      "title": "Marrion Wilcox",
-      "type": "text"
-    },
-    {
-      "data": {
-        "content": "<h2>Member number 278</h2><p>Stokes was a very active member of his class, involved in the class dinners held at 17 Madison Square North.</p>"
-      },
-      "group": {
-        "label": "They Lived at the Club",
-        "id": "people"
-      },
-      "index": 15,
-      "label": "Horace S. Stokes",
-      "subtitle": "Class of 1889",
-      "title": "Horace S. Stokes",
-      "type": "html"
-    },
-    {
-      "data": {
-        "images": [
-          {
-            "url": "https://stories-api-test.s3.amazonaws.com/temp/They+Lived+at+the+Yale+Club/1887/M.+A.+Caldwell+1887/M.+A.+Caldwell+1887+--+Quarter+Century+Record+3+1912.jpg"
-          },
-          {
-            "url": "https://stories-api-test.s3.us-east-1.amazonaws.com/temp/They+Lived+at+the+Yale+Club/1894/James+Anderson+Hawes+1894/J.+A.+Hawes+1894+--+YDN+11.2.1898.png",
-            "caption": "From the Yale Daily News, 11.2.1898. Hawes, even four years out of college, was incredibly involved with his class. This is from a class dinner held at 17 Madison Square North"
-          },
-          {
-            "url": "https://stories-api-test.s3.us-east-1.amazonaws.com/temp/They+Lived+at+the+Yale+Club/1894/James+Anderson+Hawes+1894/Obit+1+1936.png",
-            "caption": "At the time of his death, Hawes was living at 50 Vanderbilt Ave. in addition to a house in Purchase, NY. He had been involved in all three clubs, living at 30 W. 44th when it was the DKE Club and at 50 Vanderbilt Avenue from 1926 to his death in 1936."
-          }
-        ]
-      },
-      "group": {
-        "label": "They Lived at the Club",
-        "id": "people"
-      },
-      "index": 16,
-      "label": "James Anderson Hawes",
-      "subtitle": "Class of 1894, Member number 176",
-      "title": "James Anderson Hawes",
-      "type": "gallery"
+      "label": "Building a New Clubhouse",
+      "subtitle": "'The Brooklyn Eagle', September 9, 1900",
+      "title": "Featured in Publications",
+      "type": "image",
+      "id": "m-gKx15fDz"
     },
     {
       "data": {
         "caption": {
-          "content": "The club announces its closing in April of 1901. Click on the image to read the full notice.\n\n Continue the exhibit by going to the next story on 30 West Forty-Forth Street.",
-          "position": "left"
+          "button": {
+            "color": {
+              "background": "secondary",
+              "text": "primary"
+            },
+            "collection_id": 1,
+            "label": "View Next Story",
+            "story_id": "Q002",
+            "variant": "contained"
+          },
+          "content": "The club announces its closing in April of 1901. Click on the image to read the full notice.\nContinue the exhibit by going to the next story on 30 West Forty-Forth Street.",
+          "position": "right"
         },
         "image": {
           "fit": "cover",
           "position": "top",
-          "size": 8,
+          "size": 4,
           "url": "https://stories-api-test.s3.amazonaws.com/temp/They+Lived+at+the+Yale+Club/17+Madison+N/Closing+of+the+Club+April+1901.png"
         }
       },
-      "id": "testing-moment",
+      "group": {
+        "id": "expanding-the-club",
+        "label": "Expanding The Club"
+      },
       "icon": {
         "name": "local_post_office",
         "type": "mui"
       },
-      "group": {
-        "label": "Closing The Club",
-        "id": "closing-the-club"
-      },
-      "index": 17,
-      "label": "Notice to Members (1901)",
+      "index": 15,
+      "label": "Closing and Opening (1901)",
       "subtitle": "Notice to Members",
-      "title": "Notice to Members",
-      "type": "image"
-    },
-    {
-      "index": 18,
-      "label": "Continue more stories",
-      "subtitle": "Notice to Members",
-      "title": "Notice to Members",
-      "type": "stories",
-      "data": {
-        "stories": [
-          {
-            "collection_id": 1,
-            "description": "Remembering the Yale Alumni Association, 1868-1897",
-            "id": "Q000",
-            "status": "PREVIEW",
-            "label": "Before the Club",
-            "image": "https://stories-api-test.s3.amazonaws.com/temp/They+Lived+at+the+Yale+Club/17+Madison+N/1_alumni-notes-1.jpeg"
-          },
-          {
-            "collection_id": 1,
-            "description": "Early Yale Club Member and prominent New York attorney\nClass of 1887",
-            "id": "Q110",
-            "label": "Richard Dana Morse, Jr.",
-            "image": "/images/temp/richard-morse.png"
-          },
-          {
-            "collection_id": 1,
-            "description": "An overview of the first Yale Club of New York City location, 1897-1901",
-            "id": "Q042280",
-            "label": "17 Madison Square North",
-            "image": "/images/temp/17-madison.jpg"
-          },
-          {
-            "collection_id": 1,
-            "description": "Early Yale Club Member and prominent New York attorney\nClass of 1895",
-            "id": "Q13442",
-            "label": "Michael Gavin",
-            "image": "/images/temp/michael-gavin.png"
-          },
-          {
-            "collection_id": 1,
-            "id": "Q08423",
-            "badge": "New",
-            "label": "30 West Forty-Fourth Street",
-            "description": "An overview of the Second Yale Clubhouse, 1901-1915",
-            "image": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjrA_QnwPr6Xc2gvjwVzNaKD1dHnnPdTDFT_gZczNlC_Luz2LT8TBbF_32X1j2rO7xTcktQNVFVsNq3AqPr2dapKvnKNFu1YQP8KVYHPruJeXv2AEFN7ej243Gu03F4XXkfIPaU87oYwQYV/s1600/yale+club+001.JPG"
-          },
-          {
-            "collection_id": 1,
-            "id": "Q42402480",
-            "badge": "New",
-            "label": "Joseph T. P. Sullivan",
-            "description": "Yale Club Member, Class of 1916",
-            "image": "https://stories-api-test.s3.amazonaws.com/temp/They+Lived+at+the+Yale+Club/1916/Joseph+T.+P.+Sullivan+_16s/Used/JTPS+1_cropped.png"
-          },
-          {
-            "collection_id": 1,
-            "id": "Q9582",
-            "badge": "New",
-            "label": "50 Vanderbilt Avenue",
-            "description": "The Third and Current Yale Clubhouse, 1915-Today",
-            "image": "https://www.belmontfreeman.com/templates/yootheme/cache/73/02-The_Yale_Club_of_New_York_City_Main_Lounge_Belmont_Freeman_Architects-7319dfc3.jpeg"
-          },
-          {
-            "collection_id": 1,
-            "description": "A look into the festivies and events at The Club over the years",
-            "id": "Q1342",
-            "label": "Club Traditions",
-            "image": "/images/temp/sherrys-invite.png"
-          }
-        ]
-      }
+      "title": "Relocation Notice to Members",
+      "type": "image",
+      "id": "m-xWKxBCSL"
     }
-  ]
+  ],
+  "status": "PUBLISHED",
+  "template_id": null
 }

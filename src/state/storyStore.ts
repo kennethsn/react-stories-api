@@ -176,10 +176,10 @@ export default class StoryStore {
   }
 
   isMomentButtonWithinSameStory(button: Button): button is GoToMomentOptions {
-    return !button.newTab
-    && 'momentId' in button
-    && this.collectionId === button.collectionId
-    && this.id === button.storyId;
+    return !button.new_tab
+    && 'moment_id' in button
+    && this.collectionId === button.collection_id
+    && this.id === button.story_id;
   }
 
   onEdit() {
@@ -251,10 +251,10 @@ export default class StoryStore {
 
   updatePageTitle() {
     const title = this.root.formatters.formatStoryPageTitle({
-      collectionId: this.collectionId,
-      collectionName: this.collectionName,
-      storyId: this.id,
-      storyLabel: this.label,
+      collection_id: this.collectionId,
+      collection_name: this.collectionName,
+      story_id: this.id,
+      story_label: this.label,
     });
     this.root.dom.updatePageTitle(title);
   }

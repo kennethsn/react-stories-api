@@ -64,7 +64,7 @@ export type EditableStoryKey = 'description' | 'image' | 'is_featured' | 'label'
 
 export type GoToBaseOptions<T> = {
   readonly formatter?: string;
-  readonly newTab?: boolean;
+  readonly new_tab?: boolean;
 } & T;
 
 export type GalleryMomentData = {
@@ -75,11 +75,11 @@ export type GalleryMomentData = {
 };
 
 export type GoToCollectionOptions = GoToBaseOptions<{
-  readonly collectionId: Collection['id'];
+  readonly collection_id: Collection['id'];
 }>;
 
 export type GoToMomentOptions = GoToStoryOptions & {
-  readonly momentId: Moment['id'];
+  readonly moment_id: Moment['id'];
 };
 
 export type GoToOptions =
@@ -89,7 +89,7 @@ export type GoToOptions =
   GoToURLOptions;
 
 export type GoToStoryOptions = GoToCollectionOptions & {
-  readonly storyId: Story['id'];
+  readonly story_id: Story['id'];
 };
 
 export type GoToURLOptions = GoToBaseOptions<{

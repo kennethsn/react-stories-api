@@ -6,8 +6,8 @@ import styles from './CollectionsList.styles';
 import type { CollectionsListProps } from './CollectionsList.types';
 
 const CollectionsList = observer(({
-  collections,
   collectionPathFormatter,
+  collections,
   enableAllCollections,
 }: CollectionsListProps) => (
   <Grid

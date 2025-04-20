@@ -78,7 +78,7 @@ const StoryError = observer(({ collectionId, isFullscreen, storyId }: StoryError
       <Grid>
         <StoriesAPIButton
           button={{
-            collectionId,
+            collection_id: collectionId,
             label: 'Go to Collection',
           }}
           color="primary"

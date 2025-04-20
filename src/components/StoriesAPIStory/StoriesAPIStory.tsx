@@ -64,7 +64,7 @@ const StoriesAPIStory = observer((props: StoriesAPIStoryProps) => {
       }
     });
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }), [collectionId, storyId, editable, defaultActiveMomentId]);
+  }), [collectionId, storyId, editable]);
 
   const story = stories.getStory(storyId!);
 

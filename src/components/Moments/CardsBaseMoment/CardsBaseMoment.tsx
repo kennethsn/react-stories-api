@@ -18,7 +18,10 @@ const CardsBaseMoment = observer(<T extends CardsBaseMomentStore<object>>({
     moment={moment}
   >
     <Box sx={styles.cardsContainer(moment.layout)}>
-      <Cards layout={moment.layout}>
+      <Cards
+        disableAnimation={moment.disableAnimation}
+        layout={moment.layout}
+      >
         {children}
       </Cards>
     </Box>

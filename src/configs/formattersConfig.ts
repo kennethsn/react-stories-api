@@ -1,14 +1,14 @@
 import type { StoriesAPIFormatters } from '../types';
 
 const defaultFormatters: StoriesAPIFormatters = {
-  collectionPageTitle: '{collectionName}',
-  collectionPath: '/collections/{collectionId}',
-  collectionStoriesListHeader: 'Explore All Stories from the {collectionName} Collection',
-  momentPath: '/collections/{collectionId}/stories/{storyId}?moment={momentId}',
+  collectionPageTitle: '{collection_name}',
+  collectionPath: '/collections/{collection_id}',
+  collectionStoriesListHeader: 'Explore All Stories from the {collection_name} Collection',
+  momentPath: '/collections/{collection_id}/stories/{story_id}?moment={moment_id}',
   momentQueryParamKey: 'moment',
   storyCollectionBackButtonLabel: 'Back to Collection',
-  storyPageTitle: '{storyLabel} - {collectionName}',
-  storyPath: '/collections/{collectionId}/stories/{storyId}',
+  storyPageTitle: '{story_label} - {collection_name}',
+  storyPath: '/collections/{collection_id}/stories/{story_id}',
 };
 
 export default defaultFormatters;

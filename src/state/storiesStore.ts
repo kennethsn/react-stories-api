@@ -96,7 +96,8 @@ export default class StoriesStore {
     const params = this.root.dom.getRouteParams(formatter);
     return {
       ...params,
-      collectionId: params.collectionId ? Number(params.collectionId) : undefined,
+      collectionId: params.collection_id ? Number(params.collection_id) : undefined,
+      storyId: params.story_id,
     };
   }
 

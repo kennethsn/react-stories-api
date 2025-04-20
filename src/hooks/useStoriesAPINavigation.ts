@@ -11,7 +11,7 @@ const buildGoToFn = (
   getPath: (to: GoToOptions) => string,
   goToPath: (path: string) => void,
 ) => (to: GoToOptions) => {
-  const { newTab } = to;
+  const { new_tab: newTab } = to;
   if ('url' in to) {
     return goToURL(to.url, newTab, goToPath);
   }
