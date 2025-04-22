@@ -45,7 +45,10 @@ const StoryMomentsContainer = observer(() => {
   }
 
   return (
-    <Box sx={styles.root}>
+    <Box
+      key={`${moments.collectionId}-${moments.storyId}`}
+      sx={styles.root}
+    >
       <Swiper
         allowTouchMove={layoutIsMobile}
         className={swiperClassName}

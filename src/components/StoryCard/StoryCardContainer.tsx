@@ -11,8 +11,8 @@ export default function StoryCardContainer({
   children,
   sx,
 }: StoryCardContainerProps) {
-  const { goTo } = useStoriesAPINavigation();
-  const handleClick = () => goTo(button);
+  const { goTo } = useStoriesAPINavigation(button);
+  const handleClick = () => goTo();
   return (
     <Card
       className="story-card"

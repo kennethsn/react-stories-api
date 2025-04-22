@@ -65,6 +65,10 @@ export default class MomentsStore {
     return new Set(Object.keys(this.configMap));
   }
 
+  get collectionId() {
+    return this.story.collectionId;
+  }
+
   get configMap() {
     return this.root.momentConfigMap;
   }
@@ -121,6 +125,10 @@ export default class MomentsStore {
 
   get previousMoment() {
     return this.getMomentAtIndex(this.activeMomentIndex - 1);
+  }
+
+  get storyId() {
+    return this.story.id;
   }
 
   buildMoment(moment: Moment): MomentStore {
@@ -186,7 +194,7 @@ export default class MomentsStore {
 
   goToMomentIndex(index: number) {
     runInAction(() => {
-      if (index !== this.activeMomentIndex) {
+      if (index !== this.activeMomentIndex || this.swiper?.activeIndex !== index) {
         this.swiper?.slideTo(index);
       }
       this.setActiveMomentIndex(index);
@@ -241,6 +249,7 @@ export default class MomentsStore {
 
   setSwiper(swiper: SwiperClass) {
     this.swiper = swiper;
+    this.goToMomentIndex(this.activeMomentIndex);
   }
 
   toggleGroup(groupId: string) {

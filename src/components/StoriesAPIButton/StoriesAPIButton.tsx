@@ -16,8 +16,8 @@ const StoriesAPIButton = observer(({
   ...props
 }: StoriesAPIButtonProps) => {
   const { background, themeOptions } = useColor(button.color);
-  const { goTo } = useStoriesAPINavigation();
-  const handleClick: ButtonProps['onClick'] = (e) => (onClick ? onClick(e) : goTo(button));
+  const { goTo } = useStoriesAPINavigation(button);
+  const handleClick: ButtonProps['onClick'] = (e) => (onClick ? onClick(e) : goTo());
   return (
     <ThemeOverride themeOptions={themeOptions}>
       <Button

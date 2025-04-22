@@ -15,11 +15,12 @@ const CollectionsListItem = observer(({
   collectionPathFormatter,
   enabled,
 }: CollectionsListItemProps) => {
-  const { getPath } = useStoriesAPINavigation();
+  const { path } = useStoriesAPINavigation({
+    collection_id: collection.id,
+    formatter: collectionPathFormatter,
+  });
   const isDisabled = enabled ? false : !collection.isPublished;
-  const to = isDisabled ? undefined : (
-    getPath({ collection_id: collection.id, formatter: collectionPathFormatter })
-  );
+  const to = isDisabled ? undefined : path;
   return (
     <Grid
       component={isDisabled ? 'div' : Link}
