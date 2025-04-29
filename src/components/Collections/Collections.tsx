@@ -8,6 +8,7 @@ import CollectionsSections from '../CollectionsSections/CollectionsSections';
 import type { CollectionsProps } from './Collections.types';
 
 const Collections = observer(({
+  buttonLabel,
   collectionPathFormatter,
   collections,
   enableAllCollections,
@@ -18,6 +19,7 @@ const Collections = observer(({
     <If condition={layout === 'sections'}>
       <Then>
         <CollectionsSections
+          buttonLabel={buttonLabel}
           collectionPathFormatter={collectionPathFormatter}
           collections={collections}
           enableAllCollections={enableAllCollections}

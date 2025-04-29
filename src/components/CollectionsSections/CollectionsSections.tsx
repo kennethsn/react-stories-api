@@ -5,6 +5,7 @@ import CollectionSection from '../CollectionSection/CollectionSection';
 import type { CollectionsSectionsProps } from './CollectionsSections.types';
 
 const CollectionsSections = observer(({
+  buttonLabel,
   collectionPathFormatter,
   collections,
   enableAllCollections,
@@ -19,6 +20,7 @@ const CollectionsSections = observer(({
         size={12}
       >
         <CollectionSection
+          buttonLabel={buttonLabel}
           collection={collection}
           collectionPathFormatter={collectionPathFormatter}
           enabled={enableAllCollections}

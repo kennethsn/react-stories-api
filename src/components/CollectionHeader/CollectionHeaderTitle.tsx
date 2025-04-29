@@ -3,6 +3,7 @@ import { observer } from 'mobx-react-lite';
 import { When } from 'react-if';
 
 import useCollection from '../../hooks/useCollection';
+import CollectionSlot from '../CollectionSlot/CollectionSlot';
 import CollectionTypography from '../CollectionTypography/CollectionTypography';
 import ContainerBadge from '../UI/ContainerBadge/ContainerBadge';
 import styles from './CollectionHeaderTitle.styles';
@@ -11,6 +12,7 @@ const CollectionHeaderTitle = observer(() => {
   const collection = useCollection();
   return (
     <Box sx={styles.title}>
+      <CollectionSlot component="CollectionHeaderTitle" />
 
       <CollectionTypography
         color="primary"

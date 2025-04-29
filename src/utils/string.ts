@@ -21,7 +21,7 @@ export const cleanInputValue = (value: string, originalValue?: string) => {
 };
 
 // Stories API Template Language is to use curly braces to interpolate values into strings.
-// For example, 'Welcome to the {storyLabel} Story'
+// For example, 'Welcome to the {story_label} Story'
 export const formatString = (
   templateStr: string,
   values: Record<string, string | number | boolean>,
