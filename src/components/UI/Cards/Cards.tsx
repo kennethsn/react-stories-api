@@ -3,11 +3,11 @@ import { Case, Switch } from 'react-if';
 
 import type { CardsProps } from './Cards.types';
 import CardsGridLayout from './CardsGridLayout';
+import CardsStackLayout from './CardsStackLayout';
 
 // KSN TODO: carousel layout
 // KSN TODO: merry-go-round layout
 // KSN TODO: row
-// KSN TODO: stack layout
 
 export default function Cards(props: CardsProps) {
   const { layout = 'grid' } = props;
@@ -20,6 +20,10 @@ export default function Cards(props: CardsProps) {
     <Switch>
       <Case condition={layout === 'grid'}>
         <CardsGridLayout {...layoutProps} />
+      </Case>
+
+      <Case condition={layout === 'stack'}>
+        <CardsStackLayout {...layoutProps} />
       </Case>
     </Switch>
   );

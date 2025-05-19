@@ -1,6 +1,7 @@
-import type { Color, TimelineEvent } from '../../../types';
+import type { Color } from '../../../types';
+import type { TimelineEventComponent } from '../TimelineEvent/TimelineEvent.types';
 
 export type TimelineEventDotProps = {
-  color: Color;
-  event: TimelineEvent;
+  readonly color: Color;
+  readonly event: TimelineEventComponent;
 };

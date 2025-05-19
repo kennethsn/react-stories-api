@@ -1,8 +1,9 @@
-import type { Color, TimelineEvent } from '../../../types';
+import type { Color } from '../../../types';
+import type { TimelineEventComponent } from '../TimelineEvent/TimelineEvent.types';
 
 export type TimelineEventCardProps = {
-  color: Color;
-  direction: 'left' | 'right';
-  event: TimelineEvent;
-  imageMaxHeight: number;
+  readonly color: Color;
+  readonly direction: 'left' | 'right';
+  readonly event: TimelineEventComponent;
+  readonly imageMaxHeight: number;
 };

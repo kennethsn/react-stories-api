@@ -15,7 +15,7 @@ const StoriesMoment = observer(({ moment, ...props }: StoriesMomentProps) => (
     {StoryCards({
       array: true,
       cardSx: styles.card,
-      stories: moment.stories,
+      stories: moment.items,
     })}
   </CardsBaseMoment>
 ));

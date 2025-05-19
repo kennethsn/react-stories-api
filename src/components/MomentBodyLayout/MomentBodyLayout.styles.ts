@@ -4,14 +4,15 @@ const styles = {
     whiteSpace: 'pre-wrap',
   },
   captionButton: (hasContent: boolean) => ({
+    display: 'block',
     mb: 2,
     mt: hasContent ? 2 : 0,
   }),
   captionContainer: (hasContent: boolean) => ({
     bgcolor: 'background.lightGrey',
-    textAlign: hasContent ? 'left' : 'center',
     px: 4,
     py: 3,
+    textAlign: hasContent ? 'left' : 'center',
   }),
   captionGridItem: {
     alignContent: 'center',
