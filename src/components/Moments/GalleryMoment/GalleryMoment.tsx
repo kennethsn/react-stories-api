@@ -27,7 +27,6 @@ const toCaption = (
           field={`data.images.${index}.caption`}
           moment={moment}
           richText
-          // textFieldProps={{ sx: { minWidth: '20vw', width: '100%' } }}
           variant="body1"
         />
       </When>
@@ -48,6 +47,12 @@ const toImageKey = (index: number, image: Image) => `gallery-image-${index}-${im
 
 const GalleryMoment = observer(({ moment }: GalleryMomentProps) => (
   <CardsBaseMoment<GalleryMomentStore>
+    gridColumnsMax={{
+      xs: 1,
+      sm: 1,
+      md: 2,
+      lg: 3,
+    }}
     moment={moment}
     sx={styles.container(moment)}
   >

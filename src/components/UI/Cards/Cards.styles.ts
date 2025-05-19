@@ -1,20 +1,11 @@
-const layoutBase = {
-  alignItems: 'center',
-  display: 'flex',
-  gap: '16px',
-  justifyContent: 'center',
-};
-
 const styles = {
   gridLayoutRoot: {
-    ...layoutBase,
     m: 0,
   },
   item: {
     flexShrink: 0,
   },
   stackLayoutRoot: {
-    ...layoutBase,
     alignItems: 'center',
     display: 'flex',
     gap: '16px',

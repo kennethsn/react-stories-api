@@ -13,6 +13,7 @@ import CardsBaseMomentStackCaption from './CardsBaseMomentStackCaption';
 // KSN TODO: Ensure changing width of sidebar makes the cards responsive
 const CardsBaseMoment = observer(<T extends CardsBaseMomentStore<object, object>>({
   children,
+  gridColumnsMax,
   moment,
   sx,
 }: CardsBaseMomentProps<T>) => {
@@ -31,6 +32,7 @@ const CardsBaseMoment = observer(<T extends CardsBaseMomentStore<object, object>
       >
         <Cards
           disableAnimation={moment.disableAnimation}
+          gridColumnsMax={gridColumnsMax}
           layout={moment.layout}
           onChange={handleChange}
           sx={deepMerge(styles.cards(moment, moment.layout), sx)}
