@@ -1,7 +1,7 @@
 import { GRID_MAX_SIZE } from '../constants';
 import { objectMap } from './object';
 
-type GridColumns = {
+export type GridColumns = {
   lg: number;
   md: number;
   sm: number;

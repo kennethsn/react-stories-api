@@ -6,6 +6,7 @@ import type { BaseMomentProps } from '../BaseMoment/BaseMoment.types';
 export type CardsBaseMomentProps<T extends CardsBaseMomentStore<object, object>> =
   BaseMomentProps<T> & {
     readonly children: CardsProps['children'];
+    readonly gridColumnsMax?: CardsProps['gridColumnsMax'];
     readonly disableAnimation?: boolean;
     readonly sx?: CardsProps['sx'];
   };

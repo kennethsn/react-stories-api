@@ -9,12 +9,16 @@ import CardsItem from './CardsItem';
 export default function CardsGridLayout({
   children,
   disableAnimation,
+  gridColumnsMax,
   itemSx,
   keyFn,
   overrideTotalCount,
   sx,
 }: CardsLayoutProps) {
-  const columns = buildDynamicGridColumns(overrideTotalCount ?? children.length, { xs: 2 });
+  const columns = buildDynamicGridColumns(
+    overrideTotalCount ?? children.length,
+    gridColumnsMax ?? { xs: 2 },
+  );
   return (
     <Masonry
       columns={columns}
