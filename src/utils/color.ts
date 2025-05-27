@@ -63,5 +63,5 @@ export const processColor = (color: Nullable<Color>, theme: Theme): {
 export const getThemeColorFromTypographyColor = (
   typographyColor: TypographyProps['color'],
 ) => (
-  TYPOGRAPHY_COLOR_OPTIONS[typographyColor as keyof typeof TYPOGRAPHY_COLOR_OPTIONS]
+  TYPOGRAPHY_COLOR_OPTIONS[typographyColor as keyof typeof TYPOGRAPHY_COLOR_OPTIONS] ?? typographyColor as TypographyProps['color']
 );

@@ -4,19 +4,19 @@ import { When } from 'react-if';
 
 import StoryButton from '../../StoryButton/StoryButton';
 import StoryMomentTypography from '../../StoryMoment/StoryMomentTypography';
-import styles from './GalleryMoment.styles';
-import type { GalleryMomentProps } from './GalleryMoment.types';
+import styles from './CardsBaseMoment.styles';
+import type { CardsBaseMomentStackCaptionProps } from './CardsBaseMoment.types';
 
-const GalleryMomentCaption = observer(({ moment }: GalleryMomentProps) => (
-  <Box sx={styles.captionContainer}>
-
-    <When condition={moment.activeCaption}>
+const CardsBaseMomentStackCaption = observer(({ moment }: CardsBaseMomentStackCaptionProps) => (
+  <Box sx={styles.stackLayoutCaptionContainer}>
+    <When condition={!!moment?.activeCaption}>
       <StoryMomentTypography
         color="textSecondary"
         computed
         field="activeCaption"
         moment={moment}
         richText
+        textFieldProps={{ sx: { width: '100%' } }}
         variant="body1"
       />
     </When>
@@ -32,4 +32,4 @@ const GalleryMomentCaption = observer(({ moment }: GalleryMomentProps) => (
   </Box>
 ));
 
-export default GalleryMomentCaption;
+export default CardsBaseMomentStackCaption;

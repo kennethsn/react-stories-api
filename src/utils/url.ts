@@ -36,9 +36,9 @@ export const getPathFormatter = (to: GoToOptions, formatters: StoriesAPIFormatte
   if (to.formatter) {
     return to.formatter;
   }
-  if ('moment_id' in to) {
-    return formatters.momentPath;
-  } if ('story_id' in to) {
+  if ('moment_id' in to && to.moment_id) {
+    return formatters.momentPath || formatters.storyPath;
+  } if ('story_id' in to && to.story_id) {
     return formatters.storyPath;
   }
   return formatters.collectionPath;

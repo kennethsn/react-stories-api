@@ -1,18 +1,19 @@
-import { computed, makeObservable } from 'mobx';
+import { makeObservable, override } from 'mobx';
 
-import type { Moment, StoriesMomentData } from '../../types';
+import type { Moment, StoriesMomentData, StorySummary } from '../../types';
 import type MomentsStore from '../momentsStore';
 import CardsBaseMomentStore from './cardsBaseMomentStore';
 
-export default class StoriesMomentStore extends CardsBaseMomentStore<StoriesMomentData> {
+export default class StoriesMomentStore
+  extends CardsBaseMomentStore<StoriesMomentData, StorySummary> {
   constructor(moments: MomentsStore, moment: Moment<StoriesMomentData>) {
     super(moments, moment);
     makeObservable(this, {
-      stories: computed,
+      items: override,
     });
   }
 
-  get stories() {
+  get items() {
     return this.data.stories;
   }
 

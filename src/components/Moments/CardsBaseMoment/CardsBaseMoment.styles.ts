@@ -1,13 +1,39 @@
 import type { SxProps } from '@mui/material';
 
+import type CardsBaseMomentStore from '../../../state/moments/cardsBaseMomentStore';
 import type { CardsLayout } from '../../../types';
 
 const styles = {
-  cardsContainer: (layout: CardsLayout) => (({
+  cards: (moment: CardsBaseMomentStore<object, object>, layout: CardsLayout) => (({
     grid: {
-      p: { xs: 3, md: 4 },
+      overflowY: 'auto',
+    },
+    stack: {
+      height: '100%',
+      width: moment.itemsHaveCaptions ? '50%' : '85%',
     },
   } as Partial<Record<CardsLayout, SxProps>>)[layout]),
+
+  cardsContainer: (layout: CardsLayout) => (({
+    grid: {
+      overflow: 'auto',
+      p: { md: 4, xs: 3 },
+    },
+    stack: {
+      alignItems: 'center',
+      display: 'flex',
+      gap: '16px',
+      height: '100%',
+      justifyContent: 'center',
+      width: '100%',
+    },
+  } as Partial<Record<CardsLayout, SxProps>>)[layout]),
+  stackLayoutCaptionContainer: {
+    maxHeight: '100%',
+    overflowY: 'auto',
+    px: 2,
+    py: 3,
+  },
 };
 
 export default styles;

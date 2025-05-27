@@ -8,15 +8,18 @@ const styles = {
     color: string,
     typographyVariant: TypographyProps['variant'],
   ) => ({ typography }: Theme): SxProps<Theme> => ({
+    width: 'inherit',
     ...(typographyVariant && typographyVariant !== 'inherit' ? typography[typographyVariant] : {}),
     ...textFieldSx,
     '& .MuiInputBase-root': {
+      width: 'inherit',
       ...rootSx as CSSObject,
       color,
       fontSize: 'inherit',
       fontWeight: 'inherit',
       lineHeight: 'inherit',
       '& .MuiInputBase-input': {
+        fieldSizing: 'content',
         p: 0,
       },
     },

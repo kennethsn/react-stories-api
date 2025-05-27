@@ -1,13 +1,18 @@
 import type CardsBaseMomentStore from '../../../state/moments/cardsBaseMomentStore';
+import type { MomentData } from '../../../types';
 import type { CardsProps } from '../../UI/Cards/Cards.types';
 import type { BaseMomentProps } from '../BaseMoment/BaseMoment.types';
 
-export type CardsBaseMomentProps<T extends CardsBaseMomentStore<object>> = BaseMomentProps<T> & {
-  readonly children: CardsProps['children'];
-  readonly disableAnimation?: boolean;
-};
+export type CardsBaseMomentProps<T extends CardsBaseMomentStore<object, object>> =
+  BaseMomentProps<T> & {
+    readonly children: CardsProps['children'];
+    readonly disableAnimation?: boolean;
+    readonly sx?: CardsProps['sx'];
+  };
 
-export type CardsBaseMomentPropsWithoutChildren<T extends CardsBaseMomentStore<object>> = Omit<
-CardsBaseMomentProps<T>,
-'children'
->;
+export type CardsBaseMomentPropsWithoutChildren<T extends CardsBaseMomentStore<object, object>> =
+  Omit<CardsBaseMomentProps<T>, 'children'>;
+
+export type CardsBaseMomentStackCaptionProps = {
+  readonly moment: CardsBaseMomentStore<MomentData, object>;
+};

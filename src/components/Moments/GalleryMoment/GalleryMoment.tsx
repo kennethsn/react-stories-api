@@ -1,66 +1,66 @@
-import 'swiper/css';
-import 'swiper/css/effect-cards';
-
 import Box from '@mui/material/Box';
 import { observer } from 'mobx-react-lite';
 import { When } from 'react-if';
-import type { Swiper as SwiperClass } from 'swiper';
-import { EffectCards } from 'swiper/modules';
-import { Swiper, SwiperSlide } from 'swiper/react';
 
+import GalleryMomentStore from '../../../state/moments/galleryMomentStore';
+import type { Image } from '../../../types';
+import StoryButton from '../../StoryButton/StoryButton';
+import StoryMomentTypography from '../../StoryMoment/StoryMomentTypography';
 import PreviewableImage from '../../UI/PreviewableImage/PreviewableImage';
-import BaseMoment from '../BaseMoment/BaseMoment';
+import CardsBaseMoment from '../CardsBaseMoment/CardsBaseMoment';
 import styles from './GalleryMoment.styles';
 import type { GalleryMomentProps } from './GalleryMoment.types';
-import GalleryMomentCaption from './GalleryMomentCaption';
 
-// TODO: Consider consolidating with CardsBaseMoment
-
-const GalleryMoment = observer(({ moment }: GalleryMomentProps) => {
-  const handleOnImageSwipe = (swiper: SwiperClass) => {
-    if (!moment) {
-      return;
-    }
-    moment.setActiveImageIndex(swiper.activeIndex);
-  };
-
-  const fitIsFullWidth = moment.fit === 'full';
-
+const toCaption = (
+  { caption, caption_button }: Image,
+  index: number,
+  moment: GalleryMomentStore,
+) => {
+  if (!caption && !caption_button) {
+    return undefined;
+  }
   return (
-    <BaseMoment
-      contentFit={moment.fit}
-      contentSize={moment.size}
-      moment={moment}
-    >
-      <Box sx={styles.container(fitIsFullWidth ? [] : moment.data.images)}>
-        <Swiper
-          className="gallery-swiper"
-          effect="cards"
-          grabCursor
-          modules={[EffectCards]}
-          onSlideChange={handleOnImageSwipe}
-          style={styles.swiper(moment)}
-        >
-          {moment.data.images.map((image, index) => (
-            <SwiperSlide
-              key={image.url}
-              className="gallery-slide"
-            >
-              <PreviewableImage
-                alt={image.alt ?? image.caption ?? `Gallery image ${index + 1}`}
-                src={image.url}
-                sx={styles.image(fitIsFullWidth)}
-              />
-            </SwiperSlide>
-          ))}
-        </Swiper>
+    <>
+      <When condition={!!caption}>
+        <StoryMomentTypography
+          color="grey.300"
+          field={`data.images.${index}.caption`}
+          moment={moment}
+          richText
+          // textFieldProps={{ sx: { minWidth: '20vw', width: '100%' } }}
+          variant="body1"
+        />
+      </When>
 
-        <When condition={moment.shouldShowCaption}>
-          <GalleryMomentCaption moment={moment} />
-        </When>
-      </Box>
-    </BaseMoment>
+      <When condition={!!caption_button}>
+        <Box>
+          <StoryButton
+            button={caption_button!}
+            variant="outlined"
+          />
+        </Box>
+      </When>
+    </>
   );
-});
+};
+
+const toImageKey = (index: number, image: Image) => `gallery-image-${index}-${image.url}`;
+
+const GalleryMoment = observer(({ moment }: GalleryMomentProps) => (
+  <CardsBaseMoment<GalleryMomentStore>
+    moment={moment}
+    sx={styles.container(moment)}
+  >
+    {moment.items.map((image, index) => (
+      <PreviewableImage
+        key={toImageKey(index, image)}
+        alt={image.alt ?? image.caption ?? `Gallery image ${index + 1}`}
+        caption={toCaption(image, index, moment)}
+        src={image.url}
+        sx={styles.image(moment)}
+      />
+    ))}
+  </CardsBaseMoment>
+));
 
 export default GalleryMoment;

@@ -10,6 +10,7 @@ import styles from './CollectionSection.styles';
 import type { CollectionSectionProps } from './CollectionSection.types';
 
 const CollectionSection = observer(({
+  buttonLabel = 'View Collection',
   collection,
   collectionPathFormatter,
   enabled,
@@ -78,7 +79,7 @@ const CollectionSection = observer(({
             button={{
               collection_id: collection.id,
               formatter: collectionPathFormatter,
-              label: 'View Collection',
+              label: buttonLabel,
             }}
             color="secondary"
             disableElevation

@@ -21,6 +21,11 @@ export type Button = GoToOptions & {
   readonly variant?: ButtonProps['variant']; // 'text' | 'outlined' | 'contained'
 };
 
+export type Caption = AtLeastOne<{
+  readonly button?: Button;
+  readonly content?: string;
+}>;
+
 export type CardsLayout = 'grid' | 'stack';
 
 export type CardsBaseMomentData<T> = {
@@ -70,7 +75,7 @@ export type GoToBaseOptions<T> = {
 export type GalleryMomentData = {
   readonly fit?: MomentContentFit;
   readonly images: Image[];
-  readonly layout?: 'cards';
+  readonly layout?: CardsLayout;
   readonly size?: MomentContentSize;
 };
 
@@ -168,10 +173,7 @@ export type Moment<T=MomentData> = {
   readonly type: MomentType;
 };
 
-export type MomentCaption = AtLeastOne<{
-  readonly button?: Button;
-  readonly content?: string;
-}> & {
+export type MomentCaption = Caption & {
   readonly fit?: MomentCaptionFit;
   readonly position?: MomentCaptionPosition;
 };
@@ -290,7 +292,7 @@ export type StoriesAPIFormatters = {
   readonly collectionStoriesListHeader: string;
   readonly momentPath: string;
   readonly momentQueryParamKey: string;
-  readonly storyCollectionBackButtonLabel: string; // KSN TODO: add support for this
+  readonly storyCollectionButtonLabel: string; // KSN TODO: add support for this
   readonly storyPageTitle: string;
   readonly storyPath: string;
 };

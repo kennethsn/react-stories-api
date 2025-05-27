@@ -10,6 +10,7 @@ import type { StoriesAPICollectionsProps } from './StoriesAPICollections.types';
 const Collections = lazy(() => import('../Collections/Collections'));
 
 const StoriesAPICollections = observer(({
+  buttonLabel,
   collectionPathFormatter,
   enableAllCollections,
   featured,
@@ -45,6 +46,7 @@ const StoriesAPICollections = observer(({
 
         <Else>
           <Collections
+            buttonLabel={buttonLabel}
             collectionPathFormatter={collectionPathFormatter}
             collections={collections.getCollectionsList(options)!}
             enableAllCollections={enableAllCollections}
