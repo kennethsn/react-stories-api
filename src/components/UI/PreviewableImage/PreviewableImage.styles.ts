@@ -1,7 +1,8 @@
 import { grey } from '@mui/material/colors';
+import type { Theme } from '@mui/material/styles';
 
 const styles = {
-  captionContainer: {
+  captionContainer: (theme: Theme) => ({
     bgcolor: '#000000a1',
     borderTopLeftRadius: 16,
     bottom: 0,
@@ -12,7 +13,11 @@ const styles = {
     p: 3,
     position: 'fixed',
     right: 0,
-  },
+
+    [theme.breakpoints.down('md')]: {
+      maxWidth: '90vw',
+    },
+  }),
 };
 
 export default styles;
