@@ -30,7 +30,7 @@ const PreviewableImageToolbar = observer(({
       <When condition={!!caption}>
         <IconButton
           className="PhotoView-Slider__toolbarIcon"
-          color={captionOpen ? 'primary' : 'inherit'}
+          color={captionOpen ? 'info' : 'inherit'}
           onClick={handleInfoClick}
         >
           <InfoOutlined />
