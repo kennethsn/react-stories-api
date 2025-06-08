@@ -1,6 +1,4 @@
-import { storyStoryBookDecorator } from '../../../stories/decorators';
-import TextMoment from './TextMoment';
-// KSN TODO: wrap storybook container into its own component
+import { momentStoryBookDecorator } from '../../../stories/decorators';
 
 const momentData = {
   index: 0,
@@ -40,9 +38,8 @@ export default {
       },
     },
   },
-  component: TextMoment,
   decorators: [
-    storyStoryBookDecorator(),
+    momentStoryBookDecorator,
   ],
   parameters: {
     deepControls: { enabled: true },

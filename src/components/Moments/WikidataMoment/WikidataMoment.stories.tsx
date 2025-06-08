@@ -1,12 +1,10 @@
-import { storyStoryBookDecorator } from '../../../stories/decorators';
-import WikidataMoment from './WikidataMoment';
+import { momentStoryBookDecorator } from '../../../stories/decorators';
 
 const momentData = {
   index: 0,
   type: 'wikidata',
   title: 'Lewis Carroll',
   subtitle: null,
-  icon: { name: 'wiki', type: 'mui' },
   color: {
     type: 'hex',
     background: '#7dbbb1',
@@ -52,9 +50,8 @@ export default {
       name: 'Wikidata entity ID',
     },
   },
-  component: WikidataMoment,
   decorators: [
-    storyStoryBookDecorator(),
+    momentStoryBookDecorator,
   ],
   parameters: {
     deepControls: { enabled: true },

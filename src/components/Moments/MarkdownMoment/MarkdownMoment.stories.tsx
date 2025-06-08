@@ -1,5 +1,4 @@
-import { storyStoryBookDecorator } from '../../../stories/decorators';
-import MarkdownMoment from './MarkdownMoment';
+import { momentStoryBookDecorator } from '../../../stories/decorators';
 
 const momentData = {
   index: 0,
@@ -16,15 +15,12 @@ const momentData = {
   reference: null,
   data: {
     content: `
-    # Welcome to the Yale Club
-
-    **Click here to explore more about our legacy!**
-
-    ---
-
-    - Rich history
-    - Inspiring Stories
-    `,
+# Welcome to the Yale Club
+**Click here to explore more about our legacy!**
+---
+- Rich history
+- Inspiring Stories
+`,
   },
 };
 
@@ -38,11 +34,11 @@ export default {
       name: 'Markdown Content',
     },
   },
-  component: MarkdownMoment,
   decorators: [
-    storyStoryBookDecorator(),
+    momentStoryBookDecorator,
   ],
   parameters: {
+    deepControls: { enabled: true },
     layout: 'centered',
   },
   tags: ['autodocs'],
@@ -53,10 +49,9 @@ export const DefaultMarkdownMoment = {
   name: 'Default Markdown',
 };
 
-export const CardMarkdown = {
+export const CardMarkdownMoment = {
   args: {
-    'moment.data.content': `
-      # Welcome to the Yale Club
+    'moment.data.content': `#Welcome to the Yale Club
 
     **Click here to explore more about our legacy!**
 

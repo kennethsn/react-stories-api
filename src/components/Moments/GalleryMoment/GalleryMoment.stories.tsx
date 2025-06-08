@@ -1,6 +1,4 @@
-import { storyStoryBookDecorator } from '../../../stories/decorators';
-import GalleryMoment from './GalleryMoment';
-// KSN TODO: wrap storybook container into its own component
+import { momentStoryBookDecorator } from '../../../stories/decorators';
 
 const momentData = {
   index: 0,
@@ -27,11 +25,11 @@ export default {
   args: {
     moment: momentData,
   },
-  component: GalleryMoment,
   decorators: [
-    storyStoryBookDecorator(),
+    momentStoryBookDecorator,
   ],
   parameters: {
+    deepControls: { enabled: true },
     layout: 'centered',
   },
   tags: ['autodocs'],

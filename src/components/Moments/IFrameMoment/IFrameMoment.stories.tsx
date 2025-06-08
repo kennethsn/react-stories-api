@@ -1,6 +1,4 @@
-import { storyStoryBookDecorator } from '../../../stories/decorators';
-import IFrameMoment from './IFrameMoment';
-// KSN TODO: wrap storybook container into its own component
+import { momentStoryBookDecorator } from '../../../stories/decorators';
 
 const momentData = {
   index: 0,
@@ -73,9 +71,8 @@ export default {
       name: 'Embed URL',
     },
   },
-  component: IFrameMoment,
   decorators: [
-    storyStoryBookDecorator(),
+    momentStoryBookDecorator,
   ],
   parameters: {
     deepControls: { enabled: true },

@@ -1,5 +1,4 @@
-import { storyStoryBookDecorator } from '../../../stories/decorators';
-import HTMLMoment from './HTMLMoment';
+import { momentStoryBookDecorator } from '../../../stories/decorators';
 
 const momentData = {
   index: 0,
@@ -32,11 +31,11 @@ export default {
       name: 'HTML Content',
     },
   },
-  component: HTMLMoment,
   decorators: [
-    storyStoryBookDecorator(),
+    momentStoryBookDecorator,
   ],
   parameters: {
+    deepControls: { enabled: true },
     layout: 'centered',
   },
   tags: ['autodocs'],
@@ -47,7 +46,7 @@ export const DefaultHTMLMoment = {
   name: 'Default HTML',
 };
 
-export const CardHTML = {
+export const CardHTMLMoment = {
   args: {
     'moment.data.content': `
       <h2>Custom HTML Content</h2>

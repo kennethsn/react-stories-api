@@ -3,12 +3,10 @@ import type { StorybookConfig } from '@storybook/react-vite';
 const config: StorybookConfig = {
   addons: [
     '@chromatic-com/storybook',
-    '@storybook/addon-essentials',
-    '@storybook/addon-interactions',
     '@storybook/addon-links',
     '@storybook/addon-onboarding',
     'storybook-addon-deep-controls',
-    '@storybook/addon-mdx-gfm'
+    '@storybook/addon-docs'
   ],
 
   core: {

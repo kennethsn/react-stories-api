@@ -10,6 +10,7 @@ module.exports = {
     'airbnb/hooks',
     'plugin:@typescript-eslint/recommended',
     'plugin:react/all',
+    'plugin:storybook/recommended',
   ],
   ignorePatterns: [
     '.archive', // KSN TODO: remove archive

@@ -1,5 +1,5 @@
-import type { Preview } from '@storybook/react';
-import { INITIAL_VIEWPORTS, MINIMAL_VIEWPORTS } from '@storybook/addon-viewport';
+import type { Preview } from '@storybook/react-vite';
+import { INITIAL_VIEWPORTS, MINIMAL_VIEWPORTS } from 'storybook/viewport';
 import './styles.css'
 
 const preview: Preview = {

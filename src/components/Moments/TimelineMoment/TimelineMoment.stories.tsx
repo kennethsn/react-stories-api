@@ -1,6 +1,5 @@
-import { storyStoryBookDecorator } from '../../../stories/decorators';
+import { momentStoryBookDecorator } from '../../../stories/decorators';
 import TimelineMoment from './TimelineMoment';
-// KSN TODO: wrap storybook container into its own component
 
 const momentData = {
   index: 0,
@@ -95,7 +94,7 @@ export default {
   },
   component: TimelineMoment,
   decorators: [
-    storyStoryBookDecorator(),
+    momentStoryBookDecorator,
   ],
   parameters: {
     deepControls: { enabled: true },
@@ -109,7 +108,7 @@ export const DefaultTimelineMoment = {
   name: 'Default Timeline',
 };
 
-export const CardTimeline = {
+export const CardTimelineMoment = {
   args: {
     'moment.data.caption.content': 'Science Stories was founded in 2017',
     'moment.data.caption.position': 'left',
