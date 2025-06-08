@@ -55,5 +55,4 @@ export default {
 };
 
 export const DefaultButton = {
-  name: 'Default Button',
 };
