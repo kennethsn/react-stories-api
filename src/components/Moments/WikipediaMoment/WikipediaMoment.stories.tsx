@@ -1,12 +1,10 @@
-import { storyStoryBookDecorator } from '../../../stories/decorators';
-import WikipediaMoment from './WikipediaMoment';
+import { momentStoryBookDecorator } from '../../../stories/decorators';
 
 const momentData = {
   index: 0,
   type: 'wikipedia',
   title: 'Lewis Carroll',
   subtitle: null,
-  icon: { name: 'wiki', type: 'mui' },
   color: {
     type: 'hex',
     background: '#7dbbb1',
@@ -61,9 +59,8 @@ export default {
       name: 'Wikipedia page key',
     },
   },
-  component: WikipediaMoment,
   decorators: [
-    storyStoryBookDecorator(),
+    momentStoryBookDecorator,
   ],
   parameters: {
     deepControls: { enabled: true },
@@ -77,7 +74,7 @@ export const DefaultWikipediaMoment = {
   name: 'Default Wikipedia',
 };
 
-export const CardWikipedia = {
+export const CardWikipediaMoment = {
   args: {
     'moment.data.caption.content': 'This example demonstrates using a page key from Wikipedia.',
     'moment.data.caption.position': 'left',

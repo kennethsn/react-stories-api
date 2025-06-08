@@ -1,7 +1,6 @@
-import { storyStoryBookDecorator } from '../../../stories/decorators';
+import { momentStoryBookDecorator } from '../../../stories/decorators';
 import collectionData from '../../../tests/fixtures/collection--yale-club--they-lived-at-the-club.json';
 import { momentCaption } from '../../../tests/fixtures/vars';
-import StoriesMoment from './StoriesMoment';
 
 const momentData = {
   id: 'moment-1',
@@ -62,9 +61,8 @@ export default {
       name: 'iframe Size',
     },
   },
-  component: StoriesMoment,
   decorators: [
-    storyStoryBookDecorator(),
+    momentStoryBookDecorator,
   ],
   parameters: {
     deepControls: { enabled: true },

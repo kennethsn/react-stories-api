@@ -1,5 +1,4 @@
-import { storyStoryBookDecorator } from '../../../stories/decorators';
-import PDFMoment from './PDFMoment';
+import { momentStoryBookDecorator } from '../../../stories/decorators';
 
 const momentData = {
   index: 0,
@@ -55,11 +54,11 @@ export default {
       name: 'PDF URL',
     },
   },
-  component: PDFMoment,
   decorators: [
-    storyStoryBookDecorator(),
+    momentStoryBookDecorator,
   ],
   parameters: {
+    deepControls: { enabled: true },
     layout: 'centered',
   },
   tags: ['autodocs'],
@@ -70,7 +69,7 @@ export const DefaultPDFMoment = {
   name: 'Default PDF',
 };
 
-export const CardPDF = {
+export const CardPDFMoment = {
   args: {
     'moment.data.caption.content': 'View this PDF to read an article by Marrion Wilcox about the Yale Club.',
     'moment.data.caption.position': 'top',

@@ -32,6 +32,7 @@ const MomentHeader = observer(({ actions, moment }: MomentHeaderProps) => {
           moment={moment}
           multiline={false}
           required
+          richText
           sx={styles.title}
           variant="h6"
         />
@@ -46,6 +47,7 @@ const MomentHeader = observer(({ actions, moment }: MomentHeaderProps) => {
           data-swiper-parallax="-2800"
           field="subtitle"
           moment={moment}
+          richText
           sx={styles.subtitle}
           variant="overline"
         />

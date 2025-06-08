@@ -20,6 +20,7 @@ export default {
     }),
   ],
   parameters: {
+    deepControls: { enabled: true },
     layout: 'centered',
   },
   tags: ['autodocs'],
