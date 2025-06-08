@@ -680,6 +680,21 @@
     },
     {
       "data": {
+        "content": "### The four-story building, plus basement, featured here outlined in blue is the original Yale Club house at 17 Madison Square North (17 East 26th St.), rented on June 2nd, 1897 at the 2nd meeting of the newly incorporated Yale Club.\n\n The Club had previously been used by the “Lambs Club.” Upon renting the Club, the governing body immediately obtained a “Raines Law License” which allowed the Club to have a bar. The other photos featured here of 17 Madison Square are from 1905, when the former Yale Club was taken up by the The Women’s University Club.  The photos give an idea as to what the interior of the Club might have looked like in our tenure. In addition to the rooms pictured here, the club also housed a billiards room in the basement."
+      },
+      "icon": {
+        "name": "photo_album",
+        "type": "mui"
+      },
+      "index": 3,
+      "label": "Introduction (Markdown)",
+      "subtitle": "The Original Yale Club House",
+      "title": "17 Madison Square North",
+      "type": "markdown",
+      "id": "m-wR5lvLmp"
+    },
+    {
+      "data": {
         "caption": {
           "content": "Join Librarian & Archives Manager Caroline Bartels as she continues to delve into more stories of members who lived at 17 Madison Square North, 30 W. 44th Street, and 50 Vanderbilt Avenue over the years and called The Yale Club home. Come hear about Edward J. Noble, founder of Lifesavers Candies, Egerton Swartwout, architect of The Yale Club at 30 W. 44th, William McChesney Martin, chairman of the Board of Governors of the Federal Reserve System, and for our DKE members, James A. Hawes, plus several others. The lives of these young men help tell the story of the early 20th century in New York City and the place of the Yale Club in that history. Recorded July 10th, 2024.",
           "position": "bottom"
