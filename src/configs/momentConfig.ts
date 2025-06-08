@@ -4,6 +4,7 @@ import HathiTrustMomentStore from '../state/moments/hathiTrustMomentStore';
 import HTMLMomentStore from '../state/moments/htmlMomentStore';
 import IFrameMomentStore from '../state/moments/iframeMomentStore';
 import ImageMomentStore from '../state/moments/imageMomentStore';
+import MarkdownMomentStore from '../state/moments/markdownMomentStore';
 import PDFMomentStore from '../state/moments/pdfMomentStore';
 import StoriesMomentStore from '../state/moments/storiesMomentStore';
 import TextMomentStore from '../state/moments/textMomentStore';
@@ -50,6 +51,11 @@ const MomentConfigMap: Record<MomentType, MomentConfig> = {
     component: 'ImageMoment',
     icon: { name: 'image', type: 'mui' },
     store: ImageMomentStore.build,
+  },
+  markdown: {
+    component: 'MarkdownMoment',
+    icon: { name: 'markdown', type: 'mui' },
+    store: MarkdownMomentStore.build,
   },
   pdf: {
     component: 'PDFMoment',

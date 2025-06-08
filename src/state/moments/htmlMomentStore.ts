@@ -1,13 +1,15 @@
-import { makeObservable } from 'mobx';
+import { computed, makeObservable } from 'mobx';
 
 import type { HTMLMomentData, Moment } from '../../types';
 import type MomentsStore from '../momentsStore';
-import IFrameMomentStore from './iframeMomentStore';
+import MomentStore from '../momentStore';
 
-export default class HTMLMomentStore extends IFrameMomentStore<HTMLMomentData> {
+export default class HTMLMomentStore extends MomentStore<HTMLMomentData> {
   constructor(moments: MomentsStore, moment: Moment<HTMLMomentData>) {
     super(moments, moment);
-    makeObservable(this, {});
+    makeObservable(this, {
+      content: computed,
+    });
   }
 
   get content() {

@@ -173,6 +173,12 @@ export type Moment<T=MomentData> = {
   readonly type: MomentType;
 };
 
+export type MarkdownMomentData = {
+  readonly content: string;
+  readonly fit?: MomentContentFit;
+  readonly size?: MomentContentSize;
+};
+
 export type MomentCaption = Caption & {
   readonly fit?: MomentCaptionFit;
   readonly position?: MomentCaptionPosition;
@@ -192,6 +198,7 @@ export type MomentData =
   IFrameMomentData |
   HathiTrustMomentData |
   HTMLMomentData |
+  MarkdownMomentData |
   PDFMomentData |
   StoriesMomentData |
   TextMomentData |
@@ -223,6 +230,7 @@ export type MomentType =
   'html' |
   'iframe' |
   'image' |
+  'markdown' |
   'pdf' |
   'stories' |
   'text' |
