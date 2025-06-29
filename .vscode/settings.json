@@ -4,5 +4,6 @@
   },
   "editor.formatOnSave": true,
   "editor.defaultFormatter": null,
-  "eslint.format.enable": true
+  "eslint.format.enable": true,
+  "eslint.codeActionsOnSave.rules": null
 }
