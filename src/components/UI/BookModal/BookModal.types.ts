@@ -1,5 +1,5 @@
 import type LibraryMomentStore from '../../../state/moments/libraryMomentStore';
 
-export interface BookModalProps {
-  moment: LibraryMomentStore;
-}
+export type BookModalProps = {
+  readonly moment: LibraryMomentStore;
+};

@@ -1,27 +1,11 @@
-import { styled } from '@mui/material/styles';
-
 const styles = {
-  container: styled('div')({
-    // If any container-level styles are needed
-  }),
-
-  title: styled('h2')({
-    fontSize: '250%',
-    fontWeight: 300,
-    marginBottom: 20,
-    opacity: 0.2,
-    textAlign: 'center',
-    textTransform: 'uppercase',
-  }),
-
-  carouselWrapper: styled('div')({
-    margin: '0 calc(24px + 5%)',
-    padding: '0 40px',
+  carouselWrapper: {
+    mx: 'calc(24px + 5%)',
+    px: 5,
+    py: 0,
 
     '& .react-multi-carousel-item > div ': {
-      marginLeft: 'auto',
-      marginRight: 'auto',
-
+      mx: 'auto',
     },
 
     '& .react-multiple-carousel__arrow': {
@@ -48,23 +32,33 @@ const styles = {
     },
 
     '@media (max-width: 950px)': {
-      margin: '0 auto',
       maxWidth: '100%',
+      mx: 'auto',
+      my: 0,
     },
 
     '@media (max-width: 700px)': {
-      margin: '0 auto',
       maxWidth: '100%',
+      my: 0,
+      mx: 'auto',
     },
-  }),
-
-  graphic: styled('div')({
-    marginTop: -5,
+  },
+  graphic: {
+    mt: -4,
 
     '& img': {
+      objectFit: 'contain',
       width: '100%',
     },
-  }),
+  },
+  title: {
+    fontWeight: 300,
+    my: 3,
+    opacity: 0.2,
+    textAlign: 'center',
+    textTransform: 'uppercase',
+  },
+
 };
 
 export default styles;

@@ -1,35 +1,37 @@
+import Box from '@mui/material/Box';
 import { observer } from 'mobx-react-lite';
 
+import { deepMerge } from '../../../utils';
 import styles from './Book.styles';
-import { BookProps } from './Book.types';
+import type { BookProps } from './Book.types';
+import BookCover from './BookCover';
 
 const Book = observer(({
   accentColor,
   coverColor,
   author,
   onClick,
-  style,
   subtitle,
   textColor,
   title,
+  sx,
 }: BookProps) => (
-  <styles.container
+  <Box
     onClick={onClick}
-    onKeyPress={onClick}
     role="button"
-    style={style}
+    sx={deepMerge(styles.root, sx)}
     tabIndex={0}
   >
-    <styles.cover className="BookCover" style={{ background: accentColor }}>
-      <div className="CoverContent" style={{ background: coverColor, color: textColor }}>
-        <div className="CoverTitle">{title}</div>
+    <BookCover
+      accentColor={accentColor}
+      author={author}
+      coverColor={coverColor}
+      subtitle={subtitle}
+      textColor={textColor}
+      title={title}
+    />
 
-        {subtitle ? <div className="CoverSubtitle">{subtitle}</div> : null}
-
-        {author ? <div className="CoverAuthor">{author}</div> : null}
-      </div>
-    </styles.cover>
-  </styles.container>
+  </Box>
 ));
 
 export default Book;

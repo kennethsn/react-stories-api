@@ -1,7 +1,31 @@
-import { styled } from '@mui/material/styles';
-
 const styles = {
-  container: styled('div')({
+  author: {
+    fontSize: '75%',
+    fontWeight: 400,
+  },
+  content: (coverColor?: string, textColor?: string) => ({
+    bgcolor: coverColor || 'transparent',
+    color: textColor || 'typography.primary',
+    display: 'flex',
+    flexDirection: 'column',
+    fontWeight: 300,
+    height: '100%',
+    justifyContent: 'center',
+    p: 1,
+  }),
+  cover: (accentColor?: string) => ({
+    bgcolor: accentColor || 'background.paper',
+    display: 'table',
+    height: '100%',
+    hyphens: 'auto',
+    transformOrigin: '0 50%',
+    transform: 'rotateY(0)',
+    transition: 'all 0.45s ease',
+    width: '100%',
+    wordBreak: 'break-word',
+    wordWrap: 'break-word',
+  }),
+  root: {
     background: '#fff',
     borderBottomRightRadius: 5,
     borderTopRightRadius: 5,
@@ -48,45 +72,16 @@ const styles = {
         boxShadow: '1px 1px 5px 5px rgba(0, 0, 0, 0.2)',
       },
     },
-  }),
-
-  cover: styled('div')({
-    display: 'table',
-    height: '100%',
-    hyphens: 'auto',
-    transformOrigin: '0 50%',
-    transform: 'rotateY(0)',
-    transition: 'all 0.45s ease',
-    width: '100%',
-    wordBreak: 'break-word',
-    wordWrap: 'break-word',
-
-    '& .CoverContent': {
-      display: 'flex',
-      flexDirection: 'column',
-      fontWeight: 300,
-      height: '100%',
-      justifyContent: 'center',
-      padding: 5,
-    },
-
-    '& .CoverTitle': {
-      borderBottom: '1px solid',
-      fontSize: 20,
-      fontWeight: 'bold',
-    },
-
-    '& .CoverSubtitle': {
-      fontSize: '85%',
-      fontWeight: 'bold',
-      marginTop: 4,
-    },
-
-    '& .CoverAuthor': {
-      fontSize: '75%',
-      fontWeight: 400,
-    },
-  }),
+  },
+  title: {
+    borderBottom: '1px solid',
+    fontWeight: 'bold',
+  },
+  subtitle: {
+    fontSize: '85%',
+    fontWeight: 'bold',
+    mt: 4,
+  },
 };
 
 export default styles;
