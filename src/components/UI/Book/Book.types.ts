@@ -1,4 +1,4 @@
-import type { SxProps } from '@mui/material/styles';
+import type { SxProps, Theme } from '@mui/material/styles';
 
 export type BookProps = {
   readonly accentColor?: string;
@@ -7,7 +7,7 @@ export type BookProps = {
   readonly description?: string;
   readonly onClick?: () => void;
   readonly subtitle?: string;
-  readonly sx?: SxProps;
+  readonly sx?: SxProps<Theme>;
   readonly textColor?: string;
   readonly title: string;
 };

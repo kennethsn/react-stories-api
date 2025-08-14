@@ -44,7 +44,7 @@ const styles = {
     },
   },
   graphic: {
-    mt: -4,
+    mt: -1,
 
     '& img': {
       objectFit: 'contain',

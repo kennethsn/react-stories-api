@@ -5,7 +5,7 @@ const styles = {
   },
   content: (coverColor?: string, textColor?: string) => ({
     bgcolor: coverColor || 'transparent',
-    color: textColor || 'typography.primary',
+    color: textColor || 'text.primary',
     display: 'flex',
     flexDirection: 'column',
     fontWeight: 300,

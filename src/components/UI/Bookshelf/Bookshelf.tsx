@@ -78,7 +78,6 @@ const Bookshelf = observer(({
           ))}
         </Carousel>
       </Box>
-      ``
 
       <When condition={!!graphic}>
         <Box sx={styles.graphic}>
