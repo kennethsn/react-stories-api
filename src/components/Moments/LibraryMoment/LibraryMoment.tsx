@@ -14,11 +14,7 @@ const LibraryMoment = observer(({ moment }: LibraryMomentProps) => (
     {Object.entries(moment.shelves).map(([key, shelf]) => {
       const items: BookItem[] = shelf.items.map((item) => ({
         author: item.author,
-        color: {
-          accent: item.color?.accent ?? '#fff',
-          cover: item.color?.cover ?? '#fff',
-          text: item.color?.text ?? '#000',
-        },
+        color: item.color,
         description: item.description,
         image: item.image,
         instance: item.subtitle,
