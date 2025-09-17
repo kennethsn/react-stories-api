@@ -14,6 +14,36 @@ export type AV = {
 
 export type AVType = 'audio' | 'video';
 
+export type Award = {
+  readonly label: string;
+  readonly name?: string;
+  readonly subtitle?: string;
+  readonly description?: string;
+  readonly year?: string;
+  readonly icon?: {
+    readonly name: string;
+    readonly source: string;
+  }
+  readonly style?: 'default' | 'ribbon' | 'medal' | 'laurel';
+  readonly color: {
+    readonly dark: string;
+    readonly light: string;
+  };
+  readonly conferred_by?: {
+    readonly label: string;
+    readonly description?: string;
+    readonly title?: string;
+  };
+  readonly image?: string;
+  readonly website?: string;
+};
+
+export type AwardMomentData = {
+  readonly name?: string;
+  readonly awards: Award[];
+  readonly backgroundImage?: string;
+};
+
 export type Button = GoToOptions & {
   readonly color?: Color;
   readonly is_disabled?: boolean;
@@ -26,7 +56,7 @@ export type Caption = AtLeastOne<{
   readonly content?: string;
 }>;
 
-export type CardsLayout = 'grid' | 'stack';
+export type CardsLayout = 'grid' | 'orbit' | 'stack';
 
 export type CardsBaseMomentData<T> = {
   readonly fit?: MomentContentFit;
@@ -223,6 +253,7 @@ export type MomentContentFit = 'card' | 'cover' | 'full';
 export type MomentContentSize = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
 
 export type MomentData =
+  AwardMomentData |
   GalleryMomentData |
   ImageMomentData |
   IFrameMomentData |
@@ -255,6 +286,7 @@ export type MomentOrMomentGroup = (Moment | MomentGroupWithMoments);
 
 // KSN TODO: remove string when all moments are typed
 export type MomentType =
+  'award' |
   'base' |
   'gallery' |
   'hathiTrust' |

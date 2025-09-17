@@ -70,7 +70,6 @@ const momentData = {
           },
           {
             author: 'Anthony T. Kronman',
-            contribution: 'Yale Law School Professor',
             description: 'A philosophical theology exploring law, life, and belief.',
             id: 'book-7',
             title: 'Confessions of a Born‑Again Pagan',
