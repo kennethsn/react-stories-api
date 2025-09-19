@@ -8,6 +8,7 @@ import ImageMomentStore from '../state/moments/imageMomentStore';
 import LibraryMomentStore from '../state/moments/libraryMomentStore';
 import MarkdownMomentStore from '../state/moments/markdownMomentStore';
 import PDFMomentStore from '../state/moments/pdfMomentStore';
+import StatsMomentStore from '../state/moments/statsMomentStore';
 import StoriesMomentStore from '../state/moments/storiesMomentStore';
 import TextMomentStore from '../state/moments/textMomentStore';
 import TimelineMomentStore from '../state/moments/timelineMomentStore';
@@ -73,6 +74,11 @@ const MomentConfigMap: Record<MomentType, MomentConfig> = {
     component: 'PDFMoment',
     icon: { name: 'picture_as_pdf', type: 'mui' },
     store: PDFMomentStore.build,
+  },
+  stats: {
+    component: 'StatsMoment',
+    icon: { name: 'bar_chart', type: 'mui' },
+    store: StatsMomentStore.build,
   },
   stories: {
     component: 'StoriesMoment',
