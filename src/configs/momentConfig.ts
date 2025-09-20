@@ -1,4 +1,5 @@
 import { HATHI_TRUST_LOGO_URL, WIKIDATA_LOGO_URL, WIKIPEDIA_LOGO_URL } from '../constants';
+import AwardMomentStore from '../state/moments/awardMomentStore';
 import GalleryMomentStore from '../state/moments/galleryMomentStore';
 import HathiTrustMomentStore from '../state/moments/hathiTrustMomentStore';
 import HTMLMomentStore from '../state/moments/htmlMomentStore';
@@ -7,6 +8,7 @@ import ImageMomentStore from '../state/moments/imageMomentStore';
 import LibraryMomentStore from '../state/moments/libraryMomentStore';
 import MarkdownMomentStore from '../state/moments/markdownMomentStore';
 import PDFMomentStore from '../state/moments/pdfMomentStore';
+import StatsMomentStore from '../state/moments/statsMomentStore';
 import StoriesMomentStore from '../state/moments/storiesMomentStore';
 import TextMomentStore from '../state/moments/textMomentStore';
 import TimelineMomentStore from '../state/moments/timelineMomentStore';
@@ -28,6 +30,11 @@ export type MomentConfig = {
 export type IMomentConfigMap = Record<MomentType, MomentConfig>;
 
 const MomentConfigMap: Record<MomentType, MomentConfig> = {
+  award: {
+    component: 'AwardMoment',
+    icon: { name: 'trophy', type: 'mui' },
+    store: AwardMomentStore.build,
+  },
   gallery: {
     component: 'GalleryMoment',
     icon: { name: 'gallery_thumbnail', type: 'mui' },
@@ -67,6 +74,11 @@ const MomentConfigMap: Record<MomentType, MomentConfig> = {
     component: 'PDFMoment',
     icon: { name: 'picture_as_pdf', type: 'mui' },
     store: PDFMomentStore.build,
+  },
+  stats: {
+    component: 'StatsMoment',
+    icon: { name: 'bar_chart', type: 'mui' },
+    store: StatsMomentStore.build,
   },
   stories: {
     component: 'StoriesMoment',
