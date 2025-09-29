@@ -72,7 +72,7 @@ export default class CardsBaseMomentStore<T, ItemType> extends MomentStore<Cards
   }
 
   get layout() {
-    return this.data.layout ?? 'grid';
+    return this.data.layout || 'grid';
   }
 
   get shouldShowCaption() {
