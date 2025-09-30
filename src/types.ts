@@ -47,7 +47,7 @@ export type AwardMomentData = {
   readonly backgroundImage?: string;
 };
 
-export type BaseContentBlock<Name =ContentBlockType, T = object> = {
+export type BaseContentBlock<Name=ContentBlockType, T=object> = {
   readonly id?: string;
   readonly sx?: SxProps;
   readonly type: Name;

@@ -4,7 +4,7 @@ import GeoMap from '../../UI/GeoMap/GeoMap';
 import BaseMoment from '../BaseMoment/BaseMoment';
 import type { GeoMapMomentProps } from './GeoMapMoment.types';
 
-const GeoMapoment = observer(({ moment }: GeoMapMomentProps) => (
+const GeoMapMoment = observer(({ moment }: GeoMapMomentProps) => (
   <BaseMoment
     contentFit={moment.fit}
     contentSize={moment.size}
@@ -14,4 +14,4 @@ const GeoMapoment = observer(({ moment }: GeoMapMomentProps) => (
   </BaseMoment>
 ));
 
-export default GeoMapoment;
+export default GeoMapMoment;
