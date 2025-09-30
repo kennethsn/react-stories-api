@@ -19,6 +19,7 @@ const MomentNavigatorHeader = observer(() => {
         color="primary"
         field="label"
         required
+        sx={styles.label}
         variant="h6"
       />
 

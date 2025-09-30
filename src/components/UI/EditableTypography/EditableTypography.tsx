@@ -9,8 +9,8 @@ import {
 } from 'react';
 import { Else, If, Then } from 'react-if';
 
-import { deepMerge } from '../../../utils';
 import { getThemeColorFromTypographyColor } from '../../../utils/color';
+import { deepMerge } from '../../../utils/object';
 import styles from './EditableTypography.styles';
 import type { EditableTypographyProps } from './EditableTypography.types';
 

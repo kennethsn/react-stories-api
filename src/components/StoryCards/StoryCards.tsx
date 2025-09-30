@@ -1,7 +1,7 @@
 import Box from '@mui/material/Box';
 import type { ReactNode } from 'react';
 
-import { deepMerge } from '../../utils';
+import { deepMerge } from '../../utils/object';
 import StoryCard from '../StoryCard/StoryCard';
 import Cards from '../UI/Cards/Cards';
 import styles from './StoryCards.styles';

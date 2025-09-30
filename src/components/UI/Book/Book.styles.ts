@@ -80,7 +80,7 @@ const styles = {
   subtitle: {
     fontSize: '85%',
     fontWeight: 'bold',
-    mt: 4,
+    mt: 1,
   },
 };
 

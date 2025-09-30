@@ -2,6 +2,7 @@ export const COLLECTION_STORIES_DEFAULT_PAGE_SIZE = 24;
 export const COLLECTION_SEARCH_MIN_THRESHOLD = 3;
 export const COLOR_HEX_REGEX = /^#([0-9A-Fa-f]{3}){1,2}([0-9A-Fa-f]{2})?$/;
 export const FORMATTER_TEMPLATE_REGEX = /\{(\w+)\}/g;
+export const GEOMAP_DEFAULT_MAP_TILES_URL = 'https://basemaps.cartocdn.com/gl/positron-nolabels-gl-style/style.json';
 export const GRID_MAX_SIZE = 12;
 export const HATHI_TRUST_BASE_URL = 'https://babel.hathitrust.org';
 export const HATHI_TRUST_EMBED_URL = `${HATHI_TRUST_BASE_URL}/cgi/pt`;

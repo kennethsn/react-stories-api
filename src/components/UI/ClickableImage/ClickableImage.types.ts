@@ -1,5 +1,5 @@
-export interface ClickableImageProps {
-  alt: string;
-  onClick: () => void;
-  src: string;
-}
+export type ClickableImageProps = {
+  readonly alt: string;
+  readonly onClick: () => void;
+  readonly src: string;
+};

@@ -1,8 +1,9 @@
 import Fade from '@mui/material/Fade';
 import styled from '@mui/material/styles/styled';
-import MuiTooltip, { type TooltipProps } from '@mui/material/Tooltip';
+import MuiTooltip from '@mui/material/Tooltip';
 
 import styles from './Tooltip.styles';
+import type { TooltipProps } from './Tooltip.types';
 
 const Tooltip = styled(({ className, ...props }: TooltipProps) => (
   <MuiTooltip

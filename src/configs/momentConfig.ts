@@ -1,6 +1,7 @@
 import { HATHI_TRUST_LOGO_URL, WIKIDATA_LOGO_URL, WIKIPEDIA_LOGO_URL } from '../constants';
 import AwardMomentStore from '../state/moments/awardMomentStore';
 import GalleryMomentStore from '../state/moments/galleryMomentStore';
+import GeoMomentStore from '../state/moments/geoMapMomentStore';
 import HathiTrustMomentStore from '../state/moments/hathiTrustMomentStore';
 import HTMLMomentStore from '../state/moments/htmlMomentStore';
 import IFrameMomentStore from '../state/moments/iframeMomentStore';
@@ -39,6 +40,11 @@ const MomentConfigMap: Record<MomentType, MomentConfig> = {
     component: 'GalleryMoment',
     icon: { name: 'gallery_thumbnail', type: 'mui' },
     store: GalleryMomentStore.build,
+  },
+  geoMap: {
+    component: 'GeoMapMoment',
+    icon: { name: 'globe', type: 'mui' },
+    store: GeoMomentStore.build,
   },
   hathiTrust: {
     component: 'HathiTrustMoment',

@@ -1,7 +1,7 @@
 import { makeAutoObservable } from 'mobx';
 
-import { getFormattedStringValues } from '../utils';
 import { setPageTitle } from '../utils/dom';
+import { getFormattedStringValues } from '../utils/string';
 import { stripTrailingSlash } from '../utils/url';
 import type RootStore from './rootStore';
 

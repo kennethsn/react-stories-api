@@ -1,7 +1,7 @@
 import Box from '@mui/material/Box';
 import { observer } from 'mobx-react-lite';
 
-import { deepMerge } from '../../../utils';
+import { deepMerge } from '../../../utils/object';
 import styles from './Book.styles';
 import type { BookProps } from './Book.types';
 import BookCover from './BookCover';
