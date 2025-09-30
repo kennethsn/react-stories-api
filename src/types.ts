@@ -117,6 +117,8 @@ export type HathiTrustMomentData = AtLeastOne<{
 
 export type HTMLMomentData = {
   readonly content: string; // HTML String
+  readonly fit?: MomentContentFit;
+  readonly size?: MomentContentSize;
 };
 
 export type Icon = ImageIcon | MuiIcon | NoIcon;
@@ -160,6 +162,40 @@ export type InputStory = Omit<Story, 'moments'> & {
   readonly moments: InputMoment[];
 };
 
+export type LibraryMomentData = {
+  readonly fit?: MomentContentFit;
+  readonly graphic?: string;
+  readonly onSelect?: (id: string) => void;
+  readonly shelves: Record<string, LibraryShelf>
+  readonly size?: MomentContentSize;
+  readonly title?: string;
+};
+
+export type LibraryShelf = {
+  readonly graphic?: { url: string };
+  readonly items: Array<{
+    readonly author?: string;
+    readonly color?: {
+      accent?: string;
+      cover?: string;
+      text?: string;
+    };
+    readonly description?: string;
+    readonly id: string;
+    readonly image?: string;
+    readonly subtitle?: string;
+    readonly title: string;
+    readonly url?: string;
+  }>;
+  readonly title?: string;
+};
+
+export type MarkdownMomentData = {
+  readonly content: string;
+  readonly fit?: MomentContentFit;
+  readonly size?: MomentContentSize;
+};
+
 export type Moment<T=MomentData> = {
   readonly color?: Color;
   readonly data: { caption?: MomentCaption } & T;
@@ -171,12 +207,6 @@ export type Moment<T=MomentData> = {
   readonly subtitle?: NullableString;
   readonly title?: NullableString;
   readonly type: MomentType;
-};
-
-export type MarkdownMomentData = {
-  readonly content: string;
-  readonly fit?: MomentContentFit;
-  readonly size?: MomentContentSize;
 };
 
 export type MomentCaption = Caption & {
@@ -198,6 +228,7 @@ export type MomentData =
   IFrameMomentData |
   HathiTrustMomentData |
   HTMLMomentData |
+  LibraryMomentData |
   MarkdownMomentData |
   PDFMomentData |
   StoriesMomentData |
@@ -230,6 +261,7 @@ export type MomentType =
   'html' |
   'iframe' |
   'image' |
+  'library' |
   'markdown' |
   'pdf' |
   'stories' |
