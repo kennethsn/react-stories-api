@@ -19,6 +19,16 @@ const styles = {
       overflow: 'auto',
       p: { md: 4, xs: 3 },
     },
+    orbit: {
+      alignItems: 'center',
+      backgroundPosition: 'center',
+      backgroundSize: 'cover',
+      display: 'flex',
+      height: '600px',
+      justifyContent: 'center',
+      position: 'relative',
+      width: '100%',
+    },
     stack: {
       alignItems: 'center',
       display: 'flex',

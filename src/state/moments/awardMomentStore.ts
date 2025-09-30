@@ -20,6 +20,7 @@ export default class AwardMomentStore extends CardsBaseMomentStore<AwardMomentDa
       closeModal: action,
       isModalOpen: observable,
       items: override,
+      layout: override,
       openAwardModal: action,
       selectedAward: observable,
     });
@@ -35,6 +36,10 @@ export default class AwardMomentStore extends CardsBaseMomentStore<AwardMomentDa
 
   get items(): Award[] {
     return this.data?.awards ?? [];
+  }
+
+  get layout() {
+    return this.data.layout || 'orbit';
   }
 
   handleSetActiveItemIndex(index: number) {

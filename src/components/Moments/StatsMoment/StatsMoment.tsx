@@ -4,6 +4,7 @@ import { When } from 'react-if';
 
 import StoryMomentTypography from '../../StoryMoment/StoryMomentTypography';
 import Icon from '../../UI/Icon/Icon';
+import StatValue from '../../UI/StatValue/StatValue';
 import CardsBaseMoment from '../CardsBaseMoment/CardsBaseMoment';
 import styles from './StatsMoment.styles';
 import type { StatsMomentProps } from './StatsMoment.types';
@@ -11,38 +12,51 @@ import type { StatsMomentProps } from './StatsMoment.types';
 const key = (index: number) => `${index}`;
 
 const StatsMoment = observer(({ moment }: StatsMomentProps) => (
-  <CardsBaseMoment moment={moment} sx={styles.root}>
+  <CardsBaseMoment
+    gridColumnsMax={{
+      xs: 1,
+      sm: 2,
+      md: 3,
+      lg: 4,
+    }}
+    moment={moment}
+    sx={styles.root}
+  >
     {moment.items.map((stat, index) => {
-      const backgroundColor = typeof stat.color === 'string' ? stat.color : stat.color?.background;
-      const textColor = typeof stat.color === 'string' ? '#fff' : stat.color?.text;
+      const accentColor = typeof stat.color === 'string'
+        ? stat.color
+        : stat.color?.background || '#1976d2';
 
       return (
         <Box
           key={key(index)}
           sx={{
             ...styles.statCard,
-            background: backgroundColor,
-            color: textColor,
+            background: '#fff',
+            color: accentColor,
+            position: 'relative',
           }}
         >
           <When condition={!!stat.icon}>
-            <Icon
-              icon={stat.icon!}
-              sx={styles.statIcon}
-            />
+            <Box sx={{ ...styles.statIconBox, background: accentColor }}>
+              <Icon
+                icon={stat.icon!}
+                sx={styles.statIcon}
+              />
+            </Box>
           </When>
 
           {stat.image ? <Box alt={stat.label || 'Stat image'} component="img" src={stat.image} sx={styles.statImage} /> : null}
 
           {stat.label ? (
-            <Box sx={styles.statLabel}>
+            <Box sx={{ ...styles.statLabelBox, background: accentColor }}>
               <StoryMomentTypography field={`data.stats.${index}.label`} moment={moment} />
             </Box>
           ) : null}
 
           {stat.value !== undefined && (
             <Box sx={styles.statValue}>
-              <StoryMomentTypography field={`data.stats.${index}.value`} moment={moment} />
+              <StatValue accentColor={accentColor} type={stat.type} value={stat.value} />
             </Box>
           )}
 

@@ -415,20 +415,41 @@ export type SerializableRecord = Record<string, SerializeableValue>;
 
 export type SerializeableValue = boolean | null | number | object | string;
 
-export type Stats = {
-  readonly color?: string | { background: string; text: string };
+export type Stat = {
+  readonly color?: {
+    background: string;
+  };
   readonly description?: string;
   readonly icon?: Icon
   readonly image?: string;
   readonly label?: string;
-  readonly type?: string;
+  readonly type: StatType;
   readonly url?: string;
-  readonly value?: string | number;
+  readonly value?: StatValue;
 };
 
+export interface StatListValueItem {
+  readonly description?: string;
+  readonly icon?: Icon;
+  readonly label: string;
+}
+
 export type StatsMomentData = CardsBaseMomentData<{
-  readonly stats: Stats[];
+  readonly stats: Stat[];
 }>;
+
+export interface StatNumberValue {
+  readonly amount: number;
+  readonly unit?: string;
+}
+
+export enum StatType {
+  list = 'list',
+  number = 'number',
+  string = 'string',
+}
+
+export type StatValue = string | StatListValueItem[] | StatNumberValue;
 
 export type StoriesAPICollectionsQueryParams = {
   readonly page?: number; // KSN TODO: Pagination
