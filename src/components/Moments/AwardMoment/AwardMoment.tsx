@@ -13,7 +13,6 @@ const AwardMoment = observer(({ moment }: AwardMomentProps) => {
   return (
     <Box sx={styles.container}>
       <Cards
-        keyFn={(index) => `award-${index}`}
         layout="orbit"
       >
         {awards.map((award) => (
