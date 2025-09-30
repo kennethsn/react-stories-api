@@ -352,7 +352,7 @@ export type Stat = {
     background: string;
   };
   readonly description?: string;
-  readonly icon?: Icon
+  readonly icon?: Icon;
   readonly image?: string;
   readonly label?: string;
   readonly type: StatType;
@@ -360,20 +360,20 @@ export type Stat = {
   readonly value?: StatValue;
 };
 
-export interface StatListValueItem {
+export type StatListValueItem = {
   readonly description?: string;
   readonly icon?: Icon;
   readonly label: string;
-}
+};
 
 export type StatsMomentData = CardsBaseMomentData<{
   readonly stats: Stat[];
 }>;
 
-export interface StatNumberValue {
+export type StatNumberValue = {
   readonly amount: number;
   readonly unit?: string;
-}
+};
 
 export enum StatType {
   list = 'list',

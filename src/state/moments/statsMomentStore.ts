@@ -4,7 +4,7 @@ import type { Moment, Stat, StatsMomentData } from '../../types';
 import type MomentsStore from '../momentsStore';
 import CardsBaseMomentStore from './cardsBaseMomentStore';
 
-export default class StatsMomentStore extends CardsBaseMomentStore< StatsMomentData, Stat> {
+export default class StatsMomentStore extends CardsBaseMomentStore<StatsMomentData, Stat> {
   constructor(moments: MomentsStore, moment: Moment<StatsMomentData>) {
     super(moments, moment);
 
