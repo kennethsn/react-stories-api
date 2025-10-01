@@ -52,6 +52,25 @@ export const objectsAreEqual = <T=object>(obj1: T, obj2: T): boolean => {
   ));
 };
 
+export const removeNullishValues = <T>(
+  obj: Record<string, T | null | undefined>,
+): Record<string, T> => {
+  Object.keys(obj).forEach((key) => {
+    if (obj[key] && typeof obj[key] === 'object' && !Array.isArray(obj[key])) {
+      // Recursively remove nullish values from nested objects
+      obj[key] = removeNullishValues<T>(obj[key] as Record<string, T | null | undefined>) as T;
+      // If the nested object is now empty, delete it
+      if (Object.keys(obj[key] as object).length === 0) {
+        delete obj[key];
+      }
+    } else if (obj[key] == null) {
+      // Delete the key if the value is null or undefined
+      delete obj[key];
+    }
+  });
+  return obj as Record<string, T>;
+};
+
 export const updateObject = (
   object: SerializableRecord,
   fieldPath: string,
