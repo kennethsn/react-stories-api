@@ -196,10 +196,10 @@ export type GoToURLOptions = GoToBaseOptions<{
 export type GoToPathFn = (path: string) => void;
 
 export type GridColumns = {
-  lg: NullableNumber;
-  md: NullableNumber;
-  sm: NullableNumber;
-  xs: NullableNumber;
+  lg?: NullableNumber;
+  md?: NullableNumber;
+  sm?: NullableNumber;
+  xs?: NullableNumber;
 };
 
 export type GroupedMoments = Array<MomentOrMomentGroup>;
