@@ -73,7 +73,10 @@ export type CardsBaseMomentData<T> = {
   readonly size?: MomentContentSize;
 } & T;
 
-export type CardsMomentData = StoriesMomentData;
+export type CardsContentMomentData = CardsBaseMomentData<{
+  readonly cards: Content[];
+  readonly grid_columns_max?: NullableGridColumns;
+}>;
 
 export type Collection = {
   readonly badge?: NullableString;
@@ -104,6 +107,7 @@ export type ColorString = ThemeColorOption | ColorHex;
 export type Content = {
   readonly blocks: ContentBlock[];
   readonly id?: string;
+  readonly sx?: SxProps;
 };
 
 export type ContentBlock = TextContentBlock | ImageContentBlock | RichTextContentBlock;
@@ -115,6 +119,13 @@ export type DataSource = 'api' | 'local';
 export type EditableCollectionKey = 'badge' | 'description' | 'image' | 'name' | 'status' | 'subtitle';
 
 export type EditableStoryKey = 'description' | 'image' | 'is_featured' | 'label' | 'moments' | 'status';
+
+export type GalleryMomentData = {
+  readonly fit?: MomentContentFit;
+  readonly images: Image[];
+  readonly layout?: CardsLayout;
+  readonly size?: MomentContentSize;
+};
 
 export type GeoCoordinates = {
   readonly latlong: [number, number]; // [latitude, longitude]
@@ -160,13 +171,6 @@ export type GoToBaseOptions<T> = {
   readonly new_tab?: boolean;
 } & T;
 
-export type GalleryMomentData = {
-  readonly fit?: MomentContentFit;
-  readonly images: Image[];
-  readonly layout?: CardsLayout;
-  readonly size?: MomentContentSize;
-};
-
 export type GoToCollectionOptions = GoToBaseOptions<{
   readonly collection_id: Collection['id'];
 }>;
@@ -190,6 +194,13 @@ export type GoToURLOptions = GoToBaseOptions<{
 }>;
 
 export type GoToPathFn = (path: string) => void;
+
+export type GridColumns = {
+  lg: NullableNumber;
+  md: NullableNumber;
+  sm: NullableNumber;
+  xs: NullableNumber;
+};
 
 export type GroupedMoments = Array<MomentOrMomentGroup>;
 
@@ -316,6 +327,7 @@ export type MomentContentSize = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12
 
 export type MomentData =
   AwardMomentData |
+  CardsContentMomentData |
   GalleryMomentData |
   GeoMapMomentData |
   ImageMomentData |
@@ -393,6 +405,10 @@ export type NoIcon = {
 };
 
 export type Nullable<T> = T | null | undefined;
+
+export type NullableBoolean = Nullable<boolean>;
+
+export type NullableGridColumns = Nullable<GridColumns>;
 
 export type NullableNumber = Nullable<number>;
 

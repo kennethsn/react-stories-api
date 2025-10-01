@@ -18,6 +18,13 @@ export const deepMerge = <T>(objectA?: T, objectB?: T | Partial<T>): T => (
       return mergedObject;
     }, { ...objectA }) : (objectA || objectB)) as T;
 
+export const deepMergeMulti = <T>(...objects: (T | undefined)[]): T | undefined => {
+  if (objects.length === 0) {
+    return undefined;
+  }
+  return objects.reduce((mergedObject, obj) => deepMerge(mergedObject, obj));
+};
+
 export const objectMap = <T, Q=T>(
   obj: T,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

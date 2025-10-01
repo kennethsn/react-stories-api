@@ -1,5 +1,6 @@
 import { HATHI_TRUST_LOGO_URL, WIKIDATA_LOGO_URL, WIKIPEDIA_LOGO_URL } from '../constants';
 import AwardMomentStore from '../state/moments/awardMomentStore';
+import CardsContentMomentStore from '../state/moments/cardsContentMomentStore';
 import GalleryMomentStore from '../state/moments/galleryMomentStore';
 import GeoMomentStore from '../state/moments/geoMapMomentStore';
 import HathiTrustMomentStore from '../state/moments/hathiTrustMomentStore';
@@ -35,6 +36,11 @@ const MomentConfigMap: Record<MomentType, MomentConfig> = {
     component: 'AwardMoment',
     icon: { name: 'trophy', type: 'mui' },
     store: AwardMomentStore.build,
+  },
+  cardsContent: {
+    component: 'CardsContentMoment',
+    icon: { name: 'dashboard', type: 'mui' },
+    store: CardsContentMomentStore.build,
   },
   gallery: {
     component: 'GalleryMoment',

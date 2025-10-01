@@ -1,16 +1,11 @@
 import { GRID_MAX_SIZE } from '../constants';
+import type { NullableGridColumns } from '../types';
 import { objectMap } from './object';
 
-export type GridColumns = {
-  lg: number;
-  md: number;
-  sm: number;
-  xs: number;
-};
-
+// TODO: take relative container width into consideration
 export const buildDynamicGridColumns = (
   itemsCount: number,
-  defaults?: Partial<GridColumns> | undefined,
+  defaults?: NullableGridColumns,
 ) => ({
   lg: getNumberOfColumns(itemsCount, defaults?.lg ?? 4),
   md: getNumberOfColumns(itemsCount, defaults?.md ?? 3),

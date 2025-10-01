@@ -1,5 +1,9 @@
 import {
-  action, computed, makeObservable, observable, override,
+  action,
+  computed,
+  makeObservable,
+  observable,
+  override,
 } from 'mobx';
 
 import type { Award, AwardMomentData, Moment } from '../../types';

@@ -4,6 +4,7 @@ import type {
   Content,
   ContentBlockType,
   ImageContentBlock,
+  RichTextContentBlock,
   TextContentBlock,
 } from '../../../types';
 
@@ -22,8 +23,11 @@ export type ContentBlockProps = {
   readonly index: number;
   readonly content: Content;
   readonly sx?: SxProps;
+  readonly sxBlockMap?: Partial<Record<ContentBlockType, SxProps>>;
 };
 
 export type ImageContentBlockProps = BaseContentBlockProps<ImageContentBlock>;
+
+export type RichTextContentBlockProps = BaseContentBlockProps<RichTextContentBlock>;
 
 export type TextContentBlockProps = BaseContentBlockProps<TextContentBlock>;
