@@ -1,15 +1,6 @@
 const styles = {
-  paginationContainer: {
-    alignItems: 'center',
-    display: 'flex',
-    justifyContent: 'center',
-  },
   root: {
     position: 'relative',
-  },
-  searchContainer: {
-    py: 2,
-    px: { xs: 1, md: 10 },
   },
   storiesContainer: {
     alignItems: 'center',
@@ -17,11 +8,7 @@ const styles = {
   },
   storiesListHeader: {
     mt: 6,
-    mx: { xs: 1, md: 6 },
-  },
-  storiesSection: {
-    mx: { xs: 1, md: 6 },
-    my: 3,
+    mx: { md: 6, xs: 1 },
   },
   storiesSectionHeader: {
     fontSize: '1.15rem',

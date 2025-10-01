@@ -1,4 +1,5 @@
 /* eslint-disable react/jsx-props-no-spreading */
+import { observer } from 'mobx-react-lite';
 import { Case, Switch } from 'react-if';
 
 import type { CardsProps } from './Cards.types';
@@ -7,10 +8,9 @@ import CardsOrbitLayout from './CardsOrbitLayout';
 import CardsStackLayout from './CardsStackLayout';
 
 // KSN TODO: carousel layout
-// KSN TODO: merry-go-round layout
 // KSN TODO: row
 
-export default function Cards(props: CardsProps) {
+const Cards = observer((props: CardsProps) => {
   const { layout = 'grid' } = props;
   const layoutProps = {
     keyFn: (index: number) => `${layout}-${index}`,
@@ -32,4 +32,6 @@ export default function Cards(props: CardsProps) {
       </Case>
     </Switch>
   );
-}
+});
+
+export default Cards;

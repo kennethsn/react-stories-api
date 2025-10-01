@@ -1,15 +1,14 @@
 import Grid from '@mui/material/Grid2';
-import Pagination, { type PaginationProps } from '@mui/material/Pagination';
 import { observer } from 'mobx-react-lite';
 import { useRef } from 'react';
 import { When } from 'react-if';
 
 import useCollection from '../../hooks/useCollection';
 import CollectionHeader from '../CollectionHeader/CollectionHeader';
-import CollectionSearch from '../CollectionSearch/CollectionSearch';
 import CollectionSlot from '../CollectionSlot/CollectionSlot';
 import StoryCard from '../StoryCard/StoryCard';
 import Animation from '../UI/Animation/Animation';
+import CardsBrowser from '../UI/CardsBrowser/CardsBrowser';
 import TemplatedTypography from '../UI/TemplatedTypography/TemplatedTypography';
 import styles from './CollectionLayout.styles';
 import type { CollectionLayoutProps } from './CollectionLayout.types';
@@ -61,13 +60,7 @@ const CollectionLayout = observer(({ children }: CollectionLayoutProps) => {
   };
   const card = renderStoryCard();
   const showListHeader = collection.shouldShowStoriesList
-   && Boolean(collection.hasDescription || card);
-
-  const handlePageChange: PaginationProps['onChange'] = async (_, page) => {
-    collection.setPage(page);
-    storiesListRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    await collection.options.onPageChange?.(page, collection);
-  };
+    && Boolean(collection.hasDescription || card);
 
   return (
     <Grid
@@ -97,36 +90,21 @@ const CollectionLayout = observer(({ children }: CollectionLayoutProps) => {
         </Grid>
       </When>
 
-      <When condition={collection.searchIsEnabled}>
-        <Grid
-          size={12}
-          sx={styles.searchContainer}
-        >
-          <CollectionSearch />
-        </Grid>
-      </When>
-
-      <When condition={collection.shouldShowStoriesList}>
-        <Grid
-          size={12}
-          sx={styles.storiesSection}
+      <Grid size={12}>
+        <CardsBrowser
+          // TODO: add support for other layout configurations
+          layout="tool"
+          pagination={collection.pagination}
+          search={collection.search}
+          slots={{
+            CardsBrowserSearch: (
+              <CollectionSlot component="CollectionSearch" />
+            ),
+          }}
         >
           {children}
-        </Grid>
-      </When>
-
-      <When condition={collection.shouldShowPagination}>
-        <Grid
-          size={12}
-          sx={styles.paginationContainer}
-        >
-          <Pagination
-            count={collection.lastPage}
-            onChange={handlePageChange}
-            page={collection.page}
-          />
-        </Grid>
-      </When>
+        </CardsBrowser>
+      </Grid>
     </Grid>
   );
 });

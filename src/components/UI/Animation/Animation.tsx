@@ -15,6 +15,7 @@ export default function Animation({
   const animation = 'animation' in props ? animationConfig[props.animation] : props;
   const animationStyles = elementIsVisible ? animation.to : animation.from;
   const style: CSSProperties = {
+    willChange: 'transform, opacity',
     transition: `${speed}ms ease-in-out`,
     ...animationStyles,
   };

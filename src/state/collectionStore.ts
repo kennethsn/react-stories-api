@@ -19,7 +19,9 @@ import type {
 import { buildDynamicGridSize } from '../utils/grid';
 import { deepCopy } from '../utils/object';
 import { openJSON } from '../utils/url';
+import PaginationStore from './paginationStore';
 import type RootStore from './rootStore';
+import SearchStore from './searchStore';
 
 export type CollectionStoreOptions = {
   // Forces search to be enabled regardless of the number of stories
@@ -32,12 +34,11 @@ export type CollectionStoreOptions = {
   readonly onSave?: (collection: Collection) => Promise<void>;
   readonly onSearch?: (searchInput: string, collection: CollectionStore) => Promise<void>;
   readonly page?: number;
+  readonly pageSize?: number;
   readonly searchInput?: string;
   readonly slots?: { [key: string]: FC<Omit<CollectionSlotProps, 'component'>> };
   readonly source?: DataSource;
 };
-
-const defaultPageNumber = 1;
 
 export default class CollectionStore {
   allStoriesAreEnabled: boolean;
@@ -52,13 +53,11 @@ export default class CollectionStore {
 
   isEdited: boolean = false;
 
-  page = defaultPageNumber;
-
-  pageSize = COLLECTION_STORIES_DEFAULT_PAGE_SIZE; // TODO: make this configurable
+  pagination: PaginationStore;
 
   saveStatus?: SaveStatus;
 
-  searchInput = '';
+  search: SearchStore;
 
   private source: DataSource = 'local';
 
@@ -70,14 +69,14 @@ export default class CollectionStore {
 
   constructor(public root: RootStore, public options: CollectionStoreOptions) {
     makeAutoObservable(this);
+    this.root = root;
     this.allStoriesAreEnabled = !!options.enableAllStories;
     this.collection = deepCopy(options.collection);
     this.initialCollection = deepCopy(options.collection);
     this.isEditable = !!options.editable;
-    this.page = options.page ?? defaultPageNumber;
-    this.searchInput = options.searchInput ?? '';
     this.source = options.source ?? 'local';
-    this.root = root;
+    this.pagination = this.buildPaginationStore();
+    this.search = this.buildSearchStore();
   }
 
   get badge() {
@@ -197,16 +196,8 @@ export default class CollectionStore {
     return this.saveStatus === 'SAVING';
   }
 
-  get lastPage() {
-    return this.storiesAPIResponse?.last_page ?? defaultPageNumber;
-  }
-
   get name() {
     return this.collection.name;
-  }
-
-  get noCurrentStories() {
-    return this.storiesCount === 0;
   }
 
   get overrideTotalStoriesCount() {
@@ -220,14 +211,6 @@ export default class CollectionStore {
       this.options.alwaysEnableSearch
       || this.totalStoriesCount >= COLLECTION_SEARCH_MIN_THRESHOLD
     );
-  }
-
-  get shouldShowNoResultsMessage() {
-    return this.noCurrentStories && !this.storiesAreLoading;
-  }
-
-  get shouldShowPagination() {
-    return this.lastPage > 1;
   }
 
   get shouldShowStoriesList() {
@@ -262,7 +245,7 @@ export default class CollectionStore {
     return (
       this.collection.total_stories_count
       ?? this.storiesAPIResponse?.total_count
-        ?? this.storiesCount
+      ?? this.storiesCount
     );
   }
 
@@ -270,8 +253,27 @@ export default class CollectionStore {
     return this.source === 'api';
   }
 
-  async changePage(page: number) {
-    this.setPage(page);
+  buildPaginationStore() {
+    return new PaginationStore(this.root, {
+      onChange: this.onPageChange.bind(this),
+      pageSize: this.options.pageSize || COLLECTION_STORIES_DEFAULT_PAGE_SIZE,
+      selectedPage: this.options.page,
+    });
+  }
+
+  buildSearchStore() {
+    return new SearchStore(this.root, {
+      disabled: !this.searchIsEnabled,
+      facets: this.collection.search_facets,
+      onSearch: this.searchStories.bind(this),
+      placeholder: 'Search collection...',
+      query: this.options.searchInput,
+      selectedFacets: {}, // TODO: support query param filters
+      searchOnFacetChange: true,
+    });
+  }
+
+  async onPageChange() {
     await this.loadStories();
   }
 
@@ -300,15 +302,20 @@ export default class CollectionStore {
   async loadStories() {
     this.storiesAreLoading = true;
     const options = {
-      page: this.page,
-      page_size: this.pageSize,
-      q: this.searchInput || undefined,
+      ...this.pagination.queryParams,
+      ...this.search.queryParams,
       statuses: this.storyStatuses,
     };
     const storiesAPIResponse = await this.root.api.getStories(this.id, options);
     runInAction(() => {
-      this.storiesAPIResponse = storiesAPIResponse;
+      this.setStoriesAPIResponse(storiesAPIResponse);
       this.storiesAreLoading = false;
+    });
+  }
+
+  onStoriesAPIResponseChange(response: StoriesAPIStoriesResponse) {
+    runInAction(() => {
+      this.pagination.setLastPage(response.last_page ?? this.pagination.defaultPageNumber);
     });
   }
 
@@ -329,7 +336,7 @@ export default class CollectionStore {
   }
 
   resetPage() {
-    this.setPage(defaultPageNumber);
+    this.pagination.reset();
   }
 
   async save() {
@@ -349,17 +356,15 @@ export default class CollectionStore {
     }
   }
 
-  async search() {
+  async searchStories() {
     this.resetPage();
     await this.loadStories();
+    return this.storiesCount;
   }
 
-  setPage(page: number) {
-    this.page = page;
-  }
-
-  setSearchInput(input: string) {
-    this.searchInput = input;
+  setStoriesAPIResponse(response: StoriesAPIStoriesResponse) {
+    this.storiesAPIResponse = response;
+    this.onStoriesAPIResponseChange(response);
   }
 
   setStoryStatuses(statuses: StoriesAPIStatus[]) {

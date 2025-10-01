@@ -19,6 +19,9 @@ const CollectionHeader = observer(({ card }: CollectionHeaderProps) => {
   const showFeaturedStoriesList = !showCard && collection.hasFeaturedStories;
   const showTitleAsColumn = showCard && collection.doesNotHaveDescription;
   const showTitleAsRow = !showTitleAsColumn;
+  const showSecondRow = (
+    showTitleAsColumn || collection.hasDescription || showCard || showFeaturedStoriesList
+  );
   return (
     <Box sx={styles.container(collection.image)}>
       <CollectionActions />
@@ -30,7 +33,7 @@ const CollectionHeader = observer(({ card }: CollectionHeaderProps) => {
       <Grid
         container
         spacing={showCard ? { xs: 2, md: 4, lg: 9 } : 3}
-        sx={styles.content}
+        sx={styles.content(showSecondRow)}
       >
         <When condition={showTitleAsColumn}>
           <CollectionHeaderTitleColumn />
