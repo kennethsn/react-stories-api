@@ -35,6 +35,7 @@ const CardsBaseMoment = observer(<T extends CardsBaseMomentStore<object, object>
           disableAnimation={moment.disableAnimation}
           gridColumnsMax={gridColumnsMax}
           layout={moment.layout}
+          layoutOptions={moment.layoutOptions}
           onChange={handleChange}
           sx={deepMerge(styles.cards(moment, moment.layout), sx)}
         >

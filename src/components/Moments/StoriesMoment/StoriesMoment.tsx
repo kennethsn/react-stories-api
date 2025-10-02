@@ -16,6 +16,9 @@ const StoriesMoment = observer(({ moment, ...props }: StoriesMomentProps) => (
       array: true,
       cardSx: styles.card,
       stories: moment.items,
+      layoutOptions: {
+        autoplay: true,
+      },
     })}
   </CardsBaseMoment>
 ));

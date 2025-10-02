@@ -3,11 +3,11 @@ import { observer } from 'mobx-react-lite';
 import { Case, Switch } from 'react-if';
 
 import type { CardsProps } from './Cards.types';
+import CardsCarouselLayout from './CardsCarouselLayout';
 import CardsGridLayout from './CardsGridLayout';
 import CardsOrbitLayout from './CardsOrbitLayout';
 import CardsStackLayout from './CardsStackLayout';
 
-// KSN TODO: carousel layout
 // KSN TODO: row
 
 const Cards = observer((props: CardsProps) => {
@@ -19,6 +19,10 @@ const Cards = observer((props: CardsProps) => {
   };
   return (
     <Switch>
+      <Case condition={layout === 'carousel'}>
+        <CardsCarouselLayout {...layoutProps} />
+      </Case>
+
       <Case condition={layout === 'grid'}>
         <CardsGridLayout {...layoutProps} />
       </Case>

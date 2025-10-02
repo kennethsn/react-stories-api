@@ -65,11 +65,22 @@ export type Caption = AtLeastOne<{
   readonly content?: string;
 }>;
 
-export type CardsLayout = 'grid' | 'orbit' | 'stack';
+export type CardsLayout = 'carousel' | 'grid' | 'orbit' | 'stack';
+
+export type CardsLayoutOptions = {
+  // Carousel Layout Options:
+  readonly autoplay?: NullableBoolean;
+  readonly slides_per_view?: number;
+  readonly slide_gap?: number;
+
+  // Grid Layout Options:
+  readonly grid_columns_max?: NullableGridColumns;
+};
 
 export type CardsBaseMomentData<T> = {
   readonly fit?: MomentContentFit;
   readonly layout?: CardsLayout;
+  readonly layoutOptions?: CardsLayoutOptions;
   readonly size?: MomentContentSize;
 } & T;
 

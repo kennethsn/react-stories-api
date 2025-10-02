@@ -1,4 +1,20 @@
 const styles = {
+  carouselLayoutRoot: {
+    alignItems: 'center',
+    display: 'flex',
+    height: '100%',
+    justifyContent: 'center',
+    width: '100%',
+
+    '& .cards-carousel-layout-swiper': {
+      p: 3,
+      mx: 2,
+
+      '& .cards-carousel-layout-swiper-slide  .swiper-slide-shadow': {
+        display: 'none',
+      },
+    },
+  },
   gridLayoutRoot: {
     m: 0,
   },
