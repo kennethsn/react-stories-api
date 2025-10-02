@@ -1,11 +1,10 @@
 import 'swiper/css';
 import 'swiper/css/free-mode';
-import 'swiper/css/pagination';
 
 import Box from '@mui/material/Box';
 import { observer } from 'mobx-react-lite';
 import type { Swiper as SwiperClass } from 'swiper';
-import { FreeMode, Mousewheel, Pagination } from 'swiper/modules';
+import { FreeMode, Mousewheel } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 import { deepMerge } from '../../../utils';
@@ -35,12 +34,9 @@ const CardsRowLayout = observer(({
         freeMode
         grabCursor
         loop
-        modules={[FreeMode, Mousewheel, Pagination]}
+        modules={[FreeMode, Mousewheel]}
         mousewheel={{ forceToAxis: true }}
         onSlideChange={handleSlideChange}
-        pagination={{
-          clickable: true,
-        }}
         slidesPerView={slidesPerView}
         spaceBetween={slideGap}
       >
