@@ -65,7 +65,7 @@ export type Caption = AtLeastOne<{
   readonly content?: string;
 }>;
 
-export type CardsLayout = 'carousel' | 'grid' | 'orbit' | 'stack';
+export type CardsLayout = 'carousel' | 'grid' | 'orbit' | 'row' | 'stack';
 
 export type CardsLayoutOptions = {
   // Carousel Layout Options:

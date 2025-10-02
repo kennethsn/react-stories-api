@@ -48,6 +48,21 @@ const styles = {
       transition: 'transform 0.6s ease, opacity 0.6s ease',
     },
   },
+  rowLayoutRoot: {
+    alignItems: 'center',
+    display: 'flex',
+    height: '100%',
+    justifyContent: 'center',
+    width: '100%',
+
+    '& .cards-row-layout-swiper': {
+      p: 3,
+
+      '& .cards-row-layout-swiper-slide  .swiper-slide-shadow': {
+        display: 'none',
+      },
+    },
+  },
   stackLayoutRoot: {
     alignItems: 'center',
     display: 'flex',

@@ -6,9 +6,8 @@ import type { CardsProps } from './Cards.types';
 import CardsCarouselLayout from './CardsCarouselLayout';
 import CardsGridLayout from './CardsGridLayout';
 import CardsOrbitLayout from './CardsOrbitLayout';
+import CardsRowLayout from './CardsRowLayout';
 import CardsStackLayout from './CardsStackLayout';
-
-// KSN TODO: row
 
 const Cards = observer((props: CardsProps) => {
   const { layout = 'grid' } = props;
@@ -29,6 +28,10 @@ const Cards = observer((props: CardsProps) => {
 
       <Case condition={layout === 'orbit'}>
         <CardsOrbitLayout {...layoutProps} />
+      </Case>
+
+      <Case condition={layout === 'row'}>
+        <CardsRowLayout {...layoutProps} />
       </Case>
 
       <Case condition={layout === 'stack'}>
