@@ -1,4 +1,20 @@
 const styles = {
+  carouselLayoutRoot: {
+    alignItems: 'center',
+    display: 'flex',
+    height: '100%',
+    justifyContent: 'center',
+    width: '100%',
+
+    '& .cards-carousel-layout-swiper': {
+      p: 3,
+      mx: 2,
+
+      '& .cards-carousel-layout-swiper-slide  .swiper-slide-shadow': {
+        display: 'none',
+      },
+    },
+  },
   gridLayoutRoot: {
     m: 0,
   },
@@ -30,6 +46,21 @@ const styles = {
       transformOrigin: 'center center',
       transformStyle: 'preserve-3d',
       transition: 'transform 0.6s ease, opacity 0.6s ease',
+    },
+  },
+  rowLayoutRoot: {
+    alignItems: 'center',
+    display: 'flex',
+    height: '100%',
+    justifyContent: 'center',
+    width: '100%',
+
+    '& .cards-row-layout-swiper': {
+      p: 3,
+
+      '& .cards-row-layout-swiper-slide  .swiper-slide-shadow': {
+        display: 'none',
+      },
     },
   },
   stackLayoutRoot: {

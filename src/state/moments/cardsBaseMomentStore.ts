@@ -29,6 +29,7 @@ export default class CardsBaseMomentStore<T, ItemType> extends MomentStore<Cards
       fit: computed,
       hasActiveCaption: computed,
       layout: computed,
+      layoutOptions: computed,
       shouldShowCaption: computed,
       size: computed,
     });
@@ -73,6 +74,12 @@ export default class CardsBaseMomentStore<T, ItemType> extends MomentStore<Cards
 
   get layout() {
     return this.data.layout || 'grid';
+  }
+
+  get layoutOptions() {
+    return this.data.layoutOptions || {
+      autoplay: true,
+    };
   }
 
   get shouldShowCaption() {

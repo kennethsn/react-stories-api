@@ -16,7 +16,9 @@ export default class DOMStore {
   }
 
   getRouteParams(formatterString: string) {
-    const path = stripTrailingSlash(this.window.location.pathname);
+    const path = stripTrailingSlash(
+      this.window.location.pathname,
+    );
     const template = stripTrailingSlash(formatterString);
     return getFormattedStringValues(path, template);
   }
