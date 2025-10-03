@@ -7,6 +7,7 @@ const styles = {
       `linear-gradient(160deg, #b6b6b6e6, #f5f5f5 75%), url(${image}) no-repeat center center`
     ),
     backgroundSize: 'cover',
+    mb: image ? 3 : 0,
     pb: image ? 10 : 2,
     pt: image ? 10 : 6,
     px: image ? 5 : 1,

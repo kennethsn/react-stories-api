@@ -6,6 +6,7 @@ import { observer } from 'mobx-react-lite';
 
 import { classNames } from '../../../utils/dom';
 import ActionButton from '../ActionButton/ActionButton';
+import LocaleActionButton from '../LocaleActionButton/LocaleActionButton';
 import type { BoundActionsProps } from './BoundActions.types';
 
 const getSaveButtonTitle = (type: string, store: BoundActionsProps['store']) => {
@@ -46,6 +47,8 @@ const BoundActions = observer(({
       sx={sx}
     >
       {prepend}
+
+      <LocaleActionButton isHidden={!store.isLocalizable} />
 
       <ActionButton
         icon={FileDownloadTwoToneIcon}

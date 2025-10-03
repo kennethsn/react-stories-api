@@ -26,7 +26,7 @@ const StoriesAPICollection = observer(({
   let { collectionId, page, searchInput } = props;
   if (connectRouter) {
     const routeParams = collections.getCollectionRouteParams();
-    collectionId = routeParams.collectionId;
+    collectionId ||= routeParams.collectionId;
     page = Number(searchParams.get('page')) || page;
     searchInput = searchParams.get('q') || searchInput;
   }
@@ -41,14 +41,12 @@ const StoriesAPICollection = observer(({
   };
 
   const handleSearch = async (_: string, collectionStore: CollectionStore) => {
-    await collectionStore.searchStories();
     if (connectRouter) {
       updateSearchParams(collectionStore);
     }
   };
 
-  const handlePageChange = async (pageNumber: number, collectionStore: CollectionStore) => {
-    await collectionStore.changePage(pageNumber);
+  const handlePageChange = async (_: number, collectionStore: CollectionStore) => {
     if (connectRouter) {
       updateSearchParams(collectionStore);
     }

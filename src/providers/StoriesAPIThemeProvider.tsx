@@ -3,15 +3,18 @@ import { PropsWithChildren } from 'react';
 
 import StoriesAPIThemeContext,
 { type IStoriesAPIThemeContext } from '../contexts/StoriesAPIThemeContext';
+import EmotionCacheProvider from './EmotionCacheProvider';
 
 type StoriesAPIThemeProviderProps = PropsWithChildren & {
   readonly theme?: IStoriesAPIThemeContext;
 };
 
 const StoriesAPIThemeProvider = observer(({ children, theme }: StoriesAPIThemeProviderProps) => (
-  <StoriesAPIThemeContext.Provider value={theme}>
-    {children}
-  </StoriesAPIThemeContext.Provider>
+  <EmotionCacheProvider>
+    <StoriesAPIThemeContext.Provider value={theme}>
+      {children}
+    </StoriesAPIThemeContext.Provider>
+  </EmotionCacheProvider>
 ));
 
 export default StoriesAPIThemeProvider;

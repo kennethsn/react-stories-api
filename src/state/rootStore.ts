@@ -3,19 +3,22 @@ import { makeAutoObservable } from 'mobx';
 import { type Context, createContext } from 'react';
 
 import MomentConfigMap from '../configs/momentConfig';
-import type { ProjectId, StoriesAPIFormatters } from '../types';
+import type { LocalizationConfig, ProjectId, StoriesAPIFormatters } from '../types';
 import APIStore, { type APIStoreOptions } from './apiStore';
 import AVStore from './avStore';
 import CollectionsStore from './collectionsStore';
 import DOMStore from './domStore';
 import FormattersStore from './formattersStore';
 import GeoMapsStore from './geoMapsStore';
+import LocaleStore from './localeStore';
+import MenusStore from './menusStore';
 import StoriesStore from './storiesStore';
 import ThemeStore from './themeStore';
 
 export type RootStoreOptions = {
   readonly api?: APIStoreOptions;
   readonly formatters?: Partial<StoriesAPIFormatters>;
+  readonly localization?: LocalizationConfig;
   readonly projectId?: ProjectId;
   readonly goToPath?: (path: string) => void;
   readonly isDebugging?: boolean;
@@ -36,6 +39,10 @@ export default class RootStore {
 
   formatters: FormattersStore;
 
+  locale: LocaleStore;
+
+  menus: MenusStore;
+
   geoMaps: GeoMapsStore;
 
   goToPath?: (path: string) => void;
@@ -53,6 +60,7 @@ export default class RootStore {
   constructor({
     api,
     formatters,
+    localization,
     goToPath,
     isDebugging = false,
     isMobile,
@@ -67,6 +75,8 @@ export default class RootStore {
     this.formatters = new FormattersStore(this, formatters);
     this.geoMaps = new GeoMapsStore(this);
     this.goToPath = goToPath;
+    this.locale = new LocaleStore(this, localization);
+    this.menus = new MenusStore(this);
     this.stories = new StoriesStore(this);
     this.theme = new ThemeStore(this, { isMobile, themeOptions });
     this.isDebugging = isDebugging;

@@ -5,6 +5,7 @@ export { default as useColor } from './useColor';
 export { default as useElementIsVisible } from './useElementIsVisible';
 export { default as useFormatters } from './useFormatters';
 export { default as useGeoMap } from './useGeoMap';
+export { default as useLocale } from './useLocale';
 export { default as useMoment } from './useMoment';
 export { default as useMoments } from './useMoments';
 export { default as useOnLoad } from './useOnLoad';

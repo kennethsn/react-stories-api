@@ -26,6 +26,7 @@ export type StoryStoreOptions = {
   readonly onChange?: (moment: MomentStore) => void;
   readonly onLoad?: (story: Story, store: StoryStore) => void;
   readonly onSave?: (story: Story) => Promise<void>;
+  readonly showLocaleSwitcher?: boolean;
   readonly slots?: { [key: string]: FC };
   readonly story: Story;
 };
@@ -104,6 +105,10 @@ export default class StoryStore {
 
   get isFailed() {
     return this.saveStatus === 'FAILED';
+  }
+
+  get isLocalizable() {
+    return this.options.showLocaleSwitcher && this.root.locale.hasAlternativeLocales;
   }
 
   get isFullscreen() {

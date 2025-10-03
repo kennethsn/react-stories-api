@@ -56,12 +56,12 @@ export default class PaginationStore {
 
   changePage = async (page: number) => {
     if (this.disabled || this.loading || page === this.selectedPage) return;
-    this.loading = true;
+    this.startLoading();
     this.setSelectedPage(page);
     try {
       await this.options.onChange(page);
     } finally {
-      this.loading = false;
+      this.stopLoading();
     }
   };
 
@@ -78,5 +78,13 @@ export default class PaginationStore {
 
   setSelectedPage(page: number) {
     this.selectedPage = page;
+  }
+
+  startLoading() {
+    this.loading = true;
+  }
+
+  stopLoading() {
+    this.loading = false;
   }
 }
