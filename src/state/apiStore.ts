@@ -34,6 +34,7 @@ export default class APIStore {
   get baseQueryParams() {
     return {
       'api-key': this.apiKey,
+      locale: this.root.locale.currentLocale,
     };
   }
 
@@ -44,13 +45,19 @@ export default class APIStore {
   /**
    * @throws {{ code: number}}
    */
-  async get<T>(path: string, queryParams?: QueryParams): Promise<T> {
-    const url = buildURL(this.url, path, { ...this.baseQueryParams, ...queryParams });
-    const response = await fetch(url.toString());
+  // eslint-disable-next-line class-methods-use-this
+  async fetch<T>(url: string): Promise<T> {
+    const response = await fetch(url);
     const data = await response.json();
     if (!response.ok) {
       throw { ...data, code: response.status };
     }
+    return data;
+  }
+
+  async get<T>(path: string, queryParams?: QueryParams): Promise<T> {
+    const url = buildURL(this.url, path, { ...this.baseQueryParams, ...queryParams });
+    const data = await this.fetch<T>(url.toString());
     return data;
   }
 
