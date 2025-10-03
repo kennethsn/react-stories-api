@@ -1,9 +1,8 @@
-import { Box } from '@mui/material';
 import { observer } from 'mobx-react-lite';
 
 import AwardCertificate from '../../UI/AwardCertificate/AwardCertificate';
 import AwardModal from '../../UI/AwardModal/AwardModal';
-import { Cards } from '../../UI/Cards';
+import CardsBaseMoment from '../CardsBaseMoment/CardsBaseMoment';
 import styles from './AwardMoment.styles';
 import type { AwardMomentProps } from './AwardMoment.types';
 
@@ -11,9 +10,10 @@ const AwardMoment = observer(({ moment }: AwardMomentProps) => {
   const awards = moment.data?.awards ?? [];
 
   return (
-    <Box sx={styles.container}>
-      <Cards
-        layout="orbit"
+    <>
+      <CardsBaseMoment
+        cardsContainerSx={styles.container}
+        moment={moment}
       >
         {awards.map((award) => (
           <AwardCertificate
@@ -22,10 +22,11 @@ const AwardMoment = observer(({ moment }: AwardMomentProps) => {
             moment={moment}
           />
         ))}
-      </Cards>
+
+      </CardsBaseMoment>
 
       <AwardModal moment={moment} />
-    </Box>
+    </>
   );
 });
 

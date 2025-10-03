@@ -1,14 +1,7 @@
 const styles = {
   container: {
-    alignItems: 'center',
     backgroundImage: 'url(https://stories-api-public.s3.amazonaws.com/award-moment-background.jpg)',
-    backgroundPosition: 'center',
-    backgroundSize: 'cover',
-    display: 'flex',
-    height: '600px',
-    justifyContent: 'center',
-    position: 'relative',
-    width: '100%',
+
   },
   divider: {
     background: 'rgba(255, 255, 255, 0.45)',

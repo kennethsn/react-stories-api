@@ -262,6 +262,7 @@ export type MomentData =
   LibraryMomentData |
   MarkdownMomentData |
   PDFMomentData |
+  StatsMomentData |
   StoriesMomentData |
   TextMomentData |
   TimelineMomentData |
@@ -296,6 +297,7 @@ export type MomentType =
   'library' |
   'markdown' |
   'pdf' |
+  'stats' |
   'stories' |
   'text' |
   'timeline' |
@@ -344,6 +346,42 @@ export type SaveStatus = 'FAILED' | 'SAVING' | 'SUCCESS';
 export type SerializableRecord = Record<string, SerializeableValue>;
 
 export type SerializeableValue = boolean | null | number | object | string;
+
+export type Stat = {
+  readonly color?: {
+    background: string;
+  };
+  readonly description?: string;
+  readonly icon?: Icon;
+  readonly image?: string;
+  readonly label?: string;
+  readonly type: StatType;
+  readonly url?: string;
+  readonly value?: StatValue;
+};
+
+export type StatListValueItem = {
+  readonly description?: string;
+  readonly icon?: Icon;
+  readonly label: string;
+};
+
+export type StatsMomentData = CardsBaseMomentData<{
+  readonly stats: Stat[];
+}>;
+
+export type StatNumberValue = {
+  readonly amount: number;
+  readonly unit?: string;
+};
+
+export enum StatType {
+  list = 'list',
+  number = 'number',
+  string = 'string',
+}
+
+export type StatValue = string | StatListValueItem[] | StatNumberValue;
 
 export type StoriesAPICollectionsQueryParams = {
   readonly page?: number; // KSN TODO: Pagination
