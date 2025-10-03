@@ -3,7 +3,7 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import { useContext } from 'react';
 
 import StoriesAPIThemeContext from '../contexts/StoriesAPIThemeContext';
-import { deepMerge } from '../utils';
+import { deepMerge } from '../utils/object';
 import useStoriesAPI from './useStoriesAPI';
 
 const useStoriesAPITheme = (themeOptions?: ThemeOptions) => {

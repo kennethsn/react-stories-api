@@ -4,6 +4,6 @@ import type StoryStore from '../state/storyStore';
 
 export type IStoryContext = StoryStore;
 
-const StoryContext = createContext<StoryStore | null>(null);
+const StoryContext = createContext<IStoryContext | null>(null);
 
 export default StoryContext;

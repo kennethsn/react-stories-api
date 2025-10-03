@@ -1,4 +1,7 @@
 import type { ButtonProps } from '@mui/material/Button';
+import type { SxProps } from '@mui/material/styles';
+import type { TypographyProps } from '@mui/material/Typography';
+import type { GeoJSONFeature } from 'maplibre-gl';
 
 import type { THEME_COLOR_OPTIONS } from './constants';
 
@@ -43,6 +46,12 @@ export type AwardMomentData = {
   readonly awards: Award[];
   readonly backgroundImage?: string;
 };
+
+export type BaseContentBlock<Name=ContentBlockType, T=object> = {
+  readonly id?: string;
+  readonly sx?: SxProps;
+  readonly type: Name;
+} & T;
 
 export type Button = GoToOptions & {
   readonly color?: Color;
@@ -91,11 +100,59 @@ export type ColorHex = `#${string}`;
 
 export type ColorString = ThemeColorOption | ColorHex;
 
+export type Content = {
+  readonly blocks: ContentBlock[];
+  readonly id?: string;
+};
+
+export type ContentBlock = TextContentBlock | ImageContentBlock | RichTextContentBlock;
+
+export type ContentBlockType = 'IMAGE' | 'TEXT' | 'RICH_TEXT';
+
 export type DataSource = 'api' | 'local';
 
 export type EditableCollectionKey = 'badge' | 'description' | 'image' | 'name' | 'status' | 'subtitle';
 
 export type EditableStoryKey = 'description' | 'image' | 'is_featured' | 'label' | 'moments' | 'status';
+
+export type GeoCoordinates = {
+  readonly latlong: [number, number]; // [latitude, longitude]
+  readonly latitude: number;
+  readonly longlat: [number, number]; // [longitude, latitude]
+  readonly longitude: number;
+};
+
+export type GeoMap = {
+  readonly feature_collection: StoriesAPIGeoJSONFeatureCollection;
+  readonly focal_point: {
+    readonly coordinates: GeoCoordinates;
+    readonly zoom: number;
+  };
+  readonly id: GeoMapId;
+  readonly information: Record<string, {
+    readonly content?: Content;
+    readonly description?: string;
+    readonly focal_point: GeoMapFocalPoint;
+    readonly image?: string;
+    readonly key: string;
+    readonly label: string;
+    readonly tooltip_format: 'LABEL' | 'STORY';
+  }>;
+  readonly tiles_url?: string;
+};
+
+export type GeoMapFocalPoint = {
+  readonly coordinates: GeoCoordinates;
+  readonly zoom: number;
+};
+
+export type GeoMapId = string;
+
+export type GeoMapMomentData = {
+  readonly fit?: MomentContentFit;
+  readonly geo_map: GeoMap;
+  readonly size?: MomentContentSize;
+};
 
 export type GoToBaseOptions<T> = {
   readonly formatter?: string;
@@ -171,6 +228,10 @@ export type Image = {
   readonly size?: MomentContentSize;
   readonly url: string;
 };
+
+export type ImageContentBlock = BaseContentBlock<'IMAGE', {
+  readonly image: Image;
+}>;
 
 export type ImageIcon = {
   readonly name: string;
@@ -255,6 +316,7 @@ export type MomentContentSize = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12
 export type MomentData =
   AwardMomentData |
   GalleryMomentData |
+  GeoMapMomentData |
   ImageMomentData |
   IFrameMomentData |
   HathiTrustMomentData |
@@ -331,6 +393,8 @@ export type NoIcon = {
 
 export type Nullable<T> = T | null | undefined;
 
+export type NullableNumber = Nullable<number>;
+
 export type NullableString = Nullable<string>;
 
 export type ProjectId = number;
@@ -340,6 +404,10 @@ export type PDFMomentData = {
   readonly size?: MomentContentSize;
   readonly url: string;
 };
+
+export type RichTextContentBlock = BaseContentBlock<'RICH_TEXT', {
+  readonly html: string;
+}>;
 
 export type SaveStatus = 'FAILED' | 'SAVING' | 'SUCCESS';
 
@@ -407,6 +475,23 @@ export type StoriesAPIFormatters = {
   readonly storyPath: string;
 };
 
+export type StoriesAPIGeoJSONFeature<T=object> = {
+  readonly geometry: GeoJSONFeature['geometry'];
+  readonly properties: StoriesAPIGeoJSONFeatureProperties & T;
+  readonly type: 'Feature';
+};
+
+export type StoriesAPIGeoJSONFeatureCollection = {
+  readonly features: StoriesAPIGeoJSONFeature[];
+  readonly type: 'FeatureCollection';
+};
+
+export type StoriesAPIGeoJSONFeatureProperties = {
+  readonly elevation?: NullableNumber;
+  readonly focal_point: GeoMapFocalPoint;
+  readonly information_key: string;
+};
+
 export type StoriesAPIListResponse<T> = {
   readonly count: number;
   readonly last_page: number;
@@ -449,6 +534,11 @@ export type StoryOrSummary = Story | StorySummary;
 export type StorySummary = Omit<Story, 'moments'> & {
   readonly moments?: Moment[];
 };
+
+export type TextContentBlock = BaseContentBlock<'TEXT', {
+  readonly text: string;
+  readonly variant?: TypographyProps['variant'];
+}>;
 
 export type TextMomentData = {
   readonly caption: {

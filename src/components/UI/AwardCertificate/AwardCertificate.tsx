@@ -2,7 +2,7 @@ import { EmojiEvents } from '@mui/icons-material';
 import { Box, Typography } from '@mui/material';
 import { observer } from 'mobx-react-lite';
 
-import { deepMerge } from '../../../utils';
+import { deepMerge } from '../../../utils/object';
 import styles from './AwardCertificate.styles';
 import type { AwardCertificateProps } from './AwardCertificates.types';
 

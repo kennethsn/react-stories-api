@@ -9,6 +9,7 @@ import AVStore from './avStore';
 import CollectionsStore from './collectionsStore';
 import DOMStore from './domStore';
 import FormattersStore from './formattersStore';
+import GeoMapsStore from './geoMapsStore';
 import StoriesStore from './storiesStore';
 import ThemeStore from './themeStore';
 
@@ -34,6 +35,8 @@ export default class RootStore {
   dom: DOMStore;
 
   formatters: FormattersStore;
+
+  geoMaps: GeoMapsStore;
 
   goToPath?: (path: string) => void;
 
@@ -62,6 +65,7 @@ export default class RootStore {
     this.collections = new CollectionsStore(this);
     this.dom = new DOMStore(this);
     this.formatters = new FormattersStore(this, formatters);
+    this.geoMaps = new GeoMapsStore(this);
     this.goToPath = goToPath;
     this.stories = new StoriesStore(this);
     this.theme = new ThemeStore(this, { isMobile, themeOptions });

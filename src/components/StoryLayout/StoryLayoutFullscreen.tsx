@@ -4,7 +4,7 @@ import { Else, If, Then } from 'react-if';
 
 import { STORY_ANIMATION_SPEED } from '../../constants';
 import useStoryTheme from '../../hooks/useStoryTheme';
-import { deepMerge } from '../../utils';
+import { deepMerge } from '../../utils/object';
 import Animation from '../UI/Animation/Animation';
 import styles from './StoryLayout.styles';
 import type { StoryLayoutProps } from './StoryLayout.types';

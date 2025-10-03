@@ -1,11 +1,14 @@
 const styles = {
   description: {
-    display: 'inline',
-    lineHeight: 1,
+    display: 'inline-block',
+    lineHeight: 1.4,
   },
   divider: {
     mx: -1,
     my: 0.5,
+  },
+  label: {
+    lineHeight: 1.2,
   },
   labelContainer: (hasBranding: boolean) => ({
     p: 2,

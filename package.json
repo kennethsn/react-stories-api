@@ -26,8 +26,11 @@
   "description": "React Components for building interactive data storytelling interfaces with the Stories API",
   "dependencies": {
     "@fontsource/roboto": "^5.2.6",
+    "deck.gl": "^9.1.14",
+    "maplibre-gl": "^5.7.1",
     "react-countup": "^6.5.3",
     "react-if": "^4.1.6",
+    "react-map-gl": "^8.0.4",
     "react-markdown": "^10.1.0",
     "react-multi-carousel": "^2.8.6",
     "react-photo-view": "^1.2.7",

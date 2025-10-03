@@ -6,7 +6,7 @@ import type {
   ProjectId,
   StoriesAPIStatus,
 } from '../types';
-import { formatString } from '../utils';
+import { formatString } from '../utils/string';
 import CollectionStore, { type CollectionStoreOptions } from './collectionStore';
 import type RootStore from './rootStore';
 
