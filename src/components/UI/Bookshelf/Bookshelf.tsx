@@ -1,6 +1,9 @@
 import 'react-multi-carousel/lib/styles.css';
 
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
 import { observer } from 'mobx-react-lite';
+import { When } from 'react-if';
 import Carousel from 'react-multi-carousel';
 
 import Book from '../Book/Book';
@@ -17,10 +20,15 @@ const Bookshelf = observer(({
   };
 
   return (
-    <styles.container>
-      <styles.title>{title}</styles.title>
+    <Box>
+      <Typography
+        sx={styles.title}
+        variant="h3"
+      >
+        {title}
+      </Typography>
 
-      <styles.carouselWrapper>
+      <Box sx={styles.carouselWrapper}>
         <Carousel
           draggable
           infinite
@@ -69,22 +77,23 @@ const Bookshelf = observer(({
             />
           ))}
         </Carousel>
-      </styles.carouselWrapper>
+      </Box>
 
-      {graphic?.url ? (
-        <img
-          alt="Bookshelf Graphic"
-          src={graphic.url}
-          style={{ objectFit: 'contain', width: '100%' }}
-        />
-      ) : null}
+      <When condition={!!graphic}>
+        <Box sx={styles.graphic}>
+          <img
+            alt="Bookshelf Graphic"
+            src={graphic?.url}
+          />
+        </Box>
+      </When>
 
-      {moment.isModalOpen && moment.selectedBook ? (
+      {moment.modalIsOpen && moment.selectedBook ? (
         <BookModal
           moment={moment}
         />
       ) : null}
-    </styles.container>
+    </Box>
   );
 });
 

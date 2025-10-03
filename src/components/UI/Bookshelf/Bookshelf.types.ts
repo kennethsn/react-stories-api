@@ -1,26 +1,26 @@
-import LibraryMomentStore from '../../../state/moments/libraryMomentStore';
+import type LibraryMomentStore from '../../../state/moments/libraryMomentStore';
 
-export interface BookItem {
-  color?: {
-    accent: string;
-    cover: string;
-    text: string;
+export type BookItem = {
+  readonly color?: {
+    readonly accent?: string;
+    readonly cover?: string;
+    readonly text?: string;
   };
-  author?: string;
-  description?: string;
-  image?: string;
-  instance?: string;
-  label: string;
-  manifest_url?: string;
-  provider?: string;
-  url?: string;
-}
+  readonly author?: string;
+  readonly description?: string;
+  readonly image?: string;
+  readonly instance?: string;
+  readonly label: string;
+  readonly manifest_url?: string;
+  readonly provider?: string;
+  readonly url?: string;
+};
 
-export interface BookshelfProps {
-  graphic?: { url: string };
-  items: BookItem[];
-  moment: LibraryMomentStore;
-  onSelect?: (book: BookItem) => void;
-  style?: React.CSSProperties;
-  title: string;
-}
+export type BookshelfProps = {
+  readonly graphic?: { readonly url: string };
+  readonly items: BookItem[];
+  readonly moment: LibraryMomentStore;
+  readonly onSelect?: (book: BookItem) => void;
+  readonly style?: React.CSSProperties;
+  readonly title: string;
+};

@@ -23,7 +23,7 @@ export type Award = {
   readonly icon?: {
     readonly name: string;
     readonly source: string;
-  }
+  };
   readonly style?: 'default' | 'ribbon' | 'medal' | 'laurel';
   readonly color: {
     readonly dark: string;

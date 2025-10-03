@@ -1,5 +1,8 @@
 import {
-  action, computed, makeObservable, observable,
+  action,
+  computed,
+  makeObservable,
+  observable,
 } from 'mobx';
 
 import type { BookItem } from '../../components/UI/Bookshelf/Bookshelf.types';
@@ -9,9 +12,9 @@ import type MomentsStore from '../momentsStore';
 import MomentStore from '../momentStore';
 
 export default class LibraryMomentStore extends MomentStore<LibraryMomentData> {
-  selectedBook: BookItem | null = null;
+  modalIsOpen = false;
 
-  isModalOpen = false;
+  selectedBook: BookItem | null = null;
 
   constructor(moments: MomentsStore, moment: Moment<LibraryMomentData>) {
     super(moments, moment);
@@ -19,7 +22,7 @@ export default class LibraryMomentStore extends MomentStore<LibraryMomentData> {
       closeModal: action,
       fit: computed,
       graphic: computed,
-      isModalOpen: observable,
+      modalIsOpen: observable,
       openBookModal: action,
       onSelect: computed,
       selectedBook: observable,
@@ -50,12 +53,12 @@ export default class LibraryMomentStore extends MomentStore<LibraryMomentData> {
 
   openBookModal = (book: BookItem) => {
     this.selectedBook = book;
-    this.isModalOpen = true;
+    this.modalIsOpen = true;
   };
 
   closeModal = () => {
+    this.modalIsOpen = false;
     this.selectedBook = null;
-    this.isModalOpen = false;
   };
 
   static build(moments: MomentsStore, moment: Moment<LibraryMomentData>) {
