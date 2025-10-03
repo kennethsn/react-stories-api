@@ -10,11 +10,16 @@ export default class StoriesMomentStore
     super(moments, moment);
     makeObservable(this, {
       items: override,
+      layout: override,
     });
   }
 
   get items() {
     return this.data.stories;
+  }
+
+  get layout() {
+    return this.data.layout || 'grid';
   }
 
   static build(moments: MomentsStore, moment: Moment<StoriesMomentData>) {

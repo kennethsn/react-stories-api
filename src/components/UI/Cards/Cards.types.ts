@@ -1,7 +1,12 @@
 import type { SxProps } from '@mui/material/styles';
 import type { PropsWithChildren, ReactNode } from 'react';
 
-import type { Caption, CardsLayout, NullableGridColumns } from '../../../types';
+import type {
+  Caption,
+  CardsLayout,
+  CardsLayoutOptions,
+  NullableGridColumns,
+} from '../../../types';
 
 export type CardsItemProps = PropsWithChildren & {
   readonly caption?: Caption;
@@ -18,6 +23,7 @@ export type CardsProps = {
   readonly activeItem?: ReactNode;
   readonly children: ReactNode[];
   readonly disableAnimation?: boolean;
+  readonly layoutOptions?: CardsLayoutOptions;
   readonly gridColumnsMax?: NullableGridColumns;
   readonly itemSx?: SxProps;
   readonly keyFn?: (index: number) => string;
