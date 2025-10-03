@@ -11,6 +11,7 @@ import { type SyntheticEvent, useMemo, useState } from 'react';
 import { When } from 'react-if';
 
 import { SEARCH_FACET_MAX_VISIBLE_VALUES } from '../../../constants';
+import useLocale from '../../../hooks/useLocale';
 import { formatNumberString } from '../../../utils';
 import styles from './SearchFacets.styles';
 import type { SearchFacetSelectorProps } from './SearchFacets.types';
@@ -20,6 +21,7 @@ const SearchFacetSelector = observer(({
   search,
   searchFacetKey,
 }: SearchFacetSelectorProps) => {
+  const { t } = useLocale();
   const [showAutocomplete, setShowAutocomplete] = useState(false);
   const [facetOptionsFilter, setFacetOptionsFilter] = useState('');
   const searchFacet = search.getFacet(searchFacetKey);
@@ -150,7 +152,7 @@ const SearchFacetSelector = observer(({
             sx={styles.facetSelectorSeeMoreButton}
             variant="text"
           >
-            See more options
+            {t('see_more_options')}
           </Button>
         )}
       </When>

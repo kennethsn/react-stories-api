@@ -54,6 +54,7 @@ export const SampleStory = {
     defaultMomentId: 'testing-moment',
     story: storyData,
     editable: true,
+    showLocaleSwitcher: true,
   },
 };
 

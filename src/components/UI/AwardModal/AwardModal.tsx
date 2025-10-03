@@ -6,10 +6,13 @@ import Modal from '@mui/material/Modal';
 import Typography from '@mui/material/Typography';
 import { observer } from 'mobx-react-lite';
 
+import useLocale from '../../../hooks/useLocale';
 import styles from './AwardModal.styles';
 import { AwardModalProps } from './AwardModal.types';
 
 const AwardModal = observer(({ moment }: AwardModalProps) => {
+  const { t } = useLocale();
+
   const award = moment.selectedAward;
 
   if (!award) return null;
@@ -49,7 +52,7 @@ const AwardModal = observer(({ moment }: AwardModalProps) => {
         {award.website ? (
           <a href={award.website} rel="noopener noreferrer" target="_blank">
             <Button className="learn-more-button" type="button">
-              Learn More
+              {t('learn_more')}
             </Button>
           </a>
         ) : null}

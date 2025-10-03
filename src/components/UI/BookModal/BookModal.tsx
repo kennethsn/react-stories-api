@@ -5,10 +5,12 @@ import Modal from '@mui/material/Modal';
 import Typography from '@mui/material/Typography';
 import { observer } from 'mobx-react-lite';
 
+import useLocale from '../../../hooks/useLocale';
 import styles from './BookModal.styles';
 import type { BookModalProps } from './BookModal.types';
 
 const BookModal = observer(({ moment }: BookModalProps) => {
+  const { t } = useLocale();
   const book = moment.selectedBook;
 
   if (!book) return null;
@@ -60,7 +62,7 @@ const BookModal = observer(({ moment }: BookModalProps) => {
               className="learn-more-button"
               type="button"
             >
-              Learn More
+              {t('learn_more')}
             </button>
           </a>
         ) : null}

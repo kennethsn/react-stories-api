@@ -1,6 +1,7 @@
 import Box from '@mui/material/Box';
 import type { ReactNode } from 'react';
 
+import useLocale from '../../hooks/useLocale';
 import { deepMerge } from '../../utils/object';
 import StoryCard from '../StoryCard/StoryCard';
 import Cards from '../UI/Cards/Cards';
@@ -20,6 +21,7 @@ export default function StoryCards({
   slotComponent: SlotComponent,
   ...cardsProps
 }: StoryCardsProps): ReactNode | ReactNode[] {
+  const { t } = useLocale();
   const cards = stories.map((story) => (
     <Box
       key={story.id}
@@ -27,7 +29,7 @@ export default function StoryCards({
     >
       <StoryCard
       // KSN TODO: make configurable
-        buttonLabel="Learn More"
+        buttonLabel={t('learn_more')}
         isDisabled={enableAll ? false : undefined}
         newTab={newTab}
         slot={SlotComponent ? <SlotComponent story={story} /> : null}

@@ -2,6 +2,7 @@ import Button, { type ButtonProps } from '@mui/material/Button';
 import { observer } from 'mobx-react-lite';
 
 import useColor from '../../hooks/useColor';
+import useLocale from '../../hooks/useLocale';
 import useStoriesAPINavigation from '../../hooks/useStoriesAPINavigation';
 import { deepMerge } from '../../utils/object';
 import ThemeOverride from '../UI/ThemeOverride/ThemeOverride';
@@ -16,6 +17,7 @@ const StoriesAPIButton = observer(({
   ...props
 }: StoriesAPIButtonProps) => {
   const { background, themeOptions } = useColor(button.color);
+  const { t } = useLocale();
   const { goTo } = useStoriesAPINavigation(button);
   const handleClick: ButtonProps['onClick'] = (e) => (onClick ? onClick(e) : goTo());
   return (
@@ -28,7 +30,7 @@ const StoriesAPIButton = observer(({
         // eslint-disable-next-line react/jsx-props-no-spreading
         {...props}
       >
-        {button.label ?? 'Learn More'}
+        {button.label || t('learn_more')}
       </Button>
     </ThemeOverride>
   );
