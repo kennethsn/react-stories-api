@@ -1,5 +1,8 @@
+import createCache from '@emotion/cache';
 import type { ThemeOptions } from '@mui/material/styles';
+import rtlPlugin from '@mui/stylis-plugin-rtl';
 import { makeAutoObservable } from 'mobx';
+import { prefixer } from 'stylis';
 
 import { deepMerge } from '../utils/object';
 import { buildTheme } from '../utils/themeUtils';
@@ -10,8 +13,17 @@ export type ThemeStoreOptions = {
   isMobile?: boolean;
 };
 
+const rtlCache = createCache({
+  key: 'muirtl',
+  stylisPlugins: [prefixer, rtlPlugin],
+});
+
+const ltrCache = createCache({
+  key: 'mui',
+});
+
 export default class ThemeStore {
-  private options: ThemeStoreOptions;
+  options: ThemeStoreOptions;
 
   constructor(public root: RootStore, options: ThemeStoreOptions = {}) {
     makeAutoObservable(this);
@@ -19,12 +31,20 @@ export default class ThemeStore {
     this.options = options;
   }
 
+  get emotionCache() {
+    return this.isRTL ? rtlCache : ltrCache;
+  }
+
+  get isRTL() {
+    return this.muiTheme.direction === 'rtl' || this.root.locale.isRTL;
+  }
+
   get muiTheme() {
     return buildTheme(this.themeOptions);
   }
 
   get themeOptions() {
-    return this.options.themeOptions;
+    return deepMerge(this.options.themeOptions, this.root.locale.themeOptions);
   }
 
   getIsMobile(defaultValue: boolean = false) {

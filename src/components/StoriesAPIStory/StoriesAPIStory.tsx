@@ -30,8 +30,8 @@ const StoriesAPIStory = observer((props: StoriesAPIStoryProps) => {
   let { collectionId, storyId } = props;
   if (connectRouter) {
     const routeParams = stories.getStoryRouteParams();
-    collectionId = routeParams.collectionId;
-    storyId = routeParams.storyId;
+    collectionId ||= routeParams.collectionId;
+    storyId ||= routeParams.storyId;
   }
   if (!storyId || !collectionId) {
     throw new Error('Story or Collection not found.');

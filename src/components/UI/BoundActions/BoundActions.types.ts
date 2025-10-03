@@ -9,6 +9,7 @@ export type BoundActionsProps = {
     readonly isDownloadable: boolean;
     readonly isEditable: boolean;
     readonly isFailed: boolean;
+    readonly isLocalizable?: boolean;
     readonly isResettable: boolean;
     readonly isSavable: boolean;
     readonly isSaved: boolean;

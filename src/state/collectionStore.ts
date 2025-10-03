@@ -36,6 +36,7 @@ export type CollectionStoreOptions = {
   readonly page?: number;
   readonly pageSize?: number;
   readonly searchInput?: string;
+  readonly showLocaleSwitcher?: boolean;
   readonly slots?: { [key: string]: FC<Omit<CollectionSlotProps, 'component'>> };
   readonly source?: DataSource;
 };
@@ -170,6 +171,10 @@ export default class CollectionStore {
 
   get isFeatured() {
     return this.collection.is_featured;
+  }
+
+  get isLocalizable() {
+    return this.options.showLocaleSwitcher && this.root.locale.hasAlternativeLocales;
   }
 
   get isPreview() {
@@ -317,19 +322,17 @@ export default class CollectionStore {
   }
 
   async loadStories() {
-    this.storiesAreLoading = true;
+    this.startLoadingStories();
     const options = this.getQueryParams();
     const storiesAPIResponse = await this.root.api.getStories(this.id, options);
     runInAction(() => {
       this.setStoriesAPIResponse(storiesAPIResponse);
-      this.storiesAreLoading = false;
+      this.stopLoadingStories();
     });
   }
 
   onStoriesAPIResponseChange(response: StoriesAPIStoriesResponse) {
-    runInAction(() => {
-      this.pagination.setLastPage(response.last_page ?? this.pagination.defaultPageNumber);
-    });
+    this.pagination.setLastPage(response.last_page ?? this.pagination.defaultPageNumber);
   }
 
   onEdit() {
@@ -372,7 +375,7 @@ export default class CollectionStore {
   async searchStories() {
     this.resetPage();
     await this.loadStories();
-    this.options.onSearch?.(this.search.query, this);
+    await this.options.onSearch?.(this.search.query, this);
     return this.storiesCount;
   }
 
@@ -383,6 +386,14 @@ export default class CollectionStore {
 
   setStoryStatuses(statuses: StoriesAPIStatus[]) {
     this.storyStatuses = statuses;
+  }
+
+  startLoadingStories() {
+    this.storiesAreLoading = true;
+  }
+
+  stopLoadingStories() {
+    this.storiesAreLoading = false;
   }
 
   toJSON() {

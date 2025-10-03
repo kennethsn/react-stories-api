@@ -1,5 +1,5 @@
 import type { ButtonProps } from '@mui/material/Button';
-import type { SxProps } from '@mui/material/styles';
+import type { SxProps, Theme } from '@mui/material/styles';
 import type { TypographyProps } from '@mui/material/Typography';
 import type { GeoJSONFeature } from 'maplibre-gl';
 
@@ -302,6 +302,18 @@ export type LibraryShelf = {
     readonly url?: string;
   }>;
   readonly title?: string;
+};
+
+export type LocalizationConfig = {
+  readonly defaultLocale: string;
+  readonly localeSettings: Record<string, {
+    readonly label: string; // 'English', 'Spanish', etc.
+    readonly nativeLabel: string; // 'English', 'Español', etc.
+    readonly rtl?: NullableBoolean;
+    readonly muiThemeOptions: Partial<Theme>;
+  }>;
+  readonly supportedLocales: string[];
+  readonly translations: Record<string, Record<string, NullableString>>;
 };
 
 export type MarkdownMomentData = {

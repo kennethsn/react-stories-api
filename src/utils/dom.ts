@@ -1,4 +1,4 @@
-import type { RefObject } from 'react';
+import type { RefObject, SyntheticEvent } from 'react';
 
 import { getRelativeValue } from './math';
 
@@ -22,4 +22,8 @@ export const getRelativeHeight = (
 export const setPageTitle = (document: Document, title: string) => {
   // eslint-disable-next-line no-param-reassign
   document.title = title;
+};
+
+export const stopEventPropagation = (event: SyntheticEvent) => {
+  event.stopPropagation();
 };

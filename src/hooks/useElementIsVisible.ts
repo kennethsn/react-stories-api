@@ -34,7 +34,7 @@ export default function useElementIsVisible(ref: RefObject<Element>, { persist, 
           observer.unobserve(ref.current);
         }
       };
-    }, 100);
+    }, 200);
 
     return () => {
       clearTimeout(timer);

@@ -1,5 +1,7 @@
 export type { default as CollectionStore } from './collectionStore';
 export type { default as GeoMapStore } from './geoMapStore';
+export type { default as LocaleStore } from './localeStore';
+export type { default as MenusStore } from './menusStore';
 export type { default as MomentsStore } from './momentsStore';
 export type { default as MomentStore } from './momentStore';
 export type { default as PaginationStore } from './paginationStore';

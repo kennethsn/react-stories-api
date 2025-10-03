@@ -26,6 +26,7 @@
   "description": "React Components for building interactive data storytelling interfaces with the Stories API",
   "dependencies": {
     "@fontsource/roboto": "^5.2.6",
+    "@mui/stylis-plugin-rtl": "^7.3.3",
     "deck.gl": "^9.1.14",
     "lodash.debounce": "^4.0.8",
     "maplibre-gl": "^5.7.1",
@@ -38,6 +39,8 @@
     "react-player": "^2.16.1",
     "react-resizable-panels": "^3.0.4",
     "react-use-error-boundary": "^3.0.0",
+    "stylis": "^4.3.6",
+    "stylis-plugin-rtl": "^2.1.1",
     "swiper": "^11.2.10"
   },
   "devDependencies": {
@@ -64,6 +67,7 @@
     "@types/lodash.debounce": "^4.0.9",
     "@types/react": "^18.3.23",
     "@types/rollup-plugin-peer-deps-external": "^2.2.5",
+    "@types/stylis": "^4.2.7",
     "@typescript-eslint/eslint-plugin": "^7.18.0",
     "@typescript-eslint/parser": "^7.18.0",
     "commitizen": "^4.3.1",
