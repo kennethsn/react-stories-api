@@ -1,7 +1,7 @@
-import type { TextFieldProps } from '@mui/material';
+import type { TextFieldProps } from '@mui/material/TextField';
+
+import type SearchStore from '../../../state/searchStore';
 
 export type SearchInputProps = Omit<TextFieldProps, 'onChange' | 'onSubmit' | 'value'> & {
-  readonly onChange: (value: string) => void;
-  readonly onSubmit: (value: string) => Promise<void>;
-  readonly value: string;
+  readonly search: SearchStore
 };

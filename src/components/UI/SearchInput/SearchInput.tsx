@@ -2,48 +2,30 @@ import ImageSearchIcon from '@mui/icons-material/ImageSearch';
 import SearchIcon from '@mui/icons-material/Search';
 import InputAdornment from '@mui/material/InputAdornment';
 import TextField, { type TextFieldProps } from '@mui/material/TextField';
-import { useState } from 'react';
+import { observer } from 'mobx-react-lite';
 
 import { isEnter } from '../../../utils/keyboard';
 import ConditionalIconButton from '../ConditionalIconButton/ConditionalIconButton';
 import { SearchInputProps } from './SearchInput.types';
 
-export default function SearchInput({
-  disabled,
-  onChange,
-  onSubmit,
-  value,
+const SearchInput = observer(({
+  search,
   ...textFieldProps
-}: SearchInputProps) {
-  const [loading, setLoading] = useState(false);
-  const submit = async () => {
-    if (disabled) {
-      return;
-    }
-    setLoading(true);
-    try {
-      await onSubmit(value);
-    } catch (e) {
-      setLoading(false);
-      throw e;
-    }
-    setLoading(false);
-  };
+}: SearchInputProps) => {
+  const handleSubmitButtonClick = () => search.submit();
 
-  const handleSubmitButtonClick = () => submit();
-
-  const handleTextFieldChange: TextFieldProps['onChange'] = (e) => onChange(e.target.value);
+  const handleTextFieldChange: TextFieldProps['onChange'] = (e) => search.setQuery(e.target.value);
 
   const handleTextFieldKeyDown: TextFieldProps['onKeyDown'] = (e) => {
     if (isEnter(e)) {
       e.preventDefault();
-      submit();
+      search.submit();
     }
   };
 
   return (
     <TextField
-      disabled={loading}
+      disabled={search.disabled}
       onChange={handleTextFieldChange}
       onKeyDown={handleTextFieldKeyDown}
       slotProps={{
@@ -52,10 +34,10 @@ export default function SearchInput({
             <InputAdornment position="end">
               <ConditionalIconButton
                 color="primary"
-                condition={value.length > 0}
-                disabled={disabled}
+                condition={search.shouldShowSearchIcon}
+                disabled={search.disabled}
                 falseIcon={<SearchIcon />}
-                loading={loading}
+                loading={search.loading}
                 onClick={handleSubmitButtonClick}
                 trueIcon={<ImageSearchIcon />}
               />
@@ -63,10 +45,11 @@ export default function SearchInput({
           ),
         },
       }}
-      // sx={styles.input}
-      value={value}
+      value={search.query}
       // eslint-disable-next-line react/jsx-props-no-spreading
       {...textFieldProps}
     />
   );
-}
+});
+
+export default SearchInput;

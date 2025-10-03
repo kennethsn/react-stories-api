@@ -83,6 +83,7 @@ export type Collection = {
   readonly image?: NullableString;
   readonly is_featured?: boolean;
   readonly name: string;
+  readonly search_facets?: Nullable<SearchFacets>;
   readonly status: StoriesAPIStatus;
   readonly stories?: StorySummary[];
   readonly subtitle?: NullableString;
@@ -410,6 +411,24 @@ export type RichTextContentBlock = BaseContentBlock<'RICH_TEXT', {
 }>;
 
 export type SaveStatus = 'FAILED' | 'SAVING' | 'SUCCESS';
+
+export type SearchFacet = {
+  readonly key: string;
+  readonly label?: NullableString;
+  readonly fill_rate: number;
+  readonly value_refs: SearchFacetValueRef[];
+};
+
+export type SearchFacets = SearchFacet[];
+
+export type SearchFacetValueRef = {
+  readonly count: number;
+  readonly fill_rate: number;
+  readonly label?: NullableString;
+  readonly value: string;
+};
+
+export type SelectedSearchFacets = Record<string, string[]>;
 
 export type SerializableRecord = Record<string, SerializeableValue>;
 

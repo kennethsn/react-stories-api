@@ -3,10 +3,10 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 
-import Animation from '../UI/Animation/Animation';
-import styles from './CollectionSearch.styles';
+import Animation from '../Animation/Animation';
+import styles from './CardsBrowser.styles';
 
-export default function CollectionSearchNoResults() {
+export default function CardsBrowserNoResultsCard() {
   return (
     <Animation
       animation="fade"
@@ -19,7 +19,6 @@ export default function CollectionSearchNoResults() {
           <Typography color="textSecondary">
             No results found. Try a new search.
           </Typography>
-
         </CardContent>
       </Card>
     </Animation>

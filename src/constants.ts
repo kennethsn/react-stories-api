@@ -1,6 +1,7 @@
 export const COLLECTION_STORIES_DEFAULT_PAGE_SIZE = 24;
 export const COLLECTION_SEARCH_MIN_THRESHOLD = 3;
 export const COLOR_HEX_REGEX = /^#([0-9A-Fa-f]{3}){1,2}([0-9A-Fa-f]{2})?$/;
+export const DEFAULT_DEBOUNCE_DELAY = 500;
 export const FORMATTER_TEMPLATE_REGEX = /\{(\w+)\}/g;
 export const GEOMAP_DEFAULT_MAP_TILES_URL = 'https://basemaps.cartocdn.com/gl/positron-nolabels-gl-style/style.json';
 export const GRID_MAX_SIZE = 12;
@@ -10,6 +11,8 @@ export const HATHI_TRUST_EMBED_URL = `${HATHI_TRUST_BASE_URL}/cgi/pt`;
 export const HATHI_TRUST_LOGO_URL = 'https://www.hathitrust.org/wp-content/uploads/2023/02/cropped-favicon-192x192.png';
 export const MOMENT_LAYOUT_DEFAULT_CONTENT_SIZE = 8;
 export const MOMENT_LAYOUT_MAX_CONTENT_SIZE = GRID_MAX_SIZE;
+export const PAGINATION_DEFAULT_PAGE_NUMBER = 1;
+export const SEARCH_FACET_MAX_VISIBLE_VALUES = 10;
 export const STORY_ANIMATION_SPEED = 1500;
 export const STORIES_SERVICES_BASE_URL = 'https://stories.k2.services';
 export const STORIES_SERVICES_API_URL = `${STORIES_SERVICES_BASE_URL}/api`;

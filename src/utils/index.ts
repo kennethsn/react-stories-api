@@ -8,6 +8,7 @@ export * from './momentUtils';
 export * from './number';
 export * from './object';
 export * from './percentage';
+export * from './searchUtils';
 export * from './storyUtils';
 export * from './string';
 export * from './themeUtils';
