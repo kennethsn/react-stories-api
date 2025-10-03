@@ -1,5 +1,6 @@
 import Box from '@mui/material/Box';
 
+import { deepMerge } from '../../../utils/object';
 import type { ContentProps } from './Content.types';
 import ContentBlocks from './ContentBlocks';
 
@@ -8,7 +9,7 @@ export default function Content({ content, sx, sxBlockMap }: ContentProps) {
     <Box
       className={`content-block ${content.id}`}
       id={`content-block-${content.id}`}
-      sx={sx}
+      sx={deepMerge(sx, content.sx)}
     >
       <ContentBlocks
         content={content}

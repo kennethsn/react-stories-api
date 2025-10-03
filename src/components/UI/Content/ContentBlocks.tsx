@@ -11,6 +11,7 @@ export default function ContentBlocks({ content, sxBlockMap }: ContentProps) {
           content={content}
           index={index}
           sx={deepMerge(sxBlockMap?.[block.type], block.sx)}
+          sxBlockMap={sxBlockMap}
         />
       ))}
     </>

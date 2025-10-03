@@ -18,6 +18,13 @@ export const deepMerge = <T>(objectA?: T, objectB?: T | Partial<T>): T => (
       return mergedObject;
     }, { ...objectA }) : (objectA || objectB)) as T;
 
+export const deepMergeMulti = <T>(...objects: (T | undefined)[]): T | undefined => {
+  if (objects.length === 0) {
+    return undefined;
+  }
+  return objects.reduce((mergedObject, obj) => deepMerge(mergedObject, obj));
+};
+
 export const objectMap = <T, Q=T>(
   obj: T,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -43,6 +50,25 @@ export const objectsAreEqual = <T=object>(obj1: T, obj2: T): boolean => {
   return keys1.every((key) => (
     objectsAreEqual((obj1 as Record<string, unknown>)[key], (obj2 as Record<string, unknown>)[key])
   ));
+};
+
+export const removeNullishValues = <T>(
+  obj: Record<string, T | null | undefined>,
+): Record<string, T> => {
+  Object.keys(obj).forEach((key) => {
+    if (obj[key] && typeof obj[key] === 'object' && !Array.isArray(obj[key])) {
+      // Recursively remove nullish values from nested objects
+      obj[key] = removeNullishValues<T>(obj[key] as Record<string, T | null | undefined>) as T;
+      // If the nested object is now empty, delete it
+      if (Object.keys(obj[key] as object).length === 0) {
+        delete obj[key];
+      }
+    } else if (obj[key] == null) {
+      // Delete the key if the value is null or undefined
+      delete obj[key];
+    }
+  });
+  return obj as Record<string, T>;
 };
 
 export const updateObject = (

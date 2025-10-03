@@ -17,7 +17,7 @@ import type {
   StoriesAPIStoriesResponse,
 } from '../types';
 import { buildDynamicGridSize } from '../utils/grid';
-import { deepCopy } from '../utils/object';
+import { deepCopy, removeNullishValues } from '../utils/object';
 import { openJSON } from '../utils/url';
 import PaginationStore from './paginationStore';
 import type RootStore from './rootStore';
@@ -206,6 +206,10 @@ export default class CollectionStore {
     ) : this.totalStoriesCount;
   }
 
+  get page() {
+    return this.pagination.selectedPage;
+  }
+
   get searchIsEnabled() {
     return !!this.options.onSearch && (
       this.options.alwaysEnableSearch
@@ -273,8 +277,21 @@ export default class CollectionStore {
     });
   }
 
+  changePage = async (pageNumber: number) => {
+    await this.pagination.changePage(pageNumber);
+  };
+
+  getQueryParams() {
+    return removeNullishValues({
+      ...this.pagination.queryParams,
+      ...this.search.queryParams,
+      statuses: this.storyStatuses,
+    });
+  }
+
   async onPageChange() {
     await this.loadStories();
+    await this.options.onPageChange?.(this.page, this);
   }
 
   download() {
@@ -301,11 +318,7 @@ export default class CollectionStore {
 
   async loadStories() {
     this.storiesAreLoading = true;
-    const options = {
-      ...this.pagination.queryParams,
-      ...this.search.queryParams,
-      statuses: this.storyStatuses,
-    };
+    const options = this.getQueryParams();
     const storiesAPIResponse = await this.root.api.getStories(this.id, options);
     runInAction(() => {
       this.setStoriesAPIResponse(storiesAPIResponse);
@@ -359,6 +372,7 @@ export default class CollectionStore {
   async searchStories() {
     this.resetPage();
     await this.loadStories();
+    this.options.onSearch?.(this.search.query, this);
     return this.storiesCount;
   }
 
