@@ -26,7 +26,7 @@ export type Award = {
   readonly icon?: {
     readonly name: string;
     readonly source: string;
-  }
+  };
   readonly style?: 'default' | 'ribbon' | 'medal' | 'laurel';
   readonly color: {
     readonly dark: string;
@@ -207,10 +207,10 @@ export type GoToURLOptions = GoToBaseOptions<{
 export type GoToPathFn = (path: string) => void;
 
 export type GridColumns = {
-  lg: NullableNumber;
-  md: NullableNumber;
-  sm: NullableNumber;
-  xs: NullableNumber;
+  lg?: NullableNumber;
+  md?: NullableNumber;
+  sm?: NullableNumber;
+  xs?: NullableNumber;
 };
 
 export type GroupedMoments = Array<MomentOrMomentGroup>;
@@ -466,7 +466,7 @@ export type Stat = {
     background: string;
   };
   readonly description?: string;
-  readonly icon?: Icon
+  readonly icon?: Icon;
   readonly image?: string;
   readonly label?: string;
   readonly type: StatType;
@@ -474,20 +474,20 @@ export type Stat = {
   readonly value?: StatValue;
 };
 
-export interface StatListValueItem {
+export type StatListValueItem = {
   readonly description?: string;
   readonly icon?: Icon;
   readonly label: string;
-}
+};
 
 export type StatsMomentData = CardsBaseMomentData<{
   readonly stats: Stat[];
 }>;
 
-export interface StatNumberValue {
+export type StatNumberValue = {
   readonly amount: number;
   readonly unit?: string;
-}
+};
 
 export enum StatType {
   list = 'list',

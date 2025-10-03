@@ -1,5 +1,6 @@
 import CloseIcon from '@mui/icons-material/Close';
 import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import Modal from '@mui/material/Modal';
 import Typography from '@mui/material/Typography';
@@ -47,9 +48,9 @@ const AwardModal = observer(({ moment }: AwardModalProps) => {
 
         {award.website ? (
           <a href={award.website} rel="noopener noreferrer" target="_blank">
-            <button className="learn-more-button" type="button">
+            <Button className="learn-more-button" type="button">
               Learn More
-            </button>
+            </Button>
           </a>
         ) : null}
       </Box>

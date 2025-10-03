@@ -45,8 +45,8 @@ export default class PaginationStore {
 
   get queryParams() {
     return {
-      page: this.selectedPage,
-      page_size: this.pageSize,
+      page: this.selectedPage.toString(),
+      page_size: this.pageSize?.toString(),
     };
   }
 
