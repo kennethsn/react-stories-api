@@ -1,4 +1,5 @@
 import { HATHI_TRUST_LOGO_URL, WIKIDATA_LOGO_URL, WIKIPEDIA_LOGO_URL } from '../constants';
+import AwardMomentStore from '../state/moments/awardMomentStore';
 import GalleryMomentStore from '../state/moments/galleryMomentStore';
 import HathiTrustMomentStore from '../state/moments/hathiTrustMomentStore';
 import HTMLMomentStore from '../state/moments/htmlMomentStore';
@@ -28,6 +29,11 @@ export type MomentConfig = {
 export type IMomentConfigMap = Record<MomentType, MomentConfig>;
 
 const MomentConfigMap: Record<MomentType, MomentConfig> = {
+  award: {
+    component: 'AwardMoment',
+    icon: { name: 'trophy', type: 'mui' },
+    store: AwardMomentStore.build,
+  },
   gallery: {
     component: 'GalleryMoment',
     icon: { name: 'gallery_thumbnail', type: 'mui' },
