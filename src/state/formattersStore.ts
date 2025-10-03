@@ -2,16 +2,16 @@ import { makeAutoObservable } from 'mobx';
 
 import defaultFormatters from '../configs/formattersConfig';
 import type { CollectionId, StoriesAPIFormatters, StoryId } from '../types';
-import { deepMerge } from '../utils/object';
+import { deepMergeMulti, removeNullishValues } from '../utils/object';
 import { formatString } from '../utils/string';
 import type RootStore from './rootStore';
 
 export default class FormattersStore {
-  formatters: StoriesAPIFormatters = defaultFormatters;
+  overrides: Partial<StoriesAPIFormatters>;
 
   constructor(public root: RootStore, formatters: Partial<StoriesAPIFormatters> = {}) {
     makeAutoObservable(this);
-    this.formatters = deepMerge(defaultFormatters, formatters);
+    this.overrides = formatters;
     this.root = root;
   }
 
@@ -21,6 +21,24 @@ export default class FormattersStore {
 
   get collectionStoriesListHeader() {
     return this.formatters.collectionStoriesListHeader;
+  }
+
+  get formatters() {
+    return deepMergeMulti<StoriesAPIFormatters>(
+      defaultFormatters,
+      this.localeFormatters,
+      this.overrides,
+    );
+  }
+
+  get localeFormatters(): Partial<StoriesAPIFormatters> {
+    const { translations } = this.root.locale;
+    return removeNullishValues({
+      ...translations,
+      collectionPageTitle: translations['collection.pageTitle'],
+      collectionStoriesListHeader: translations['collection.storiesList.header'],
+      storyCollectionButtonLabel: translations['story.collectionButtonLabel'],
+    });
   }
 
   get momentQueryParamKey() {

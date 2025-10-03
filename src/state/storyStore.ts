@@ -144,7 +144,7 @@ export default class StoryStore {
   }
 
   get shouldShowActions() {
-    return this.isPlaying || this.isDownloadable || this.isSavable;
+    return this.isPlaying || this.isDownloadable || this.isSavable || this.isLocalizable;
   }
 
   get slots() {

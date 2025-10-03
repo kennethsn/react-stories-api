@@ -9,7 +9,6 @@ import type { LocalizationConfig } from '../types';
 
 const localizationConfig: LocalizationConfig = {
   defaultLocale: 'en',
-  supportedLocales: ['en', 'ar'],
   localeSettings: {
     ar: {
       label: 'Arabic',
@@ -36,16 +35,28 @@ const localizationConfig: LocalizationConfig = {
       rtl: false,
     },
   },
+  supportedLocales: ['en'],
+  // Note: Convention is to use dot.notation for reference keys
+  // and pascal_case for direct translations
   translations: {
     ar: {
+      'collection.storiesList.header': 'استكشف جمیع القصص من مجموعة {collection_name}',
+      'story.collectionButtonLabel': 'استكشف المزيد من القصص',
       cancel: 'إلغاء',
+      download: 'تنزيل',
       learn_more: 'اعرف المزید',
-      select_language: 'اختر اللغة',
+      reset: 'إعادة تعيين',
       save: 'حفظ',
-      welcome: 'أهلاً بك',
+      save_failed: 'فشل الحفظ. يرجى إعادة التعيين أو المحاولة مرة أخرى.',
+      save_success: 'تم الحفظ بنجاح!',
+      see_more_options: 'عرض المزيد من الخيارات',
+      select_language: 'اختر اللغة',
       view_collection: 'تصفح المجموعة',
+      welcome: 'مرحبًا',
     },
     en: {
+      'collection.storiesList.header': 'Explore All Stories from the {collection_name} Collection',
+      'story.collectionButtonLabel': 'Explore More Stories',
       cancel: 'Cancel',
       download: 'Download',
       learn_more: 'Learn More',
@@ -59,15 +70,26 @@ const localizationConfig: LocalizationConfig = {
       welcome: 'Welcome',
     },
     es: {
+      'collection.storiesList.header': 'Explorar todas las historias de la colección {collection_name}',
+      'story.collectionButtonLabel': 'Explorar más historias',
       cancel: 'Cancelar',
       save: 'Guardar',
       select_language: 'Seleccionar idioma',
       welcome: 'Bienvenido',
     },
     fr: {
+      'collection.storiesList.header': 'Explorer toutes les histoires de la collection {collection_name}',
+      'story.collectionButtonLabel': 'Explorer plus d\'histoires',
       cancel: 'Annuler',
+      download: 'Télécharger',
+      learn_more: 'En savoir plus',
+      reset: 'Réinitialiser',
       save: 'Enregistrer',
+      save_failed: "Échec de l'enregistrement. Veuillez réinitialiser ou réessayer.",
+      save_success: 'Enregistré avec succès !',
+      see_more_options: 'Voir plus d’options',
       select_language: 'Choisir la langue',
+      view_collection: 'Voir la collection',
       welcome: 'Bienvenue',
     },
 
