@@ -2,12 +2,14 @@ import Grid from '@mui/material/Grid2';
 import { observer } from 'mobx-react-lite';
 
 import useCollection from '../../hooks/useCollection';
+import useLocale from '../../hooks/useLocale';
 import CollectionSlot from '../CollectionSlot/CollectionSlot';
 import StoryCard from '../StoryCard/StoryCard';
 import Animation from '../UI/Animation/Animation';
 import styles from './CollectionFeaturedStoriesList.styles';
 
 const CollectionFeaturedStoriesList = observer(() => {
+  const { t } = useLocale();
   const collection = useCollection();
   return (
     <Grid
@@ -29,7 +31,7 @@ const CollectionFeaturedStoriesList = observer(() => {
               persist
             >
               <StoryCard
-                buttonLabel="View Featured Story"
+                buttonLabel={t('collection.featuredStory.buttonLabel')}
                 isDisabled={collection.allStoriesAreEnabled ? false : undefined}
                 slot={(
                   <CollectionSlot

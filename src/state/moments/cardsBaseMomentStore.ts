@@ -11,13 +11,14 @@ type CardsItem<T> = T & {
 };
 
 export default class CardsBaseMomentStore<T, ItemType> extends MomentStore<CardsBaseMomentData<T>> {
-  activeItemIndex = 0;
+  activeItemIndex: number;
 
   constructor(
     moments: MomentsStore,
     moment: Moment<CardsBaseMomentData<T>>,
   ) {
     super(moments, moment);
+    this.activeItemIndex = 0;
     makeObservable(this, {
       activeCaption: computed,
       activeCaptionButton: computed,

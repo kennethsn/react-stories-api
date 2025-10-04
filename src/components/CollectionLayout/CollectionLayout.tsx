@@ -4,6 +4,7 @@ import { useRef } from 'react';
 import { When } from 'react-if';
 
 import useCollection from '../../hooks/useCollection';
+import useLocale from '../../hooks/useLocale';
 import CollectionHeader from '../CollectionHeader/CollectionHeader';
 import CollectionSlot from '../CollectionSlot/CollectionSlot';
 import StoryCard from '../StoryCard/StoryCard';
@@ -14,6 +15,7 @@ import styles from './CollectionLayout.styles';
 import type { CollectionLayoutProps } from './CollectionLayout.types';
 
 const CollectionLayout = observer(({ children }: CollectionLayoutProps) => {
+  const { t } = useLocale();
   const collection = useCollection();
   const storiesListRef = useRef<HTMLDivElement>(null);
   const renderStoryCard = () => {
@@ -24,7 +26,7 @@ const CollectionLayout = observer(({ children }: CollectionLayoutProps) => {
           persist
         >
           <StoryCard
-            buttonLabel="View Featured Story"
+            buttonLabel={t('collection.featuredStory.buttonLabel')}
             isDisabled={collection.allStoriesAreEnabled ? false : undefined}
             slot={(
               <CollectionSlot

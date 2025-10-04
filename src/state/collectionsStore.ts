@@ -156,6 +156,18 @@ export default class CollectionsStore {
     });
   }
 
+  async onLocaleChange() {
+    await this.refreshCollections();
+    return true;
+  }
+
+  async refreshCollections() {
+    const refreshPromises = Array.from(this.collections.values())
+      .map((collection) => collection?.collection?.refresh())
+      .filter(Boolean);
+    await Promise.all(refreshPromises);
+  }
+
   removeCollection(collectionId: CollectionId) {
     this.collections.delete(collectionId);
   }

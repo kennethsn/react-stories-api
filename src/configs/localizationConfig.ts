@@ -40,6 +40,7 @@ const localizationConfig: LocalizationConfig = {
   // and pascal_case for direct translations
   translations: {
     ar: {
+      'collection.featuredStory.buttonLabel': 'عرض القصة المميزة',
       'collection.storiesList.header': 'استكشف جمیع القصص من مجموعة {collection_name}',
       'story.collectionButtonLabel': 'استكشف المزيد من القصص',
       cancel: 'إلغاء',
@@ -55,6 +56,7 @@ const localizationConfig: LocalizationConfig = {
       welcome: 'مرحبًا',
     },
     en: {
+      'collection.featuredStory.buttonLabel': 'View Featured Story',
       'collection.storiesList.header': 'Explore All Stories from the {collection_name} Collection',
       'story.collectionButtonLabel': 'Explore More Stories',
       cancel: 'Cancel',
@@ -70,6 +72,7 @@ const localizationConfig: LocalizationConfig = {
       welcome: 'Welcome',
     },
     es: {
+      'collection.featuredStory.buttonLabel': 'Ver historia destacada',
       'collection.storiesList.header': 'Explorar todas las historias de la colección {collection_name}',
       'story.collectionButtonLabel': 'Explorar más historias',
       cancel: 'Cancelar',
