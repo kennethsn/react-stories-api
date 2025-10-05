@@ -28,7 +28,7 @@ const StoryActions = observer(() => {
         <StorySlot component="StoryActions" />
       )}
       store={story}
-      type="Story"
+      type="story"
     />
   );
 });

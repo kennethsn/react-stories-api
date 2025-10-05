@@ -10,6 +10,7 @@ import type { MenuActionButtonProps } from './MenuActionButton.types';
 
 const MenuActionButton = observer(({
   children,
+  menuProps,
   onClose,
   onOpen,
   stopPropagation,
@@ -55,16 +56,14 @@ const MenuActionButton = observer(({
 
       <Popover
         anchorEl={anchorEl}
-        anchorOrigin={{
-          horizontal: 'right',
-          vertical: 'bottom',
-        }}
         id={id}
         onClick={handleMenuClick}
         onClose={handleClose}
         onMouseDown={handleMenuClick}
         open={menus.menuIsOpen(id)}
         sx={styles.popover}
+        // eslint-disable-next-line react/jsx-props-no-spreading
+        {...menuProps}
       >
         {children}
       </Popover>

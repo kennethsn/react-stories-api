@@ -15,7 +15,7 @@ const CollectionActions = observer(() => {
       )}
       store={collection}
       sx={styles.root}
-      type="Collection"
+      type="collection"
     />
   );
 });

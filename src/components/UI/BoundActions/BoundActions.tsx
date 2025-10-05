@@ -30,7 +30,7 @@ const BoundActions = observer(({
 }: BoundActionsProps) => {
   const { t } = useLocale();
 
-  const saveButtonTitle = getSaveButtonTitle(type, store, t);
+  const saveButtonTitle = getSaveButtonTitle(t(type), store, t);
 
   const handleDownloadButtonClick = () => {
     store.download();
@@ -51,7 +51,10 @@ const BoundActions = observer(({
     >
       {prepend}
 
-      <LocaleActionButton isHidden={!store.isLocalizable} />
+      <LocaleActionButton
+        id={`${type}-bound-actions-locale-button`}
+        isHidden={!store.isLocalizable}
+      />
 
       <ActionButton
         icon={FileDownloadTwoToneIcon}
