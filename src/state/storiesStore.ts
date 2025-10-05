@@ -130,8 +130,7 @@ export default class StoriesStore {
       .map(async (story) => {
         const data = await this.root.api.getStory(story.collectionId, story.id);
         story.setStory(data);
-      })
-      .filter(Boolean);
+      });
     await Promise.all(refreshPromises);
   }
 

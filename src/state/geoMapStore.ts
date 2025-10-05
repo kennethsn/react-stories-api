@@ -13,6 +13,7 @@ import type {
   StoriesAPIGeoJSONFeature,
   StoriesAPIGeoJSONFeatureProperties,
 } from '../types';
+import { filterExists } from '../utils/array';
 import { buildTextContentBlock } from '../utils/contentUtils';
 import {
   calculateLabelSpacingByZoom,
@@ -228,12 +229,12 @@ export default class GeoMapStore {
   }
 
   get layers() {
-    return [
+    return filterExists([
       this.shapesLayer,
       this.pointsLayer,
       this.clusterLayer,
       this.labelLayer,
-    ].filter(Boolean);
+    ]);
   }
 
   get points() {

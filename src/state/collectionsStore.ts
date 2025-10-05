@@ -163,8 +163,7 @@ export default class CollectionsStore {
 
   async refreshCollections() {
     const refreshPromises = Array.from(this.collections.values())
-      .map((collection) => collection?.collection?.refresh())
-      .filter(Boolean);
+      .map((collection) => collection?.collection?.refresh());
     await Promise.all(refreshPromises);
   }
 
