@@ -9,7 +9,7 @@ import type { LocalizationConfig } from '../types';
 
 const localizationConfig: LocalizationConfig = {
   defaultLocale: 'en',
-  supportedLocales: ['en'],
+  supportedLocales: ['en', 'ar'],
   localeSettings: {
     ar: {
       label: 'Arabic',
@@ -39,14 +39,23 @@ const localizationConfig: LocalizationConfig = {
   translations: {
     ar: {
       cancel: 'إلغاء',
+      learn_more: 'اعرف المزید',
       select_language: 'اختر اللغة',
       save: 'حفظ',
       welcome: 'أهلاً بك',
+      view_collection: 'تصفح المجموعة',
     },
     en: {
       cancel: 'Cancel',
+      download: 'Download',
+      learn_more: 'Learn More',
+      reset: 'Reset',
       save: 'Save',
+      save_failed: 'Failed to save. Please reset or try again',
+      save_success: 'Saved Successfully!',
+      see_more_options: 'See more options',
       select_language: 'Select Language',
+      view_collection: 'View Collection',
       welcome: 'Welcome',
     },
     es: {

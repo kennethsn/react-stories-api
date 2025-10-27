@@ -3,6 +3,7 @@ import Typography from '@mui/material/Typography';
 import { observer } from 'mobx-react-lite';
 import { Unless, When } from 'react-if';
 
+import useLocale from '../../hooks/useLocale';
 import CollectionTypography from '../CollectionTypography/CollectionTypography';
 import { StoriesAPIButton } from '../StoriesAPIButton';
 import ContainerBadge from '../UI/ContainerBadge/ContainerBadge';
@@ -10,11 +11,13 @@ import styles from './CollectionSection.styles';
 import type { CollectionSectionProps } from './CollectionSection.types';
 
 const CollectionSection = observer(({
-  buttonLabel = 'View Collection',
+  buttonLabel,
   collection,
   collectionPathFormatter,
   enabled,
 }: CollectionSectionProps) => {
+  const { t } = useLocale();
+  const label = buttonLabel || t('view_collection');
   const isDisabled = enabled ? false : !collection.isPublished;
   return (
     <Grid
@@ -79,7 +82,7 @@ const CollectionSection = observer(({
             button={{
               collection_id: collection.id,
               formatter: collectionPathFormatter,
-              label: buttonLabel,
+              label,
             }}
             color="secondary"
             disableElevation
