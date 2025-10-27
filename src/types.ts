@@ -53,12 +53,25 @@ export type BaseContentBlock<Name=ContentBlockType, T=object> = {
   readonly type: Name;
 } & T;
 
+export type BulletedListContentBlock = BaseContentBlock<'BULLETED_LIST', {
+  readonly items: Array<{
+    readonly html?: NullableString;
+    readonly sx?: SxProps;
+    readonly text?: NullableString;
+  }>;
+}>;
+
 export type Button = GoToOptions & {
   readonly color?: Color;
   readonly is_disabled?: boolean;
   readonly label?: string;
   readonly variant?: ButtonProps['variant']; // 'text' | 'outlined' | 'contained'
 };
+
+export type ButtonContentBlock = BaseContentBlock<'BUTTON', {
+  readonly backgroundSx?: SxProps;
+  readonly button: Button;
+}>;
 
 export type Caption = AtLeastOne<{
   readonly button?: Button;
@@ -121,9 +134,15 @@ export type Content = {
   readonly sx?: SxProps;
 };
 
-export type ContentBlock = TextContentBlock | ImageContentBlock | RichTextContentBlock;
+export type ContentBlock =
+BulletedListContentBlock |
+ButtonContentBlock |
+ImageContentBlock |
+NumberedListContentBlock |
+RichTextContentBlock |
+TextContentBlock;
 
-export type ContentBlockType = 'IMAGE' | 'TEXT' | 'RICH_TEXT';
+export type ContentBlockType = 'BULLETED_LIST' | 'BUTTON' | 'IMAGE' | 'NUMBERED_LIST' | 'RICH_TEXT' | 'TEXT';
 
 export type DataSource = 'api' | 'local';
 
@@ -436,6 +455,14 @@ export type NullableGridColumns = Nullable<GridColumns>;
 export type NullableNumber = Nullable<number>;
 
 export type NullableString = Nullable<string>;
+
+export type NumberedListContentBlock = BaseContentBlock<'NUMBERED_LIST', {
+  readonly items: Array<{
+    readonly html?: NullableString;
+    readonly sx?: SxProps;
+    readonly text?: NullableString;
+  }>;
+}>;
 
 export type ProjectId = number;
 
