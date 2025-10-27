@@ -14,6 +14,8 @@ export * from './UI/ConditionalIconButton';
 export * from './UI/Content';
 export * from './UI/EditableTypography';
 export * from './UI/GeoMap';
+export * from './UI/LocaleActionButton';
+export * from './UI/LocaleSelector';
 export * from './UI/PreviewableImage';
 export * from './UI/SearchInput';
 export * from './UI/StatusPage';

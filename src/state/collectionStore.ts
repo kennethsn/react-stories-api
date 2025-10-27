@@ -36,7 +36,7 @@ export type CollectionStoreOptions = {
   readonly page?: number;
   readonly pageSize?: number;
   readonly searchInput?: string;
-  readonly showLocaleSwitcher?: boolean;
+  readonly showLocaleSelector?: boolean;
   readonly slots?: { [key: string]: FC<Omit<CollectionSlotProps, 'component'>> };
   readonly source?: DataSource;
 };
@@ -174,7 +174,7 @@ export default class CollectionStore {
   }
 
   get isLocalizable() {
-    return this.options.showLocaleSwitcher && this.root.locale.hasAlternativeLocales;
+    return this.options.showLocaleSelector && this.root.locale.hasAlternativeLocales;
   }
 
   get isPreview() {

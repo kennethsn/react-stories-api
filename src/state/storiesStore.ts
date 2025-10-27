@@ -120,6 +120,20 @@ export default class StoriesStore {
     return this.getStory(storyOptions.story.id)!;
   }
 
+  async onLocaleChange() {
+    await this.refreshStories();
+    return true;
+  }
+
+  async refreshStories() {
+    const refreshPromises = Array.from(this.stories.values())
+      .map(async (story) => {
+        const data = await this.root.api.getStory(story.collectionId, story.id);
+        story.setStory(data);
+      });
+    await Promise.all(refreshPromises);
+  }
+
   removeStory(storyId: StoryId) {
     this.stories.delete(storyId);
   }

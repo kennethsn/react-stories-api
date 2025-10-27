@@ -77,8 +77,19 @@ export default class LocaleStore {
     return setting;
   }
 
+  async onLocaleChange() {
+    await Promise.all([
+      this.root.collections.onLocaleChange(),
+      this.root.stories.onLocaleChange(),
+    ]);
+  }
+
   setLocale(locale: string) {
+    if (this.locale === locale) {
+      return;
+    }
     this.locale = locale;
+    this.onLocaleChange();
   }
 
   translate(key: string): string {

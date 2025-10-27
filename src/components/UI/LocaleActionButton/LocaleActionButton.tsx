@@ -6,16 +6,15 @@ import { observer } from 'mobx-react-lite';
 import useLocale from '../../../hooks/useLocale';
 import LocaleSelector from '../LocaleSelector/LocaleSelector';
 import MenuActionButton from '../MenuActionButton/MenuActionButton';
-import type { MenuActionButtonProps } from '../MenuActionButton/MenuActionButton.types';
 import styles from './LocaleActionButton.styles';
+import type { LocaleActionButtonProps } from './LocaleActionButton.types';
 
-const LocaleActionButton = observer((props: Partial<MenuActionButtonProps>) => {
+const LocaleActionButton = observer((props: LocaleActionButtonProps) => {
   const { t } = useLocale();
 
   return (
     <MenuActionButton
       icon={LanguageIcon}
-      id="locale-action-button"
       size="small"
       stopPropagation
       title={t('select_language') ?? 'Select Language'}
