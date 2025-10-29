@@ -46,7 +46,7 @@ const localizationConfig: LocalizationConfig = {
       collection: 'مجموعة',
       cancel: 'إلغاء',
       download: 'تنزيل',
-      learn_more: 'اعرف',
+      learn_more: 'اعرف المزيد',
       moment: 'لحظة',
       reset: 'إعادة تعيين',
       save: 'حفظ',

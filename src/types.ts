@@ -528,11 +528,7 @@ export type StatNumberValue = {
   readonly unit?: string;
 };
 
-export enum StatType {
-  list = 'list',
-  number = 'number',
-  string = 'string',
-}
+export type StatType = 'list' | 'number' | 'string';
 
 export type StatValue = string | StatListValueItem[] | StatNumberValue;
 
