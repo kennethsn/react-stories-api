@@ -1,9 +1,12 @@
 import type { SxProps } from '@mui/material/styles';
 
 import type {
+  BulletedListContentBlock,
+  ButtonContentBlock,
   Content,
   ContentBlockType,
   ImageContentBlock,
+  NumberedListContentBlock,
   RichTextContentBlock,
   TextContentBlock,
 } from '../../../types';
@@ -26,7 +29,13 @@ export type ContentBlockProps = {
   readonly sxBlockMap?: Partial<Record<ContentBlockType, SxProps>>;
 };
 
+export type BulletedListContentBlockProps = BaseContentBlockProps<BulletedListContentBlock>;
+
+export type ButtonContentBlockProps = BaseContentBlockProps<ButtonContentBlock>;
+
 export type ImageContentBlockProps = BaseContentBlockProps<ImageContentBlock>;
+
+export type NumberedListContentBlockProps = BaseContentBlockProps<NumberedListContentBlock>;
 
 export type RichTextContentBlockProps = BaseContentBlockProps<RichTextContentBlock>;
 

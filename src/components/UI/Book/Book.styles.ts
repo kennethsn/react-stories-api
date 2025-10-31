@@ -1,23 +1,31 @@
+const contentInnerBackground = '#fffaf1d4';
 const styles = {
   author: {
+    bgcolor: contentInnerBackground,
     fontSize: '75%',
     fontWeight: 400,
   },
   content: (coverColor?: string, textColor?: string) => ({
-    bgcolor: coverColor || 'transparent',
+    bgcolor: coverColor || '#fffcf7e3',
     color: textColor || 'text.primary',
     display: 'flex',
     flexDirection: 'column',
     fontWeight: 300,
     height: '100%',
     justifyContent: 'center',
-    p: 1,
+    borderRadius: 0.5,
+    borderBottomRightRadius: 12,
+    borderTopRightRadius: 12,
   }),
   cover: (accentColor?: string) => ({
     bgcolor: accentColor || 'background.paper',
+    borderRadius: 0.5,
+    borderBottomRightRadius: 12,
+    borderTopRightRadius: 12,
     display: 'table',
     height: '100%',
     hyphens: 'auto',
+    p: 0.5,
     transformOrigin: '0 50%',
     transform: 'rotateY(0)',
     transition: 'all 0.45s ease',
@@ -45,8 +53,8 @@ const styles = {
     '&::before, &::after': {
       background: '#fff',
       border: '1px solid #ccc',
-      borderBottomRightRadius: 5,
-      borderTopRightRadius: 5,
+      borderBottomRightRadius: 12,
+      borderTopRightRadius: 12,
       content: "''",
       display: 'block',
       height: '100%',
@@ -74,13 +82,15 @@ const styles = {
     },
   },
   title: {
+    bgcolor: contentInnerBackground,
     borderBottom: '1px solid',
     fontWeight: 'bold',
   },
   subtitle: {
+    bgcolor: contentInnerBackground,
     fontSize: '85%',
     fontWeight: 'bold',
-    mt: 1,
+    pt: 1,
   },
 };
 

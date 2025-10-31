@@ -1,7 +1,6 @@
 import { observer } from 'mobx-react-lite';
 
 import Bookshelf from '../../UI/Bookshelf/Bookshelf';
-import type { BookItem } from '../../UI/Bookshelf/Bookshelf.types';
 import BaseMoment from '../BaseMoment/BaseMoment';
 import type { LibraryMomentProps } from './LibraryMoment.types';
 
@@ -11,26 +10,16 @@ const LibraryMoment = observer(({ moment }: LibraryMomentProps) => (
     contentSize={moment.size}
     moment={moment}
   >
-    {Object.entries(moment.shelves).map(([key, shelf]) => {
-      const items: BookItem[] = shelf.items.map((item) => ({
-        author: item.author,
-        color: item.color,
-        description: item.description,
-        image: item.image,
-        instance: item.subtitle,
-        label: item.title,
-        url: item.url,
-      }));
-      return (
-        <Bookshelf
-          key={`shelf-${key}`}
-          graphic={shelf.graphic}
-          items={items}
-          moment={moment}
-          title={shelf.title ?? ''}
-        />
-      );
-    })}
+    {moment.shelves.map((shelf) => (
+      <Bookshelf
+        key={`shelf-${shelf.id}`}
+        graphic={shelf.graphic}
+        // @ts-expect-error TS2345 - Need to fix type issue later.
+        items={shelf.items}
+        moment={moment}
+        title={shelf.title ?? ''}
+      />
+    ))}
   </BaseMoment>
 ));
 

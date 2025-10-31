@@ -13,6 +13,7 @@ export type BookItem = {
   readonly label: string;
   readonly manifest_url?: string;
   readonly provider?: string;
+  readonly title?: string;
   readonly url?: string;
 };
 

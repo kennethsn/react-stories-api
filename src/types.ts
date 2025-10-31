@@ -53,12 +53,25 @@ export type BaseContentBlock<Name=ContentBlockType, T=object> = {
   readonly type: Name;
 } & T;
 
+export type BulletedListContentBlock = BaseContentBlock<'BULLETED_LIST', {
+  readonly items: Array<{
+    readonly html?: NullableString;
+    readonly sx?: SxProps;
+    readonly text?: NullableString;
+  }>;
+}>;
+
 export type Button = GoToOptions & {
   readonly color?: Color;
   readonly is_disabled?: boolean;
   readonly label?: string;
   readonly variant?: ButtonProps['variant']; // 'text' | 'outlined' | 'contained'
 };
+
+export type ButtonContentBlock = BaseContentBlock<'BUTTON', {
+  readonly background_sx?: SxProps;
+  readonly button: Button;
+}>;
 
 export type Caption = AtLeastOne<{
   readonly button?: Button;
@@ -70,6 +83,7 @@ export type CardsLayout = 'carousel' | 'grid' | 'orbit' | 'row' | 'stack';
 export type CardsLayoutOptions = {
   // Carousel Layout Options:
   readonly autoplay?: NullableBoolean;
+  readonly loop?: NullableBoolean;
   readonly slides_per_view?: number;
   readonly slide_gap?: number;
 
@@ -80,7 +94,7 @@ export type CardsLayoutOptions = {
 export type CardsBaseMomentData<T> = {
   readonly fit?: MomentContentFit;
   readonly layout?: CardsLayout;
-  readonly layoutOptions?: CardsLayoutOptions;
+  readonly layout_options?: CardsLayoutOptions;
   readonly size?: MomentContentSize;
 } & T;
 
@@ -121,9 +135,15 @@ export type Content = {
   readonly sx?: SxProps;
 };
 
-export type ContentBlock = TextContentBlock | ImageContentBlock | RichTextContentBlock;
+export type ContentBlock =
+BulletedListContentBlock |
+ButtonContentBlock |
+ImageContentBlock |
+NumberedListContentBlock |
+RichTextContentBlock |
+TextContentBlock;
 
-export type ContentBlockType = 'IMAGE' | 'TEXT' | 'RICH_TEXT';
+export type ContentBlockType = 'BULLETED_LIST' | 'BUTTON' | 'IMAGE' | 'NUMBERED_LIST' | 'RICH_TEXT' | 'TEXT';
 
 export type DataSource = 'api' | 'local';
 
@@ -236,6 +256,7 @@ export type Icon = ImageIcon | MuiIcon | NoIcon;
 export type IFrameMomentData = {
   readonly iframe: {
     readonly fit?: MomentContentFit;
+    readonly message?: string | object; // Send message to iframe
     readonly size?: MomentContentSize;
     readonly url: string;
   }
@@ -280,13 +301,14 @@ export type LibraryMomentData = {
   readonly fit?: MomentContentFit;
   readonly graphic?: string;
   readonly onSelect?: (id: string) => void;
-  readonly shelves: Record<string, LibraryShelf>
+  readonly shelves: LibraryShelf[];
   readonly size?: MomentContentSize;
   readonly title?: string;
 };
 
 export type LibraryShelf = {
   readonly graphic?: { url: string };
+  readonly id: string;
   readonly items: Array<{
     readonly author?: string;
     readonly color?: {
@@ -322,6 +344,14 @@ export type MarkdownMomentData = {
   readonly size?: MomentContentSize;
 };
 
+export type MiradorMomentData = {
+  readonly config?: object & {
+    readonly theme?: Partial<Theme>;
+    readonly themes?: { [key: string]: Partial<Theme> };
+  };
+  readonly url: string;
+};
+
 export type Moment<T=MomentData> = {
   readonly color?: Color;
   readonly data: { caption?: MomentCaption } & T;
@@ -331,6 +361,7 @@ export type Moment<T=MomentData> = {
   readonly index: number;
   readonly label: string;
   readonly subtitle?: NullableString;
+  readonly template_moment_id?: NullableString;
   readonly title?: NullableString;
   readonly type: MomentType;
 };
@@ -437,6 +468,14 @@ export type NullableNumber = Nullable<number>;
 
 export type NullableString = Nullable<string>;
 
+export type NumberedListContentBlock = BaseContentBlock<'NUMBERED_LIST', {
+  readonly items: Array<{
+    readonly html?: NullableString;
+    readonly sx?: SxProps;
+    readonly text?: NullableString;
+  }>;
+}>;
+
 export type ProjectId = number;
 
 export type PDFMomentData = {
@@ -501,11 +540,7 @@ export type StatNumberValue = {
   readonly unit?: string;
 };
 
-export enum StatType {
-  list = 'list',
-  number = 'number',
-  string = 'string',
-}
+export type StatType = 'list' | 'number' | 'string';
 
 export type StatValue = string | StatListValueItem[] | StatNumberValue;
 
