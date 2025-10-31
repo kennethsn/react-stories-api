@@ -6,6 +6,8 @@ import { deepMergeMulti } from '../../../utils/object';
 import styles from './Content.styles';
 import type { NumberedListContentBlockProps } from './Content.types';
 
+const itemKey = (index: number) => `numbered-list-item-${index}`;
+
 export default function NumberedListContentBlock(
   { contentBlock, sx }: NumberedListContentBlockProps,
 ) {
@@ -19,7 +21,7 @@ export default function NumberedListContentBlock(
         if (!content) return null;
 
         return (
-          <li key={item.text || item.html || `item-${index}`}>
+          <li key={itemKey(index)}>
             <Typography
               component="span"
               sx={item.sx}

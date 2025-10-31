@@ -1,3 +1,5 @@
+import type { MomentContentSize } from './types';
+
 export const COLLECTION_STORIES_DEFAULT_PAGE_SIZE = 24;
 export const COLLECTION_SEARCH_MIN_THRESHOLD = 3;
 export const COLOR_HEX_REGEX = /^#([0-9A-Fa-f]{3}){1,2}([0-9A-Fa-f]{2})?$/;
@@ -9,8 +11,8 @@ export const HATHI_TRUST_BASE_URL = 'https://babel.hathitrust.org';
 export const HATHI_TRUST_EMBED_URL = `${HATHI_TRUST_BASE_URL}/cgi/pt`;
 // KSN TODO: Preserve this URL
 export const HATHI_TRUST_LOGO_URL = 'https://www.hathitrust.org/wp-content/uploads/2023/02/cropped-favicon-192x192.png';
-export const MOMENT_LAYOUT_DEFAULT_CONTENT_SIZE = 8;
-export const MOMENT_LAYOUT_MAX_CONTENT_SIZE = GRID_MAX_SIZE;
+export const MOMENT_LAYOUT_DEFAULT_CONTENT_SIZE: MomentContentSize = 8;
+export const MOMENT_LAYOUT_MAX_CONTENT_SIZE: MomentContentSize = GRID_MAX_SIZE;
 export const PAGINATION_DEFAULT_PAGE_NUMBER = 1;
 export const SEARCH_FACET_MAX_VISIBLE_VALUES = 10;
 export const STORY_ANIMATION_SPEED = 1500;

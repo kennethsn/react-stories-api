@@ -44,7 +44,7 @@ export default class LibraryMomentStore extends MomentStore<LibraryMomentData> {
   }
 
   get shelves() {
-    return this.data.shelves ?? {};
+    return this.data.shelves ?? [];
   }
 
   get size() {

@@ -9,6 +9,7 @@ import IFrameMomentStore from '../state/moments/iframeMomentStore';
 import ImageMomentStore from '../state/moments/imageMomentStore';
 import LibraryMomentStore from '../state/moments/libraryMomentStore';
 import MarkdownMomentStore from '../state/moments/markdownMomentStore';
+import MiradorMomentStore from '../state/moments/miradorMomentStore';
 import PDFMomentStore from '../state/moments/pdfMomentStore';
 import StatsMomentStore from '../state/moments/statsMomentStore';
 import StoriesMomentStore from '../state/moments/storiesMomentStore';
@@ -74,13 +75,18 @@ const MomentConfigMap: Record<MomentType, MomentConfig> = {
   },
   library: {
     component: 'LibraryMoment',
-    icon: { name: 'library', type: 'mui' },
+    icon: { name: 'newsstand', type: 'mui' },
     store: LibraryMomentStore.build,
   },
   markdown: {
     component: 'MarkdownMoment',
     icon: { name: 'markdown', type: 'mui' },
     store: MarkdownMomentStore.build,
+  },
+  mirador: {
+    component: 'MiradorMoment',
+    icon: { name: 'photo_frame', type: 'mui' },
+    store: MiradorMomentStore.build,
   },
   pdf: {
     component: 'PDFMoment',

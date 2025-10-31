@@ -1,3 +1,4 @@
+import { Theme } from '@mui/material';
 import {
   action,
   computed,
@@ -22,6 +23,8 @@ export default class MomentStore<T = MomentData> {
   private initialMoment: Moment<T>;
 
   moment: MutableMoment<T>;
+
+  muiTheme: Partial<Theme>;
 
   constructor(private moments: MomentsStore, moment: Moment<T>) {
     makeObservable(this, {
@@ -54,6 +57,7 @@ export default class MomentStore<T = MomentData> {
       isPlaying: computed,
       label: computed,
       moment: observable,
+      muiTheme: observable,
       story: computed,
       storyId: computed,
       subtitle: computed,
@@ -64,6 +68,7 @@ export default class MomentStore<T = MomentData> {
     this.initialMoment = deepCopy(moment);
     this.moment = deepCopy(moment);
     this.moments = moments;
+    this.muiTheme = moments.root.theme.muiTheme;
   }
 
   get av() {
@@ -243,6 +248,10 @@ export default class MomentStore<T = MomentData> {
 
   reset() {
     this.moment = deepCopy(this.initialMoment);
+  }
+
+  setMuiTheme(theme: Partial<Theme>) {
+    this.muiTheme = theme;
   }
 
   toJSON() {
