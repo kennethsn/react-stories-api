@@ -24,7 +24,7 @@ const CardsBrowser = observer(({
     cardsContainerRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 
-  const showSearch = search ? !search.disabled : null;
+  const showSearch = (search ? !search.disabled : false) && layout !== 'minimal';
   const isLoading = Boolean(search?.loading || pagination?.loading);
 
   return (

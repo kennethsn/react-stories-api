@@ -69,7 +69,7 @@ export type Button = GoToOptions & {
 };
 
 export type ButtonContentBlock = BaseContentBlock<'BUTTON', {
-  readonly backgroundSx?: SxProps;
+  readonly background_sx?: SxProps;
   readonly button: Button;
 }>;
 
@@ -83,6 +83,7 @@ export type CardsLayout = 'carousel' | 'grid' | 'orbit' | 'row' | 'stack';
 export type CardsLayoutOptions = {
   // Carousel Layout Options:
   readonly autoplay?: NullableBoolean;
+  readonly loop?: NullableBoolean;
   readonly slides_per_view?: number;
   readonly slide_gap?: number;
 
@@ -93,7 +94,7 @@ export type CardsLayoutOptions = {
 export type CardsBaseMomentData<T> = {
   readonly fit?: MomentContentFit;
   readonly layout?: CardsLayout;
-  readonly layoutOptions?: CardsLayoutOptions;
+  readonly layout_options?: CardsLayoutOptions;
   readonly size?: MomentContentSize;
 } & T;
 
@@ -255,6 +256,7 @@ export type Icon = ImageIcon | MuiIcon | NoIcon;
 export type IFrameMomentData = {
   readonly iframe: {
     readonly fit?: MomentContentFit;
+    readonly message?: string | object; // Send message to iframe
     readonly size?: MomentContentSize;
     readonly url: string;
   }
@@ -299,13 +301,14 @@ export type LibraryMomentData = {
   readonly fit?: MomentContentFit;
   readonly graphic?: string;
   readonly onSelect?: (id: string) => void;
-  readonly shelves: Record<string, LibraryShelf>
+  readonly shelves: LibraryShelf[];
   readonly size?: MomentContentSize;
   readonly title?: string;
 };
 
 export type LibraryShelf = {
   readonly graphic?: { url: string };
+  readonly id: string;
   readonly items: Array<{
     readonly author?: string;
     readonly color?: {
@@ -341,6 +344,14 @@ export type MarkdownMomentData = {
   readonly size?: MomentContentSize;
 };
 
+export type MiradorMomentData = {
+  readonly config?: object & {
+    readonly theme?: Partial<Theme>;
+    readonly themes?: { [key: string]: Partial<Theme> };
+  };
+  readonly url: string;
+};
+
 export type Moment<T=MomentData> = {
   readonly color?: Color;
   readonly data: { caption?: MomentCaption } & T;
@@ -350,6 +361,7 @@ export type Moment<T=MomentData> = {
   readonly index: number;
   readonly label: string;
   readonly subtitle?: NullableString;
+  readonly template_moment_id?: NullableString;
   readonly title?: NullableString;
   readonly type: MomentType;
 };
@@ -528,11 +540,7 @@ export type StatNumberValue = {
   readonly unit?: string;
 };
 
-export enum StatType {
-  list = 'list',
-  number = 'number',
-  string = 'string',
-}
+export type StatType = 'list' | 'number' | 'string';
 
 export type StatValue = string | StatListValueItem[] | StatNumberValue;
 

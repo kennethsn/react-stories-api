@@ -6,6 +6,7 @@ import Typography from '@mui/material/Typography';
 import { observer } from 'mobx-react-lite';
 
 import useLocale from '../../../hooks/useLocale';
+import { StoriesAPIButton } from '../..';
 import styles from './BookModal.styles';
 import type { BookModalProps } from './BookModal.types';
 
@@ -31,6 +32,7 @@ const BookModal = observer(({ moment }: BookModalProps) => {
         </IconButton>
 
         <Typography
+          color="primary"
           gutterBottom
           variant="h5"
         >
@@ -53,18 +55,15 @@ const BookModal = observer(({ moment }: BookModalProps) => {
         </Typography>
 
         {book.url ? (
-          <a
-            href={book.url}
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            <button
-              className="learn-more-button"
-              type="button"
-            >
-              {t('learn_more')}
-            </button>
-          </a>
+          <StoriesAPIButton
+            button={{
+              label: t('learn_more'),
+              new_tab: true,
+              url: book.url,
+              variant: 'outlined',
+            }}
+            sx={styles.learnMoreButton}
+          />
         ) : null}
       </Box>
     </Modal>

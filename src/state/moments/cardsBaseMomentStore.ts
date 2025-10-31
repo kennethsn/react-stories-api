@@ -78,7 +78,7 @@ export default class CardsBaseMomentStore<T, ItemType> extends MomentStore<Cards
   }
 
   get layoutOptions() {
-    return this.data.layoutOptions || {
+    return this.data.layout_options || {
       autoplay: true,
     };
   }

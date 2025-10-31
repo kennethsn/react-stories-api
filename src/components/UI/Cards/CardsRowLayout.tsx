@@ -1,6 +1,3 @@
-import 'swiper/css';
-import 'swiper/css/free-mode';
-
 import Box from '@mui/material/Box';
 import { observer } from 'mobx-react-lite';
 import type { Swiper as SwiperClass } from 'swiper';
@@ -24,20 +21,28 @@ const CardsRowLayout = observer(({
     onChange?.(swiper.activeIndex);
   };
 
-  const slidesPerView = layoutOptions?.slides_per_view ?? 3;
   const slideGap = layoutOptions?.slide_gap ?? 8;
+  const shouldAutoplay = Boolean(layoutOptions?.autoplay);
+  const autoplay = shouldAutoplay ? ({
+    delay: 4000, // ms between auto swipes
+    disableOnInteraction: false, // keeps autoplay after user swipes
+  }) : undefined;
 
   return (
     <Box sx={deepMerge(styles.rowLayoutRoot, sx)}>
       <Swiper
+        autoplay={autoplay}
+        centerInsufficientSlides
         className="cards-row-layout-swiper"
         freeMode
         grabCursor
-        loop
         modules={[FreeMode, Mousewheel]}
         mousewheel={{ forceToAxis: true }}
+        nested
         onSlideChange={handleSlideChange}
-        slidesPerView={slidesPerView}
+        slidesOffsetAfter={24}
+        slidesOffsetBefore={24}
+        slidesPerView="auto"
         spaceBetween={slideGap}
       >
         {children.map((item, index) => (

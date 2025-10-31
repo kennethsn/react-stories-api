@@ -6,6 +6,7 @@ import {
 import type { FC } from 'react';
 
 import type { CollectionSlotProps } from '../components/CollectionSlot/CollectionSlot.types';
+import type { CardsBrowserLayout } from '../components/UI/CardsBrowser/CardsBrowser.types';
 import { COLLECTION_SEARCH_MIN_THRESHOLD, COLLECTION_STORIES_DEFAULT_PAGE_SIZE } from '../constants';
 import type {
   Collection,
@@ -30,6 +31,7 @@ export type CollectionStoreOptions = {
   readonly editable?: boolean;
   // Allow clicking on stories that do not have a 'PUBLISHED' status
   readonly enableAllStories?: boolean;
+  readonly layout?: CardsBrowserLayout;
   readonly onPageChange?: (page: number, collection: CollectionStore) => Promise<void>;
   readonly onSave?: (collection: Collection) => Promise<void>;
   readonly onSearch?: (searchInput: string, collection: CollectionStore) => Promise<void>;
@@ -54,6 +56,8 @@ export default class CollectionStore {
 
   isEdited: boolean = false;
 
+  layout?: CardsBrowserLayout = 'standard';
+
   pagination: PaginationStore;
 
   saveStatus?: SaveStatus;
@@ -75,6 +79,7 @@ export default class CollectionStore {
     this.collection = deepCopy(options.collection);
     this.initialCollection = deepCopy(options.collection);
     this.isEditable = !!options.editable;
+    this.layout = options.layout ?? 'standard';
     this.source = options.source ?? 'local';
     this.pagination = this.buildPaginationStore();
     this.search = this.buildSearchStore();
@@ -242,8 +247,20 @@ export default class CollectionStore {
     return this.stories?.length ?? 0;
   }
 
-  get storiesListHeader() {
+  get storiesKey() {
+    return `${this.id}::${this.storyIdsKey}`;
+  }
+
+  get storiesListHeader(): string {
     return this.root.formatters.collectionStoriesListHeader;
+  }
+
+  get storyIds() {
+    return this.stories.map((story) => story.id);
+  }
+
+  get storyIdsKey() {
+    return this.storyIds.join(',');
   }
 
   get subtitle() {

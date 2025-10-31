@@ -7,7 +7,7 @@ const CollectionStoriesList = observer(() => {
   const collection = useCollection();
   return (
     <StoryCards
-      key={collection.storiesCount}
+      key={collection.storiesKey}
       enableAll={collection.allStoriesAreEnabled}
       overrideTotalCount={collection.overrideTotalStoriesCount}
       slotComponent={collection.getSlotComponent('StoryCard')}

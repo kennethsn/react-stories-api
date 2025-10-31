@@ -94,8 +94,7 @@ const CollectionLayout = observer(({ children }: CollectionLayoutProps) => {
 
       <Grid size={12}>
         <CardsBrowser
-          // TODO: add support for other layout configurations
-          layout="tool"
+          layout={collection.layout}
           pagination={collection.pagination}
           search={collection.search}
           slots={{

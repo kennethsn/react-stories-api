@@ -4,14 +4,19 @@ const styles = {
     display: 'flex',
     height: '100%',
     justifyContent: 'center',
+    py: 3,
     width: '100%',
 
     '& .cards-carousel-layout-swiper': {
-      p: 3,
-      mx: 2,
+      width: '100%',
 
-      '& .cards-carousel-layout-swiper-slide  .swiper-slide-shadow': {
-        display: 'none',
+      '& .cards-carousel-layout-swiper-slide': {
+        maxWidth: '80%',
+        width: 'auto',
+
+        '& .swiper-slide-shadow': {
+          display: 'none',
+        },
       },
     },
   },
@@ -53,13 +58,19 @@ const styles = {
     display: 'flex',
     height: '100%',
     justifyContent: 'center',
+    py: 3,
     width: '100%',
 
     '& .cards-row-layout-swiper': {
-      p: 3,
+      width: '100%',
 
-      '& .cards-row-layout-swiper-slide  .swiper-slide-shadow': {
-        display: 'none',
+      '& .cards-row-layout-swiper-slide ': {
+        maxWidth: '80%',
+        width: 'auto',
+
+        '& .swiper-slide-shadow': {
+          display: 'none',
+        },
       },
     },
   },
@@ -76,6 +87,12 @@ const styles = {
       mx: 2,
       height: '80%',
       width: '70%',
+      '& .swiper-slide:not(.swiper-slide-active)': {
+        bgcolor: 'background.grey',
+        '& > *': {
+          opacity: 0.4,
+        },
+      },
 
       '& .cards-stack-layout-swiper-slide  .swiper-slide-shadow': {
         display: 'none',

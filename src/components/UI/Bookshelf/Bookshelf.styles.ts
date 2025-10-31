@@ -51,6 +51,9 @@ const styles = {
       width: '100%',
     },
   },
+  root: {
+    p: 3,
+  },
   title: {
     fontWeight: 300,
     my: 3,

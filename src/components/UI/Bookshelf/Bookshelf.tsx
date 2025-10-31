@@ -4,6 +4,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { observer } from 'mobx-react-lite';
 import { When } from 'react-if';
+// TODO: switch this to swiper
 import Carousel from 'react-multi-carousel';
 
 import Book from '../Book/Book';
@@ -20,13 +21,15 @@ const Bookshelf = observer(({
   };
 
   return (
-    <Box>
-      <Typography
-        sx={styles.title}
-        variant="h3"
-      >
-        {title}
-      </Typography>
+    <Box sx={styles.root}>
+      <When condition={!!title}>
+        <Typography
+          sx={styles.title}
+          variant="h3"
+        >
+          {title}
+        </Typography>
+      </When>
 
       <Box sx={styles.carouselWrapper}>
         <Carousel
@@ -73,7 +76,7 @@ const Bookshelf = observer(({
               onClick={handleClickBook(book)}
               subtitle={book.instance}
               textColor={book.color?.text}
-              title={book.label}
+              title={book.title || book.label}
             />
           ))}
         </Carousel>

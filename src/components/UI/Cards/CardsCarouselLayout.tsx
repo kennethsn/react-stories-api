@@ -1,6 +1,3 @@
-import 'swiper/css';
-import 'swiper/css/pagination';
-
 import Box from '@mui/material/Box';
 import { observer } from 'mobx-react-lite';
 import type { Swiper as SwiperClass } from 'swiper';
@@ -26,25 +23,29 @@ const CardsCarouselLayout = observer(({
 
   const shouldAutoplay = Boolean(layoutOptions?.autoplay);
   const autoPlay = shouldAutoplay ? ({
-    delay: 3000, // ms between auto swipes
+    delay: 4000, // ms between auto swipes
     disableOnInteraction: false, // keeps autoplay after user swipes
   }) : undefined;
 
-  const slidesPerView = layoutOptions?.slides_per_view ?? 3;
-  const slideGap = layoutOptions?.slide_gap ?? 16;
+  const slidesPerView = layoutOptions?.slides_per_view ?? 'auto';
+  const slideGap = layoutOptions?.slide_gap;
 
   return (
     <Box sx={deepMerge(styles.carouselLayoutRoot, sx)}>
       <Swiper
         autoplay={autoPlay}
+        centerInsufficientSlides
         className="cards-carousel-layout-swiper"
         grabCursor
-        loop
+        loop={!!layoutOptions?.loop}
         modules={[Autoplay, Pagination]}
+        nested
         onSlideChange={handleSlideChange}
         pagination={{
           clickable: true,
         }}
+        slidesOffsetAfter={24}
+        slidesOffsetBefore={24}
         slidesPerView={slidesPerView}
         spaceBetween={slideGap}
       >

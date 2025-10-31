@@ -50,7 +50,7 @@ const exampleContent: ContentType = {
         url: 'https://artgallery.yale.edu/',
         new_tab: true,
       },
-      backgroundSx: { p: 2, bgcolor: '#f9f9f9' },
+      background_sx: { p: 2, bgcolor: '#f9f9f9' },
     },
   ],
 };

@@ -11,6 +11,7 @@ export default class IFrameMomentStore<T=IFrameMomentData> extends MomentStore<T
     makeObservable(this, {
       fit: computed,
       iframe: computed,
+      message: computed,
       size: computed,
       url: computed,
     });
@@ -22,6 +23,10 @@ export default class IFrameMomentStore<T=IFrameMomentData> extends MomentStore<T
 
   get iframe() {
     return (this.data as unknown as Moment<IFrameMomentData>['data']).iframe;
+  }
+
+  get message() {
+    return this.iframe.message;
   }
 
   get size() {
