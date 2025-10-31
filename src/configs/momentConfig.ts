@@ -5,6 +5,7 @@ import GalleryMomentStore from '../state/moments/galleryMomentStore';
 import GeoMomentStore from '../state/moments/geoMapMomentStore';
 import HathiTrustMomentStore from '../state/moments/hathiTrustMomentStore';
 import HTMLMomentStore from '../state/moments/htmlMomentStore';
+import IdBadgeMomentStore from '../state/moments/idBadgeMomentStore';
 import IFrameMomentStore from '../state/moments/iframeMomentStore';
 import ImageMomentStore from '../state/moments/imageMomentStore';
 import LibraryMomentStore from '../state/moments/libraryMomentStore';
@@ -62,6 +63,11 @@ const MomentConfigMap: Record<MomentType, MomentConfig> = {
     component: 'HTMLMoment',
     icon: { name: 'code', type: 'mui' },
     store: HTMLMomentStore.build,
+  },
+  idBadge: {
+    component: 'IdBadgeMoment',
+    icon: { name: 'badge', type: 'mui' },
+    store: IdBadgeMomentStore.build,
   },
   iframe: {
     component: 'IFrameMoment',

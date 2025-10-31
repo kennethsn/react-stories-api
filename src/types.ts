@@ -78,7 +78,7 @@ export type Caption = AtLeastOne<{
   readonly content?: string;
 }>;
 
-export type CardsLayout = 'carousel' | 'grid' | 'orbit' | 'row' | 'stack';
+export type CardsLayout = 'carousel' | 'grid' | 'orbit' | 'row' | 'stack' | 'zigzag';
 
 export type CardsLayoutOptions = {
   // Carousel Layout Options:
@@ -131,6 +131,7 @@ export type ColorString = ThemeColorOption | ColorHex;
 
 export type Content = {
   readonly blocks: ContentBlock[];
+  readonly caption?: Content;
   readonly id?: string;
   readonly sx?: SxProps;
 };
@@ -252,6 +253,17 @@ export type HTMLMomentData = {
 };
 
 export type Icon = ImageIcon | MuiIcon | NoIcon;
+
+export type IdBadge = {
+  readonly backgroundImage?: Image;
+  readonly content?: Content;
+  readonly information?: Content;
+  readonly logo?: Image;
+};
+
+export type IdBadgeMomentData = CardsBaseMomentData<IdBadge> & {
+  readonly badges: IdBadge[];
+};
 
 export type IFrameMomentData = {
   readonly iframe: {
@@ -384,6 +396,7 @@ export type MomentData =
   CardsContentMomentData |
   GalleryMomentData |
   GeoMapMomentData |
+  IdBadgeMomentData |
   ImageMomentData |
   IFrameMomentData |
   HathiTrustMomentData |
@@ -421,6 +434,7 @@ export type MomentType =
   'gallery' |
   'hathiTrust' |
   'html' |
+  'idBadge' |
   'iframe' |
   'image' |
   'library' |

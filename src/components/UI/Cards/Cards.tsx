@@ -8,6 +8,7 @@ import CardsGridLayout from './CardsGridLayout';
 import CardsOrbitLayout from './CardsOrbitLayout';
 import CardsRowLayout from './CardsRowLayout';
 import CardsStackLayout from './CardsStackLayout';
+import CardsZigZagLayout from './CardsZigZagLayout';
 
 const Cards = observer((props: CardsProps) => {
   const { layout = 'grid' } = props;
@@ -36,6 +37,10 @@ const Cards = observer((props: CardsProps) => {
 
       <Case condition={layout === 'stack'}>
         <CardsStackLayout {...layoutProps} />
+      </Case>
+
+      <Case condition={layout === 'zigzag'}>
+        <CardsZigZagLayout {...layoutProps} />
       </Case>
     </Switch>
   );
