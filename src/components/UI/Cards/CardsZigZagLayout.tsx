@@ -22,14 +22,10 @@ export default function CardsZigZagLayout({
     <Box sx={deepMerge(styles.zigZagLayoutRoot, sx)}>
       {cards.map((card, index) => {
         const isEven = index % 2 === 0;
-
-        const caption = isValidElement(card)
-          && card.props?.content?.caption
-          && Array.isArray(card.props.content.caption.blocks)
-          ? card.props.content.caption
-          : undefined;
-
-        const renderCaption = caption ? (
+        const caption = isValidElement(card) && card?.props?.caption;
+        const canRenderCaption = caption && Array.isArray(caption.blocks);
+        // TODO: replace this with content component and use styling to overlay zigzag styles
+        const renderCaption = canRenderCaption ? (
           <Box sx={styles.zigZagCaption.container}>
             {caption.blocks.map((block: CaptionBlock) => {
               if (block.type === 'TEXT' && 'text' in block) {

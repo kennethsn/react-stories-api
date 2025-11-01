@@ -18,16 +18,6 @@ export type AV = {
 export type AVType = 'audio' | 'video';
 
 export type Award = {
-  readonly label: string;
-  readonly name?: string;
-  readonly subtitle?: string;
-  readonly description?: string;
-  readonly year?: string;
-  readonly icon?: {
-    readonly name: string;
-    readonly source: string;
-  };
-  readonly style?: 'default' | 'ribbon' | 'medal' | 'laurel';
   readonly color: {
     readonly dark: string;
     readonly light: string;
@@ -37,14 +27,20 @@ export type Award = {
     readonly description?: string;
     readonly title?: string;
   };
+  readonly description?: string;
   readonly image?: string;
+  readonly icon?: Icon;
+  readonly recipient?: string;
+  readonly subtitle?: string;
+  readonly title: string;
   readonly website?: string;
+  readonly variant?: 'default' | 'ribbon' | 'medal' | 'laurel';
+  readonly year?: string;
 };
 
-export type AwardMomentData = {
-  readonly name?: string;
+export type AwardsMomentData = {
   readonly awards: Award[];
-  readonly backgroundImage?: string;
+  readonly background_image?: string;
 };
 
 export type BaseContentBlock<Name=ContentBlockType, T=object> = {
@@ -255,14 +251,14 @@ export type HTMLMomentData = {
 export type Icon = ImageIcon | MuiIcon | NoIcon;
 
 export type IdBadge = {
-  readonly backgroundImage?: Image;
+  readonly background_image?: Image;
   readonly content?: Content;
   readonly information?: Content;
   readonly logo?: Image;
 };
 
-export type IdBadgeMomentData = CardsBaseMomentData<IdBadge> & {
-  readonly badges: IdBadge[];
+export type IdBadgesMomentData = CardsBaseMomentData<IdBadge> & {
+  readonly id_badges: IdBadge[];
 };
 
 export type IFrameMomentData = {
@@ -392,11 +388,11 @@ export type MomentContentFit = 'card' | 'cover' | 'full';
 export type MomentContentSize = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
 
 export type MomentData =
-  AwardMomentData |
+  AwardsMomentData |
   CardsContentMomentData |
   GalleryMomentData |
   GeoMapMomentData |
-  IdBadgeMomentData |
+  IdBadgesMomentData |
   ImageMomentData |
   IFrameMomentData |
   HathiTrustMomentData |
@@ -429,12 +425,12 @@ export type MomentOrMomentGroup = (Moment | MomentGroupWithMoments);
 
 // KSN TODO: remove string when all moments are typed
 export type MomentType =
-  'award' |
+  'awards' |
   'base' |
   'gallery' |
   'hathiTrust' |
   'html' |
-  'idBadge' |
+  'idBadges' |
   'iframe' |
   'image' |
   'library' |

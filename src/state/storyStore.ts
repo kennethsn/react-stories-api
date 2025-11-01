@@ -8,6 +8,7 @@ import type {
   Moment,
   MutableStory,
   SaveStatus,
+  SerializableRecord,
   Story,
 } from '../types';
 import { deepCopy, objectsAreEqual } from '../utils/object';
@@ -153,6 +154,17 @@ export default class StoryStore {
 
   get status() {
     return this.story.status;
+  }
+
+  get typographyFormatter(): SerializableRecord {
+    return {
+      collection: {
+        id: this.collectionId,
+        name: this.collectionName,
+      },
+      story: this.story,
+      storyStore: this,
+    };
   }
 
   download() {

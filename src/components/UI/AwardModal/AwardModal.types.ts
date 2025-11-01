@@ -1,5 +1,5 @@
-import type AwardMomentStore from '../../../state/moments/awardMomentStore';
+import type AwardsMomentStore from '../../../state/moments/awardsMomentStore';
 
 export interface AwardModalProps {
-  moment: AwardMomentStore;
+  moment: AwardsMomentStore;
 }

@@ -1,11 +1,11 @@
 import { HATHI_TRUST_LOGO_URL, WIKIDATA_LOGO_URL, WIKIPEDIA_LOGO_URL } from '../constants';
-import AwardMomentStore from '../state/moments/awardMomentStore';
+import AwardsMomentStore from '../state/moments/awardsMomentStore';
 import CardsContentMomentStore from '../state/moments/cardsContentMomentStore';
 import GalleryMomentStore from '../state/moments/galleryMomentStore';
 import GeoMomentStore from '../state/moments/geoMapMomentStore';
 import HathiTrustMomentStore from '../state/moments/hathiTrustMomentStore';
 import HTMLMomentStore from '../state/moments/htmlMomentStore';
-import IdBadgeMomentStore from '../state/moments/idBadgeMomentStore';
+import IdBadgesMomentStore from '../state/moments/idBadgesMomentStore';
 import IFrameMomentStore from '../state/moments/iframeMomentStore';
 import ImageMomentStore from '../state/moments/imageMomentStore';
 import LibraryMomentStore from '../state/moments/libraryMomentStore';
@@ -34,10 +34,10 @@ export type MomentConfig = {
 export type IMomentConfigMap = Record<MomentType, MomentConfig>;
 
 const MomentConfigMap: Record<MomentType, MomentConfig> = {
-  award: {
-    component: 'AwardMoment',
+  awards: {
+    component: 'AwardsMoment',
     icon: { name: 'trophy', type: 'mui' },
-    store: AwardMomentStore.build,
+    store: AwardsMomentStore.build,
   },
   cardsContent: {
     component: 'CardsContentMoment',
@@ -64,10 +64,10 @@ const MomentConfigMap: Record<MomentType, MomentConfig> = {
     icon: { name: 'code', type: 'mui' },
     store: HTMLMomentStore.build,
   },
-  idBadge: {
-    component: 'IdBadgeMoment',
+  idBadges: {
+    component: 'IdBadgesMoment',
     icon: { name: 'badge', type: 'mui' },
-    store: IdBadgeMomentStore.build,
+    store: IdBadgesMomentStore.build,
   },
   iframe: {
     component: 'IFrameMoment',

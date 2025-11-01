@@ -6,16 +6,16 @@ import {
   override,
 } from 'mobx';
 
-import type { Award, AwardMomentData, Moment } from '../../types';
+import type { Award, AwardsMomentData, Moment } from '../../types';
 import type MomentsStore from '../momentsStore';
 import CardsBaseMomentStore from './cardsBaseMomentStore';
 
-export default class AwardMomentStore extends CardsBaseMomentStore<AwardMomentData, Award> {
+export default class AwardsMomentStore extends CardsBaseMomentStore<AwardsMomentData, Award> {
   selectedAward: Award | null = null;
 
   isModalOpen = false;
 
-  constructor(moments: MomentsStore, moment: Moment<AwardMomentData>) {
+  constructor(moments: MomentsStore, moment: Moment<AwardsMomentData>) {
     super(moments, moment);
 
     makeObservable(this, {
@@ -60,7 +60,7 @@ export default class AwardMomentStore extends CardsBaseMomentStore<AwardMomentDa
     this.isModalOpen = false;
   }
 
-  static build(moments: MomentsStore, moment: Moment<AwardMomentData>) {
-    return new AwardMomentStore(moments, moment);
+  static build(moments: MomentsStore, moment: Moment<AwardsMomentData>) {
+    return new AwardsMomentStore(moments, moment);
   }
 }

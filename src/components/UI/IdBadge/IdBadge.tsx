@@ -5,12 +5,13 @@ import { Content } from '../Content';
 import styles from './IdBadge.styles';
 import type { IdBadgeProps } from './IdBadge.types';
 
-export default function IdBadge({
-  backgroundImage,
-  logo,
-  content,
-  information,
-}: IdBadgeProps) {
+export default function IdBadge({ idBadge }: IdBadgeProps) {
+  const {
+    background_image: backgroundImage,
+    logo,
+    content,
+    information,
+  } = idBadge;
   const buttonBlocks = information?.blocks.filter(
     (b): b is ButtonContentBlock => b.type === 'BUTTON' && 'button' in b,
   );
