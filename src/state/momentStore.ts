@@ -26,6 +26,8 @@ export default class MomentStore<T = MomentData> {
 
   muiTheme: Partial<Theme>;
 
+  refreshKey: number = 0;
+
   constructor(private moments: MomentsStore, moment: Moment<T>) {
     makeObservable(this, {
       av: computed,
@@ -36,6 +38,7 @@ export default class MomentStore<T = MomentData> {
       captionIsTop: computed,
       captionPosition: computed,
       color: computed,
+      componentKey: computed,
       data: computed,
       getField: computed,
       getRelativeHeight: action,
@@ -58,6 +61,7 @@ export default class MomentStore<T = MomentData> {
       label: computed,
       moment: observable,
       muiTheme: observable,
+      refreshKey: observable,
       story: computed,
       storyId: computed,
       subtitle: computed,
@@ -106,6 +110,10 @@ export default class MomentStore<T = MomentData> {
 
   get component() {
     return this.config.component;
+  }
+
+  get componentKey() {
+    return `${this.type}-${this.id}-${this.moments.refreshKey}-${this.refreshKey}`;
   }
 
   get config() {
@@ -246,8 +254,15 @@ export default class MomentStore<T = MomentData> {
     this.moments.onEdit();
   }
 
-  reset() {
+  reloadComponent() {
+    this.refreshKey += 1;
+  }
+
+  reset(hard = false) {
     this.moment = deepCopy(this.initialMoment);
+    if (hard) {
+      this.reloadComponent();
+    }
   }
 
   setMuiTheme(theme: Partial<Theme>) {

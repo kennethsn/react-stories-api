@@ -24,6 +24,8 @@ export default class MomentsStore {
 
   private inputMoments: InputMoment[] = [];
 
+  refreshKey: number = 0;
+
   moments: MomentStore[] = [];
 
   private swiper: SwiperClass | undefined;
@@ -138,6 +140,7 @@ export default class MomentsStore {
   }
 
   buildMoments() {
+    this.refreshKey += 1;
     const momentsData = processInputMoments(this.inputMoments, this.availableMomentTypes);
     return momentsData.map((moment) => this.buildMoment(moment));
   }

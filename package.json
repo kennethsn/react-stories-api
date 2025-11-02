@@ -1,6 +1,6 @@
 {
   "name": "react-stories-api",
-  "version": "1.0.0-dev-51",
+  "version": "1.0.0-dev-52",
   "author": "Kenneth Seals-Nutt",
   "babel": {
     "presets": [
