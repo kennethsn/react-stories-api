@@ -18,16 +18,6 @@ export type AV = {
 export type AVType = 'audio' | 'video';
 
 export type Award = {
-  readonly label: string;
-  readonly name?: string;
-  readonly subtitle?: string;
-  readonly description?: string;
-  readonly year?: string;
-  readonly icon?: {
-    readonly name: string;
-    readonly source: string;
-  };
-  readonly style?: 'default' | 'ribbon' | 'medal' | 'laurel';
   readonly color: {
     readonly dark: string;
     readonly light: string;
@@ -37,14 +27,20 @@ export type Award = {
     readonly description?: string;
     readonly title?: string;
   };
+  readonly description?: string;
   readonly image?: string;
+  readonly icon?: Icon;
+  readonly recipient?: string;
+  readonly subtitle?: string;
+  readonly title: string;
   readonly website?: string;
+  readonly variant?: 'default' | 'ribbon' | 'medal' | 'laurel';
+  readonly year?: string;
 };
 
-export type AwardMomentData = {
-  readonly name?: string;
+export type AwardsMomentData = {
   readonly awards: Award[];
-  readonly backgroundImage?: string;
+  readonly background_image?: string;
 };
 
 export type BaseContentBlock<Name=ContentBlockType, T=object> = {
@@ -69,7 +65,7 @@ export type Button = GoToOptions & {
 };
 
 export type ButtonContentBlock = BaseContentBlock<'BUTTON', {
-  readonly backgroundSx?: SxProps;
+  readonly background_sx?: SxProps;
   readonly button: Button;
 }>;
 
@@ -83,6 +79,7 @@ export type CardsLayout = 'carousel' | 'grid' | 'orbit' | 'row' | 'stack' | 'zig
 export type CardsLayoutOptions = {
   // Carousel Layout Options:
   readonly autoplay?: NullableBoolean;
+  readonly loop?: NullableBoolean;
   readonly slides_per_view?: number;
   readonly slide_gap?: number;
 
@@ -93,7 +90,7 @@ export type CardsLayoutOptions = {
 export type CardsBaseMomentData<T> = {
   readonly fit?: MomentContentFit;
   readonly layout?: CardsLayout;
-  readonly layoutOptions?: CardsLayoutOptions;
+  readonly layout_options?: CardsLayoutOptions;
   readonly size?: MomentContentSize;
 } & T;
 
@@ -254,19 +251,20 @@ export type HTMLMomentData = {
 export type Icon = ImageIcon | MuiIcon | NoIcon;
 
 export type IdBadge = {
-  readonly backgroundImage?: Image;
+  readonly background_image?: Image;
   readonly content?: Content;
   readonly information?: Content;
   readonly logo?: Image;
 };
 
-export type IdBadgeMomentData = CardsBaseMomentData<IdBadge> & {
-  readonly badges: IdBadge[];
+export type IdBadgesMomentData = CardsBaseMomentData<IdBadge> & {
+  readonly id_badges: IdBadge[];
 };
 
 export type IFrameMomentData = {
   readonly iframe: {
     readonly fit?: MomentContentFit;
+    readonly message?: string | object; // Send message to iframe
     readonly size?: MomentContentSize;
     readonly url: string;
   }
@@ -311,13 +309,14 @@ export type LibraryMomentData = {
   readonly fit?: MomentContentFit;
   readonly graphic?: string;
   readonly onSelect?: (id: string) => void;
-  readonly shelves: Record<string, LibraryShelf>
+  readonly shelves: LibraryShelf[];
   readonly size?: MomentContentSize;
   readonly title?: string;
 };
 
 export type LibraryShelf = {
   readonly graphic?: { url: string };
+  readonly id: string;
   readonly items: Array<{
     readonly author?: string;
     readonly color?: {
@@ -353,6 +352,14 @@ export type MarkdownMomentData = {
   readonly size?: MomentContentSize;
 };
 
+export type MiradorMomentData = {
+  readonly config?: object & {
+    readonly theme?: Partial<Theme>;
+    readonly themes?: { [key: string]: Partial<Theme> };
+  };
+  readonly url: string;
+};
+
 export type Moment<T=MomentData> = {
   readonly color?: Color;
   readonly data: { caption?: MomentCaption } & T;
@@ -362,6 +369,7 @@ export type Moment<T=MomentData> = {
   readonly index: number;
   readonly label: string;
   readonly subtitle?: NullableString;
+  readonly template_moment_id?: NullableString;
   readonly title?: NullableString;
   readonly type: MomentType;
 };
@@ -380,11 +388,11 @@ export type MomentContentFit = 'card' | 'cover' | 'full';
 export type MomentContentSize = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
 
 export type MomentData =
-  AwardMomentData |
+  AwardsMomentData |
   CardsContentMomentData |
   GalleryMomentData |
   GeoMapMomentData |
-  IdBadgeMomentData |
+  IdBadgesMomentData |
   ImageMomentData |
   IFrameMomentData |
   HathiTrustMomentData |
@@ -417,12 +425,12 @@ export type MomentOrMomentGroup = (Moment | MomentGroupWithMoments);
 
 // KSN TODO: remove string when all moments are typed
 export type MomentType =
-  'award' |
+  'awards' |
   'base' |
   'gallery' |
   'hathiTrust' |
   'html' |
-  'idBadge' |
+  'idBadges' |
   'iframe' |
   'image' |
   'library' |
@@ -542,11 +550,7 @@ export type StatNumberValue = {
   readonly unit?: string;
 };
 
-export enum StatType {
-  list = 'list',
-  number = 'number',
-  string = 'string',
-}
+export type StatType = 'list' | 'number' | 'string';
 
 export type StatValue = string | StatListValueItem[] | StatNumberValue;
 

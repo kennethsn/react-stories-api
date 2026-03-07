@@ -1,3 +1,5 @@
 import type { IdBadge } from '../../../types';
 
-export type IdBadgeProps = IdBadge;
+export type IdBadgeProps = {
+  readonly idBadge: IdBadge
+};

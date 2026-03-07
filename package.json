@@ -1,6 +1,6 @@
 {
   "name": "react-stories-api",
-  "version": "1.0.0-dev-48",
+  "version": "1.0.0-dev-51",
   "author": "Kenneth Seals-Nutt",
   "babel": {
     "presets": [
@@ -37,7 +37,7 @@
     "react-multi-carousel": "^2.8.6",
     "react-photo-view": "^1.2.7",
     "react-player": "^2.16.1",
-    "react-resizable-panels": "^3.0.4",
+    "react-resizable-panels": "^3.0.6",
     "react-use-error-boundary": "^3.0.0",
     "stylis": "^4.3.6",
     "stylis-plugin-rtl": "^2.1.1",

@@ -1,6 +1,3 @@
-import 'swiper/css';
-import 'swiper/css/effect-cards';
-
 import Box from '@mui/material/Box';
 import { observer } from 'mobx-react-lite';
 import type { Swiper as SwiperClass } from 'swiper';

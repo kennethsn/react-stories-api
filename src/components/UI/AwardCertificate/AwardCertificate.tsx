@@ -11,9 +11,9 @@ const AwardCertificate = observer(({ award, moment, sx }: AwardCertificateProps)
     color,
     conferred_by: conferredBy,
     description,
-    label,
-    name,
+    recipient,
     subtitle,
+    title,
     year,
   } = award;
 
@@ -37,13 +37,13 @@ const AwardCertificate = observer(({ award, moment, sx }: AwardCertificateProps)
         <EmojiEvents fontSize="large" />
       </Box>
 
-      {name ? <Typography sx={styles.name}>{name}</Typography> : null}
+      {title ? <Typography sx={styles.title}>{title}</Typography> : null}
 
       {subtitle ? <Typography sx={styles.subtitle}>{subtitle}</Typography> : null}
 
       {description ? <Typography sx={styles.description}>{description}</Typography> : null}
 
-      {label ? <Typography sx={styles.label}>{label}</Typography> : null}
+      {recipient ? <Typography sx={styles.recipient}>{recipient}</Typography> : null}
 
       {conferredBy ? (
         <Typography sx={styles.conferredBy}>

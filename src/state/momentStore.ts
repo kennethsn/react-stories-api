@@ -1,3 +1,4 @@
+import { Theme } from '@mui/material';
 import {
   action,
   computed,
@@ -15,13 +16,15 @@ import type {
   SerializableRecord,
 } from '../types';
 import { buildNoIcon } from '../utils/iconUtils';
-import { deepCopy, updateObject } from '../utils/object';
+import { deepCopy, getValue, updateObject } from '../utils/object';
 import type MomentsStore from './momentsStore';
 
 export default class MomentStore<T = MomentData> {
   private initialMoment: Moment<T>;
 
   moment: MutableMoment<T>;
+
+  muiTheme: Partial<Theme>;
 
   constructor(private moments: MomentsStore, moment: Moment<T>) {
     makeObservable(this, {
@@ -54,16 +57,19 @@ export default class MomentStore<T = MomentData> {
       isPlaying: computed,
       label: computed,
       moment: observable,
+      muiTheme: observable,
       story: computed,
       storyId: computed,
       subtitle: computed,
       title: computed,
+      typographyFormatter: computed,
       type: computed,
       updateField: action,
     });
     this.initialMoment = deepCopy(moment);
     this.moment = deepCopy(moment);
     this.moments = moments;
+    this.muiTheme = moments.root.theme.muiTheme;
   }
 
   get av() {
@@ -111,19 +117,10 @@ export default class MomentStore<T = MomentData> {
   }
 
   get getField() {
-    return <ValueType=NullableString>(fieldPath: string): ValueType => {
-      const fields = fieldPath.split('.');
-      let current: SerializableRecord = this.moment;
-
-      for (let i = 0; i < fields.length; i += 1) {
-        if (!current[fields[i]]) {
-          return undefined as ValueType;
-        }
-        current = current[fields[i]] as SerializableRecord;
-      }
-
-      return current as ValueType;
-    };
+    return <ValueType=NullableString>(fieldPath: string): ValueType => getValue<ValueType>(
+      this.moment as SerializableRecord,
+      fieldPath,
+    );
   }
 
   get group() {
@@ -229,6 +226,14 @@ export default class MomentStore<T = MomentData> {
     return this.moment.type;
   }
 
+  get typographyFormatter(): SerializableRecord {
+    return {
+      ...this.story.typographyFormatter,
+      moment: this.moment,
+      momentStore: this,
+    };
+  }
+
   getRelativeHeight(value: number, algorithm?: 'absolute' | 'percentage') {
     return this.moments.getRelativeHeight(value, algorithm);
   }
@@ -243,6 +248,10 @@ export default class MomentStore<T = MomentData> {
 
   reset() {
     this.moment = deepCopy(this.initialMoment);
+  }
+
+  setMuiTheme(theme: Partial<Theme>) {
+    this.muiTheme = theme;
   }
 
   toJSON() {

@@ -6,7 +6,7 @@ import styles from './Content.styles';
 import type { ButtonContentBlockProps } from './Content.types';
 
 export default function ButtonContentBlock({ contentBlock, sx }: ButtonContentBlockProps) {
-  const { backgroundSx, button } = contentBlock;
+  const { background_sx: backgroundSx, button } = contentBlock;
 
   return (
     <Box sx={deepMerge(deepMerge(styles.buttonBlock, backgroundSx), sx)}>

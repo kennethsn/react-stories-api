@@ -16,6 +16,9 @@ const styles = {
     transform: 'translate(-50%, -50%)',
     width: 400,
   },
+  learnMoreButton: {
+    mt: 2,
+  },
 };
 
 export default styles;

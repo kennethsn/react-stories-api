@@ -1,3 +1,4 @@
+import { toJS } from 'mobx';
 import { observer } from 'mobx-react-lite';
 
 import { cleanInputValue, toString } from '../../../utils/string';
@@ -8,10 +9,16 @@ const BoundTypography = observer(<T extends string>({
   computed,
   disabled,
   field,
+  formatter,
   required,
   store,
   ...props
 }: BoundTypographyProps<T>) => {
+  const hasFormatter = Boolean(formatter || store.typographyFormatter);
+  const mergedFormatter = hasFormatter ? {
+    ...(toJS(store.typographyFormatter) || {}),
+    ...(formatter || {}),
+  } : undefined;
   const getValue = () => toString(computed ? store[field as never] : store.getField(field));
 
   const handleBlur = (value: string) => {
@@ -26,6 +33,7 @@ const BoundTypography = observer(<T extends string>({
       // eslint-disable-next-line react/jsx-props-no-spreading
       {...props}
       disabled={disabled || !store.isEditable}
+      formatter={mergedFormatter}
       onBlur={handleBlur}
       required={required}
       value={getValue()}

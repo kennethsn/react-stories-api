@@ -1,15 +1,16 @@
 import { HATHI_TRUST_LOGO_URL, WIKIDATA_LOGO_URL, WIKIPEDIA_LOGO_URL } from '../constants';
-import AwardMomentStore from '../state/moments/awardMomentStore';
+import AwardsMomentStore from '../state/moments/awardsMomentStore';
 import CardsContentMomentStore from '../state/moments/cardsContentMomentStore';
 import GalleryMomentStore from '../state/moments/galleryMomentStore';
 import GeoMomentStore from '../state/moments/geoMapMomentStore';
 import HathiTrustMomentStore from '../state/moments/hathiTrustMomentStore';
 import HTMLMomentStore from '../state/moments/htmlMomentStore';
-import IdBadgeMomentStore from '../state/moments/idBadgeMomentStore';
+import IdBadgesMomentStore from '../state/moments/idBadgesMomentStore';
 import IFrameMomentStore from '../state/moments/iframeMomentStore';
 import ImageMomentStore from '../state/moments/imageMomentStore';
 import LibraryMomentStore from '../state/moments/libraryMomentStore';
 import MarkdownMomentStore from '../state/moments/markdownMomentStore';
+import MiradorMomentStore from '../state/moments/miradorMomentStore';
 import PDFMomentStore from '../state/moments/pdfMomentStore';
 import StatsMomentStore from '../state/moments/statsMomentStore';
 import StoriesMomentStore from '../state/moments/storiesMomentStore';
@@ -33,10 +34,10 @@ export type MomentConfig = {
 export type IMomentConfigMap = Record<MomentType, MomentConfig>;
 
 const MomentConfigMap: Record<MomentType, MomentConfig> = {
-  award: {
-    component: 'AwardMoment',
+  awards: {
+    component: 'AwardsMoment',
     icon: { name: 'trophy', type: 'mui' },
-    store: AwardMomentStore.build,
+    store: AwardsMomentStore.build,
   },
   cardsContent: {
     component: 'CardsContentMoment',
@@ -63,10 +64,10 @@ const MomentConfigMap: Record<MomentType, MomentConfig> = {
     icon: { name: 'code', type: 'mui' },
     store: HTMLMomentStore.build,
   },
-  idBadge: {
-    component: 'IdBadgeMoment',
+  idBadges: {
+    component: 'IdBadgesMoment',
     icon: { name: 'badge', type: 'mui' },
-    store: IdBadgeMomentStore.build,
+    store: IdBadgesMomentStore.build,
   },
   iframe: {
     component: 'IFrameMoment',
@@ -80,13 +81,18 @@ const MomentConfigMap: Record<MomentType, MomentConfig> = {
   },
   library: {
     component: 'LibraryMoment',
-    icon: { name: 'library', type: 'mui' },
+    icon: { name: 'newsstand', type: 'mui' },
     store: LibraryMomentStore.build,
   },
   markdown: {
     component: 'MarkdownMoment',
     icon: { name: 'markdown', type: 'mui' },
     store: MarkdownMomentStore.build,
+  },
+  mirador: {
+    component: 'MiradorMoment',
+    icon: { name: 'photo_frame', type: 'mui' },
+    store: MiradorMomentStore.build,
   },
   pdf: {
     component: 'PDFMoment',

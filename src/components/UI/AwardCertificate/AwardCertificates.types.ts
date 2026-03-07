@@ -1,10 +1,10 @@
 import type { SxProps, Theme } from '@mui/material/styles';
 
-import AwardMomentStore from '../../../state/moments/awardMomentStore';
+import AwardsMomentStore from '../../../state/moments/awardsMomentStore';
 import { Award } from '../../../types';
 
 export type AwardCertificateProps = {
-  moment?: AwardMomentStore;
+  moment?: AwardsMomentStore;
   readonly award: Award;
   readonly sx?: SxProps<Theme>;
 };

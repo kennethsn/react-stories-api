@@ -1,3 +1,4 @@
+import { useTheme } from '@mui/material';
 import Box from '@mui/material/Box';
 import Collapse from '@mui/material/Collapse';
 import { observer } from 'mobx-react-lite';
@@ -25,9 +26,11 @@ const MomentLayout = observer(({
   const ref = useRef<HTMLDivElement>(null);
   const [headerIsCollapsed, setHeaderIsCollapsed] = useState(false);
   const moments = useMoments();
+  const muiTheme = useTheme();
   const { layoutIsDesktop } = useStoryTheme();
   useOnLoad(() => {
     moments.setMomentRef(moment, ref);
+    moment.setMuiTheme(muiTheme);
   });
 
   const handleHeaderCollapseButtonClick = (collapsed: boolean) => setHeaderIsCollapsed(collapsed);

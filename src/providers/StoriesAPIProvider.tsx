@@ -13,9 +13,11 @@ import '@fontsource/roboto/900.css';
 import '@fontsource/roboto/900-italic.css';
 import 'react-photo-view/dist/react-photo-view.css';
 import 'swiper/css';
+import 'swiper/css/free-mode';
 import 'swiper/css/pagination';
 import 'swiper/css/parallax';
 import 'swiper/css/navigation';
+import 'swiper/css/effect-cards';
 import 'swiper/css/effect-coverflow';
 import 'swiper/css/virtual';
 
