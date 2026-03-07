@@ -14,6 +14,7 @@ import type {
   EditableCollectionKey,
   MutableCollection,
   SaveStatus,
+  SerializableRecord,
   StoriesAPIStatus,
   StoriesAPIStoriesResponse,
 } from '../types';
@@ -273,6 +274,13 @@ export default class CollectionStore {
       ?? this.storiesAPIResponse?.total_count
       ?? this.storiesCount
     );
+  }
+
+  get typographyFormatter(): SerializableRecord {
+    return {
+      collection: this.collection,
+      collectionStore: this,
+    };
   }
 
   get sourceIsAPI() {

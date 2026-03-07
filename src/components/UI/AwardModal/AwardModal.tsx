@@ -33,7 +33,7 @@ const AwardModal = observer(({ moment }: AwardModalProps) => {
         </IconButton>
 
         <Typography gutterBottom variant="h5">
-          {award.label}
+          {award.title}
         </Typography>
 
         <Typography gutterBottom variant="subtitle1">

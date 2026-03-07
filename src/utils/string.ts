@@ -1,5 +1,6 @@
 import { FORMATTER_TEMPLATE_REGEX } from '../constants';
-import type { SerializeableValue } from '../types';
+import type { SerializableRecord, SerializeableValue } from '../types';
+import { getValue } from './object';
 
 type FormattedArrayItem = {
   key?: string;
@@ -21,13 +22,22 @@ export const cleanInputValue = (value: string, originalValue?: string) => {
 };
 
 // Stories API Template Language is to use curly braces to interpolate values into strings.
-// For example, 'Welcome to the {story_label} Story'
+// For example, 'Welcome to the {story.label} Story'
 export const formatString = (
   templateStr: string,
-  values: Record<string, string | number | boolean>,
-) => (
-  templateStr.replace(FORMATTER_TEMPLATE_REGEX, (match, key) => values[key]?.toString() || match)
-);
+  values: SerializableRecord,
+): string => {
+  let prev: string;
+  let current = templateStr;
+  do {
+    prev = current;
+    current = current.replace(FORMATTER_TEMPLATE_REGEX, (match, key) => {
+      const value = getValue<string>(values, key);
+      return (value !== undefined && value !== null) ? String(value) : match;
+    });
+  } while (current !== prev);
+  return current;
+};
 
 export const getFormattedArray = (template: string, values: Record<string, string>) => {
   const result: FormattedArrayItem[] = [];

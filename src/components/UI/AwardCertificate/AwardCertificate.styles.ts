@@ -60,8 +60,7 @@ const styles = {
     color,
     mb: 1,
   }),
-
-  name: {
+  recipient: {
     fontSize: '1.5rem',
     fontWeight: 700,
   },
@@ -73,7 +72,7 @@ const styles = {
     fontSize: '1rem',
     mt: 0.5,
   },
-  label: {
+  title: {
     fontSize: '0.95rem',
     mt: 0.5,
   },

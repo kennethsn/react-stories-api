@@ -1,4 +1,4 @@
-import type { SerializableRecord } from '../types';
+import type { NullableString, SerializableRecord } from '../types';
 
 export const deepCopy = <T>(obj: T): T => JSON.parse(JSON.stringify(obj));
 
@@ -23,6 +23,35 @@ export const deepMergeMulti = <T>(...objects: (T | Partial<T> | undefined)[]): T
     return {} as T;
   }
   return objects.reduce((mergedObject, obj) => deepMerge(mergedObject, obj)) as T;
+};
+
+export const getValue = <ValueType = NullableString>(
+  obj: SerializableRecord,
+  fieldPath: string,
+): ValueType => {
+  const fields = fieldPath.split('.');
+  let current: unknown = obj;
+
+  for (let i = 0; i < fields.length; i += 1) {
+    if (current == null) {
+      return undefined as ValueType;
+    }
+    const field = fields[i];
+    // If current is array and field is a number, access by index
+    if (Array.isArray(current) && !Number.isNaN(Number(field))) {
+      current = current[Number(field)];
+    } else if (
+      typeof current === 'object'
+      && current !== null
+      && field in (current as Record<string, unknown>)
+    ) {
+      current = (current as Record<string, unknown>)[field];
+    } else {
+      return undefined as ValueType;
+    }
+  }
+
+  return current as ValueType;
 };
 
 export const objectMap = <T, Q=T>(

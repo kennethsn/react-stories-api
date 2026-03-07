@@ -17,6 +17,7 @@ import 'swiper/css/free-mode';
 import 'swiper/css/pagination';
 import 'swiper/css/parallax';
 import 'swiper/css/navigation';
+import 'swiper/css/effect-cards';
 import 'swiper/css/effect-coverflow';
 import 'swiper/css/virtual';
 

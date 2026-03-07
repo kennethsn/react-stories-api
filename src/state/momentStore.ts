@@ -16,7 +16,7 @@ import type {
   SerializableRecord,
 } from '../types';
 import { buildNoIcon } from '../utils/iconUtils';
-import { deepCopy, updateObject } from '../utils/object';
+import { deepCopy, getValue, updateObject } from '../utils/object';
 import type MomentsStore from './momentsStore';
 
 export default class MomentStore<T = MomentData> {
@@ -62,6 +62,7 @@ export default class MomentStore<T = MomentData> {
       storyId: computed,
       subtitle: computed,
       title: computed,
+      typographyFormatter: computed,
       type: computed,
       updateField: action,
     });
@@ -116,19 +117,10 @@ export default class MomentStore<T = MomentData> {
   }
 
   get getField() {
-    return <ValueType=NullableString>(fieldPath: string): ValueType => {
-      const fields = fieldPath.split('.');
-      let current: SerializableRecord = this.moment;
-
-      for (let i = 0; i < fields.length; i += 1) {
-        if (!current[fields[i]]) {
-          return undefined as ValueType;
-        }
-        current = current[fields[i]] as SerializableRecord;
-      }
-
-      return current as ValueType;
-    };
+    return <ValueType=NullableString>(fieldPath: string): ValueType => getValue<ValueType>(
+      this.moment as SerializableRecord,
+      fieldPath,
+    );
   }
 
   get group() {
@@ -232,6 +224,14 @@ export default class MomentStore<T = MomentData> {
 
   get type() {
     return this.moment.type;
+  }
+
+  get typographyFormatter(): SerializableRecord {
+    return {
+      ...this.story.typographyFormatter,
+      moment: this.moment,
+      momentStore: this,
+    };
   }
 
   getRelativeHeight(value: number, algorithm?: 'absolute' | 'percentage') {

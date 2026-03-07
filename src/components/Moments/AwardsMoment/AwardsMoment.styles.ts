@@ -1,7 +1,6 @@
 const styles = {
   container: {
     backgroundImage: 'url(https://stories-api-public.s3.amazonaws.com/award-moment-background.jpg)',
-
   },
   divider: {
     background: 'rgba(255, 255, 255, 0.45)',

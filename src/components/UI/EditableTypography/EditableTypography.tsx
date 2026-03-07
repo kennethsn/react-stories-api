@@ -11,11 +11,13 @@ import { Else, If, Then } from 'react-if';
 
 import { getThemeColorFromTypographyColor } from '../../../utils/color';
 import { deepMerge } from '../../../utils/object';
+import { formatString } from '../../../utils/string';
 import styles from './EditableTypography.styles';
 import type { EditableTypographyProps } from './EditableTypography.types';
 
 export default function EditableTypography({
   color,
+  formatter,
   fullWidth = true,
   multiline = true,
   onBlur,
@@ -57,7 +59,8 @@ export default function EditableTypography({
   }, [props.disabled]);
 
   const text = (required && !defaultValue) ? 'Enter text...' : defaultValue;
-
+  const formattedText = formatter ? formatString(text, formatter) : text;
+  const displayText = richText ? parse(formattedText) : formattedText;
   return (
     <If condition={isEditing}>
       <Then>
@@ -92,7 +95,7 @@ export default function EditableTypography({
           sx={deepMerge(styles.typography, props.sx)}
           variant={variant}
         >
-          {richText ? parse(text) : text}
+          {displayText}
         </Typography>
       </Else>
     </If>
