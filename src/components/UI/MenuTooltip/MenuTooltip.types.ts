@@ -4,6 +4,7 @@ import type {
 } from 'react';
 
 export type MenuTooltipProps = PropsWithChildren & {
+  readonly hover?: boolean;
   readonly id?: string;
   readonly menuProps?: Omit<PopoverProps, 'anchorEl' | 'id' | 'onClose' | 'open' | 'children'>;
   readonly onClose?: (e: SyntheticEvent) => void;

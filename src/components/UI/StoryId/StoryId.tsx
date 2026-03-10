@@ -10,6 +10,7 @@ import useStoriesAPI from '../../../hooks/useStoriesAPI';
 import useStoriesAPINavigation from '../../../hooks/useStoriesAPINavigation';
 import type { StoryIdActionContext } from '../../../types';
 import { copyToClipboard } from '../../../utils/clipboard';
+import { deepMerge } from '../../../utils/object';
 import MenuTooltip from '../MenuTooltip/MenuTooltip';
 import {
   buildStoryIdActionMap,
@@ -22,6 +23,7 @@ import type { StoryIdProps } from './StoryId.types';
 const StoryId = observer(({
   actions: actionsProp,
   externalUrl,
+  menuTooltipProps,
   story,
   variant = 'caption',
   ...typographyProps
@@ -78,6 +80,22 @@ const StoryId = observer(({
     onGoToExternal: handleGoToExternal,
     onGoToStory: handleGoToStory,
   });
+  const {
+    menuProps: customMenuProps,
+    stopPropagation: customStopPropagation,
+    ...restMenuTooltipProps
+  } = menuTooltipProps ?? {};
+  const menuProps = deepMerge({
+    anchorOrigin: {
+      vertical: 'bottom',
+      horizontal: 'left',
+    },
+    transformOrigin: {
+      vertical: 'top',
+      horizontal: 'left',
+    },
+  }, customMenuProps ?? {});
+  const stopPropagation = customStopPropagation ?? true;
   const actions = getStoryIdActions(actionsProp, customActionMap);
   const enabledActions = getEnabledStoryIdActions({
     actions,
@@ -89,17 +107,8 @@ const StoryId = observer(({
   return (
     <MenuTooltip
       id={menuId}
-      menuProps={{
-        anchorOrigin: {
-          vertical: 'bottom',
-          horizontal: 'left',
-        },
-        transformOrigin: {
-          vertical: 'top',
-          horizontal: 'left',
-        },
-      }}
-      stopPropagation
+      menuProps={menuProps}
+      stopPropagation={stopPropagation}
       trigger={(
         <Typography
           sx={triggerSx}
@@ -110,6 +119,8 @@ const StoryId = observer(({
           {story.id}
         </Typography>
       )}
+      // eslint-disable-next-line react/jsx-props-no-spreading
+      {...restMenuTooltipProps}
     >
       {enabledActions.map((actionConfig) => {
         if (!actionConfig) {

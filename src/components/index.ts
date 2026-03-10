@@ -26,5 +26,6 @@ export * from './UI/SearchInput';
 export * from './UI/StatusPage';
 export * from './UI/StoryId';
 export * from './UI/ThemeOverride';
+export * from './UI/Timeline';
 export * from './UI/Tooltip';
 export * from './UI/TypographyBadge';

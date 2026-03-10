@@ -6,6 +6,7 @@ import type { MenuActionButtonProps } from './MenuActionButton.types';
 
 const MenuActionButton = observer(({
   children,
+  hover,
   menuProps,
   onClose,
   onOpen,
@@ -17,6 +18,7 @@ const MenuActionButton = observer(({
 
   return (
     <MenuTooltip
+      hover={hover}
       id={id}
       menuProps={menuProps}
       onClose={onClose}

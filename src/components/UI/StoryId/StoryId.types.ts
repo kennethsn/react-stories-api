@@ -7,6 +7,7 @@ import type {
   StoryIdActionDefinition,
   StoryOrSummary,
 } from '../../../types';
+import type { MenuTooltipProps } from '../MenuTooltip/MenuTooltip.types';
 
 export type { StoryIdAction };
 
@@ -41,6 +42,10 @@ export type StoryIdProps = Omit<TypographyProps, 'children'> & {
    * Optional external URL for the "Go to external site" action
    */
   readonly externalUrl?: string;
+  /**
+   * Optional tooltip behavior/settings for the menu trigger.
+   */
+  readonly menuTooltipProps?: Pick<MenuTooltipProps, 'hover' | 'menuProps' | 'onClose' | 'onOpen' | 'stopPropagation'>;
   /**
    * The story or story summary object
    */

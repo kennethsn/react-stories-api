@@ -6,6 +6,7 @@ import {
   type MouseEvent,
   type SyntheticEvent,
   useId,
+  useRef,
   useState,
 } from 'react';
 
@@ -17,6 +18,7 @@ import type { MenuTooltipProps } from './MenuTooltip.types';
 
 const MenuTooltip = observer(({
   children,
+  hover: isHoverMode,
   id: customId,
   menuProps,
   onOpen,
@@ -29,6 +31,7 @@ const MenuTooltip = observer(({
   const { sx: menuSx, ...restMenuProps } = menuProps ?? {};
   const generatedId = useId();
   const id = customId ?? `menu-tooltip-${generatedId}`;
+  const closeTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const handleTriggerClick = (event: MouseEvent<HTMLElement>) => {
     if (shouldStopPropagation) {
@@ -37,6 +40,29 @@ const MenuTooltip = observer(({
     onOpen?.(event);
     setAnchorEl(event.currentTarget);
     menus.open(id);
+  };
+
+  const handleTriggerMouseEnter = (event: MouseEvent<HTMLElement>) => {
+    if (closeTimeoutRef.current) {
+      clearTimeout(closeTimeoutRef.current);
+    }
+    if (shouldStopPropagation) {
+      stopEventPropagation(event);
+    }
+    onOpen?.(event);
+    setAnchorEl(event.currentTarget);
+    menus.open(id);
+  };
+
+  const handleTriggerMouseLeave = (event: SyntheticEvent) => {
+    closeTimeoutRef.current = setTimeout(() => {
+      if (shouldStopPropagation) {
+        stopEventPropagation(event);
+      }
+      menus.close();
+      onClose?.(event);
+      setAnchorEl(null);
+    }, 200);
   };
 
   const handleMenuClose = (event: SyntheticEvent) => {
@@ -61,15 +87,44 @@ const MenuTooltip = observer(({
     handleTriggerClick(event as unknown as MouseEvent<HTMLElement>);
   };
 
+  const handlePopoverMouseEnter = () => {
+    if (closeTimeoutRef.current) {
+      clearTimeout(closeTimeoutRef.current);
+    }
+  };
+
+  const handlePopoverMouseLeave = (event: SyntheticEvent) => {
+    if (isHoverMode) {
+      closeTimeoutRef.current = setTimeout(() => {
+        if (shouldStopPropagation) {
+          stopEventPropagation(event);
+        }
+        menus.close();
+        onClose?.(event);
+        setAnchorEl(null);
+      }, 200);
+    }
+  };
+
+  const triggerProps = isHoverMode
+    ? {
+      onMouseEnter: handleTriggerMouseEnter,
+      onMouseLeave: handleTriggerMouseLeave,
+    }
+    : {
+      onClick: handleTriggerClick,
+      onKeyDown: handleTriggerKeyDown,
+    };
+
   return (
     <>
       <Box
         component="span"
-        onClick={handleTriggerClick}
-        onKeyDown={handleTriggerKeyDown}
         role="button"
         sx={styles.trigger}
-        tabIndex={0}
+        tabIndex={isHoverMode ? -1 : 0}
+        // eslint-disable-next-line react/jsx-props-no-spreading
+        {...triggerProps}
       >
         {trigger}
       </Box>
@@ -80,6 +135,8 @@ const MenuTooltip = observer(({
         onClick={handleMenuClick}
         onClose={handleMenuClose}
         onMouseDown={handleMenuClick}
+        onMouseEnter={isHoverMode ? handlePopoverMouseEnter : undefined}
+        onMouseLeave={isHoverMode ? handlePopoverMouseLeave : undefined}
         open={menus.menuIsOpen(id)}
         sx={deepMerge(styles.popover, menuSx)}
         // eslint-disable-next-line react/jsx-props-no-spreading

@@ -47,6 +47,15 @@ export const WithExternalLink: Story = {
   },
 };
 
+export const WithHoverTooltip: Story = {
+  args: {
+    story: mockStory,
+    menuTooltipProps: {
+      hover: true,
+    },
+  },
+};
+
 export const WithLimitedActions: Story = {
   args: {
     story: mockStory,
