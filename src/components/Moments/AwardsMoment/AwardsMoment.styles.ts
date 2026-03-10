@@ -1,6 +1,20 @@
 const styles = {
   container: {
     backgroundImage: 'url(https://stories-api-public.s3.amazonaws.com/award-moment-background.jpg)',
+    backgroundPosition: 'center',
+    backgroundSize: 'cover',
+    minHeight: 600,
+
+    '@media (max-width: 768px)': {
+      minHeight: 420,
+      paddingBottom: 16,
+      paddingTop: 16,
+    },
+
+    '@media (max-width: 320px)': {
+      paddingBottom: 4,
+      paddingTop: 4,
+    },
   },
   divider: {
     background: 'rgba(255, 255, 255, 0.45)',

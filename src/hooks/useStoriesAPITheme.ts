@@ -14,6 +14,9 @@ const useStoriesAPITheme = (themeOptions?: ThemeOptions) => {
   const muiTheme = mergedThemeOptions ? storiesAPI.theme.overrideTheme(mergedThemeOptions) : theme;
   const breakpointIsMobile = useMediaQuery(muiTheme.breakpoints.down('sm'));
   const isMobile = storiesAPI.theme.getIsMobile(breakpointIsMobile);
+
+  storiesAPI.theme.isMobile = isMobile;
+
   return {
     isDesktop: !isMobile,
     isMobile,

@@ -51,6 +51,14 @@ export default class ThemeStore {
     return this.options.isMobile || defaultValue;
   }
 
+  get isMobile() {
+    return this.options.isMobile ?? false;
+  }
+
+  set isMobile(value: boolean) {
+    this.options.isMobile = value;
+  }
+
   private overrideThemeOptions(themeOptions: ThemeOptions) {
     return deepMerge(this.themeOptions, themeOptions);
   }

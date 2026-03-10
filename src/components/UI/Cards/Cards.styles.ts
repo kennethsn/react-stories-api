@@ -11,12 +11,19 @@ const styles = {
       width: '100%',
 
       '& .cards-carousel-layout-swiper-slide': {
-        maxWidth: '80%',
-        width: 'auto',
+        width: '100%',
+        maxWidth: {
+          xs: '100%',
+          md: '80%',
+        },
 
         '& .swiper-slide-shadow': {
           display: 'none',
         },
+      },
+      '& .swiper-pagination': {
+        position: 'relative',
+        marginTop: '16px',
       },
     },
   },
@@ -24,7 +31,7 @@ const styles = {
     m: 0,
   },
   item: {
-    flexShrink: 0,
+    width: '100%',
   },
   orbitLayoutRoot: {
     alignItems: 'center',

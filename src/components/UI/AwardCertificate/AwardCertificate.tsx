@@ -37,24 +37,26 @@ const AwardCertificate = observer(({ award, moment, sx }: AwardCertificateProps)
         <EmojiEvents fontSize="large" />
       </Box>
 
-      {title ? <Typography sx={styles.title}>{title}</Typography> : null}
+      <Box sx={styles.content}>
+        {title ? <Typography sx={styles.title}>{title}</Typography> : null}
 
-      {subtitle ? <Typography sx={styles.subtitle}>{subtitle}</Typography> : null}
+        {subtitle ? <Typography sx={styles.subtitle}>{subtitle}</Typography> : null}
 
-      {description ? <Typography sx={styles.description}>{description}</Typography> : null}
+        {description ? <Typography sx={styles.description}>{description}</Typography> : null}
 
-      {recipient ? <Typography sx={styles.recipient}>{recipient}</Typography> : null}
+        {recipient ? <Typography sx={styles.recipient}>{recipient}</Typography> : null}
 
-      {conferredBy ? (
-        <Typography sx={styles.conferredBy}>
-          Conferred by
-          {' '}
+        {conferredBy ? (
+          <Typography sx={styles.conferredBy}>
+            Conferred by
+            {' '}
 
-          {conferredBy.title || conferredBy.label}
-        </Typography>
-      ) : null}
+            {conferredBy.title || conferredBy.label}
+          </Typography>
+        ) : null}
 
-      {year ? <Typography sx={styles.year}>{year}</Typography> : null}
+        {year ? <Typography sx={styles.year}>{year}</Typography> : null}
+      </Box>
     </Box>
   );
 });

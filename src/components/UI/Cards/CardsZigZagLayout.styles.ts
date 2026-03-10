@@ -51,8 +51,12 @@ const styles = {
   },
 
   zigZagGrid: {
-    marginTop: '-25px',
+    flexDirection: { xs: 'column', md: 'row' },
+    maxWidth: '1200px',
+    marginLeft: 'auto',
+    marginRight: 'auto',
     position: 'relative',
+    textAlign: { xs: 'center', md: 'inherit' },
     zIndex: 1,
   },
 
@@ -60,13 +64,15 @@ const styles = {
     alignItems: 'center',
     display: 'flex',
     justifyContent: 'center',
-    maxWidth: 400,
+    marginBottom: { xs: 2, md: 0 },
+    maxWidth: { xs: '100%', md: 400 },
     transformStyle: 'preserve-3d',
     transition: 'transform 0.4s ease, box-shadow 0.4s ease',
   },
 
   zigZagCaption: {
     container: {
+      overflowWrap: 'break-word',
       textAlign: 'center',
       width: '100%',
       marginBottom: '12px',
@@ -104,6 +110,7 @@ const styles = {
       '&:hover': {
         backgroundColor: 'primary.dark',
       },
+      wordBreak: 'break-word',
     },
   },
 };

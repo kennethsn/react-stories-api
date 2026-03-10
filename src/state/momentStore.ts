@@ -246,6 +246,10 @@ export default class MomentStore<T = MomentData> {
     this.moments.onEdit();
   }
 
+  protected get root() {
+    return this.moments.root;
+  }
+
   reset() {
     this.moment = deepCopy(this.initialMoment);
   }

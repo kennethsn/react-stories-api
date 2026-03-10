@@ -12,10 +12,16 @@ const styles = {
     flexDirection: 'column',
     height: '250px',
     justifyContent: 'center',
+    maxWidth: '100%',
+    minHeight: 250,
     position: 'relative',
     textAlign: 'center',
-    width: '400px',
+    width: { xs: '100%', sm: 360, md: 400 },
   } as SxProps<Theme>,
+
+  content: {
+    maxWidth: '90%',
+  },
 
   corner: {
     topLeft: (color: string) => ({
@@ -61,15 +67,15 @@ const styles = {
     mb: 1,
   }),
   recipient: {
-    fontSize: '1.5rem',
+    fontSize: { xs: '1.2rem', sm: '1.5rem' },
     fontWeight: 700,
   },
   subtitle: {
-    fontSize: '1.2rem',
+    fontSize: { xs: '1rem', sm: '1.2rem' },
     fontWeight: 500,
   },
   description: {
-    fontSize: '1rem',
+    fontSize: { xs: '0.9rem', sm: '1rem' },
     mt: 0.5,
   },
   title: {
