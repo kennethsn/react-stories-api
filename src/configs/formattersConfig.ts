@@ -7,6 +7,7 @@ const defaultFormatters: StoriesAPIFormatters = {
   momentPath: '/collections/{collection_id}/stories/{story_id}?moment={moment_id}',
   momentQueryParamKey: 'moment',
   storyCollectionButtonLabel: 'Explore More Stories',
+  storyExternalUrl: '',
   storyPageTitle: '{story_label} - {collection_name}',
   storyPath: '/collections/{collection_id}/stories/{story_id}',
 };

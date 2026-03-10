@@ -24,11 +24,13 @@ export default class MomentStore<T = MomentData> {
 
   moment: MutableMoment<T>;
 
+  moments: MomentsStore;
+
   muiTheme: Partial<Theme>;
 
   refreshKey: number = 0;
 
-  constructor(private moments: MomentsStore, moment: Moment<T>) {
+  constructor(moments: MomentsStore, moment: Moment<T>) {
     makeObservable(this, {
       av: computed,
       caption: computed,
@@ -60,6 +62,7 @@ export default class MomentStore<T = MomentData> {
       isPlaying: computed,
       label: computed,
       moment: observable,
+      moments: observable,
       muiTheme: observable,
       refreshKey: observable,
       story: computed,

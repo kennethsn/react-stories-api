@@ -32,7 +32,6 @@ const MomentNavigator = observer(() => {
   return (
     <Grid
       container
-      spacing={2}
       sx={styles.root}
     >
       <When condition={story.hasBranding}>

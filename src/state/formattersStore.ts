@@ -56,6 +56,13 @@ export default class FormattersStore {
     return formatString(this.formatters.collectionPageTitle, options);
   }
 
+  formatExternalStoryUrl(options: {
+    readonly collection_id: CollectionId;
+    readonly story_id: StoryId;
+  }) {
+    return formatString(this.formatters.storyExternalUrl, options);
+  }
+
   formatStoryPageTitle(options: {
     readonly collection_id: CollectionId;
     readonly collection_name: string;

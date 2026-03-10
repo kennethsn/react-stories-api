@@ -1,9 +1,6 @@
-import type { SxProps, Theme } from '@mui/material';
-import type { PropsWithChildren } from 'react';
+import type { TypographyBadgeProps } from '../TypographyBadge/TypographyBadge.types';
 
-export type ContainerBadgeProps = PropsWithChildren & {
-  readonly color?: 'primary' | 'secondary';
-  readonly offset?: number;
+export type ContainerBadgeProps = TypographyBadgeProps & {
   readonly direction?: 'left' | 'right';
-  readonly sx?: SxProps<Theme>;
+  readonly offset?: number;
 };

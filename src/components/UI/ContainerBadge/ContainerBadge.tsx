@@ -1,22 +1,20 @@
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-
+import { classNames } from '../../../utils/dom';
+import TypographyBadge from '../TypographyBadge/TypographyBadge';
 import styles from './ContainerBadge.styles';
 import type { ContainerBadgeProps } from './ContainerBadge.types';
 
 export default function ContainerBadge(props: ContainerBadgeProps) {
-  const { children } = props;
+  const {
+    children, className, color, textSx,
+  } = props;
   return (
-    <Box
-      className="container-badge"
+    <TypographyBadge
+      className={classNames('container-badge', className)}
+      color={color}
       sx={styles.root(props) as never}
+      textSx={textSx}
     >
-      <Typography
-        sx={styles.text}
-        variant="overline"
-      >
-        {children}
-      </Typography>
-    </Box>
+      {children}
+    </TypographyBadge>
   );
 }

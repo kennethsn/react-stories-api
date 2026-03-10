@@ -16,14 +16,18 @@ const StoriesAPICollections = observer(({
   featured,
   layout,
   projectId,
+  showStoryId,
   statuses,
+  storyIdActions,
   sx,
 }: StoriesAPICollectionsProps) => {
   const collections = useCollections();
   const options = {
     featured,
     projectId,
+    showStoryId,
     statuses,
+    storyIdActions,
   };
   useEffect(() => autorun(() => {
     collections.loadCollections(options);

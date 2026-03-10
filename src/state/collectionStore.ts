@@ -17,6 +17,7 @@ import type {
   SerializableRecord,
   StoriesAPIStatus,
   StoriesAPIStoriesResponse,
+  StoryIdAction,
 } from '../types';
 import { buildDynamicGridSize } from '../utils/grid';
 import { deepCopy, removeNullishValues } from '../utils/object';
@@ -40,8 +41,10 @@ export type CollectionStoreOptions = {
   readonly pageSize?: number;
   readonly searchInput?: string;
   readonly showLocaleSelector?: boolean;
+  readonly showStoryId?: boolean;
   readonly slots?: { [key: string]: FC<Omit<CollectionSlotProps, 'component'>> };
   readonly source?: DataSource;
+  readonly storyIdActions?: StoryIdAction[];
 };
 
 export default class CollectionStore {
@@ -232,6 +235,14 @@ export default class CollectionStore {
     return this.searchIsEnabled || this.totalStoriesCount > 1;
   }
 
+  get shouldShowStoryId() {
+    return !!this.options.showStoryId;
+  }
+
+  get storyIdActions() {
+    return this.options.storyIdActions;
+  }
+
   get slots() {
     return this.options.slots;
   }
@@ -346,10 +357,10 @@ export default class CollectionStore {
     return !!this.slots?.[slot];
   }
 
-  async loadStories() {
+  async loadStories(bypassCache: boolean = false) {
     this.startLoadingStories();
     const options = this.getQueryParams();
-    const storiesAPIResponse = await this.root.api.getStories(this.id, options);
+    const storiesAPIResponse = await this.root.api.getStories(this.id, options, bypassCache);
     runInAction(() => {
       this.setStoriesAPIResponse(storiesAPIResponse);
       this.stopLoadingStories();
@@ -397,9 +408,9 @@ export default class CollectionStore {
     }
   }
 
-  async searchStories() {
+  async searchStories(_query: string, bypassCache: boolean = false) {
     this.resetPage();
-    await this.loadStories();
+    await this.loadStories(bypassCache);
     await this.options.onSearch?.(this.search.query, this);
     return this.storiesCount;
   }

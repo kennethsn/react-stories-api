@@ -1,4 +1,7 @@
 const styles = {
+  badge: {
+    m: 0,
+  },
   description: {
     fontSize: '0.8rem',
   },
@@ -14,6 +17,10 @@ const styles = {
   },
   label: {
     fontSize: { xs: '1.05rem', md: '1.15rem' },
+
+    '.StoryCardLabelText': {
+      mr: 0.5,
+    },
   },
   root: {
     whiteSpace: 'pre-wrap',
@@ -26,6 +33,9 @@ const styles = {
         opacity: 1,
       },
     },
+  },
+  storyId: {
+    mt: 0.5,
   },
 };
 

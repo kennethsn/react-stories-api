@@ -2,6 +2,7 @@ import type { ButtonProps } from '@mui/material/Button';
 import type { SxProps, Theme } from '@mui/material/styles';
 import type { TypographyProps } from '@mui/material/Typography';
 import type { GeoJSONFeature } from 'maplibre-gl';
+import type { ComponentType, ReactNode } from 'react';
 
 import type { THEME_COLOR_OPTIONS } from './constants';
 
@@ -146,7 +147,7 @@ export type DataSource = 'api' | 'local';
 
 export type EditableCollectionKey = 'badge' | 'description' | 'image' | 'name' | 'status' | 'subtitle';
 
-export type EditableStoryKey = 'description' | 'image' | 'is_featured' | 'label' | 'moments' | 'status';
+export type EditableStoryKey = 'badge' | 'description' | 'image' | 'is_featured' | 'label' | 'moments' | 'status';
 
 export type GalleryMomentData = {
   readonly fit?: MomentContentFit;
@@ -501,22 +502,64 @@ export type RichTextContentBlock = BaseContentBlock<'RICH_TEXT', {
 export type SaveStatus = 'FAILED' | 'SAVING' | 'SUCCESS';
 
 export type SearchFacet = {
+  readonly bounds?: SearchFacetBounds;
+  readonly data_type?: SearchFacetDataType;
+  readonly description?: NullableString;
+  readonly fill_rate: number;
   readonly key: string;
   readonly label?: NullableString;
-  readonly fill_rate: number;
+  readonly selector_type?: SearchFacetSelectorType;
   readonly value_refs: SearchFacetValueRef[];
 };
+
+export type SearchFacetBounds = {
+  readonly max?: Nullable<number>;
+  readonly min?: Nullable<number>;
+};
+
+export type SearchFacetDataType =
+    | 'date'
+    | 'date_array'
+    | 'float'
+    | 'integer'
+    | 'string'
+    | 'string_array';
+
+export type SearchFacetDateRangeValue = {
+  readonly end?: NullableString;
+  readonly start?: NullableString;
+};
+
+export type SearchFacetNumberRangeValue = {
+  readonly max?: Nullable<number>;
+  readonly min?: Nullable<number>;
+};
+
+export type SearchFacetSelectorType =
+    | 'checkbox'
+    | 'date_range'
+    | 'number'
+    | 'number_range'
+    | 'year_range';
+
+export type SearchFacetValue =
+  | SearchFacetDateRangeValue
+  | SearchFacetNumberRangeValue
+  | number
+  | string
+  | string[];
 
 export type SearchFacets = SearchFacet[];
 
 export type SearchFacetValueRef = {
   readonly count: number;
+  readonly description?: NullableString;
   readonly fill_rate: number;
   readonly label?: NullableString;
   readonly value: string;
 };
 
-export type SelectedSearchFacets = Record<string, string[]>;
+export type SelectedSearchFacets = Record<string, SearchFacetValue>;
 
 export type SerializableRecord = Record<string, SerializeableValue>;
 
@@ -574,6 +617,7 @@ export type StoriesAPIFormatters = {
   readonly momentPath: string;
   readonly momentQueryParamKey: string;
   readonly storyCollectionButtonLabel: string; // KSN TODO: add support for this
+  readonly storyExternalUrl: string;
   readonly storyPageTitle: string;
   readonly storyPath: string;
 };
@@ -601,7 +645,7 @@ export type StoriesAPIListResponse<T> = {
   readonly total_count: number;
 } & T;
 
-export type StoriesAPIStatus = 'ARCHIVED' | 'DRAFT' | 'PREVIEW' | 'PUBLISHED';
+export type StoriesAPIStatus = 'ARCHIVED' | 'DRAFT' | 'PREVIEW' | 'PUBLISHED' | 'UNLISTED';
 
 export type StoriesAPIStoriesQueryParams = {
   readonly page?: number;
@@ -619,6 +663,7 @@ export type StoriesMomentData = CardsBaseMomentData<{
 }>;
 
 export type Story = {
+  readonly badge?: NullableString;
   readonly collection_id: CollectionId;
   readonly collection_name: string;
   readonly description?: NullableString;
@@ -631,6 +676,33 @@ export type Story = {
 };
 
 export type StoryId = Story['id'];
+
+export type StoryIdAction = StoryIdActionName | StoryIdCustomAction;
+
+export type StoryIdActionConfig = StoryIdActionDefinition & {
+  readonly name: string;
+  readonly icon?: ComponentType<{ sx?: SxProps<Theme> }>;
+};
+
+export type StoryIdActionContext = {
+  readonly closeMenu: () => void;
+  readonly story: StoryOrSummary;
+};
+
+export type StoryIdActionDefinition = {
+  readonly disabled?: boolean | ((context: StoryIdActionContext) => boolean);
+  readonly icon?: ComponentType<{ sx?: SxProps<Theme> }>;
+  readonly label: string;
+  readonly onClick?: (context: StoryIdActionContext) => void | Promise<void>;
+  readonly render?: (context: StoryIdActionContext) => ReactNode;
+  readonly visible?: boolean | ((context: StoryIdActionContext) => boolean);
+};
+
+export type StoryIdActionName = 'story' | 'external-link' | 'clipboard' | (string & Record<string, never>);
+
+export type StoryIdCustomAction = StoryIdActionDefinition & {
+  readonly name: string;
+};
 
 export type StoryOrSummary = Story | StorySummary;
 

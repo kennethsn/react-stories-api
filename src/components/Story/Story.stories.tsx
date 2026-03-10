@@ -55,6 +55,7 @@ export const SampleStory = {
     story: storyData,
     editable: true,
     showLocaleSelector: true,
+    showStoryId: true,
   },
 };
 
