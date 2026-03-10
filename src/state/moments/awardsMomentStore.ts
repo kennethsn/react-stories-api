@@ -38,12 +38,38 @@ export default class AwardsMomentStore extends CardsBaseMomentStore<AwardsMoment
     return this.moment.data?.awards ?? [];
   }
 
+  get isMobile() {
+    return this.root.theme.getIsMobile(false);
+  }
+
   get items(): Award[] {
     return this.data?.awards ?? [];
   }
 
   get layout() {
-    return this.data.layout || 'orbit';
+    const baseLayout = this.data.layout || 'orbit';
+
+    if (this.isMobile && baseLayout === 'orbit') {
+      return 'carousel';
+    }
+
+    return baseLayout;
+  }
+
+  get layoutOptions() {
+    const baseOptions = this.data.layout_options ?? {};
+
+    if (this.root.theme.getIsMobile(false)) {
+      return {
+        ...baseOptions,
+        slides_per_view: 1,
+        slide_gap: 8,
+        show_navigation: true,
+        show_pagination: false,
+      };
+    }
+
+    return baseOptions;
   }
 
   handleSetActiveItemIndex(index: number) {

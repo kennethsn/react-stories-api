@@ -1,3 +1,4 @@
+import { useMediaQuery, useTheme } from '@mui/material';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid2';
 import React, { isValidElement } from 'react';
@@ -12,6 +13,8 @@ export default function CardsZigZagLayout({
   keyFn,
   sx,
 }: CardsLayoutProps) {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const cards = React.Children.toArray(children);
 
   type CaptionBlock =
@@ -82,31 +85,32 @@ export default function CardsZigZagLayout({
             <Grid
               alignItems="center"
               container
-              justifyContent={isEven ? 'flex-start' : 'flex-end'}
-              spacing={4}
-              sx={styles.zigZagGrid}
+              justifyContent={{ xs: 'center', md: 'space-between' }}
+              spacing={isMobile ? 2 : 4}
+              sx={{
+                ...styles.zigZagGrid,
+                flexDirection: {
+                  xs: 'column',
+                  md: isEven ? 'row' : 'row-reverse',
+                },
+              }}
             >
-              {isEven ? (
-                <>
-                  <Grid size={{ xs: 12, md: 5 }}>{renderCaption}</Grid>
 
-                  <Grid size={{ xs: 12, md: 7 }}>
-                    <CardsItem disableAnimation sx={styles.zigZagCard}>
-                      {card}
-                    </CardsItem>
-                  </Grid>
-                </>
-              ) : (
-                <>
-                  <Grid size={{ xs: 12, md: 7 }}>
-                    <CardsItem disableAnimation sx={styles.zigZagCard}>
-                      {card}
-                    </CardsItem>
-                  </Grid>
+              <Grid size={{ xs: 12, md: isEven ? 7 : 5 }}>
+                <CardsItem disableAnimation sx={styles.zigZagCard}>
+                  {card}
+                </CardsItem>
+              </Grid>
 
-                  <Grid size={{ xs: 12, md: 5 }}>{renderCaption}</Grid>
-                </>
-              )}
+              <Grid
+                size={{ xs: 12, md: isEven ? 5 : 7 }}
+                sx={{
+                  mt: { xs: 2, md: 0 },
+                  minWidth: 0,
+                }}
+              >
+                {renderCaption}
+              </Grid>
             </Grid>
           </Box>
         );
