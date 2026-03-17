@@ -7,13 +7,15 @@ type Options = {
 
 export default function useElementIsVisible(ref: RefObject<Element>, { persist, rootMargin = '0px' }: Options = {}) {
   const [isIntersecting, setIsIntersecting] = useState(false);
+
   useEffect(() => {
+    let observer: IntersectionObserver | undefined;
     const timer = setTimeout(() => {
-      const observer = new IntersectionObserver(
+      const createdObserver = new IntersectionObserver(
         ([entry]) => {
           if (entry.isIntersecting) {
             if (persist) {
-              observer.disconnect();
+              createdObserver.disconnect();
             }
             setIsIntersecting(true);
             return;
@@ -25,21 +27,20 @@ export default function useElementIsVisible(ref: RefObject<Element>, { persist, 
         },
         { rootMargin },
       );
+      observer = createdObserver;
       const { current } = ref;
       if (current) {
-        observer.observe(current);
+        createdObserver.observe(current);
       }
-      return () => {
-        if (ref.current) {
-          observer.unobserve(ref.current);
-        }
-      };
     }, 200);
 
     return () => {
       clearTimeout(timer);
+      if (observer) {
+        observer.disconnect();
+      }
     };
-  });
+  }, [persist, ref, rootMargin]);
 
   return isIntersecting;
 }
