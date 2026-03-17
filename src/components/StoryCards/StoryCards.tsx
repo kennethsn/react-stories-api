@@ -17,8 +17,10 @@ export default function StoryCards({
   cardSx,
   enableAll,
   newTab,
-  stories,
+  showStoryId,
   slotComponent: SlotComponent,
+  stories,
+  storyIdActions,
   ...cardsProps
 }: StoryCardsProps): ReactNode | ReactNode[] {
   const { t } = useLocale();
@@ -28,12 +30,13 @@ export default function StoryCards({
       sx={styles.wrapper}
     >
       <StoryCard
-      // KSN TODO: make configurable
         buttonLabel={t('learn_more')}
         isDisabled={enableAll ? false : undefined}
         newTab={newTab}
+        showStoryId={showStoryId}
         slot={SlotComponent ? <SlotComponent story={story} /> : null}
         story={story}
+        storyIdActions={storyIdActions}
         sx={deepMerge(styles.storyCard, cardSx)}
       />
     </Box>

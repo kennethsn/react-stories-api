@@ -5,20 +5,26 @@ import Typography from '@mui/material/Typography';
 import { Unless, When } from 'react-if';
 
 import type { Button } from '../../types';
+import { deepMerge } from '../../utils/object';
 import { isStoryPreviewing, isStoryUnpublished } from '../../utils/storyUtils';
 import { StoriesAPIButton } from '../StoriesAPIButton';
+import StoryId from '../UI/StoryId/StoryId';
+import TypographyBadge from '../UI/TypographyBadge/TypographyBadge';
 import styles from './StoryCard.styles';
 import type { StoryCardProps } from './StoryCard.types';
 import StoryCardContainer from './StoryCardContainer';
 
 export default function StoryCard({
+  badgeSx,
   buttonLabel = 'View Story', // KSN TODO: connect this to formatters
   isDisabled,
   isHidingButton = false,
   newTab,
   previewButtonLabel = 'Coming Soon', // KSN TODO: connect this to formatters
+  showStoryId = false,
   slot,
   story,
+  storyIdActions,
   sx,
 }: StoryCardProps) {
   const storyIsPreviewing = isStoryPreviewing(story);
@@ -54,7 +60,13 @@ export default function StoryCard({
           sx={styles.label}
           variant="h5"
         >
-          {story.label}
+          <span className="StoryCardLabelText">
+            {story.label}
+          </span>
+
+          <TypographyBadge sx={deepMerge(styles.badge, badgeSx)}>
+            {story.badge}
+          </TypographyBadge>
         </Typography>
 
         <Typography
@@ -64,6 +76,16 @@ export default function StoryCard({
         >
           {story.description}
         </Typography>
+
+        <When condition={showStoryId}>
+          <StoryId
+            actions={storyIdActions}
+            color="textSecondary"
+            story={story}
+            sx={styles.storyId}
+            variant="caption"
+          />
+        </When>
       </CardContent>
 
       <CardActions>

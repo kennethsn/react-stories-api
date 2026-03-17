@@ -6,7 +6,8 @@ const styles = {
     },
   },
   footerContainer: {
-    m: 1,
+    marginTop: 'auto',
+    py: 2,
     textAlign: 'center',
     width: '100%',
   },
@@ -42,8 +43,11 @@ const styles = {
   root: {
     boxShadow: 10,
     bgcolor: 'background.paper',
-    height: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    minHeight: '100%',
     overflow: 'auto',
+    overflowY: 'scroll',
   },
   storiesServicesLink: {
     a: {

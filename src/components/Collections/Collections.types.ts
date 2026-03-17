@@ -8,5 +8,6 @@ export type CollectionsProps = {
   readonly collections: CollectionStore[];
   readonly enableAllCollections?: boolean;
   readonly layout?: 'list' | 'sections';
+  readonly showStoryId?: boolean;
   readonly sx?: SxProps<Theme>;
 };

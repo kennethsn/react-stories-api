@@ -1,5 +1,5 @@
-import type { FC } from 'react';
-import { BrowserRouter } from 'react-router-dom';
+import type { FC, ReactNode } from 'react';
+import { BrowserRouter, useInRouterContext } from 'react-router-dom';
 
 import baseStoryData from '../tests/fixtures/story-primitive.json';
 import StoriesAPIProvider from '../providers/StoriesAPIProvider';
@@ -10,11 +10,11 @@ import StoryMoment from '../components/StoryMoment/StoryMoment';
 const baseStory: Story = baseStoryData as Story;
 
 export const baseStorybookDecorator = (StorybookStory: FC, providerProps = {}) => (
-  <BrowserRouter>
+  <MaybeRouter>
     <StoriesAPIProvider {...providerProps}>
       <StorybookStory />
     </StoriesAPIProvider>
-  </BrowserRouter>
+  </MaybeRouter>
 );
 
 export const customProviderStorybookDecorator = (providerProps = {}) => (
@@ -34,7 +34,7 @@ export const momentStoryBookDecorator = (_: never, { args: { moment } }: { args:
 };
 
 export const storyStoryBookDecorator = (story: Partial<Story> = {}) => (StorybookStory: FC) => (
-  <BrowserRouter>
+  <MaybeRouter>
     <div style={{ border: '1px solid #e5e5e5', height: '80vh', width: '100%' }}>
       <StoriesAPIProvider>
         <StoryProvider story={{ ...baseStory, ...story }}>
@@ -42,5 +42,14 @@ export const storyStoryBookDecorator = (story: Partial<Story> = {}) => (Storyboo
         </StoryProvider>
       </StoriesAPIProvider>
     </div>
-  </BrowserRouter>
+  </MaybeRouter>
 );
+
+const MaybeRouter = ({ children }: { children: ReactNode }) => {
+  const isInRouter = useInRouterContext();
+  if (isInRouter) {
+    return <>{children}</>;
+  }
+
+  return <BrowserRouter>{children}</BrowserRouter>;
+};

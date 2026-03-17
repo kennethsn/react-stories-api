@@ -10,6 +10,7 @@ import type {
   SaveStatus,
   SerializableRecord,
   Story,
+  StoryIdAction,
 } from '../types';
 import { deepCopy, objectsAreEqual } from '../utils/object';
 import { openJSON } from '../utils/url';
@@ -28,8 +29,10 @@ export type StoryStoreOptions = {
   readonly onLoad?: (story: Story, store: StoryStore) => void;
   readonly onSave?: (story: Story) => Promise<void>;
   readonly showLocaleSelector?: boolean;
+  readonly showStoryId?: boolean;
   readonly slots?: { [key: string]: FC };
   readonly story: Story;
+  readonly storyIdActions?: StoryIdAction[];
 };
 
 export default class StoryStore {
@@ -82,6 +85,10 @@ export default class StoryStore {
 
   get getField() {
     return (field: EditableStoryKey) => this.story[field] ?? '';
+  }
+
+  get hasBadge() {
+    return !!this.story.badge;
   }
 
   get hasBranding() {
@@ -148,12 +155,20 @@ export default class StoryStore {
     return this.isPlaying || this.isDownloadable || this.isSavable || this.isLocalizable;
   }
 
+  get shouldShowStoryId() {
+    return this.options.showStoryId;
+  }
+
   get slots() {
     return this.options.slots;
   }
 
   get status() {
     return this.story.status;
+  }
+
+  get storyIdActions() {
+    return this.options.storyIdActions || ['external-link', 'clipboard'];
   }
 
   get typographyFormatter(): SerializableRecord {

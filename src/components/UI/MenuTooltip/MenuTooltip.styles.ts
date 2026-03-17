@@ -5,6 +5,9 @@ const styles = {
       bgcolor: '#ffffffeb',
     },
   },
+  trigger: {
+    display: 'inline-flex',
+  },
 };
 
 export default styles;

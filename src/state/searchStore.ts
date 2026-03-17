@@ -5,10 +5,19 @@ import { DEFAULT_DEBOUNCE_DELAY } from '../constants';
 import type {
   Nullable,
   SearchFacet,
+  SearchFacetDateRangeValue,
+  SearchFacetNumberRangeValue,
   SearchFacets,
+  SearchFacetValue,
   SelectedSearchFacets,
 } from '../types';
-import { serializeSelectedSearchFacets } from '../utils/searchUtils';
+import {
+  doesSearchFacetHaveValue,
+  formatDateDisplay,
+  getYearFromDate,
+  isStringArrayValue,
+  serializeSelectedSearchFacets,
+} from '../utils/searchFacetUtils';
 import type RootStore from './rootStore';
 
 export type SearchStoreOptions = {
@@ -16,7 +25,7 @@ export type SearchStoreOptions = {
   debounceDelay?: number;
   disabled?: boolean;
   facets?: Nullable<SearchFacets>;
-  onSearch: (query: string) => Promise<number>;
+  onSearch: (query: string, bypassCache?: boolean) => Promise<number>;
   placeholder?: string;
   query?: string;
   searchOnFacetChange?: boolean;
@@ -37,6 +46,9 @@ export default class SearchStore {
   private options: SearchStoreOptions;
 
   query: string;
+
+  // Tracks the query fingerprint that's currently in flight for comparison on response
+  private runningQuery: string = '';
 
   selectedFacets: SelectedSearchFacets = {};
 
@@ -76,17 +88,23 @@ export default class SearchStore {
     return this.query.length > 0;
   }
 
+  get hasResults() {
+    return !!this.count;
+  }
+
   get hasSearchContent() {
     return this.hasQuery || this.hasSelectedFacets;
   }
 
   get hasSelectedFacets() {
     return Object.keys(this.selectedFacets).length > 0
-      && Object.values(this.selectedFacets).some((v) => v.length > 0);
-  }
-
-  get hasResults() {
-    return !!this.count;
+      && Object.values(this.selectedFacets).some((v) => {
+        if (Array.isArray(v)) return v.length > 0;
+        if (typeof v === 'object' && v !== null) {
+          return Object.values(v).some((val) => val !== undefined && val !== null);
+        }
+        return v !== undefined && v !== null;
+      });
   }
 
   get placeholder() {
@@ -121,20 +139,107 @@ export default class SearchStore {
   }
 
   deselectFacetValue(key: string, value: string) {
-    const values = this.selectedFacets[key] || [];
-    this.selectedFacets[key] = values.filter((v) => v !== value);
-    if (this.selectedFacets[key].length === 0) {
-      delete this.selectedFacets[key];
+    const currentValue = this.selectedFacets[key];
+    if (isStringArrayValue(currentValue)) {
+      this.selectedFacets[key] = currentValue.filter((v) => v !== value);
+      if ((this.selectedFacets[key] as string[]).length === 0) {
+        delete this.selectedFacets[key];
+      }
     }
     this.handleSelectedFacetsChange();
+  }
+
+  doesFacetHaveValue(key: string): boolean {
+    return doesSearchFacetHaveValue(this.selectedFacets[key]);
+  }
+
+  /**
+   * Get enriched facet with synthetic value_refs for continuous facets that have min=max
+   */
+  getEnrichedFacet(key: string): SearchFacet {
+    const searchFacet = this.getFacet(key);
+    if (!searchFacet) return searchFacet;
+
+    const selectorType = this.getSelectorType(key);
+
+    const isContinuousFacet = selectorType === 'year_range'
+      || selectorType === 'date_range'
+      || selectorType === 'number'
+      || selectorType === 'number_range';
+
+    const needsSyntheticValues = isContinuousFacet
+      && (!searchFacet.value_refs || searchFacet.value_refs.length === 0)
+      && searchFacet.bounds?.min !== undefined
+      && searchFacet.bounds?.min === searchFacet.bounds?.max;
+
+    if (needsSyntheticValues) {
+      const value = String(searchFacet.bounds!.min);
+      let displayLabel = value;
+
+      // For year_range, show just the year instead of full ISO date
+      if (selectorType === 'year_range') {
+        const year = getYearFromDate(value);
+        displayLabel = year ? String(year) : value;
+      } else if (selectorType === 'date_range') {
+        // For date_range, format as M/D/YYYY
+        displayLabel = formatDateDisplay(value);
+      }
+
+      return {
+        ...searchFacet,
+        value_refs: [
+          {
+            count: 1,
+            fill_rate: 1,
+            label: displayLabel,
+            value,
+          },
+        ],
+      };
+    }
+
+    return searchFacet;
   }
 
   getFacet(key: string) {
     return this.facetMap[key];
   }
 
-  getSelectedFacetValues(key: string) {
-    return this.selectedFacets[key] || [];
+  private getQueryFingerprint(): string {
+    return JSON.stringify({
+      facets: this.selectedFacets,
+      q: this.query,
+    });
+  }
+
+  /**
+   * Get the appropriate selector type for a facet, with fallback logic
+   */
+  getSelectorType(key: string): string {
+    const searchFacet = this.getFacet(key);
+    if (!searchFacet) return 'checkbox';
+
+    const selectorType = searchFacet.selector_type || 'checkbox';
+
+    // Fallback to checkbox if year_range has only one possible value
+    if (selectorType === 'year_range') {
+      const shouldUseYearRange = searchFacet.bounds?.min !== undefined
+        && searchFacet.bounds?.max !== undefined
+        && searchFacet.bounds.min !== searchFacet.bounds.max;
+
+      return shouldUseYearRange ? 'year_range' : 'checkbox';
+    }
+
+    return selectorType;
+  }
+
+  getSelectedFacetValue(key: string): SearchFacetValue | undefined {
+    return this.selectedFacets[key];
+  }
+
+  getSelectedFacetValues(key: string): string[] {
+    const value = this.selectedFacets[key];
+    return isStringArrayValue(value) ? value : [];
   }
 
   handleSelectedFacetsChange() {
@@ -144,11 +249,39 @@ export default class SearchStore {
   }
 
   selectFacetValue(key: string, value: string) {
-    const values = this.selectedFacets[key] || [];
+    const currentValue = this.selectedFacets[key];
+    const values = isStringArrayValue(currentValue) ? currentValue : [];
     if (!values.includes(value)) {
       this.selectedFacets[key] = [...values, value];
       this.handleSelectedFacetsChange();
     }
+  }
+
+  setDateRangeValue(key: string, value: SearchFacetDateRangeValue) {
+    if (value.start || value.end) {
+      this.selectedFacets[key] = value;
+    } else {
+      delete this.selectedFacets[key];
+    }
+    this.handleSelectedFacetsChange();
+  }
+
+  setNumberRangeValue(key: string, value: SearchFacetNumberRangeValue) {
+    if (value.min !== undefined || value.max !== undefined) {
+      this.selectedFacets[key] = value;
+    } else {
+      delete this.selectedFacets[key];
+    }
+    this.handleSelectedFacetsChange();
+  }
+
+  setNumberValue(key: string, value: number | null) {
+    if (value !== null) {
+      this.selectedFacets[key] = value;
+    } else {
+      delete this.selectedFacets[key];
+    }
+    this.handleSelectedFacetsChange();
   }
 
   setCount(count: Nullable<number>) {
@@ -167,15 +300,31 @@ export default class SearchStore {
     this.loading = false;
   }
 
-  async submit() {
-    if (!this.canSubmit) {
+  async submit(force: boolean = false, bypassCache: boolean = false) {
+    if (this.disabled) {
       return;
     }
+
+    if (this.loading && !force) {
+      return;
+    }
+
     this.startLoading();
+    this.runningQuery = this.getQueryFingerprint();
+
     try {
-      const count = await this.options.onSearch(this.query);
+      // Call onSearch with bypassCache parameter
+      const count = await this.options.onSearch(this.query, bypassCache);
       this.setCount(count);
     } finally {
+      const currentQuery = this.getQueryFingerprint();
+      const needsRefetch = currentQuery !== this.runningQuery;
+
+      this.runningQuery = '';
+
+      if (needsRefetch) {
+        await this.submit(true, false);
+      }
       this.stopLoading();
     }
   }

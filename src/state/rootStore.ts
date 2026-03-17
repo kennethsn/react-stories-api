@@ -3,7 +3,12 @@ import { makeAutoObservable } from 'mobx';
 import { type Context, createContext } from 'react';
 
 import MomentConfigMap from '../configs/momentConfig';
-import type { LocalizationConfig, ProjectId, StoriesAPIFormatters } from '../types';
+import type {
+  LocalizationConfig,
+  ProjectId,
+  StoriesAPIFormatters,
+  StoryIdActionDefinition,
+} from '../types';
 import APIStore, { type APIStoreOptions } from './apiStore';
 import AVStore from './avStore';
 import CollectionsStore from './collectionsStore';
@@ -23,6 +28,7 @@ export type RootStoreOptions = {
   readonly goToPath?: (path: string) => void;
   readonly isDebugging?: boolean;
   readonly isMobile?: boolean;
+  readonly storyIdActions?: Record<string, StoryIdActionDefinition>;
   readonly themeOptions?: ThemeOptions;
 };
 
@@ -55,6 +61,8 @@ export default class RootStore {
 
   stories: StoriesStore;
 
+  storyIdActions: Record<string, StoryIdActionDefinition>;
+
   theme: ThemeStore;
 
   constructor({
@@ -65,6 +73,7 @@ export default class RootStore {
     isDebugging = false,
     isMobile,
     projectId,
+    storyIdActions,
     themeOptions,
   }: RootStoreOptions = {}) {
     makeAutoObservable(this);
@@ -81,6 +90,7 @@ export default class RootStore {
     this.theme = new ThemeStore(this, { isMobile, themeOptions });
     this.isDebugging = isDebugging;
     this.projectId = projectId;
+    this.storyIdActions = storyIdActions ?? {};
   }
 
   static initContext() {

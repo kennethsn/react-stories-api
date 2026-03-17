@@ -5,6 +5,7 @@ import type {
   CollectionId,
   ProjectId,
   StoriesAPIStatus,
+  StoryIdAction,
 } from '../types';
 import { formatString } from '../utils/string';
 import CollectionStore, { type CollectionStoreOptions } from './collectionStore';
@@ -14,7 +15,9 @@ type CollectionCacheKey = CollectionId | string;
 type GetCollectionsListOptions = {
   readonly featured?: boolean;
   readonly projectId?: ProjectId;
+  readonly showStoryId?: boolean;
   readonly statuses?: StoriesAPIStatus[];
+  readonly storyIdActions?: StoryIdAction[];
 };
 const buildLookupKey = (collectionId: CollectionId | string, cacheKey?: string) => (cacheKey ? (
   formatString(cacheKey, { collectionId })
@@ -132,12 +135,21 @@ export default class CollectionsStore {
     projectId?: ProjectId,
     statuses?: StoriesAPIStatus[],
     featured?: boolean,
+    showStoryId?: boolean,
+    storyIdActions?: StoryIdAction[],
   }) {
     const key = JSON.stringify(options);
     if (this.collectionsListCache.has(key)) {
       return;
     }
-    const projectId = options.projectId ?? this.root.projectId;
+    const {
+      featured,
+      projectId: requestedProjectId,
+      showStoryId,
+      statuses,
+      storyIdActions,
+    } = options;
+    const projectId = requestedProjectId ?? this.root.projectId;
     if (!projectId) {
       throw new Error('Project ID is required to load collections.');
     }
@@ -145,11 +157,15 @@ export default class CollectionsStore {
       this.collectionsListCache.set(key, { isLoading: true });
     });
     const { collections } = await this.root.api.getCollections({
-      featured: options.featured,
+      featured,
       project_id: projectId,
-      statuses: options.statuses,
+      statuses,
     });
-    collections.forEach((collection) => this.addCollection(collection, { source: 'api' }, false));
+    collections.forEach((collection) => this.addCollection(collection, {
+      showStoryId,
+      storyIdActions,
+      source: 'api',
+    }, false));
     const collectionIds = collections.map(({ id }) => id);
     runInAction(() => {
       this.collectionsListCache.set(key, { isLoading: false, collectionIds });

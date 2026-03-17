@@ -23,7 +23,10 @@ const StoryMoment = observer(({ moment }: StoryMomentProps) => {
           />
         )}
       >
-        <Moment moment={moment} />
+        <Moment
+          key={moment.componentKey}
+          moment={moment}
+        />
       </Suspense>
     </MomentProvider>
   );

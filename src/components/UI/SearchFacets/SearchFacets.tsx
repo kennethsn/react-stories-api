@@ -1,9 +1,9 @@
 import Grid from '@mui/material/Grid2';
 import { observer } from 'mobx-react-lite';
 
+import SearchFacet from './SearchFacet';
 import styles from './SearchFacets.styles';
 import type { SearchFacetsProps } from './SearchFacets.types';
-import SearchFacetSelector from './SearchFacetSelector';
 
 const SearchFacets = observer(({ search }: SearchFacetsProps) => (
   <Grid
@@ -12,12 +12,13 @@ const SearchFacets = observer(({ search }: SearchFacetsProps) => (
     spacing={2}
     sx={styles.root}
   >
-    {search?.facets?.map(({ key }) => (
+    {search?.facets?.map(({ key }, index) => (
       <Grid
         key={key}
         size={12}
+        sx={index < (search?.facets?.length ?? 0) - 1 ? styles.facetDivider : undefined}
       >
-        <SearchFacetSelector
+        <SearchFacet
           search={search}
           searchFacetKey={key}
         />

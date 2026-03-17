@@ -9,8 +9,11 @@ export default function ButtonContentBlock({ contentBlock, sx }: ButtonContentBl
   const { background_sx: backgroundSx, button } = contentBlock;
 
   return (
-    <Box sx={deepMerge(deepMerge(styles.buttonBlock, backgroundSx), sx)}>
-      <StoriesAPIButton button={button} />
+    <Box sx={deepMerge(styles.buttonBlock, backgroundSx)}>
+      <StoriesAPIButton
+        button={button}
+        sx={sx}
+      />
     </Box>
   );
 }

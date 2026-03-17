@@ -33,6 +33,7 @@ const CollectionFeaturedStoriesList = observer(() => {
               <StoryCard
                 buttonLabel={t('collection.featuredStory.buttonLabel')}
                 isDisabled={collection.allStoriesAreEnabled ? false : undefined}
+                showStoryId={collection.shouldShowStoryId}
                 slot={(
                   <CollectionSlot
                     component="FeaturedStoryCard"
@@ -40,6 +41,7 @@ const CollectionFeaturedStoriesList = observer(() => {
                   />
                 )}
                 story={story}
+                storyIdActions={collection.storyIdActions}
                 sx={styles.storyCard}
               />
             </Animation>

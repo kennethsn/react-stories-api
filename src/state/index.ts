@@ -1,3 +1,4 @@
+export { default as APIStore } from './apiStore';
 export { default as CollectionStore } from './collectionStore';
 export { default as GeoMapStore } from './geoMapStore';
 export { default as LocaleStore } from './localeStore';

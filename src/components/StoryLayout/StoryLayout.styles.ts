@@ -5,6 +5,7 @@ const styles = {
 
     '.moment-navigator-panel': {
       boxShadow: 2,
+      overflowY: 'auto !important',
       zIndex: 3,
     },
 

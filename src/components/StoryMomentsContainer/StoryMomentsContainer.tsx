@@ -86,7 +86,10 @@ const StoryMomentsContainer = observer(() => {
             className="story-moment-swiper-slide"
           >
             <ErrorBoundaryContext>
-              <StoryMoment moment={moment} />
+              <StoryMoment
+                key={moment.componentKey}
+                moment={moment}
+              />
             </ErrorBoundaryContext>
           </SwiperSlide>
         ))}

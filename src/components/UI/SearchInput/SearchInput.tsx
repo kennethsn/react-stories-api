@@ -19,7 +19,9 @@ const SearchInput = observer(({
   const handleTextFieldKeyDown: TextFieldProps['onKeyDown'] = (e) => {
     if (isEnter(e)) {
       e.preventDefault();
-      search.submit();
+      // Shift+Enter bypasses cache, regular Enter uses cache
+      const bypassCache = e.shiftKey;
+      search.submit(false, bypassCache);
     }
   };
 

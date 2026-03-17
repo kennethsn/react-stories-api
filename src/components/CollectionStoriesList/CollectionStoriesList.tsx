@@ -10,8 +10,10 @@ const CollectionStoriesList = observer(() => {
       key={collection.storiesKey}
       enableAll={collection.allStoriesAreEnabled}
       overrideTotalCount={collection.overrideTotalStoriesCount}
+      showStoryId={collection.shouldShowStoryId}
       slotComponent={collection.getSlotComponent('StoryCard')}
       stories={collection.stories}
+      storyIdActions={collection.storyIdActions}
     />
   );
 });

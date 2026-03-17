@@ -1,5 +1,4 @@
 import Autocomplete from '@mui/material/Autocomplete';
-import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Checkbox, { type CheckboxProps } from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -13,53 +12,51 @@ import { When } from 'react-if';
 import { SEARCH_FACET_MAX_VISIBLE_VALUES } from '../../../constants';
 import useLocale from '../../../hooks/useLocale';
 import { formatNumberString } from '../../../utils';
+import {
+  buildCheckboxOptions,
+  buildFacetOptions,
+  shouldShowFacetAutocomplete,
+  sortAndFilterFacetOptions,
+} from '../../../utils/searchFacetUtils';
+import { Tooltip } from '../Tooltip';
 import styles from './SearchFacets.styles';
 import type { SearchFacetSelectorProps } from './SearchFacets.types';
 import SearchFacetSelectorControls from './SearchFacetSelectorControls';
 
 const SearchFacetSelector = observer(({
   search,
+  searchFacet: searchFacetProp,
   searchFacetKey,
 }: SearchFacetSelectorProps) => {
   const { t } = useLocale();
   const [showAutocomplete, setShowAutocomplete] = useState(false);
   const [facetOptionsFilter, setFacetOptionsFilter] = useState('');
-  const searchFacet = search.getFacet(searchFacetKey);
-  const selectedValues = search.getSelectedFacetValues(searchFacetKey);
-  const hasSelectedValue = selectedValues.length > 0;
+  const searchFacet = searchFacetProp || search.getFacet(searchFacetKey);
 
+  const selectedValues = search.getSelectedFacetValues(searchFacetKey);
   const valueRefs = searchFacet.value_refs;
 
-  // Build options list
-  const allOptions = useMemo(() => valueRefs.map((ref) => ({
-    count: ref.count,
-    formattedCount: formatNumberString(ref.count),
-    label: ref.label ?? ref.value,
-    value: ref.value,
-  })), [valueRefs]);
-
-  const shouldShowAutocomplete = allOptions.length > SEARCH_FACET_MAX_VISIBLE_VALUES;
-
-  // Determine current filtered + visible options
-  const filteredOptions = useMemo(() => {
-    const term = facetOptionsFilter.trim().toLowerCase();
-    return allOptions
-      .filter(
-        (opt) => opt.label.toLowerCase().includes(term)
-          || opt.value.toLowerCase().includes(term),
-      )
-      .sort((a, b) => b.count - a.count); // Sort descending by count
-  }, [allOptions, facetOptionsFilter]);
-
-  // Ensure selected values are always shown first
-  const checkboxOptions = useMemo(() => {
-    const selectedSet = new Set(selectedValues);
-    const selectedOpts = allOptions.filter((opt) => selectedSet.has(opt.value));
-    const unselectedOpts = filteredOptions.filter(
-      (opt) => !selectedSet.has(opt.value),
-    );
-    return [...selectedOpts, ...unselectedOpts].slice(0, SEARCH_FACET_MAX_VISIBLE_VALUES);
-  }, [filteredOptions, selectedValues, allOptions]);
+  const allOptions = useMemo(
+    () => buildFacetOptions(valueRefs, formatNumberString),
+    [valueRefs],
+  );
+  const shouldShowAutocomplete = shouldShowFacetAutocomplete(
+    allOptions.length,
+    SEARCH_FACET_MAX_VISIBLE_VALUES,
+  );
+  const filteredOptions = useMemo(
+    () => sortAndFilterFacetOptions(allOptions, facetOptionsFilter),
+    [allOptions, facetOptionsFilter],
+  );
+  const checkboxOptions = useMemo(
+    () => buildCheckboxOptions(
+      allOptions,
+      filteredOptions,
+      selectedValues,
+      SEARCH_FACET_MAX_VISIBLE_VALUES,
+    ),
+    [allOptions, filteredOptions, selectedValues],
+  );
 
   const handleAutocompleteChange = (
     _: SyntheticEvent,
@@ -98,14 +95,7 @@ const SearchFacetSelector = observer(({
   };
 
   return (
-    <Box>
-      <Typography
-        sx={styles.facetLabel(hasSelectedValue)}
-        variant="subtitle1"
-      >
-        {searchFacet.label ?? searchFacet.key}
-      </Typography>
-
+    <>
       <SearchFacetSelectorControls
         onDeselectAll={handleDeselectAll}
         onSelectAll={handleSelectAll}
@@ -158,9 +148,32 @@ const SearchFacetSelector = observer(({
       </When>
 
       <FormGroup>
-        {checkboxOptions.map(({ formattedCount, value, label }) => {
+        {checkboxOptions.map(({
+          description,
+          formattedCount,
+          label,
+          value,
+        }) => {
           const selected = selectedValues.includes(value);
           const dimOthers = selectedValues.length > 0 && !selected;
+
+          const valueLabelNode = (
+            <Typography
+              sx={styles.facetSelectorValueLabel(selected)}
+              variant="body2"
+            >
+              {label}
+
+              <Typography
+                component="span"
+                sx={styles.facetSelectorValueCount}
+                variant="finePrint"
+              >
+                {`(${formattedCount})`}
+              </Typography>
+            </Typography>
+          );
+
           return (
             <FormControlLabel
               key={value}
@@ -171,28 +184,21 @@ const SearchFacetSelector = observer(({
                   size="small"
                 />
               )}
-              label={(
-                <Typography
-                  sx={styles.facetSelectorValueLabel(selected)}
-                  variant="body2"
-                >
-                  {label}
-
-                  <Typography
-                    component="span"
-                    sx={styles.facetSelectorValueCount}
-                    variant="finePrint"
-                  >
-                    {`(${formattedCount})`}
-                  </Typography>
-                </Typography>
-              )}
+              label={
+                description ? (
+                  <Tooltip title={description}>
+                    {valueLabelNode}
+                  </Tooltip>
+                ) : (
+                  valueLabelNode
+                )
+              }
               sx={styles.facetSelectorValue(!dimOthers)}
             />
           );
         })}
       </FormGroup>
-    </Box>
+    </>
   );
 });
 
