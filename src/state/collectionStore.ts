@@ -13,7 +13,11 @@ import type {
   DataSource,
   EditableCollectionKey,
   MutableCollection,
+  Nullable,
   SaveStatus,
+  SearchStartMode,
+  SearchSuggestions,
+  SelectedSearchFacets,
   SerializableRecord,
   StoriesAPIStatus,
   StoriesAPIStoriesResponse,
@@ -39,8 +43,15 @@ export type CollectionStoreOptions = {
   readonly onSearch?: (searchInput: string, collection: CollectionStore) => Promise<void>;
   readonly page?: number;
   readonly pageSize?: number;
+  readonly searchDefaultFacets?: SelectedSearchFacets;
+  readonly searchDefaultQuery?: string;
   readonly searchInput?: string;
+  readonly searchStartMode?: SearchStartMode;
+  readonly searchSuggestions?: Nullable<SearchSuggestions>;
+  readonly showInputSearchSuggestions?: boolean;
+  readonly showLandingSearchSuggestions?: boolean;
   readonly showLocaleSelector?: boolean;
+  readonly showStoriesListHeader?: boolean;
   readonly showStoryId?: boolean;
   readonly slots?: { [key: string]: FC<Omit<CollectionSlotProps, 'component'>> };
   readonly source?: DataSource;
@@ -231,8 +242,27 @@ export default class CollectionStore {
     );
   }
 
+  get shouldDeferInitialStoriesLoad() {
+    return this.search.isEmptyLandingMode && !this.search.hasSearchContent;
+  }
+
+  get shouldLazyInitWithSearchDefaults() {
+    return this.searchIsEnabled && this.search.hasSearchContent;
+  }
+
   get shouldShowStoriesList() {
+    if (
+      this.search.isEmptyLandingMode
+      && !this.search.hasSearchContent
+      && this.storiesCount === 0
+    ) {
+      return false;
+    }
     return this.searchIsEnabled || this.totalStoriesCount > 1;
+  }
+
+  get shouldShowStoriesListHeader() {
+    return this.options.showStoriesListHeader !== false;
   }
 
   get shouldShowStoryId() {
@@ -309,12 +339,17 @@ export default class CollectionStore {
   buildSearchStore() {
     return new SearchStore(this.root, {
       disabled: !this.searchIsEnabled,
+      enableInputSuggestions: this.options.showInputSearchSuggestions,
+      enableLandingSuggestions: this.options.showLandingSearchSuggestions,
       facets: this.collection.search_facets,
       onSearch: this.searchStories.bind(this),
-      placeholder: 'Search collection...',
-      query: this.options.searchInput,
-      selectedFacets: {}, // TODO: support query param filters
+      placeholder: this.root.locale.translate?.('collection.search.defaultPlaceholder')
+        || 'Search collection...',
+      query: this.options.searchInput ?? this.options.searchDefaultQuery,
+      selectedFacets: this.options.searchDefaultFacets ?? {},
       searchOnFacetChange: true,
+      startMode: this.options.searchStartMode,
+      suggestions: this.options.searchSuggestions ?? this.collection.search_suggestions,
     });
   }
 
@@ -346,7 +381,21 @@ export default class CollectionStore {
 
   async init() {
     if (this.sourceIsAPI) {
-      await this.loadStories();
+      if (!this.shouldDeferInitialStoriesLoad) {
+        if (this.shouldLazyInitWithSearchDefaults) {
+          // Render collection shell immediately and let search loading state
+          // drive cards browser UI.
+          runInAction(() => {
+            this.initialized = true;
+          });
+          this.search.submit().catch(() => {
+            // submit handles loading state; failures are surfaced by API flow.
+          });
+          return;
+        }
+
+        await this.loadStories();
+      }
     }
     runInAction(() => {
       this.initialized = true;

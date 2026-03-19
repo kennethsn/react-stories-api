@@ -7,6 +7,7 @@ import { useSearchParams } from 'react-router-dom';
 import useCollections from '../../hooks/useCollections';
 import CollectionProvider from '../../providers/CollectionProvider';
 import type { CollectionStore } from '../../state';
+import { deserializeSelectedSearchFacets } from '../../utils/searchFacetUtils';
 import CollectionLoader from '../CollectionLoader/CollectionLoader';
 import type { StoriesAPICollectionProps } from './StoriesAPICollection.types';
 // TODO: API Task handling
@@ -23,12 +24,27 @@ const StoriesAPICollection = observer(({
 }: StoriesAPICollectionProps) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const collections = useCollections();
-  let { collectionId, page, searchInput } = props;
+  let {
+    collectionId,
+    page,
+    searchDefaultFacets,
+    searchInput,
+  } = props;
+
   if (connectRouter) {
     const routeParams = collections.getCollectionRouteParams();
     collectionId ||= routeParams.collectionId;
     page = Number(searchParams.get('page')) || page;
-    searchInput = searchParams.get('q') || searchInput;
+    const queryFromRoute = searchParams.get('q');
+    if (queryFromRoute !== null) {
+      searchInput = queryFromRoute;
+    } else {
+      searchInput = searchInput ?? props.searchDefaultQuery;
+    }
+
+    if (searchParams.has('facets')) {
+      searchDefaultFacets = deserializeSelectedSearchFacets(searchParams.get('facets'));
+    }
   }
   if (!collectionId) {
     throw new Error('Collection not found.');
@@ -60,6 +76,8 @@ const StoriesAPICollection = observer(({
         onPageChange: handlePageChange,
         onSearch: handleSearch,
         page,
+        searchDefaultFacets,
+        searchDefaultQuery: props.searchDefaultQuery,
         searchInput,
       },
       (collectionStore) => {

@@ -88,3 +88,123 @@ describe('SearchStore request concurrency', () => {
     expect(store.count).toBe(8);
   });
 });
+
+describe('SearchStore suggestions', () => {
+  it('shows input suggestions when query is typed and input suggestions are enabled', () => {
+    const onSearch = jest.fn<Promise<number>, [string]>().mockResolvedValue(0);
+    const store = new SearchStore({} as never, {
+      onSearch,
+      suggestions: [
+        {
+          display_name: 'Langston Hughes',
+          query: 'langston hughes',
+          locations: { input: true, landing: false },
+        },
+      ],
+    });
+
+    store.setFocused(true);
+    store.setQuery('lang');
+
+    expect(store.shouldShowInputSuggestions).toBe(true);
+    expect(store.inputSuggestions).toHaveLength(1);
+    expect(store.shouldShowLandingSuggestions).toBe(false);
+  });
+
+  it('shows landing suggestions only in emptyLanding mode with no search content', () => {
+    const onSearch = jest.fn<Promise<number>, [string]>().mockResolvedValue(0);
+    const store = new SearchStore({} as never, {
+      onSearch,
+      startMode: 'emptyLanding',
+      suggestions: [
+        {
+          display_name: 'Civil Rights',
+          query: 'civil rights',
+          locations: { landing: true, input: false },
+        },
+      ],
+    });
+
+    expect(store.shouldShowLandingSuggestions).toBe(true);
+
+    store.setQuery('civil');
+
+    expect(store.shouldShowLandingSuggestions).toBe(false);
+  });
+
+  it('applies suggestion query and facets before searching', async () => {
+    const onSearch = jest.fn<Promise<number>, [string]>().mockResolvedValue(3);
+    const store = new SearchStore({} as never, {
+      onSearch,
+      suggestions: [
+        {
+          display_name: 'Langston Hughes',
+          query: 'langston hughes',
+          facets: {
+            category: ['poetry'],
+          },
+        },
+      ],
+    });
+
+    await store.applySuggestion(store.suggestions[0]);
+
+    expect(store.query).toBe('langston hughes');
+    expect(store.selectedFacets).toEqual({ category: ['poetry'] });
+    expect(onSearch).toHaveBeenCalledWith('langston hughes', false);
+  });
+
+  it('keeps query blank when suggestion query is missing or null', async () => {
+    const onSearch = jest.fn<Promise<number>, [string]>().mockResolvedValue(5);
+    const store = new SearchStore({} as never, {
+      onSearch,
+      suggestions: [
+        {
+          display_name: 'Works during the Harlem Renaissance',
+          facets: {
+            P8: ['Q4'],
+          },
+          query: null,
+        },
+      ],
+    });
+
+    await store.applySuggestion(store.suggestions[0]);
+
+    expect(store.query).toBe('');
+    expect(store.selectedFacets).toEqual({ P8: ['Q4'] });
+    expect(onSearch).toHaveBeenCalledWith('', false);
+  });
+
+  it('shows suggestion display name as placeholder while loading, then restores default', async () => {
+    const deferred = createDeferred<number>();
+    const onSearch = jest.fn<Promise<number>, [string]>().mockImplementation(
+      () => deferred.promise,
+    );
+    const store = new SearchStore({} as never, {
+      onSearch,
+      placeholder: 'Search collection...',
+      suggestions: [
+        {
+          display_name: 'Works during the Harlem Renaissance',
+          facets: {
+            P8: ['Q4'],
+          },
+          query: null,
+        },
+      ],
+    });
+
+    const applyPromise = store.applySuggestion(store.suggestions[0]);
+
+    expect(store.loading).toBe(true);
+    expect(store.placeholder).toBe('Works during the Harlem Renaissance');
+    expect(onSearch).toHaveBeenCalledWith('', false);
+
+    deferred.resolve(4);
+    await applyPromise;
+
+    expect(store.loading).toBe(false);
+    expect(store.placeholder).toBe('Search collection...');
+  });
+});

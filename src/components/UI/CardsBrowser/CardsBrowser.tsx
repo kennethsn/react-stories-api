@@ -40,6 +40,7 @@ const CardsBrowser = observer(({
           sx={styles.searchSectionContainer}
         >
           <CardsBrowserSearch
+            isLoading={isLoading}
             search={search!}
             slots={{
               AfterSearchInput: slots?.CardsBrowserSearch,
@@ -54,7 +55,7 @@ const CardsBrowser = observer(({
       >
         <LinearProgress
           ref={!(showSearch) ? cardsContainerRef : null}
-          sx={styles.loader(isLoading)}
+          sx={styles.loader(isLoading && !showSearch)}
         />
 
         {children}

@@ -61,7 +61,7 @@ const CollectionLayout = observer(({ children }: CollectionLayoutProps) => {
     return undefined;
   };
   const card = renderStoryCard();
-  const showListHeader = collection.shouldShowStoriesList
+  const showListHeader = collection.shouldShowStoriesListHeader
     && Boolean(collection.hasDescription || card);
 
   return (

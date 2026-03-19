@@ -1,4 +1,5 @@
 export { default as useAV } from './useAV';
+export { default as useCardsBrowserSearch } from './useCardsBrowserSearch';
 export { default as useCollection } from './useCollection';
 export { default as useCollections } from './useCollections';
 export { default as useColor } from './useColor';

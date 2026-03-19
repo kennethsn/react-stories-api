@@ -109,6 +109,7 @@ export type Collection = {
   readonly is_featured?: boolean;
   readonly name: string;
   readonly search_facets?: Nullable<SearchFacets>;
+  readonly search_suggestions?: Nullable<SearchSuggestions>;
   readonly status: StoriesAPIStatus;
   readonly stories?: StorySummary[];
   readonly subtitle?: NullableString;
@@ -559,7 +560,23 @@ export type SearchFacetValueRef = {
   readonly value: string;
 };
 
+export type SearchStartMode = 'results' | 'emptyLanding';
+
 export type SelectedSearchFacets = Record<string, SearchFacetValue>;
+
+export type SearchSuggestionLocations = {
+  readonly input?: boolean;
+  readonly landing?: boolean;
+};
+
+export type SearchSuggestion = {
+  readonly display_name: string;
+  readonly facets?: SelectedSearchFacets;
+  readonly locations?: SearchSuggestionLocations;
+  readonly query?: NullableString;
+};
+
+export type SearchSuggestions = SearchSuggestion[];
 
 export type SerializableRecord = Record<string, SerializeableValue>;
 
@@ -648,6 +665,7 @@ export type StoriesAPIListResponse<T> = {
 export type StoriesAPIStatus = 'ARCHIVED' | 'DRAFT' | 'PREVIEW' | 'PUBLISHED' | 'UNLISTED';
 
 export type StoriesAPIStoriesQueryParams = {
+  readonly facets?: string;
   readonly page?: number;
   readonly page_size?: number;
   readonly q?: string;

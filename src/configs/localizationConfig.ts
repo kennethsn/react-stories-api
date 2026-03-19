@@ -41,7 +41,11 @@ const localizationConfig: LocalizationConfig = {
   translations: {
     ar: {
       'collection.featuredStory.buttonLabel': 'عرض القصة المميزة',
+      'collection.search.defaultPlaceholder': 'البحث في المجموعة...',
       'collection.storiesList.header': 'استكشف جمیع القصص من مجموعة {collection_name}',
+      'search.defaultPlaceholder': 'بحث...',
+      'search.suggestions.landingOverline': 'اقتراحات مختارة',
+      'search.suggestions.landingTitle': 'استكشف من خلال عمليات البحث الشائعة',
       'story.collectionButtonLabel': 'استكشف المزيد من القصص',
       'storyId.actions.clipboard': 'نسخ المعرف إلى الحافظة',
       'storyId.actions.externalLink': 'الانتقال إلى الموقع الخارجي',
@@ -63,7 +67,11 @@ const localizationConfig: LocalizationConfig = {
     },
     en: {
       'collection.featuredStory.buttonLabel': 'View Featured Story',
+      'collection.search.defaultPlaceholder': 'Search collection...',
       'collection.storiesList.header': 'Explore All Stories from the {collection_name} Collection',
+      'search.defaultPlaceholder': 'Search...',
+      'search.suggestions.landingOverline': 'Curated suggestions',
+      'search.suggestions.landingTitle': 'Explore with Popular Searches',
       'story.collectionButtonLabel': 'Explore More Stories',
       'storyId.actions.clipboard': 'Copy to Clipboard',
       'storyId.actions.externalLink': 'Go to External Site',
@@ -85,7 +93,11 @@ const localizationConfig: LocalizationConfig = {
     },
     es: {
       'collection.featuredStory.buttonLabel': 'Ver historia destacada',
+      'collection.search.defaultPlaceholder': 'Buscar en la colección...',
       'collection.storiesList.header': 'Explorar todas las historias de la colección {collection_name}',
+      'search.defaultPlaceholder': 'Buscar...',
+      'search.suggestions.landingOverline': 'Sugerencias seleccionadas',
+      'search.suggestions.landingTitle': 'Explora con búsquedas populares',
       'story.collectionButtonLabel': 'Explorar más historias',
       'storyId.actions.clipboard': 'Copiar ID al portapapeles',
       'storyId.actions.externalLink': 'Ir al sitio externo',
@@ -99,7 +111,11 @@ const localizationConfig: LocalizationConfig = {
       welcome: 'Bienvenido',
     },
     fr: {
+      'collection.search.defaultPlaceholder': 'Rechercher dans la collection...',
       'collection.storiesList.header': 'Explorer toutes les histoires de la collection {collection_name}',
+      'search.defaultPlaceholder': 'Rechercher...',
+      'search.suggestions.landingOverline': 'Suggestions sélectionnées',
+      'search.suggestions.landingTitle': 'Explorez les recherches populaires',
       'story.collectionButtonLabel': 'Explorer plus d\'histoires',
       'storyId.actions.clipboard': 'Copier l\'ID dans le presse-papiers',
       'storyId.actions.externalLink': 'Aller vers le site externe',

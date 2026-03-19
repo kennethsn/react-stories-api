@@ -1,5 +1,5 @@
 import debounce from 'lodash.debounce';
-import { makeAutoObservable } from 'mobx';
+import { makeAutoObservable, runInAction } from 'mobx';
 
 import { DEFAULT_DEBOUNCE_DELAY } from '../constants';
 import type {
@@ -9,6 +9,9 @@ import type {
   SearchFacetNumberRangeValue,
   SearchFacets,
   SearchFacetValue,
+  SearchStartMode,
+  SearchSuggestion,
+  SearchSuggestions,
   SelectedSearchFacets,
 } from '../types';
 import {
@@ -20,14 +23,29 @@ import {
 } from '../utils/searchFacetUtils';
 import type RootStore from './rootStore';
 
+const shouldShowSuggestionInLocation = (
+  suggestion: SearchSuggestion,
+  location: 'input' | 'landing',
+) => {
+  const locationValue = suggestion.locations?.[location];
+  if (locationValue === undefined) {
+    return true;
+  }
+  return !!locationValue;
+};
+
 export type SearchStoreOptions = {
   count?: number;
   debounceDelay?: number;
   disabled?: boolean;
+  enableInputSuggestions?: boolean;
+  enableLandingSuggestions?: boolean;
   facets?: Nullable<SearchFacets>;
   onSearch: (query: string, bypassCache?: boolean) => Promise<number>;
   placeholder?: string;
   query?: string;
+  startMode?: SearchStartMode;
+  suggestions?: Nullable<SearchSuggestions>;
   searchOnFacetChange?: boolean;
   selectedFacets?: SelectedSearchFacets;
 };
@@ -39,7 +57,13 @@ export default class SearchStore {
 
   disabled: boolean;
 
+  enableInputSuggestions: boolean;
+
+  enableLandingSuggestions: boolean;
+
   facets: Nullable<SearchFacets>;
+
+  isFocused: boolean = false;
 
   loading: boolean;
 
@@ -52,6 +76,12 @@ export default class SearchStore {
 
   selectedFacets: SelectedSearchFacets = {};
 
+  startMode: SearchStartMode;
+
+  suggestionLoadingPlaceholder: Nullable<string> = null;
+
+  suggestions: SearchSuggestions;
+
   constructor(public root: RootStore, options: SearchStoreOptions) {
     makeAutoObservable(this);
     this.root = root;
@@ -62,6 +92,10 @@ export default class SearchStore {
     this.selectedFacets = options.selectedFacets || {};
     this.facets = options.facets;
     this.loading = false;
+    this.enableInputSuggestions = options.enableInputSuggestions ?? true;
+    this.enableLandingSuggestions = options.enableLandingSuggestions ?? true;
+    this.startMode = options.startMode ?? 'results';
+    this.suggestions = options.suggestions ?? [];
     this.debouncedSubmit = debounce(
       this.submit.bind(this),
       options.debounceDelay || DEFAULT_DEBOUNCE_DELAY,
@@ -107,8 +141,56 @@ export default class SearchStore {
       });
   }
 
+  get inputSuggestions() {
+    if (!this.enableInputSuggestions) {
+      return [];
+    }
+
+    const normalizedQuery = this.query.trim().toLowerCase();
+
+    // Show all input suggestions when focused, regardless of query
+    if (this.isFocused && normalizedQuery === '') {
+      return this.suggestions
+        .filter((suggestion) => shouldShowSuggestionInLocation(suggestion, 'input'))
+        .slice(0, 8);
+    }
+
+    // When typing, filter suggestions by query
+    if (!normalizedQuery) {
+      return [];
+    }
+
+    return this.suggestions
+      .filter((suggestion) => shouldShowSuggestionInLocation(suggestion, 'input'))
+      .filter((suggestion) => {
+        const displayName = suggestion.display_name.toLowerCase();
+        const suggestionQuery = (suggestion.query ?? suggestion.display_name).toLowerCase();
+        return displayName.includes(normalizedQuery) || suggestionQuery.includes(normalizedQuery);
+      })
+      .slice(0, 8);
+  }
+
+  get isEmptyLandingMode() {
+    return this.startMode === 'emptyLanding';
+  }
+
+  get landingSuggestions() {
+    if (!this.enableLandingSuggestions || !this.isEmptyLandingMode || this.hasSearchContent) {
+      return [];
+    }
+
+    return this.suggestions
+      .filter((suggestion) => shouldShowSuggestionInLocation(suggestion, 'landing'))
+      .slice(0, 12);
+  }
+
   get placeholder() {
-    return this.options.placeholder || 'Search...';
+    if (this.suggestionLoadingPlaceholder !== null) {
+      return this.suggestionLoadingPlaceholder;
+    }
+    return this.options.placeholder
+      || this.root.locale.translate?.('search.defaultPlaceholder')
+      || 'Search...';
   }
 
   get queryParams() {
@@ -121,12 +203,35 @@ export default class SearchStore {
     };
   }
 
+  get shouldShowInputSuggestions() {
+    return this.isFocused && this.inputSuggestions.length > 0 && !this.loading;
+  }
+
+  get shouldShowLandingSuggestions() {
+    return this.landingSuggestions.length > 0 && !this.loading;
+  }
+
   get shouldShowNoResultsMessage() {
     return this.count === 0 && !this.loading;
   }
 
   get shouldShowSearchIcon() {
     return !this.disabled && this.hasSearchContent;
+  }
+
+  async applySuggestion(suggestion: SearchSuggestion, bypassCache: boolean = false) {
+    runInAction(() => {
+      this.query = suggestion.query ?? '';
+      this.selectedFacets = suggestion.facets ? { ...suggestion.facets } : {};
+      this.suggestionLoadingPlaceholder = suggestion.display_name;
+    });
+    try {
+      await this.submit(false, bypassCache);
+    } finally {
+      runInAction(() => {
+        this.suggestionLoadingPlaceholder = null;
+      });
+    }
   }
 
   canSelectFacets(isDesktop: boolean) {
@@ -264,6 +369,10 @@ export default class SearchStore {
       delete this.selectedFacets[key];
     }
     this.handleSelectedFacetsChange();
+  }
+
+  setFocused(focused: boolean) {
+    this.isFocused = focused;
   }
 
   setNumberRangeValue(key: string, value: SearchFacetNumberRangeValue) {
