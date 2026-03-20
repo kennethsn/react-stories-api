@@ -5,6 +5,8 @@ import type { GeoJSONFeature } from 'maplibre-gl';
 import type { ComponentType, ReactNode } from 'react';
 
 import type { THEME_COLOR_OPTIONS } from './constants';
+import type MomentsStore from './state/momentsStore';
+import type MomentStore from './state/momentStore';
 
 export type AtLeastOne<T, U = { [K in keyof T]: Pick<T, K> }> = Partial<T> & U[keyof U];
 
@@ -385,6 +387,14 @@ export type MomentCaptionFit = 'card' | 'full-width';
 
 export type MomentCaptionPosition = 'bottom' | 'left' | 'right' | 'top';
 
+export type MomentConfig = {
+  component: string | ComponentType<{ moment: MomentStore }>;
+  icon?: Icon;
+  store: (moments: MomentsStore, moment: Moment<never>) => MomentStore;
+};
+
+export type MomentConfigMap = Record<MomentType, MomentConfig>;
+
 export type MomentContentFit = 'card' | 'cover' | 'full';
 
 export type MomentContentSize = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
@@ -425,7 +435,12 @@ export type MomentId = Moment['id'];
 
 export type MomentOrMomentGroup = (Moment | MomentGroupWithMoments);
 
-// KSN TODO: remove string when all moments are typed
+export type MomentPlugin = {
+  readonly component: ComponentType<{ moment: MomentStore }>;
+  readonly icon?: Icon;
+  readonly store?: (moments: MomentsStore, moment: Moment<never>) => MomentStore;
+};
+
 export type MomentType =
   'awards' |
   'base' |
@@ -697,7 +712,7 @@ export type StoryId = Story['id'];
 
 export type StoryIdAction = StoryIdActionName | StoryIdCustomAction;
 
-export type StoryIdActionConfig = StoryIdActionDefinition & {
+export type StoryIdActionConfig = StoryIdActionPlugin & {
   readonly name: string;
   readonly icon?: ComponentType<{ sx?: SxProps<Theme> }>;
 };
@@ -707,7 +722,7 @@ export type StoryIdActionContext = {
   readonly story: StoryOrSummary;
 };
 
-export type StoryIdActionDefinition = {
+export type StoryIdActionPlugin = {
   readonly disabled?: boolean | ((context: StoryIdActionContext) => boolean);
   readonly icon?: ComponentType<{ sx?: SxProps<Theme> }>;
   readonly label: string;
@@ -718,7 +733,7 @@ export type StoryIdActionDefinition = {
 
 export type StoryIdActionName = 'story' | 'external-link' | 'clipboard' | (string & Record<string, never>);
 
-export type StoryIdCustomAction = StoryIdActionDefinition & {
+export type StoryIdCustomAction = StoryIdActionPlugin & {
   readonly name: string;
 };
 

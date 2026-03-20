@@ -99,11 +99,8 @@ export default function useCardsBrowserSearch(search: SearchStore): UseCardsBrow
   const handleSearchInputKeyDown = async (
     event: KeyboardEvent<HTMLDivElement>,
   ) => {
-    if (!search.shouldShowInputSuggestions) {
-      return;
-    }
-
     if (event.key === 'ArrowDown') {
+      if (!search.shouldShowInputSuggestions) return;
       event.preventDefault();
       setActiveSuggestionIndex((currentIndex) => {
         const nextIndex = currentIndex + 1;
@@ -113,6 +110,7 @@ export default function useCardsBrowserSearch(search: SearchStore): UseCardsBrow
     }
 
     if (event.key === 'ArrowUp') {
+      if (!search.shouldShowInputSuggestions) return;
       event.preventDefault();
       setActiveSuggestionIndex((currentIndex) => {
         if (currentIndex <= 0) {
@@ -128,14 +126,15 @@ export default function useCardsBrowserSearch(search: SearchStore): UseCardsBrow
       return;
     }
 
-    if (event.key === 'Enter' && activeSuggestionIndex >= 0) {
+    if (event.key === 'Enter') {
       event.preventDefault();
-      const [selectedSuggestion] = search.inputSuggestions.slice(
-        activeSuggestionIndex,
-        activeSuggestionIndex + 1,
-      );
+      const selectedSuggestion = activeSuggestionIndex >= 0
+        ? search.inputSuggestions[activeSuggestionIndex]
+        : undefined;
       if (selectedSuggestion) {
         await applySuggestionWithTransition(selectedSuggestion, 'input');
+      } else {
+        await search.submit();
       }
     }
   };

@@ -40,8 +40,9 @@ export type SearchStoreOptions = {
   disabled?: boolean;
   enableInputSuggestions?: boolean;
   enableLandingSuggestions?: boolean;
+  extraFingerprint?: () => string;
   facets?: Nullable<SearchFacets>;
-  onSearch: (query: string, bypassCache?: boolean) => Promise<number>;
+  onSearch: (bypassCache?: boolean) => Promise<number>;
   placeholder?: string;
   query?: string;
   startMode?: SearchStartMode;
@@ -51,6 +52,8 @@ export type SearchStoreOptions = {
 };
 
 export default class SearchStore {
+  committedQuery: string;
+
   count: Nullable<number> = null; // null means unknown, 0 shows no results
 
   debouncedSubmit: () => void;
@@ -62,6 +65,8 @@ export default class SearchStore {
   enableLandingSuggestions: boolean;
 
   facets: Nullable<SearchFacets>;
+
+  private hasPendingSubmit = false;
 
   isFocused: boolean = false;
 
@@ -89,6 +94,7 @@ export default class SearchStore {
     this.count = options.count;
     this.disabled = options.disabled || false;
     this.query = options.query ?? '';
+    this.committedQuery = this.query;
     this.selectedFacets = options.selectedFacets || {};
     this.facets = options.facets;
     this.loading = false;
@@ -199,7 +205,7 @@ export default class SearchStore {
     ) : undefined;
     return {
       facets,
-      q: this.query || undefined,
+      q: this.committedQuery || undefined,
     };
   }
 
@@ -313,8 +319,8 @@ export default class SearchStore {
   private getQueryFingerprint(): string {
     return JSON.stringify({
       facets: this.selectedFacets,
-      q: this.query,
-    });
+      q: this.committedQuery,
+    }) + (this.options.extraFingerprint?.() ?? '');
   }
 
   /**
@@ -415,21 +421,34 @@ export default class SearchStore {
     }
 
     if (this.loading && !force) {
+      this.hasPendingSubmit = true;
       return;
     }
 
+    this.hasPendingSubmit = false;
+
+    // Commit current draft query into the request state for this run.
+    this.committedQuery = this.query;
+
     this.startLoading();
-    this.runningQuery = this.getQueryFingerprint();
+    const requestFingerprint = this.getQueryFingerprint();
+    this.runningQuery = requestFingerprint;
 
     try {
       // Call onSearch with bypassCache parameter
-      const count = await this.options.onSearch(this.query, bypassCache);
-      this.setCount(count);
+      const count = await this.options.onSearch(bypassCache);
+      const currentQuery = this.getQueryFingerprint();
+
+      // Ignore stale responses when input changed while request was in flight.
+      if (currentQuery === requestFingerprint) {
+        this.setCount(count);
+      }
     } finally {
       const currentQuery = this.getQueryFingerprint();
-      const needsRefetch = currentQuery !== this.runningQuery;
+      const needsRefetch = currentQuery !== this.runningQuery || this.hasPendingSubmit;
 
       this.runningQuery = '';
+      this.hasPendingSubmit = false;
 
       if (needsRefetch) {
         await this.submit(true, false);

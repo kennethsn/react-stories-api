@@ -40,7 +40,7 @@ export type CollectionStoreOptions = {
   readonly layout?: CardsBrowserLayout;
   readonly onPageChange?: (page: number, collection: CollectionStore) => Promise<void>;
   readonly onSave?: (collection: Collection) => Promise<void>;
-  readonly onSearch?: (searchInput: string, collection: CollectionStore) => Promise<void>;
+  readonly onSearch?: (collection: CollectionStore) => Promise<void>;
   readonly page?: number;
   readonly pageSize?: number;
   readonly searchDefaultFacets?: SelectedSearchFacets;
@@ -262,7 +262,7 @@ export default class CollectionStore {
   }
 
   get shouldShowStoriesListHeader() {
-    return this.options.showStoriesListHeader !== false;
+    return this.options.showStoriesListHeader !== false && this.shouldShowStoriesList;
   }
 
   get shouldShowStoryId() {
@@ -341,6 +341,7 @@ export default class CollectionStore {
       disabled: !this.searchIsEnabled,
       enableInputSuggestions: this.options.showInputSearchSuggestions,
       enableLandingSuggestions: this.options.showLandingSearchSuggestions,
+      extraFingerprint: () => JSON.stringify(this.storyStatuses),
       facets: this.collection.search_facets,
       onSearch: this.searchStories.bind(this),
       placeholder: this.root.locale.translate?.('collection.search.defaultPlaceholder')
@@ -457,10 +458,10 @@ export default class CollectionStore {
     }
   }
 
-  async searchStories(_query: string, bypassCache: boolean = false) {
+  async searchStories(bypassCache: boolean = false) {
     this.resetPage();
     await this.loadStories(bypassCache);
-    await this.options.onSearch?.(this.search.query, this);
+    await this.options.onSearch?.(this);
     return this.storiesCount;
   }
 

@@ -4,7 +4,7 @@ import type {
   StoryIdAction,
   StoryIdActionConfig,
   StoryIdActionContext,
-  StoryIdActionDefinition,
+  StoryIdActionPlugin,
   StoryOrSummary,
 } from '../../../types';
 import type { MenuTooltipProps } from '../MenuTooltip/MenuTooltip.types';
@@ -25,12 +25,12 @@ export type StoryIdEnabledActionsParams = {
   readonly actionMap: Record<BuiltInStoryIdAction, StoryIdActionConfig>;
   readonly actions: StoryIdAction[];
   readonly context: StoryIdActionContext;
-  readonly customActionMap: Record<string, StoryIdActionDefinition>;
+  readonly customActionMap: Record<string, StoryIdActionPlugin>;
 };
 
 export type StoryIdResolveActionParams = {
   readonly actionMap: Record<BuiltInStoryIdAction, StoryIdActionConfig>;
-  readonly customActionMap: Record<string, StoryIdActionDefinition>;
+  readonly customActionMap: Record<string, StoryIdActionPlugin>;
 };
 
 export type StoryIdProps = Omit<TypographyProps, 'children'> & {

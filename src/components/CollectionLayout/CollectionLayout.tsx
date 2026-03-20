@@ -39,7 +39,7 @@ const CollectionLayout = observer(({ children }: CollectionLayoutProps) => {
         </Animation>
       );
     }
-    if (collection.hasOneStory) {
+    if (collection.hasOneStory && collection.firstStory) {
       return (
         <Animation
           animation="fadeUpLeft"

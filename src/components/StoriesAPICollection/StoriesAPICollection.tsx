@@ -56,7 +56,7 @@ const StoriesAPICollection = observer(({
     setSearchParams(queryParams);
   };
 
-  const handleSearch = async (_: string, collectionStore: CollectionStore) => {
+  const handleSearch = async (collectionStore: CollectionStore) => {
     if (connectRouter) {
       updateSearchParams(collectionStore);
     }

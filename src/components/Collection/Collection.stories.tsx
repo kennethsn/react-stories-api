@@ -46,6 +46,48 @@ export const SampleCollection = {
   },
 };
 
+export const SingleStoryToolLayout = {
+  args: {
+    collection: {
+      id: 2,
+      name: 'A Single-Story Collection',
+      description: 'This collection has only one story. The stories list below the header should be hidden.',
+      status: 'PUBLISHED',
+      featured_stories: [
+        {
+          collection_id: 2,
+          collection_name: 'A Single-Story Collection',
+          id: 'Q001',
+          label: 'The Only Story',
+          description: 'There is only one story in this collection.',
+          image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Yale_Club_Exterior.tif/lossy-page1-1200px-Yale_Club_Exterior.tif.jpg',
+          status: 'PUBLISHED',
+        },
+      ],
+      stories: [
+        {
+          collection_id: 2,
+          collection_name: 'A Single-Story Collection',
+          id: 'Q001',
+          label: 'The Only Story',
+          description: 'There is only one story in this collection.',
+          image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Yale_Club_Exterior.tif/lossy-page1-1200px-Yale_Club_Exterior.tif.jpg',
+          status: 'PUBLISHED',
+        },
+      ],
+      total_stories_count: 1,
+    },
+    layout: 'tool',
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'A collection with a single story in the tool layout. The featured story appears in the header, and the stories list section below should be hidden since there is only one total story.',
+      },
+    },
+  },
+};
+
 export const YaleClubCollectionDemo = {
   args: {
     collection: yaleClubCollectionData,
