@@ -26,7 +26,7 @@ export default class IFrameMomentStore<T=IFrameMomentData> extends MomentStore<T
   }
 
   get message() {
-    return this.iframe.message;
+    return this.iframe?.message;
   }
 
   get size() {

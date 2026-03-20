@@ -1,6 +1,6 @@
 {
   "name": "react-stories-api",
-  "version": "1.0.0-dev-57",
+  "version": "1.0.0-dev-60",
   "author": "Kenneth Seals-Nutt",
   "babel": {
     "presets": [
@@ -25,11 +25,13 @@
   },
   "description": "React Components for building interactive data storytelling interfaces with the Stories API",
   "dependencies": {
+    "@deck.gl/core": "^9.2.11",
+    "@deck.gl/layers": "^9.2.11",
+    "@deck.gl/react": "^9.2.11",
     "@fontsource/roboto": "^5.2.10",
     "@mui/stylis-plugin-rtl": "^7.3.8",
-    "deck.gl": "^9.2.11",
     "lodash.debounce": "^4.0.8",
-    "maplibre-gl": "^5.20.2",
+    "maplibre-gl": "^5.21.0",
     "react-countup": "^6.5.3",
     "react-if": "^4.1.6",
     "react-map-gl": "^8.1.0",
@@ -41,6 +43,7 @@
     "react-use-error-boundary": "^3.0.0",
     "stylis": "^4.3.6",
     "stylis-plugin-rtl": "^2.1.1",
+    "supercluster": "^8.0.1",
     "swiper": "^11.2.10"
   },
   "devDependencies": {
@@ -108,6 +111,16 @@
         "default": "./dist/cjs/index.js"
       }
     },
+    "./plugins": {
+      "import": {
+        "types": "./dist/plugins.d.ts",
+        "default": "./dist/esm/plugins.js"
+      },
+      "require": {
+        "types": "./dist/plugins.d.ts",
+        "default": "./dist/cjs/plugins.js"
+      }
+    },
     "./types": "./dist/esm/types/types.d.ts"
   },
   "files": [
@@ -143,7 +156,7 @@
     "url": "git+https://github.com/kennethsn/react-stories-api.git"
   },
   "scripts": {
-    "build": "rollup  -c",
+    "build": "rollup -c",
     "build-storybook": "storybook build",
     "clean": "rm -rf dist",
     "commit": "git-cz",

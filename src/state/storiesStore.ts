@@ -43,7 +43,7 @@ export default class StoriesStore {
       if (this.getStoryFetchState(storyId)?.status === 'success') {
         const story = this.getStory(storyId);
         if (story) {
-          story.options = { ...story.options, ...storyOptions };
+          story.updateOptions(storyOptions);
         }
       }
       return;

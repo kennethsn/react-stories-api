@@ -1,5 +1,5 @@
+import { FlyToInterpolator, type MapViewState, type PickingInfo } from '@deck.gl/core';
 import { GeoJsonLayer, TextLayer } from '@deck.gl/layers';
-import { FlyToInterpolator, type MapViewState, type PickingInfo } from 'deck.gl';
 import { makeAutoObservable, runInAction } from 'mobx';
 import type { ClusterProperties } from 'supercluster';
 

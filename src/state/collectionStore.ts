@@ -486,11 +486,15 @@ export default class CollectionStore {
   }
 
   startLoadingStories() {
-    this.storiesAreLoading = true;
+    runInAction(() => {
+      this.storiesAreLoading = true;
+    });
   }
 
   stopLoadingStories() {
-    this.storiesAreLoading = false;
+    runInAction(() => {
+      this.storiesAreLoading = false;
+    });
   }
 
   toJSON() {

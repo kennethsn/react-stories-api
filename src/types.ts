@@ -777,6 +777,7 @@ export type TimelineEvent = {
     readonly year?: number;
   };
   readonly description?: string;
+  readonly id?: string | number;
   readonly image?: {
     readonly alt: string;
     readonly position?: string; // Object-fit CSS property for cover fit

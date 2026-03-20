@@ -289,6 +289,12 @@ export default class StoryStore {
     });
   }
 
+  updateOptions(options: Partial<StoryStoreOptions>) {
+    runInAction(() => {
+      this.options = { ...this.options, ...options };
+    });
+  }
+
   updatePageTitle() {
     const title = this.root.formatters.formatStoryPageTitle({
       collection_id: this.collectionId,
