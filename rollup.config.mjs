@@ -1,3 +1,6 @@
+import { builtinModules } from 'node:module';
+import { isAbsolute } from 'node:path';
+
 import commonjs from '@rollup/plugin-commonjs';
 import dynamicImportVars from '@rollup/plugin-dynamic-import-vars';
 import json from '@rollup/plugin-json';
@@ -9,9 +12,33 @@ import postcss from 'rollup-plugin-postcss';
 
 import packageJSON from './package.json' with { type: 'json' };
 
+const nodeBuiltins = new Set([
+  ...builtinModules,
+  ...builtinModules.map((moduleName) => `node:${moduleName}`),
+]);
+
+const isExternal = (id) => {
+  // Keep Rollup virtual modules internal.
+  if (id.startsWith('\0')) {
+    return false;
+  }
+
+  // Bundle only local source files; treat bare imports as externals.
+  if (!id.startsWith('.') && !isAbsolute(id)) {
+    return true;
+  }
+
+  if (nodeBuiltins.has(id)) {
+    return true;
+  }
+
+  return false;
+};
+
 export default [
   {
     input: './src/index.ts',
+    external: isExternal,
     output: [
       {
         file: packageJSON.main,

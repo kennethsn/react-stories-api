@@ -422,19 +422,26 @@ export default class CollectionStore {
   }
 
   onEdit() {
-    this.isEdited = true;
-    this.saveStatus = undefined;
+    runInAction(() => {
+      this.isEdited = true;
+      this.saveStatus = undefined;
+    });
   }
 
   refresh = async () => {
-    this.collection = await this.root.api.getCollection(this.id);
+    const collection = await this.root.api.getCollection(this.id);
+    runInAction(() => {
+      this.collection = collection;
+    });
     await this.loadStories();
   };
 
   reset() {
-    this.collection = deepCopy(this.initialCollection);
-    this.init();
-    this.isEdited = false;
+    runInAction(() => {
+      this.collection = deepCopy(this.initialCollection);
+      this.init();
+      this.isEdited = false;
+    });
   }
 
   resetPage() {
@@ -442,7 +449,9 @@ export default class CollectionStore {
   }
 
   async save() {
-    this.saveStatus = 'SAVING';
+    runInAction(() => {
+      this.saveStatus = 'SAVING';
+    });
     const collection = this.toJSON();
     try {
       await this.options.onSave?.(collection);
@@ -454,7 +463,9 @@ export default class CollectionStore {
     } catch (error) {
       // eslint-disable-next-line no-console
       console.error(error);
-      this.saveStatus = 'FAILED';
+      runInAction(() => {
+        this.saveStatus = 'FAILED';
+      });
     }
   }
 

@@ -1,5 +1,5 @@
 import type { Theme } from '@mui/material/styles';
-import { makeAutoObservable } from 'mobx';
+import { makeAutoObservable, runInAction } from 'mobx';
 
 import localizationConfig from '../configs/localizationConfig';
 import type { LocalizationConfig } from '../types';
@@ -88,7 +88,9 @@ export default class LocaleStore {
     if (this.locale === locale) {
       return;
     }
-    this.locale = locale;
+    runInAction(() => {
+      this.locale = locale;
+    });
     this.onLocaleChange();
   }
 

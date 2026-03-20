@@ -110,6 +110,8 @@ export default class AVStore {
   }
 
   setIsPlaying(isPlaying: boolean) {
-    this.isPlaying = isPlaying;
+    runInAction(() => {
+      this.isPlaying = isPlaying;
+    });
   }
 }

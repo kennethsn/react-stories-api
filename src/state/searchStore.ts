@@ -363,56 +363,74 @@ export default class SearchStore {
     const currentValue = this.selectedFacets[key];
     const values = isStringArrayValue(currentValue) ? currentValue : [];
     if (!values.includes(value)) {
-      this.selectedFacets[key] = [...values, value];
+      runInAction(() => {
+        this.selectedFacets[key] = [...values, value];
+      });
       this.handleSelectedFacetsChange();
     }
   }
 
   setDateRangeValue(key: string, value: SearchFacetDateRangeValue) {
-    if (value.start || value.end) {
-      this.selectedFacets[key] = value;
-    } else {
-      delete this.selectedFacets[key];
-    }
+    runInAction(() => {
+      if (value.start || value.end) {
+        this.selectedFacets[key] = value;
+      } else {
+        delete this.selectedFacets[key];
+      }
+    });
     this.handleSelectedFacetsChange();
   }
 
   setFocused(focused: boolean) {
-    this.isFocused = focused;
+    runInAction(() => {
+      this.isFocused = focused;
+    });
   }
 
   setNumberRangeValue(key: string, value: SearchFacetNumberRangeValue) {
-    if (value.min !== undefined || value.max !== undefined) {
-      this.selectedFacets[key] = value;
-    } else {
-      delete this.selectedFacets[key];
-    }
+    runInAction(() => {
+      if (value.min !== undefined || value.max !== undefined) {
+        this.selectedFacets[key] = value;
+      } else {
+        delete this.selectedFacets[key];
+      }
+    });
     this.handleSelectedFacetsChange();
   }
 
   setNumberValue(key: string, value: number | null) {
-    if (value !== null) {
-      this.selectedFacets[key] = value;
-    } else {
-      delete this.selectedFacets[key];
-    }
+    runInAction(() => {
+      if (value !== null) {
+        this.selectedFacets[key] = value;
+      } else {
+        delete this.selectedFacets[key];
+      }
+    });
     this.handleSelectedFacetsChange();
   }
 
   setCount(count: Nullable<number>) {
-    this.count = count;
+    runInAction(() => {
+      this.count = count;
+    });
   }
 
   setQuery(query: string) {
-    this.query = query;
+    runInAction(() => {
+      this.query = query;
+    });
   }
 
   startLoading() {
-    this.loading = true;
+    runInAction(() => {
+      this.loading = true;
+    });
   }
 
   stopLoading() {
-    this.loading = false;
+    runInAction(() => {
+      this.loading = false;
+    });
   }
 
   async submit(force: boolean = false, bypassCache: boolean = false) {
@@ -421,18 +439,22 @@ export default class SearchStore {
     }
 
     if (this.loading && !force) {
-      this.hasPendingSubmit = true;
+      runInAction(() => {
+        this.hasPendingSubmit = true;
+      });
       return;
     }
 
-    this.hasPendingSubmit = false;
-
-    // Commit current draft query into the request state for this run.
-    this.committedQuery = this.query;
+    runInAction(() => {
+      this.hasPendingSubmit = false;
+      this.committedQuery = this.query;
+    });
 
     this.startLoading();
     const requestFingerprint = this.getQueryFingerprint();
-    this.runningQuery = requestFingerprint;
+    runInAction(() => {
+      this.runningQuery = requestFingerprint;
+    });
 
     try {
       // Call onSearch with bypassCache parameter
@@ -447,8 +469,10 @@ export default class SearchStore {
       const currentQuery = this.getQueryFingerprint();
       const needsRefetch = currentQuery !== this.runningQuery || this.hasPendingSubmit;
 
-      this.runningQuery = '';
-      this.hasPendingSubmit = false;
+      runInAction(() => {
+        this.runningQuery = '';
+        this.hasPendingSubmit = false;
+      });
 
       if (needsRefetch) {
         await this.submit(true, false);

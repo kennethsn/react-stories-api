@@ -499,13 +499,17 @@ export default class GeoMapStore {
   };
 
   selectKey(key: string) {
-    this.selectedKey = key;
+    runInAction(() => {
+      this.selectedKey = key;
+    });
     this.goToKey(key);
     this.scrollInfoPanelToKey?.(key);
   }
 
   setScrollInfoPanelToKeyFunction(func: (key: string) => void) {
-    this.scrollInfoPanelToKey = func;
+    runInAction(() => {
+      this.scrollInfoPanelToKey = func;
+    });
   }
 
   setTooltipState(tooltipState: GeoMapTooltipState | null, delay = 600) {
@@ -523,7 +527,9 @@ export default class GeoMapStore {
   }
 
   setViewState(viewState: MapViewState) {
-    this.viewState = viewState;
+    runInAction(() => {
+      this.viewState = viewState;
+    });
   }
 
   unlockTooltip() {
@@ -534,6 +540,8 @@ export default class GeoMapStore {
   }
 
   unselectKey() {
-    this.selectedKey = null;
+    runInAction(() => {
+      this.selectedKey = null;
+    });
   }
 }

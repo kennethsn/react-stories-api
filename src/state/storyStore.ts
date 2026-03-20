@@ -224,9 +224,11 @@ export default class StoryStore {
   }
 
   reset() {
-    this.story = deepCopy(this.initialStory);
+    runInAction(() => {
+      this.story = deepCopy(this.initialStory);
+      this.isEdited = false;
+    });
     this.resetMoments();
-    this.isEdited = false;
   }
 
   resetMoments() {
@@ -234,7 +236,9 @@ export default class StoryStore {
   }
 
   async save() {
-    this.saveStatus = 'SAVING';
+    runInAction(() => {
+      this.saveStatus = 'SAVING';
+    });
     const story = this.toJSON();
     try {
       await this.options.onSave?.(story);
@@ -246,7 +250,9 @@ export default class StoryStore {
     } catch (error) {
       // eslint-disable-next-line no-console
       console.error(error);
-      this.saveStatus = 'FAILED';
+      runInAction(() => {
+        this.saveStatus = 'FAILED';
+      });
     }
   }
 
@@ -263,7 +269,9 @@ export default class StoryStore {
   }
 
   toggleIsEditable() {
-    this.isEditable = !this.isEditable;
+    runInAction(() => {
+      this.isEditable = !this.isEditable;
+    });
   }
 
   toJSON() {
