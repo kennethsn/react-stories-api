@@ -4,6 +4,7 @@ import {
   computed,
   makeObservable,
   observable,
+  runInAction,
   toJS,
 } from 'mobx';
 
@@ -258,18 +259,24 @@ export default class MomentStore<T = MomentData> {
   }
 
   reloadComponent() {
-    this.refreshKey += 1;
+    runInAction(() => {
+      this.refreshKey += 1;
+    });
   }
 
   reset(hard = false) {
-    this.moment = deepCopy(this.initialMoment);
+    runInAction(() => {
+      this.moment = deepCopy(this.initialMoment);
+    });
     if (hard) {
       this.reloadComponent();
     }
   }
 
   setMuiTheme(theme: Partial<Theme>) {
-    this.muiTheme = theme;
+    runInAction(() => {
+      this.muiTheme = theme;
+    });
   }
 
   toJSON() {

@@ -70,6 +70,23 @@ export const buildYearRangeValue = (value: number[]): SearchFacetDateRangeValue 
   start: formatYearAsDate(value[0]),
 });
 
+export const deserializeSelectedSearchFacets = (
+  serializedFacets: string | undefined | null,
+): SelectedSearchFacets => {
+  if (!serializedFacets) {
+    return {};
+  }
+
+  const selectedFacets: SelectedSearchFacets = {};
+  const params = new URLSearchParams(serializedFacets);
+
+  params.forEach((value, key) => {
+    selectedFacets[key] = parseSearchFacetValue(value);
+  });
+
+  return selectedFacets;
+};
+
 export const doesSearchFacetHaveValue = (value: SearchFacetValue | undefined): boolean => {
   if (value === undefined) {
     return false;
@@ -215,6 +232,40 @@ export const parseNumberInputValue = (value: string): number | null | undefined 
   }
   const numValue = parseFloat(value);
   return Number.isNaN(numValue) ? undefined : numValue;
+};
+
+const parseSearchFacetValue = (value: string): SearchFacetValue => {
+  const trimmedValue = value.trim();
+  if (!trimmedValue) {
+    return value;
+  }
+
+  try {
+    const parsedValue: unknown = JSON.parse(trimmedValue);
+    if (Array.isArray(parsedValue) && parsedValue.every((item) => typeof item === 'string')) {
+      return parsedValue;
+    }
+    if (typeof parsedValue === 'number') {
+      return parsedValue;
+    }
+    if (typeof parsedValue === 'string') {
+      return parsedValue;
+    }
+    if (
+      parsedValue
+      && typeof parsedValue === 'object'
+      && ('start' in parsedValue || 'end' in parsedValue || 'min' in parsedValue || 'max' in parsedValue)
+    ) {
+      return parsedValue as SearchFacetValue;
+    }
+  } catch {
+    const numberValue = Number(trimmedValue);
+    if (!Number.isNaN(numberValue) && trimmedValue !== '') {
+      return numberValue;
+    }
+  }
+
+  return value;
 };
 
 export const serializeSearchFacetValue = (value: SearchFacetValue): string => {

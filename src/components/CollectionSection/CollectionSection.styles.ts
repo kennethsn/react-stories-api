@@ -1,6 +1,9 @@
 import type { Theme } from '@mui/material/styles';
 
 const styles = {
+  badge: {
+    fontSize: 'inherit',
+  },
   contentContainer: {
     alignContent: 'center',
   },

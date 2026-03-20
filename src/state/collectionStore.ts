@@ -13,7 +13,11 @@ import type {
   DataSource,
   EditableCollectionKey,
   MutableCollection,
+  Nullable,
   SaveStatus,
+  SearchStartMode,
+  SearchSuggestions,
+  SelectedSearchFacets,
   SerializableRecord,
   StoriesAPIStatus,
   StoriesAPIStoriesResponse,
@@ -36,11 +40,18 @@ export type CollectionStoreOptions = {
   readonly layout?: CardsBrowserLayout;
   readonly onPageChange?: (page: number, collection: CollectionStore) => Promise<void>;
   readonly onSave?: (collection: Collection) => Promise<void>;
-  readonly onSearch?: (searchInput: string, collection: CollectionStore) => Promise<void>;
+  readonly onSearch?: (collection: CollectionStore) => Promise<void>;
   readonly page?: number;
   readonly pageSize?: number;
+  readonly searchDefaultFacets?: SelectedSearchFacets;
+  readonly searchDefaultQuery?: string;
   readonly searchInput?: string;
+  readonly searchStartMode?: SearchStartMode;
+  readonly searchSuggestions?: Nullable<SearchSuggestions>;
+  readonly showInputSearchSuggestions?: boolean;
+  readonly showLandingSearchSuggestions?: boolean;
   readonly showLocaleSelector?: boolean;
+  readonly showStoriesListHeader?: boolean;
   readonly showStoryId?: boolean;
   readonly slots?: { [key: string]: FC<Omit<CollectionSlotProps, 'component'>> };
   readonly source?: DataSource;
@@ -231,8 +242,27 @@ export default class CollectionStore {
     );
   }
 
+  get shouldDeferInitialStoriesLoad() {
+    return this.search.isEmptyLandingMode && !this.search.hasSearchContent;
+  }
+
+  get shouldLazyInitWithSearchDefaults() {
+    return this.searchIsEnabled && this.search.hasSearchContent;
+  }
+
   get shouldShowStoriesList() {
+    if (
+      this.search.isEmptyLandingMode
+      && !this.search.hasSearchContent
+      && this.storiesCount === 0
+    ) {
+      return false;
+    }
     return this.searchIsEnabled || this.totalStoriesCount > 1;
+  }
+
+  get shouldShowStoriesListHeader() {
+    return this.options.showStoriesListHeader !== false && this.shouldShowStoriesList;
   }
 
   get shouldShowStoryId() {
@@ -309,12 +339,18 @@ export default class CollectionStore {
   buildSearchStore() {
     return new SearchStore(this.root, {
       disabled: !this.searchIsEnabled,
+      enableInputSuggestions: this.options.showInputSearchSuggestions,
+      enableLandingSuggestions: this.options.showLandingSearchSuggestions,
+      extraFingerprint: () => JSON.stringify(this.storyStatuses),
       facets: this.collection.search_facets,
       onSearch: this.searchStories.bind(this),
-      placeholder: 'Search collection...',
-      query: this.options.searchInput,
-      selectedFacets: {}, // TODO: support query param filters
+      placeholder: this.root.locale.translate?.('collection.search.defaultPlaceholder')
+        || 'Search collection...',
+      query: this.options.searchInput ?? this.options.searchDefaultQuery,
+      selectedFacets: this.options.searchDefaultFacets ?? {},
       searchOnFacetChange: true,
+      startMode: this.options.searchStartMode,
+      suggestions: this.options.searchSuggestions ?? this.collection.search_suggestions,
     });
   }
 
@@ -346,7 +382,21 @@ export default class CollectionStore {
 
   async init() {
     if (this.sourceIsAPI) {
-      await this.loadStories();
+      if (!this.shouldDeferInitialStoriesLoad) {
+        if (this.shouldLazyInitWithSearchDefaults) {
+          // Render collection shell immediately and let search loading state
+          // drive cards browser UI.
+          runInAction(() => {
+            this.initialized = true;
+          });
+          this.search.submit().catch(() => {
+            // submit handles loading state; failures are surfaced by API flow.
+          });
+          return;
+        }
+
+        await this.loadStories();
+      }
     }
     runInAction(() => {
       this.initialized = true;
@@ -372,19 +422,26 @@ export default class CollectionStore {
   }
 
   onEdit() {
-    this.isEdited = true;
-    this.saveStatus = undefined;
+    runInAction(() => {
+      this.isEdited = true;
+      this.saveStatus = undefined;
+    });
   }
 
   refresh = async () => {
-    this.collection = await this.root.api.getCollection(this.id);
+    const collection = await this.root.api.getCollection(this.id);
+    runInAction(() => {
+      this.collection = collection;
+    });
     await this.loadStories();
   };
 
   reset() {
-    this.collection = deepCopy(this.initialCollection);
-    this.init();
-    this.isEdited = false;
+    runInAction(() => {
+      this.collection = deepCopy(this.initialCollection);
+      this.init();
+      this.isEdited = false;
+    });
   }
 
   resetPage() {
@@ -392,7 +449,9 @@ export default class CollectionStore {
   }
 
   async save() {
-    this.saveStatus = 'SAVING';
+    runInAction(() => {
+      this.saveStatus = 'SAVING';
+    });
     const collection = this.toJSON();
     try {
       await this.options.onSave?.(collection);
@@ -404,14 +463,16 @@ export default class CollectionStore {
     } catch (error) {
       // eslint-disable-next-line no-console
       console.error(error);
-      this.saveStatus = 'FAILED';
+      runInAction(() => {
+        this.saveStatus = 'FAILED';
+      });
     }
   }
 
-  async searchStories(_query: string, bypassCache: boolean = false) {
+  async searchStories(bypassCache: boolean = false) {
     this.resetPage();
     await this.loadStories(bypassCache);
-    await this.options.onSearch?.(this.search.query, this);
+    await this.options.onSearch?.(this);
     return this.storiesCount;
   }
 
@@ -425,11 +486,15 @@ export default class CollectionStore {
   }
 
   startLoadingStories() {
-    this.storiesAreLoading = true;
+    runInAction(() => {
+      this.storiesAreLoading = true;
+    });
   }
 
   stopLoadingStories() {
-    this.storiesAreLoading = false;
+    runInAction(() => {
+      this.storiesAreLoading = false;
+    });
   }
 
   toJSON() {

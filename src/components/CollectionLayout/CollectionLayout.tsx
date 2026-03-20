@@ -39,7 +39,7 @@ const CollectionLayout = observer(({ children }: CollectionLayoutProps) => {
         </Animation>
       );
     }
-    if (collection.hasOneStory) {
+    if (collection.hasOneStory && collection.firstStory) {
       return (
         <Animation
           animation="fadeUpLeft"
@@ -61,7 +61,7 @@ const CollectionLayout = observer(({ children }: CollectionLayoutProps) => {
     return undefined;
   };
   const card = renderStoryCard();
-  const showListHeader = collection.shouldShowStoriesList
+  const showListHeader = collection.shouldShowStoriesListHeader
     && Boolean(collection.hasDescription || card);
 
   return (

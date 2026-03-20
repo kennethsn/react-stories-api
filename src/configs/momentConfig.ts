@@ -20,20 +20,9 @@ import VideoMomentStore from '../state/moments/videoMomentStore';
 import WikidataMomentStore from '../state/moments/wikidataMomentStore';
 import WikipediaMomentStore from '../state/moments/wikipediaMomentStore';
 import YouTubeMomentStore from '../state/moments/youTubeMomentStore';
-import MomentsStore from '../state/momentsStore';
-import MomentStore from '../state/momentStore';
-import type { Icon, Moment, MomentType } from '../types';
+import type { MomentConfigMap as IMomentConfigMap } from '../types';
 
-// KSN TODO: Add Plugin framework to bind component as a caller
-export type MomentConfig = {
-  component: string;
-  icon?: Icon;
-  store: (moments: MomentsStore, moment: Moment<never>) => MomentStore;
-};
-
-export type IMomentConfigMap = Record<MomentType, MomentConfig>;
-
-const MomentConfigMap: Record<MomentType, MomentConfig> = {
+const MomentConfigMap: IMomentConfigMap = {
   awards: {
     component: 'AwardsMoment',
     icon: { name: 'trophy', type: 'mui' },

@@ -1,13 +1,9 @@
 import MuiTimeline from '@mui/lab/Timeline';
 import { observer } from 'mobx-react-lite';
 
+import { getTimelineEventDirection, getTimelineEventKey } from '../../../utils/timelineUtils';
 import TimelineEvent from '../TimelineEvent/TimelineEvent';
-import type { TimelineDirection, TimelinePosition, TimelineProps } from './Timeline.types';
-
-const getTimelineEventDirection = (
-  index: number,
-  position: TimelinePosition,
-): TimelineDirection => ((position === 'right' || index % 2 === 0) ? 'right' : 'left');
+import type { TimelineProps } from './Timeline.types';
 
 const Timeline = observer(({
   color,
@@ -18,7 +14,7 @@ const Timeline = observer(({
   <MuiTimeline position={position}>
     {events.map((event, index) => (
       <TimelineEvent
-        key={`${event.date.label}-${event.title}`}
+        key={getTimelineEventKey(event, index)}
         color={color}
         direction={getTimelineEventDirection(index, position)}
         event={event}

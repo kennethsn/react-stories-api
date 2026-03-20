@@ -137,7 +137,7 @@ const MenuTooltip = observer(({
         onMouseDown={handleMenuClick}
         onMouseEnter={isHoverMode ? handlePopoverMouseEnter : undefined}
         onMouseLeave={isHoverMode ? handlePopoverMouseLeave : undefined}
-        open={menus.menuIsOpen(id)}
+        open={Boolean(anchorEl) && menus.menuIsOpen(id)}
         sx={deepMerge(styles.popover, menuSx)}
         // eslint-disable-next-line react/jsx-props-no-spreading
         {...restMenuProps}

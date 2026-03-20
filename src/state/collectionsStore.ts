@@ -115,8 +115,8 @@ export default class CollectionsStore {
     if (this.hasCollection(key)) {
       collectionStore = this.getCollection(key)!;
       if (!collectionStore.initialized && !collectionStore.storiesAreLoading) {
-        await runInAction(async () => {
-          await collectionStore.init();
+        await collectionStore.init();
+        runInAction(() => {
           this.collections.set(key, { isLoading: false, collection: collectionStore });
         });
       }
@@ -184,6 +184,8 @@ export default class CollectionsStore {
   }
 
   removeCollection(collectionId: CollectionId) {
-    this.collections.delete(collectionId);
+    runInAction(() => {
+      this.collections.delete(collectionId);
+    });
   }
 }

@@ -1,5 +1,5 @@
 import debounce from 'lodash.debounce';
-import { makeAutoObservable } from 'mobx';
+import { makeAutoObservable, runInAction } from 'mobx';
 
 import { DEFAULT_DEBOUNCE_DELAY } from '../constants';
 import type {
@@ -9,6 +9,9 @@ import type {
   SearchFacetNumberRangeValue,
   SearchFacets,
   SearchFacetValue,
+  SearchStartMode,
+  SearchSuggestion,
+  SearchSuggestions,
   SelectedSearchFacets,
 } from '../types';
 import {
@@ -20,26 +23,52 @@ import {
 } from '../utils/searchFacetUtils';
 import type RootStore from './rootStore';
 
+const shouldShowSuggestionInLocation = (
+  suggestion: SearchSuggestion,
+  location: 'input' | 'landing',
+) => {
+  const locationValue = suggestion.locations?.[location];
+  if (locationValue === undefined) {
+    return true;
+  }
+  return !!locationValue;
+};
+
 export type SearchStoreOptions = {
   count?: number;
   debounceDelay?: number;
   disabled?: boolean;
+  enableInputSuggestions?: boolean;
+  enableLandingSuggestions?: boolean;
+  extraFingerprint?: () => string;
   facets?: Nullable<SearchFacets>;
-  onSearch: (query: string, bypassCache?: boolean) => Promise<number>;
+  onSearch: (bypassCache?: boolean) => Promise<number>;
   placeholder?: string;
   query?: string;
+  startMode?: SearchStartMode;
+  suggestions?: Nullable<SearchSuggestions>;
   searchOnFacetChange?: boolean;
   selectedFacets?: SelectedSearchFacets;
 };
 
 export default class SearchStore {
+  committedQuery: string;
+
   count: Nullable<number> = null; // null means unknown, 0 shows no results
 
   debouncedSubmit: () => void;
 
   disabled: boolean;
 
+  enableInputSuggestions: boolean;
+
+  enableLandingSuggestions: boolean;
+
   facets: Nullable<SearchFacets>;
+
+  private hasPendingSubmit = false;
+
+  isFocused: boolean = false;
 
   loading: boolean;
 
@@ -52,6 +81,12 @@ export default class SearchStore {
 
   selectedFacets: SelectedSearchFacets = {};
 
+  startMode: SearchStartMode;
+
+  suggestionLoadingPlaceholder: Nullable<string> = null;
+
+  suggestions: SearchSuggestions;
+
   constructor(public root: RootStore, options: SearchStoreOptions) {
     makeAutoObservable(this);
     this.root = root;
@@ -59,9 +94,14 @@ export default class SearchStore {
     this.count = options.count;
     this.disabled = options.disabled || false;
     this.query = options.query ?? '';
+    this.committedQuery = this.query;
     this.selectedFacets = options.selectedFacets || {};
     this.facets = options.facets;
     this.loading = false;
+    this.enableInputSuggestions = options.enableInputSuggestions ?? true;
+    this.enableLandingSuggestions = options.enableLandingSuggestions ?? true;
+    this.startMode = options.startMode ?? 'results';
+    this.suggestions = options.suggestions ?? [];
     this.debouncedSubmit = debounce(
       this.submit.bind(this),
       options.debounceDelay || DEFAULT_DEBOUNCE_DELAY,
@@ -107,8 +147,56 @@ export default class SearchStore {
       });
   }
 
+  get inputSuggestions() {
+    if (!this.enableInputSuggestions) {
+      return [];
+    }
+
+    const normalizedQuery = this.query.trim().toLowerCase();
+
+    // Show all input suggestions when focused, regardless of query
+    if (this.isFocused && normalizedQuery === '') {
+      return this.suggestions
+        .filter((suggestion) => shouldShowSuggestionInLocation(suggestion, 'input'))
+        .slice(0, 8);
+    }
+
+    // When typing, filter suggestions by query
+    if (!normalizedQuery) {
+      return [];
+    }
+
+    return this.suggestions
+      .filter((suggestion) => shouldShowSuggestionInLocation(suggestion, 'input'))
+      .filter((suggestion) => {
+        const displayName = suggestion.display_name.toLowerCase();
+        const suggestionQuery = (suggestion.query ?? suggestion.display_name).toLowerCase();
+        return displayName.includes(normalizedQuery) || suggestionQuery.includes(normalizedQuery);
+      })
+      .slice(0, 8);
+  }
+
+  get isEmptyLandingMode() {
+    return this.startMode === 'emptyLanding';
+  }
+
+  get landingSuggestions() {
+    if (!this.enableLandingSuggestions || !this.isEmptyLandingMode || this.hasSearchContent) {
+      return [];
+    }
+
+    return this.suggestions
+      .filter((suggestion) => shouldShowSuggestionInLocation(suggestion, 'landing'))
+      .slice(0, 12);
+  }
+
   get placeholder() {
-    return this.options.placeholder || 'Search...';
+    if (this.suggestionLoadingPlaceholder !== null) {
+      return this.suggestionLoadingPlaceholder;
+    }
+    return this.options.placeholder
+      || this.root.locale.translate?.('search.defaultPlaceholder')
+      || 'Search...';
   }
 
   get queryParams() {
@@ -117,8 +205,16 @@ export default class SearchStore {
     ) : undefined;
     return {
       facets,
-      q: this.query || undefined,
+      q: this.committedQuery || undefined,
     };
+  }
+
+  get shouldShowInputSuggestions() {
+    return this.isFocused && this.inputSuggestions.length > 0 && !this.loading;
+  }
+
+  get shouldShowLandingSuggestions() {
+    return this.landingSuggestions.length > 0 && !this.loading;
   }
 
   get shouldShowNoResultsMessage() {
@@ -127,6 +223,21 @@ export default class SearchStore {
 
   get shouldShowSearchIcon() {
     return !this.disabled && this.hasSearchContent;
+  }
+
+  async applySuggestion(suggestion: SearchSuggestion, bypassCache: boolean = false) {
+    runInAction(() => {
+      this.query = suggestion.query ?? '';
+      this.selectedFacets = suggestion.facets ? { ...suggestion.facets } : {};
+      this.suggestionLoadingPlaceholder = suggestion.display_name;
+    });
+    try {
+      await this.submit(false, bypassCache);
+    } finally {
+      runInAction(() => {
+        this.suggestionLoadingPlaceholder = null;
+      });
+    }
   }
 
   canSelectFacets(isDesktop: boolean) {
@@ -208,8 +319,8 @@ export default class SearchStore {
   private getQueryFingerprint(): string {
     return JSON.stringify({
       facets: this.selectedFacets,
-      q: this.query,
-    });
+      q: this.committedQuery,
+    }) + (this.options.extraFingerprint?.() ?? '');
   }
 
   /**
@@ -252,52 +363,74 @@ export default class SearchStore {
     const currentValue = this.selectedFacets[key];
     const values = isStringArrayValue(currentValue) ? currentValue : [];
     if (!values.includes(value)) {
-      this.selectedFacets[key] = [...values, value];
+      runInAction(() => {
+        this.selectedFacets[key] = [...values, value];
+      });
       this.handleSelectedFacetsChange();
     }
   }
 
   setDateRangeValue(key: string, value: SearchFacetDateRangeValue) {
-    if (value.start || value.end) {
-      this.selectedFacets[key] = value;
-    } else {
-      delete this.selectedFacets[key];
-    }
+    runInAction(() => {
+      if (value.start || value.end) {
+        this.selectedFacets[key] = value;
+      } else {
+        delete this.selectedFacets[key];
+      }
+    });
     this.handleSelectedFacetsChange();
   }
 
+  setFocused(focused: boolean) {
+    runInAction(() => {
+      this.isFocused = focused;
+    });
+  }
+
   setNumberRangeValue(key: string, value: SearchFacetNumberRangeValue) {
-    if (value.min !== undefined || value.max !== undefined) {
-      this.selectedFacets[key] = value;
-    } else {
-      delete this.selectedFacets[key];
-    }
+    runInAction(() => {
+      if (value.min !== undefined || value.max !== undefined) {
+        this.selectedFacets[key] = value;
+      } else {
+        delete this.selectedFacets[key];
+      }
+    });
     this.handleSelectedFacetsChange();
   }
 
   setNumberValue(key: string, value: number | null) {
-    if (value !== null) {
-      this.selectedFacets[key] = value;
-    } else {
-      delete this.selectedFacets[key];
-    }
+    runInAction(() => {
+      if (value !== null) {
+        this.selectedFacets[key] = value;
+      } else {
+        delete this.selectedFacets[key];
+      }
+    });
     this.handleSelectedFacetsChange();
   }
 
   setCount(count: Nullable<number>) {
-    this.count = count;
+    runInAction(() => {
+      this.count = count;
+    });
   }
 
   setQuery(query: string) {
-    this.query = query;
+    runInAction(() => {
+      this.query = query;
+    });
   }
 
   startLoading() {
-    this.loading = true;
+    runInAction(() => {
+      this.loading = true;
+    });
   }
 
   stopLoading() {
-    this.loading = false;
+    runInAction(() => {
+      this.loading = false;
+    });
   }
 
   async submit(force: boolean = false, bypassCache: boolean = false) {
@@ -306,21 +439,40 @@ export default class SearchStore {
     }
 
     if (this.loading && !force) {
+      runInAction(() => {
+        this.hasPendingSubmit = true;
+      });
       return;
     }
 
+    runInAction(() => {
+      this.hasPendingSubmit = false;
+      this.committedQuery = this.query;
+    });
+
     this.startLoading();
-    this.runningQuery = this.getQueryFingerprint();
+    const requestFingerprint = this.getQueryFingerprint();
+    runInAction(() => {
+      this.runningQuery = requestFingerprint;
+    });
 
     try {
       // Call onSearch with bypassCache parameter
-      const count = await this.options.onSearch(this.query, bypassCache);
-      this.setCount(count);
+      const count = await this.options.onSearch(bypassCache);
+      const currentQuery = this.getQueryFingerprint();
+
+      // Ignore stale responses when input changed while request was in flight.
+      if (currentQuery === requestFingerprint) {
+        this.setCount(count);
+      }
     } finally {
       const currentQuery = this.getQueryFingerprint();
-      const needsRefetch = currentQuery !== this.runningQuery;
+      const needsRefetch = currentQuery !== this.runningQuery || this.hasPendingSubmit;
 
-      this.runningQuery = '';
+      runInAction(() => {
+        this.runningQuery = '';
+        this.hasPendingSubmit = false;
+      });
 
       if (needsRefetch) {
         await this.submit(true, false);

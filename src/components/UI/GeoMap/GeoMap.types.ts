@@ -1,5 +1,5 @@
+import type { PickingInfo } from '@deck.gl/core';
 import type { SxProps } from '@mui/material/styles';
-import type { PickingInfo } from 'deck.gl';
 import type { PropsWithChildren } from 'react';
 
 import type { GeoMapStoreOptions } from '../../../state/geoMapStore';

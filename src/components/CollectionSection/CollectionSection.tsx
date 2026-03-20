@@ -29,6 +29,7 @@ const CollectionSection = observer(({
         <ContainerBadge
           color={collection.isFeatured ? 'primary' : 'secondary'}
           offset={5}
+          sx={styles.badge}
         >
           {collection.badge}
         </ContainerBadge>

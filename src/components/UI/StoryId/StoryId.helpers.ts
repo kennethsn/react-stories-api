@@ -5,7 +5,7 @@ import LaunchIcon from '@mui/icons-material/Launch';
 import type {
   StoryIdActionConfig,
   StoryIdActionContext,
-  StoryIdActionDefinition,
+  StoryIdActionPlugin,
   StoryIdCustomAction,
 } from '../../../types';
 import type {
@@ -71,7 +71,7 @@ export const getEnabledStoryIdActions = ({
 
 export const getStoryIdActions = (
   actionsProp: StoryIdAction[] | undefined,
-  customActionMap: Record<string, StoryIdActionDefinition>,
+  customActionMap: Record<string, StoryIdActionPlugin>,
 ): StoryIdAction[] => (
   actionsProp
   || ([
@@ -87,7 +87,7 @@ export const isBuiltInStoryIdAction = (
 );
 
 export const isStoryIdActionDisabled = (
-  actionConfig: StoryIdActionDefinition | undefined,
+  actionConfig: StoryIdActionPlugin | undefined,
   context: StoryIdActionContext,
 ): boolean => {
   if (!actionConfig) return true;
@@ -98,7 +98,7 @@ export const isStoryIdActionDisabled = (
 };
 
 export const isStoryIdActionVisible = (
-  actionConfig: StoryIdActionDefinition | undefined,
+  actionConfig: StoryIdActionPlugin | undefined,
   context: StoryIdActionContext,
 ): boolean => {
   if (!actionConfig) return false;

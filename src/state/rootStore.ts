@@ -2,13 +2,15 @@ import type { ThemeOptions } from '@mui/material/styles';
 import { makeAutoObservable } from 'mobx';
 import { type Context, createContext } from 'react';
 
-import MomentConfigMap from '../configs/momentConfig';
 import type {
   LocalizationConfig,
+  MomentConfigMap,
+  MomentPlugin,
   ProjectId,
   StoriesAPIFormatters,
-  StoryIdActionDefinition,
+  StoryIdActionPlugin,
 } from '../types';
+import { buildMomentConfigMap } from '../utils/momentConfigUtils';
 import APIStore, { type APIStoreOptions } from './apiStore';
 import AVStore from './avStore';
 import CollectionsStore from './collectionsStore';
@@ -28,7 +30,8 @@ export type RootStoreOptions = {
   readonly goToPath?: (path: string) => void;
   readonly isDebugging?: boolean;
   readonly isMobile?: boolean;
-  readonly storyIdActions?: Record<string, StoryIdActionDefinition>;
+  readonly momentPlugins?: Record<string, MomentPlugin>;
+  readonly storyIdActions?: Record<string, StoryIdActionPlugin>;
   readonly themeOptions?: ThemeOptions;
 };
 
@@ -55,13 +58,13 @@ export default class RootStore {
 
   isDebugging = false;
 
-  momentConfigMap = MomentConfigMap;
+  momentConfigMap: MomentConfigMap;
 
   projectId?: ProjectId;
 
   stories: StoriesStore;
 
-  storyIdActions: Record<string, StoryIdActionDefinition>;
+  storyIdActions: Record<string, StoryIdActionPlugin>;
 
   theme: ThemeStore;
 
@@ -72,6 +75,7 @@ export default class RootStore {
     goToPath,
     isDebugging = false,
     isMobile,
+    momentPlugins,
     projectId,
     storyIdActions,
     themeOptions,
@@ -89,6 +93,7 @@ export default class RootStore {
     this.stories = new StoriesStore(this);
     this.theme = new ThemeStore(this, { isMobile, themeOptions });
     this.isDebugging = isDebugging;
+    this.momentConfigMap = buildMomentConfigMap(momentPlugins);
     this.projectId = projectId;
     this.storyIdActions = storyIdActions ?? {};
   }
